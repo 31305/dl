@@ -22,17 +22,9 @@
 
 #define LOG_ERROR(M) std::cerr << M << std::endl
 
-#define LOG_DEBUG(M) if (Log::debugEnabled) std::cout << M << std::endl
+#define LOG_DEBUG(M) if (vksvl) std::cout << M << std::endl
 //#define LOG_DEBUG(M)
 
-
-
-namespace GS {
-
-struct Log {
-	static bool debugEnabled;
-};
-
-} /* namespace GS */
+extern bool vksvl;
 
 #endif /* LOG_H_ */
