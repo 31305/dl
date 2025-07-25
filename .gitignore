@@ -12,10 +12,8 @@ a.out
 rs
 .firebaserc
 .firebase
-*.hi
 .swo
 .gradle
-sl
 *.mp4
 *.wasm
 2L*js
