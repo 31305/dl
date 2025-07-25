@@ -1,1 +1,0 @@
-g++ -g --std=c++20 sv.cpp -o sv `pkg-config --cflags --libs sdl2` st.cpp Log.cpp 
