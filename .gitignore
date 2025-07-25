@@ -17,4 +17,5 @@ rs
 .gradle
 sl
 *.mp4
-cs
+*.wasm
+2L*js
