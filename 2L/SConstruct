@@ -15,5 +15,5 @@ if js==2:
 dl=p.Program('2L',ss)
 def f(target,source,env):
     l=open('s.o.json','r').read()
-    open('compile_commands.json','w').write('['+l[0:len(l)-2]+']')
+    open('../compile_commands.json','w').write('['+l[0:len(l)-2]+']')
 AddPostAction('pm.o',f)
