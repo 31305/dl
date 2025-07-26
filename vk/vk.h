@@ -364,6 +364,7 @@ struct vks
 	const bool smg=getenv("SMG");
 	GS::VTM::VocalTractModel5<double,1> mt=GS::VTM::VocalTractModel5<double,1>();
 	double mk=0.1;
+	size_t vks=0;
 	void pmb(std::vector<v> gv,void (*p)(void*,float),void* nv)
 	{
 		double ms[2][decltype(mt)::TOTAL_PARAMETERS];
@@ -725,7 +726,6 @@ struct vks
 			mt.setParameter(k,ms[1][k]);
 		for(int dk=0;dk<0.5*mk*mt.internalSampleRate();dk++)
 			vp();
-		static size_t vks;
 		vks++;
 		if(ct>ctdm)fprintf(stderr,"%lf > %lf @ %lu\n",ct,ctdm,vks);
 	}
