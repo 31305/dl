@@ -9,13 +9,17 @@ bool pd(double,void*)
     glClear(GL_COLOR_BUFFER_BIT);
 	dv::kvsl k1={ -0.8f, -0.5f, 0.9f, 0.9f, 1.0f, 0.0f, 0.0f, 0.5f };
 	dvs.cl(k1);
-	return 0;
+	return 1;
 }
+jsdp dp;
 int main()
 {
-	jsdp dp;
+	dp.pk=[]()
+	{
+		dvs.dk();
+		printf("pk\n");
+	    emscripten_request_animation_frame_loop(pd,0);
+	};
 	dp.d();
-	dvs.dk();
-    emscripten_request_animation_frame(pd,0);
 	return 0;
 }
