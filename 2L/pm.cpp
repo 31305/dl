@@ -6,8 +6,8 @@
 struct jstp
 {
 	jsdp dp;
-	nd snd={.dp=&dp};
 	dv dvs;
+	nd snd={.dp=&dp,.dvs=&dvs};
 	void dk()
 	{
 		dp.pk=[this]()

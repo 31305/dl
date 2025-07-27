@@ -4,6 +4,7 @@
 struct nd
 {
 	jsdp *dp;
+	dv* dvs;
 	bool n=0;
 	int ms1,ms2,ns1,ns2;
 	size_t ckk,ndkk,vpkk;
@@ -23,11 +24,15 @@ struct nd
 		ndkk=dp->ndk.size();
 		dp->ndk.push_back([this](int kn,bool s,double s1,double s2){ndck(kn,s,s1,s2);});
 		vpkk=dp->vppk.size();
-		dp->vppk.push_back([this](){vvk();});
+		vvk();
+		dp->vppk.push_back([this](){vvk();s=0;});
 	}
 	void ck(double kn)
 	{
-		printf("s %d sd %d kd %d\n",s,sd,kd);
+		printf("s %d sd %d kd %d vv %d\n",s,sd,kd,vv);
+		vs.resize(1);
+		vs[0]={ms1,ms2,ns1-ms1,ns2-ms2,1.0f,1.0f,1.0f,1.0f};
+		dvs->cl(vs,dp->vpv1,dp->vpv2);
 	}
 	~nd()
 	{
@@ -35,7 +40,7 @@ struct nd
 		dp->ndk[ndkk]=0;
 		dp->vppk[vpkk]=0;
 	};
-	void ndck(int kn,bool s,double s1,double s2)
+	void ndck(int kn,bool ps,double s1,double s2)
 	{
 		if(!n)
 		{
@@ -51,7 +56,7 @@ struct nd
 		}
 		else
 		{
-			if(kn==3||kn==4||!s)
+			if(kn==3||kn==4||!ps)
 			{
 				n=0;
 				if(s)dp->cnr();
@@ -61,8 +66,7 @@ struct nd
 				ns1=s1;
 				ns2=s2;
 				int vk1=ns1-ms1,vk2=ns2-ms2;
-				printf("vk1 %d vk2 %d\n",vk1,vk2);
-				int ns=std::max(vk1,vk2)>=vv&&(abs(vk1)>=2*abs(vk2)||abs(vk2)>=2*abs(vk1));
+				int ns=std::max(abs(vk1),abs(vk2))/vv*(int)(abs(vk1)>=2*abs(vk2)||abs(vk2)>=2*abs(vk1));
 				if(ns!=s)
 				{
 					dp->cnr();

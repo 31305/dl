@@ -31,7 +31,7 @@ struct dv
 	)";
 
 	struct kvsl {
-		float s1, s2, v1, v2;
+		int s1, s2, v1, v2;
 		float rm, hm, nm, dm;
 	};
 
@@ -66,16 +66,24 @@ struct dv
 
 		glGenBuffers(1, &st);
 	}
-
-	inline void cl(const std::vector<kvsl> &pd,GLuint bvd=0)
+	inline float smpv1(int s,int v)
 	{
+		return 2.0f*(float)s/(float)v-1.0f;
+	}
+	inline float smpv2(int s,int v)
+	{
+		return 1.0-2.0f*(float)s/(float)v;
+	}
+	inline void cl(const std::vector<kvsl> &pd,int vpv1,int vpv2,GLuint bvd=0)
+	{
+		
 		std::vector<float> snts;
 		snts.resize(pd.size()*6*8);
 		for(size_t k=0;k<pd.size();k++)
 		{
 			kvsl p=pd[k];
-			float s11 = p.s1, s21 = p.s2;
-			float s12 = p.s1 + p.v1, s22 = p.s2 + p.v2;
+			float s11 = smpv1(p.s1,vpv1), s21 = smpv2(p.s2,vpv2);
+			float s12 = smpv1(p.s1 + p.v1,vpv1), s22 = smpv2(p.s2 + p.v2,vpv2);
 			float snt[6*8]=
 			{
 			s11, s21, p.rm, p.hm, p.nm, p.dm, 0.0f, 0.0f,
