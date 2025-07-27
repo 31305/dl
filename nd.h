@@ -20,7 +20,7 @@ struct nd
 			{
 				let s=document.body.getBoundingClientRect();
 				Module.ccall('ndck',null,['number','number','number','number','number'],
-					[$0,],kn,(p.pressure||(p.buttons==1))?true:false,p.clientX/s.width,p.clientY/s.height);
+					[$0,kn,(p.pressure||(p.buttons==1))?true:false,p.clientX/s.width,p.clientY/s.height]);
 				console.log(p.buttons);
 			}
 			document.body.addEventListener("pointermove",(p)=>k(p,1));
