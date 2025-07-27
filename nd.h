@@ -29,18 +29,25 @@ struct nd
 	}
 	void ck(double kn)
 	{
-		if(0)printf("s %d sd %d kd %d vv %d\n",s,sd,kd,vv);
 		vs.resize(s);
 		int s1=ms1,s2=ms2;
-		if(sd)s2-=vv/2;
-		else s1-=vv/2;
+		if(sd)
+		{
+			s2-=vv/2;
+			if(!kd)s1-=vv;
+		}
+		else
+		{
+			s1-=vv/2;
+			if(!kd)s2-=vv;
+		}
 		for(size_t k=0;k<s;k++)
 		{
-			vs[k]={s1+vv/10,s2+vv/10,vv*4/5,vv*4/5,1,1,1};
-			if(sd)s1+=vv;
-			else s2+=vv;
+			vs[k]={s1+vv/10,s2+vv/10,vv*4/5,vv*4/5,1.0f,1.0f,1.0f,1.0f};
+			if(sd)s1+=kd?vv:-vv;
+			else s2+=kd?vv:-vv;
 		}
-		dvs->cl(vs,dp->vpv1,dp->vpv2);
+		if(n)dvs->cl(vs,dp->vpv1,dp->vpv2);
 	}
 	~nd()
 	{
@@ -67,7 +74,11 @@ struct nd
 			if(kn==3||kn==4||!ps)
 			{
 				n=0;
-				if(s)dp->cnr();
+				if(s)
+				{
+					s=0;
+					dp->cnr();
+				}
 			}
 			else
 			{
