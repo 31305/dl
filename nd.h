@@ -29,9 +29,17 @@ struct nd
 	}
 	void ck(double kn)
 	{
-		printf("s %d sd %d kd %d vv %d\n",s,sd,kd,vv);
-		vs.resize(1);
-		vs[0]={ms1,ms2,ns1-ms1,ns2-ms2,1.0f,1.0f,1.0f,1.0f};
+		if(0)printf("s %d sd %d kd %d vv %d\n",s,sd,kd,vv);
+		vs.resize(s);
+		int s1=ms1,s2=ms2;
+		if(sd)s2-=vv/2;
+		else s1-=vv/2;
+		for(size_t k=0;k<s;k++)
+		{
+			vs[k]={s1+vv/10,s2+vv/10,vv*4/5,vv*4/5,1,1,1};
+			if(sd)s1+=vv;
+			else s2+=vv;
+		}
 		dvs->cl(vs,dp->vpv1,dp->vpv2);
 	}
 	~nd()
