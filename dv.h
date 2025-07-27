@@ -1,5 +1,7 @@
 #pragma once
 #include<GLES2/gl2.h>
+#include<cstdlib>
+#include<vector>
 struct dv
 {
 	const char* snm = R"(
@@ -8,6 +10,7 @@ struct dv
 	attribute vec2 kvsn;
 	varying vec4 dvn;
 	varying vec2 dvsn;
+	uniform mat4 skp;
 	void main() {
 		gl_Position = vec4(ksn, 0.0, 1.0);
 		dvn = kvn;
@@ -36,6 +39,7 @@ struct dv
 	GLuint vsnm = 0, st = 0;
 	GLint ksn, kvn, kvsn;
 	GLint bvd, bvdp;
+	GLint skp;
 
 	void dk() {
 		auto k = [](GLenum pk, const char* l) -> GLuint {
@@ -59,14 +63,22 @@ struct dv
 		kvsn = glGetAttribLocation(vsnm, "kvsn");
 		bvd = glGetUniformLocation(vsnm, "bvd");
 		bvdp = glGetUniformLocation(vsnm, "bvdp");
+		skp=glGetUniformLocation(vsnm,"skp");
 
 		glGenBuffers(1, &st);
 	}
 
-	inline void cl(const kvsl& p) {
-		float s11 = p.s1, s21 = p.s2;
-		float s12 = p.s1 + p.v1, s22 = p.s2 + p.v2;
-		float snt[6 * 8] = {
+	inline void cl(const std::vector<kvsl> &pd)
+	{
+		std::vector<float> snts;
+		snts.resize(pd.size()*6*8);
+		for(size_t k=0;k<pd.size();k++)
+		{
+			kvsl p=pd[k];
+			float s11 = p.s1, s21 = p.s2;
+			float s12 = p.s1 + p.v1, s22 = p.s2 + p.v2;
+			float snt[6*8]=
+			{
 			s11, s21, p.rm, p.hm, p.nm, p.dm, 0.0f, 0.0f,
 			s12, s21, p.rm, p.hm, p.nm, p.dm, 1.0f, 0.0f,
 			s12, s22, p.rm, p.hm, p.nm, p.dm, 1.0f, 1.0f,
@@ -74,11 +86,13 @@ struct dv
 			s12, s22, p.rm, p.hm, p.nm, p.dm, 1.0f, 1.0f,
 			s11, s22, p.rm, p.hm, p.nm, p.dm, 0.0f, 1.0f,
 			s11, s21, p.rm, p.hm, p.nm, p.dm, 0.0f, 0.0f,
-		};
+			};
+			std::copy(snt,&snt[6*8],snts.begin()+k*6*8);
+		}
 
 		glUseProgram(vsnm);
 		glBindBuffer(GL_ARRAY_BUFFER, st);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(snt), snt, GL_STREAM_DRAW);
+		glBufferData(GL_ARRAY_BUFFER,pd.size()*6*8*sizeof(float), snts.data(), GL_STREAM_DRAW);
 
 		glEnableVertexAttribArray(ksn);
 		glEnableVertexAttribArray(kvn);
@@ -87,14 +101,14 @@ struct dv
 		glVertexAttribPointer(kvn, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(2 * sizeof(float)));
 		glVertexAttribPointer(kvsn, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
-		glUniform1i(bvdp, p.bvd != 0);
-		if (p.bvd != 0) {
+		glUniform1i(bvdp, pd[0].bvd != 0);
+		if (pd[0].bvd != 0) {
 			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, p.bvd);
+			glBindTexture(GL_TEXTURE_2D, pd[0].bvd);
 			glUniform1i(bvd, 0);
 		}
 
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glDrawArrays(GL_TRIANGLES, 0, 6*pd.size());
 	}
 
 	inline GLuint bvds(int v1, int v2, const unsigned char* vl) {
