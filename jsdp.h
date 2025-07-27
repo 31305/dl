@@ -17,6 +17,7 @@ struct jsdp
 		EM_ASM
 		({
 			let jsdp=document.createElement('canvas');
+			document.body.style.margin='0';
 			jsdp.id='jsdp'+($0).toString();
 			jsdp.style="position:absolute;display:block;width:100%;height:100%";
 			jsdp.oncontextmenu="event.preventDefault()";

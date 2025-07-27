@@ -13,6 +13,19 @@ struct nd
 		vs.reserve(9);
 		ckk=dp->sck.size();
 		dp->sck.push_back([this](double kn){ck(kn);});
+		EM_ASM({
+			function k(p,kn)
+			{
+				let s=document.body.getBoundingClientRect();
+				Module.ccall('ndck',null,['number','number','number','number','number'],
+					[$0,],kn,(p.pressure||(p.buttons==1))?true:false,p.clientX/s.width,p.clientY/s.height);
+				console.log(p.buttons);
+			}
+			document.body.addEventListener("pointermove",(p)=>k(p,1));
+			document.body.addEventListener("pointerdown",(p)=>k(p,2));
+			document.body.addEventListener("pointerout",(p)=>k(p,3));
+			document.body.addEventListener("pointerup",(p)=>k(p,4));
+		},this);
 	}
 	void ck(double kn)
 	{
@@ -22,4 +35,9 @@ struct nd
 		dp->sck[ckk]=0;
 	}
 };
-
+extern "C"
+{
+EMSCRIPTEN_KEEPALIVE inline void ndck(void *p,int kn,bool s,double s1,double s2)
+{
+}
+}
