@@ -8,8 +8,13 @@ struct nd
 	int ms1,ms2,ns1,ns2;
 	size_t ckk,ndkk;
 	std::vector<dv::kvsl> vs;
-	bool sd,kd;
 	int s=0;
+	bool sd,kd;
+	int vv;
+	void vvk()
+	{
+		vv=10*((std::min(dp->vpv1,dp->vpv2)/9)/10);
+	}
 	void dk()
 	{
 		vs.reserve(9);
@@ -20,6 +25,7 @@ struct nd
 	}
 	void ck(double kn)
 	{
+		printf("s %d sd %d kd %d\n",s,sd,kd);
 	}
 	~nd()
 	{
@@ -37,7 +43,7 @@ struct nd
 				ms2=s2;
 				ns1=s1;
 				ns2=s2;
-				s=0;
+			s=0;
 			}
 		}
 		else
@@ -51,6 +57,24 @@ struct nd
 			{
 				ns1=s1;
 				ns2=s2;
+				int vk1=ns1-ms1,vk2=ns2-ms2;
+				int ns=std::max(vk1,vk2)>=vv&&(abs(vk1)>=2*abs(vk2)||abs(vk2)>=2*abs(vk1));
+				if(ns!=s)
+				{
+					dp->cnr();
+					s=ns;
+				}
+				if(ns)
+				{
+					bool nsd=abs(vk1)>abs(vk2);
+					bool nkd=nsd?vk1>0:vk2>0;
+					if(nsd!=sd||nkd!=kd)
+					{
+						sd=nsd;
+						kd=nkd;
+						dp->cnr();
+					}
+				}
 			}
 		}
 	}
