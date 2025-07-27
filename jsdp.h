@@ -10,7 +10,7 @@ struct jsdp
 	size_t tkc=(size_t)this;
 	bool db=0;
 	std::vector<std::function<void()>> vppk;
-	std::vector<std::function<void()>> sck;
+	std::vector<std::function<void(double)>> sck;
 	int vpv1,vpv2;
 	void dk()
 	{
@@ -54,7 +54,7 @@ struct jsdp
 			glClear(GL_COLOR_BUFFER_BIT);
 			p->c=0;
 			for(size_t k=0;k<p->sck.size();k++)
-				if(p->sck[k])p->sck[k]();
+				if(p->sck[k])p->sck[k](kn);
 		}
 		return 0;
 	}
