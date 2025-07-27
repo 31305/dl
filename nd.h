@@ -8,6 +8,8 @@ struct nd
 	int ms1,ms2,ns1,ns2;
 	size_t ckk;
 	std::vector<dv::kvsl> vs;
+	bool sd,kd;
+	int s=0;
 	void dk()
 	{
 		vs.reserve(9);
@@ -39,5 +41,30 @@ extern "C"
 {
 EMSCRIPTEN_KEEPALIVE inline void ndck(void *p,int kn,bool s,double s1,double s2)
 {
+	nd* n=(nd*)p;
+	if(!n->n)
+	{
+		if(kn==2)
+		{
+			n->n=1;
+			n->ms1=s1*(double)n->dp->vpv1;
+			n->ms2=s2*(double)n->dp->vpv2;
+			n->ns1=n->ms1;
+			n->ns2=n->ms2;
+		}
+	}
+	else
+	{
+		if(kn==3||kn==4||!s)
+		{
+			n->n=0;
+			if(n->s)n->dp->cnr();
+		}
+		else
+		{
+			n->ns1=s1*(double)n->dp->vpv1;
+			n->ns2=s2*(double)n->dp->vpv2;
+		}
+	}
 }
 }
