@@ -12,7 +12,7 @@ struct jsdp
 	std::vector<std::function<void()>> vppk;
 	std::vector<std::function<void()>> sck;
 	int vpv1,vpv2;
-	void d()
+	void dk()
 	{
 		EM_ASM
 		({
@@ -48,9 +48,14 @@ struct jsdp
 	static bool ck(double kn,void *pd)
 	{
 		jsdp* p=(jsdp*)pd;
-		p->c=0;
-		for(size_t k=0;k<p->sck.size();k++)
-			if(p->sck[k])p->sck[k]();
+		if(p->db)
+		{
+			glClearColor(0,0,0,1);
+			glClear(GL_COLOR_BUFFER_BIT);
+			p->c=0;
+			for(size_t k=0;k<p->sck.size();k++)
+				if(p->sck[k])p->sck[k]();
+		}
 		return 0;
 	}
 };
@@ -84,5 +89,6 @@ EMSCRIPTEN_KEEPALIVE inline void jsdpvp(size_t p,int v1,int v2)
 		for(size_t k=0;k<s->vppk.size();k++)
 			if(s->vppk[k])s->vppk[k]();
 	}
+	s->cnr();
 }
 }

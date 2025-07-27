@@ -6,16 +6,17 @@
 struct jstp
 {
 	jsdp dp;
-	nd snd;
+	nd snd={.dp=&dp};
 	dv dvs;
 	void dk()
 	{
 		dp.pk=[this]()
 		{
 			dvs.dk();
+			snd.dk();
 			printf("pk\n");
 		};
-		dp.d();
+		dp.dk();
 	}
 };
 jstp jst;
