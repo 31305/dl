@@ -51,7 +51,7 @@ struct jvn
 		((jvn*)sg)->pv=pv;
 		((jvn*)sg)->vkk=vkk;
 		((jvn*)sg)->drk(1);
-		((jvn*)sg)->pk();
+		if(((jvn*)sg)->pk)((jvn*)sg)->pk();
 	}
 	static EM_BOOL tpk(int,const AudioSampleFrame*,int nds,AudioSampleFrame* nd,int,const AudioParamFrame*,void* sg)
 	{

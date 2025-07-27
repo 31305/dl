@@ -2,12 +2,16 @@
 #include<emscripten/html5.h>
 #include<GLES2/gl2.h>
 #include<functional>
+#include<vector>
 struct jsdp
 {
 	EMSCRIPTEN_WEBGL_CONTEXT_HANDLE ps;
-	std::function<void()> pk=[](){};
+	std::function<void()> pk;
 	size_t tkc=(size_t)this;
 	bool db=0;
+	std::vector<std::function<void()>> vppk;
+	std::vector<std::function<void()>> sck;
+	int vpv1,vpv2;
 	void d()
 	{
 		EM_ASM
@@ -32,13 +36,31 @@ struct jsdp
 			l.observe(jsdp,{box:"device-pixel-content-box"});
 		},tkc,this);
 	}
+	bool c=0;
+	void cnr()
+	{
+		if(!c)
+		{
+			c=1;
+		    emscripten_request_animation_frame(ck,this);
+		}
+	}
+	static bool ck(double kn,void *pd)
+	{
+		jsdp* p=(jsdp*)pd;
+		p->c=0;
+		for(size_t k=0;k<p->sck.size();k++)
+			if(p->sck[k])p->sck[k]();
+		return 0;
+	}
 };
 extern "C"
 {
-EMSCRIPTEN_KEEPALIVE void jsdpvp(size_t p,int v1,int v2)
+EMSCRIPTEN_KEEPALIVE inline void jsdpvp(size_t p,int v1,int v2)
 {
-
 	auto s=(jsdp*)p;
+	s->vpv1=v1;
+	s->vpv2=v2;
 	if(!s->db)
 	{
 		s->db=1;
@@ -54,8 +76,13 @@ EMSCRIPTEN_KEEPALIVE void jsdpvp(size_t p,int v1,int v2)
 		emscripten_webgl_make_context_current(s->ps);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-		s->pk();
+		if(s->pk)s->pk();
 	}
-	else glViewport(0,0,v1,v2);
+	else
+	{
+		glViewport(0,0,v1,v2);
+		for(size_t k=0;k<s->vppk.size();k++)
+			if(s->vppk[k])s->vppk[k]();
+	}
 }
 }
