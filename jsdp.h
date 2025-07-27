@@ -36,6 +36,16 @@ struct jsdp
 				Module.ccall('jsdpvp',null,['number','number','number'],[$1,vpv1,vpv2]);
 			});
 			l.observe(jsdp,{box:"device-pixel-content-box"});
+			function k(p,kn)
+			{
+				let s=jsdp.getBoundingClientRect();
+				Module.ccall('jsdpnd',null,['number','number','number','number','number'],
+					[$1,kn,(p.pressure||(p.buttons==1))?true:false,p.clientX/s.width,p.clientY/s.height]);
+			}
+			document.body.addEventListener("pointermove",(p)=>k(p,1));
+			document.body.addEventListener("pointerdown",(p)=>k(p,2));
+			document.body.addEventListener("pointerout",(p)=>k(p,3));
+			document.body.addEventListener("pointerup",(p)=>k(p,4));
 		},tkc,this);
 	}
 	bool c=0;
@@ -83,19 +93,6 @@ EMSCRIPTEN_KEEPALIVE inline void jsdpvp(size_t p,int v1,int v2)
 		emscripten_webgl_make_context_current(s->ps);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-		EM_ASM({
-			function k(p,kn)
-			{
-				let s=document.body.getBoundingClientRect();
-				Module.ccall('jsdpnd',null,['number','number','number','number','number'],
-					[$0,kn,(p.pressure||(p.buttons==1))?true:false,p.clientX/s.width,p.clientY/s.height]);
-				console.log(p.buttons);
-			}
-			document.body.addEventListener("pointermove",(p)=>k(p,1));
-			document.body.addEventListener("pointerdown",(p)=>k(p,2));
-			document.body.addEventListener("pointerout",(p)=>k(p,3));
-			document.body.addEventListener("pointerup",(p)=>k(p,4));
-		},s);
 		if(s->pk)s->pk();
 	}
 	else
@@ -109,7 +106,7 @@ EMSCRIPTEN_KEEPALIVE inline void jsdpvp(size_t p,int v1,int v2)
 EMSCRIPTEN_KEEPALIVE inline void jsdpnd(void *p,int kn,bool s,double s1,double s2)
 {
 	jsdp* m=(jsdp*)p;
-	for(size_t k=0;k<m->ndk.size();k++)
+	if(m->db)for(size_t k=0;k<m->ndk.size();k++)
 		if(m->ndk[k])
 			m->ndk[k](kn,s,s1*m->vpv1,s2*m->vpv2);
 }

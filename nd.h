@@ -6,7 +6,7 @@ struct nd
 	jsdp *dp;
 	bool n=0;
 	int ms1,ms2,ns1,ns2;
-	size_t ckk,ndkk;
+	size_t ckk,ndkk,vpkk;
 	std::vector<dv::kvsl> vs;
 	int s=0;
 	bool sd,kd;
@@ -22,6 +22,8 @@ struct nd
 		dp->sck.push_back([this](double kn){ck(kn);});
 		ndkk=dp->ndk.size();
 		dp->ndk.push_back([this](int kn,bool s,double s1,double s2){ndck(kn,s,s1,s2);});
+		vpkk=dp->vppk.size();
+		dp->vppk.push_back([this](){vvk();});
 	}
 	void ck(double kn)
 	{
@@ -31,6 +33,7 @@ struct nd
 	{
 		dp->sck[ckk]=0;
 		dp->ndk[ndkk]=0;
+		dp->vppk[vpkk]=0;
 	};
 	void ndck(int kn,bool s,double s1,double s2)
 	{
@@ -43,7 +46,7 @@ struct nd
 				ms2=s2;
 				ns1=s1;
 				ns2=s2;
-			s=0;
+				s=0;
 			}
 		}
 		else
@@ -58,6 +61,7 @@ struct nd
 				ns1=s1;
 				ns2=s2;
 				int vk1=ns1-ms1,vk2=ns2-ms2;
+				printf("vk1 %d vk2 %d\n",vk1,vk2);
 				int ns=std::max(vk1,vk2)>=vv&&(abs(vk1)>=2*abs(vk2)||abs(vk2)>=2*abs(vk1));
 				if(ns!=s)
 				{
