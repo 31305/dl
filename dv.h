@@ -33,7 +33,6 @@ struct dv
 	struct kvsl {
 		float s1, s2, v1, v2;
 		float rm, hm, nm, dm;
-		GLuint bvd = 0;
 	};
 
 	GLuint vsnm = 0, st = 0;
@@ -68,7 +67,7 @@ struct dv
 		glGenBuffers(1, &st);
 	}
 
-	inline void cl(const std::vector<kvsl> &pd)
+	inline void cl(const std::vector<kvsl> &pd,GLuint bvd=0)
 	{
 		std::vector<float> snts;
 		snts.resize(pd.size()*6*8);
@@ -101,10 +100,10 @@ struct dv
 		glVertexAttribPointer(kvn, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(2 * sizeof(float)));
 		glVertexAttribPointer(kvsn, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
-		glUniform1i(bvdp, pd[0].bvd != 0);
-		if (pd[0].bvd != 0) {
+		glUniform1i(bvdp,bvd != 0);
+		if (bvd != 0) {
 			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, pd[0].bvd);
+			glBindTexture(GL_TEXTURE_2D,bvd);
 			glUniform1i(bvd, 0);
 		}
 
