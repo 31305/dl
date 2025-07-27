@@ -40,7 +40,7 @@ struct jsdp
 			{
 				let s=jsdp.getBoundingClientRect();
 				Module.ccall('jsdpnd',null,['number','number','number','number','number'],
-					[$1,kn,(p.pressure||(p.buttons==1))?true:false,p.clientX/s.width,p.clientY/s.height]);
+					[$1,kn,(p.pressure||p.buttons)?true:false,p.clientX/s.width,p.clientY/s.height]);
 			}
 			document.body.addEventListener("pointermove",(p)=>k(p,1));
 			document.body.addEventListener("pointerdown",(p)=>k(p,2));
