@@ -85,7 +85,7 @@ struct nd
 				ns1=s1;
 				ns2=s2;
 				int vk1=ns1-ms1,vk2=ns2-ms2;
-				int ns=std::max(abs(vk1),abs(vk2))/vv*(int)(abs(vk1)>=2*abs(vk2)||abs(vk2)>=2*abs(vk1));
+				int ns=std::max(abs(vk1),abs(vk2))/vv*(int)(1||abs(vk1)>=2*abs(vk2)||abs(vk2)>=2*abs(vk1));
 				if(ns!=s)
 				{
 					dp->cnr();
