@@ -13,8 +13,12 @@ struct jstp
 		dp.pk=[this]()
 		{
 			dvs.dk();
+			dp.sck.push_back([this](double)
+			{
+				dv::kvsl v={0,0,dp.vpv1,dp.vpv2,0.2578125,0.00390625,0.19140625,1.0};
+				dvs.cl({v},dp.vpv1,dp.vpv2);
+			});
 			snd.dk();
-			printf("pk\n");
 		};
 		dp.dk();
 	}
