@@ -7,9 +7,10 @@ struct jstp
 {
 	jsdp dp;
 	dv dvs;
-	nd snd={.dp=&dp,.dvs=&dvs};
+	ndtp snd={.dp=&dp};
 	void dk()
 	{
+		snd.pk=[](int p){printf("%d\n",p);};
 		dp.pk=[this]()
 		{
 			dvs.dk();

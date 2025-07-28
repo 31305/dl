@@ -1,6 +1,62 @@
 #pragma once
 #include<jsdp.h>
 #include<dv.h>
+struct ndtp
+{
+	jsdp *dp;
+	bool n=0;
+	int ms1,ns1;
+	size_t ndkk,vpkk;
+	int vv;
+	std::function<void(int)>pk=0;
+	void vvk()
+	{
+		vv=10*((std::min(dp->vpv1,dp->vpv2)/9)/10);
+	}
+	void dk()
+	{
+		ndkk=dp->ndk.size();
+		dp->ndk.push_back([this](int kn,bool s,double s1,double s2){ndck(kn,s,s1,s2);});
+		vpkk=dp->vppk.size();
+		dp->vppk.push_back([this](){vvk();n=0;});
+		vvk();
+	}
+	~ndtp()
+	{
+		dp->ndk[ndkk]=0;
+		dp->vppk[vpkk]=0;
+	};
+	void ndck(int kn,bool ps,double s1,double s2)
+	{
+		if(!n)
+		{
+			if(kn==2)
+			{
+				n=1;
+				ms1=s1;
+				ns1=s1;
+			}
+		}
+		else
+		{
+			if(kn==3||kn==4||!ps)
+			{
+				n=0;
+				if(kn==4&&pk)pk(0);
+			}
+			else
+			{
+				ns1=s1;
+				int vk1=ns1-ms1;
+				if(abs(vk1)>=vv)
+				{
+					n=0;
+					if(pk)pk(vk1>0?1:-1);
+				}
+			}
+		}
+	}
+};
 struct nd
 {
 	jsdp *dp;
@@ -24,8 +80,8 @@ struct nd
 		ndkk=dp->ndk.size();
 		dp->ndk.push_back([this](int kn,bool s,double s1,double s2){ndck(kn,s,s1,s2);});
 		vpkk=dp->vppk.size();
+		dp->vppk.push_back([this](){vvk();n=0;});
 		vvk();
-		dp->vppk.push_back([this](){vvk();s=0;});
 	}
 	void ck(double kn)
 	{
@@ -43,7 +99,7 @@ struct nd
 		}
 		for(size_t k=0;k<s;k++)
 		{
-			vs[k]={s1+vv/10,s2+vv/10,vv*4/5,vv*4/5,1.0f,1.0f,1.0f,1.0f};
+			vs[k]={s1+vv/10,s2+vv/10,vv*4/5,vv*4/5,1.0f,1.0f,1.0f,.5f};
 			if(sd)s1+=kd?vv:-vv;
 			else s2+=kd?vv:-vv;
 		}
