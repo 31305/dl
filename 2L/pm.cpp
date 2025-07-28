@@ -16,7 +16,8 @@ struct jstp
 			dvs.dk();
 			dp.sck.push_back([this](double)
 			{
-				dv::kvsl v={0,0,dp.vpv1,dp.vpv2,0.2578125,0.00390625,0.19140625,1.0};
+				int vv=10*((std::min(dp.vpv1,dp.vpv2)/9)/10);
+				dv::kvsl v={(dp.vpv1-vv)/2,(dp.vpv2-vv)/2,vv,vv,0.2578125,0.00390625,0.19140625,1.0};
 				dvs.cl({v},dp.vpv1,dp.vpv2);
 			});
 			snd.dk();
