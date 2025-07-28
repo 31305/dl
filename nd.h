@@ -47,7 +47,7 @@ struct nd
 			if(sd)s1+=kd?vv:-vv;
 			else s2+=kd?vv:-vv;
 		}
-		if(n)dvs->cl(vs,dp->vpv1,dp->vpv2);
+		if(n&&s)dvs->cl(vs,dp->vpv1,dp->vpv2);
 	}
 	~nd()
 	{

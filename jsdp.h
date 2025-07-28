@@ -19,9 +19,10 @@ struct jsdp
 		({
 			let jsdp=document.createElement('canvas');
 			document.body.style.margin='0';
+			document.body.style.touchAction='none';
 			jsdp.id='jsdp'+($0).toString();
 			jsdp.style="position:absolute;display:block;width:100%;height:100%";
-			jsdp.oncontextmenu="event.preventDefault()";
+			jsdp.oncontextmenu=(p)=>p.preventDefault();
 			jsdp.width=0;
 			jsdp.height=0;
 			document.body.appendChild(jsdp);
@@ -41,6 +42,11 @@ struct jsdp
 				let s=jsdp.getBoundingClientRect();
 				Module.ccall('jsdpnd',null,['number','number','number','number','number'],
 					[$1,kn,(p.pressure||p.buttons)?true:false,p.clientX/s.width,p.clientY/s.height]);
+				if(0&&(p.pressure||p.buttons))
+				{
+					console.log(kn,p.buttons,p);
+					window.p=p;
+				}
 			}
 			document.body.addEventListener("pointermove",(p)=>k(p,1));
 			document.body.addEventListener("pointerdown",(p)=>k(p,2));
