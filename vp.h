@@ -11,12 +11,15 @@ struct vp
 };
 struct pvp:vp
 {
+	bool vs=0;
 	void bk(int p)
 	{
-		printf("bk\n");
-		jss->drk();
-		stsl->vy.v=1;
-		std::thread s([this](){vkm->pmb(vk::vs({51,8,75}),stsl->p,stsl);});
-		s.detach();
+		if(!vs)
+		{
+			jss->drk();
+			vs=1;
+			std::thread s([this](){vkm->pmb(vk::vs({51,8,75}),stsl->p,stsl);vs=0;});
+			s.detach();
+		}
 	}
 };

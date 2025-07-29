@@ -39,6 +39,12 @@ struct jvn
 			}
 			},pv,vkk,kv);
 	}
+	void ssk()
+	{
+		EM_ASM({let pv=emscriptenGetAudioObject($0);
+				pv.suspend();
+			},pv);
+	}
 	static void dpk(EMSCRIPTEN_WEBAUDIO_T pv,EM_BOOL ss,void* sg)
 	{
 		if(!ss)
