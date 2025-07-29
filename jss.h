@@ -1,3 +1,4 @@
+#pragma once
 #include<emscripten/webaudio.h>
 #include<cstdio>
 #include<functional>

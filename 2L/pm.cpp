@@ -14,13 +14,14 @@ struct jstp
 	dv dvs;
 	ndtp snd={.dp=&dp};
 	vp* vps=&pv;
-	vks vk;
-	stslp stsl=stslp(vk.mt.outputSampleRate());
+	vk::vks vk;
+	vk::stslp stsl=vk::stslp(vk.mt.outputSampleRate());
 	jvn jss=jvn(vk.mt.outputSampleRate(),stsl.pc,&(stsl.vy),[this](){dk();});
 	void dk()
 	{
 		vps->stsl=&stsl;
-		vps->vk=&vk;
+		vps->vkm=&vk;
+		vps->jss=&jss;
 		snd.pk=[this](int p)
 		{
 			if(vps)vps->bk(p);

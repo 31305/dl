@@ -4,6 +4,8 @@
 #include<array>
 #include<algorithm>
 #include<thread>
+namespace vk
+{
 struct v
 {
 	enum csp{k=1,t,m,d,o,kt,od,ko};
@@ -325,7 +327,7 @@ struct stslp
 	struct vyp
 	{
 		vyp(size_t kd):mc(kd){mc.k[0]=0;}
-		::ck<float> mc;
+		ck<float> mc;
 		size_t d=0,u=1;
 		bool v=0;
 	};
@@ -730,3 +732,4 @@ struct vks
 		if(ct>ctdm)fprintf(stderr,"%lf > %lf @ %lu\n",ct,ctdm,vks);
 	}
 };
+}
