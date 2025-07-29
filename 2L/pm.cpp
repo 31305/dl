@@ -4,14 +4,23 @@
 #include<nd.h>
 #include<GLES2/gl2.h>
 #include<vp.h>
+#include<jss.h>
+#include<vk/vk.h>
+bool vksvl=0;
+pvp pv;
 struct jstp
 {
 	jsdp dp;
 	dv dvs;
 	ndtp snd={.dp=&dp};
-	vp* vps=0;
+	vp* vps=&pv;
+	vks vk;
+	stslp stsl=stslp(vk.mt.outputSampleRate());
+	jvn jss=jvn(vk.mt.outputSampleRate(),stsl.pc,&(stsl.vy),[this](){dk();});
 	void dk()
 	{
+		vps->stsl=&stsl;
+		vps->vk=&vk;
 		snd.pk=[this](int p)
 		{
 			if(vps)vps->bk(p);
@@ -37,7 +46,7 @@ struct jstp
 						if(p.key=='ArrowUp'||p.key=='ArrowDown')pt=0;
 						else if(p.key=='ArrowRight')pt=1;
 						else if(p.key=='ArrowLeft')pt=-1;
-						if(pt!=null)Module.ccall('jstnk',null,[number,number],[$0,pt]);
+						if(pt!=null)Module.ccall('jstnk',null,['number','number'],[$0,pt]);
 					}
 				});
 			},this);
@@ -54,8 +63,3 @@ EMSCRIPTEN_KEEPALIVE void jstnk(void *s,int p)
 }
 }
 jstp jst;
-int main()
-{
-	jst.dk();
-	return 0;
-}
