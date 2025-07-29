@@ -43,7 +43,10 @@ struct jstp
 					snd.ck(kn,vpv);
 				}
 			};
-			snd.dk();
+			{
+				using namespace std::placeholders;
+				dp.ndk=std::bind(&ndtp::ndck,&snd,_1,_2,_3,_4);
+			}
 			EM_ASM
 			({
 				document.addEventListener('keydown',(p)=>

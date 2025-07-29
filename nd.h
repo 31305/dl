@@ -7,10 +7,6 @@ struct ndtp
 	bool n=0;
 	int ms1,ns1;
 	std::function<void(int)>pk=0;
-	void dk()
-	{
-		dp->ndk=[this](int kn,bool s,double s1,double s2){ndck(kn,s,s1,s2);};
-	}
 	void ck(double,bool vpv)
 	{
 		if(vpv)n=0;
@@ -59,11 +55,6 @@ struct nd
 	int vvk()
 	{
 		return 10*((std::min(dp->vpv1,dp->vpv2)/9)/10);
-	}
-	void dk()
-	{
-		vs.reserve(9);
-		dp->ndk=[this](int kn,bool s,double s1,double s2){ndck(kn,s,s1,s2);};
 	}
 	void ck(double kn,bool vpv)
 	{
