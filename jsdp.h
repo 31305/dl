@@ -9,9 +9,9 @@ struct jsdp
 	std::function<void()> pk;
 	size_t tkc=(size_t)this;
 	bool db=0;
-	std::vector<std::function<void()>> vppk;
-	std::vector<std::function<void(double)>> sck;
-	std::vector<std::function<void(int,bool,double,double)>> ndk;
+	bool vpv=0;
+	std::vector<std::function<void(double,bool)>> sck;
+	std::function<void(int,bool,double,double)> ndk=0;
 	int vpv1,vpv2;
 	void dk()
 	{
@@ -67,7 +67,8 @@ struct jsdp
 			glClear(GL_COLOR_BUFFER_BIT);
 			p->c=0;
 			for(size_t k=0;k<p->sck.size();k++)
-				if(p->sck[k])p->sck[k](kn);
+				if(p->sck[k])p->sck[k](kn,p->vpv);
+			if(p->vpv)p->vpv=0;
 		}
 		return 0;
 	}
@@ -99,16 +100,14 @@ EMSCRIPTEN_KEEPALIVE inline void jsdpvp(size_t p,int v1,int v2)
 	else
 	{
 		glViewport(0,0,v1,v2);
-		for(size_t k=0;k<s->vppk.size();k++)
-			if(s->vppk[k])s->vppk[k]();
 	}
+	s->vpv=1;
 	s->cnr();
 }
 EMSCRIPTEN_KEEPALIVE inline void jsdpnd(void *p,int kn,bool s,double s1,double s2)
 {
 	jsdp* m=(jsdp*)p;
-	if(m->db)for(size_t k=0;k<m->ndk.size();k++)
-		if(m->ndk[k])
-			m->ndk[k](kn,s,s1*m->vpv1,s2*m->vpv2);
+	if(m->db&&m->ndk)
+		m->ndk(kn,s,s1*m->vpv1,s2*m->vpv2);
 }
 }
