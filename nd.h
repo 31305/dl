@@ -7,19 +7,13 @@ struct ndtp
 	bool n=0;
 	int ms1,ns1;
 	size_t ndkk,vpkk;
-	int vv;
 	std::function<void(int)>pk=0;
-	void vvk()
-	{
-		vv=10*((std::min(dp->vpv1,dp->vpv2)/9)/10);
-	}
 	void dk()
 	{
 		ndkk=dp->ndk.size();
 		dp->ndk.push_back([this](int kn,bool s,double s1,double s2){ndck(kn,s,s1,s2);});
 		vpkk=dp->vppk.size();
-		dp->vppk.push_back([this](){vvk();n=0;});
-		vvk();
+		dp->vppk.push_back([this](){n=0;});
 	}
 	~ndtp()
 	{
@@ -48,6 +42,7 @@ struct ndtp
 			{
 				ns1=s1;
 				int vk1=ns1-ms1;
+				int vv=10*((std::min(dp->vpv1,dp->vpv2)/9)/10);
 				if(abs(vk1)>=vv)
 				{
 					n=0;
@@ -61,12 +56,12 @@ struct nd
 {
 	jsdp *dp;
 	dv* dvs;
+	std::function<void(int)>pk=0;
 	bool n=0;
-	int ms1,ms2,ns1,ns2;
+	int ms1,ms2,ns2;
 	size_t ckk,ndkk,vpkk;
 	std::vector<dv::kvsl> vs;
 	int s=0;
-	bool sd,kd;
 	int vv;
 	void vvk()
 	{
@@ -85,23 +80,15 @@ struct nd
 	}
 	void ck(double kn)
 	{
+	std::vector<dv::kvsl> vs;
 		vs.resize(s);
 		int s1=ms1,s2=ms2;
-		if(sd)
-		{
-			s2-=vv/2;
-			if(!kd)s1-=vv;
-		}
-		else
-		{
-			s1-=vv/2;
-			if(!kd)s2-=vv;
-		}
-		for(size_t k=0;k<s;k++)
+		s1-=vv/2;
+		if(s<0)s2-=vv;
+		for(size_t k=0;k<abs(s);k++)
 		{
 			vs[k]={s1+vv/10,s2+vv/10,vv*4/5,vv*4/5,1.0f,1.0f,1.0f,.5f};
-			if(sd)s1+=kd?vv:-vv;
-			else s2+=kd?vv:-vv;
+			s2+=s>0?vv:-vv;
 		}
 		if(n&&s)dvs->cl(vs,dp->vpv1,dp->vpv2);
 	}
@@ -120,7 +107,6 @@ struct nd
 				n=1;
 				ms1=s1;
 				ms2=s2;
-				ns1=s1;
 				ns2=s2;
 				s=0;
 			}
@@ -135,28 +121,17 @@ struct nd
 					s=0;
 					dp->cnr();
 				}
+				if(kn==4&&pk)pk(abs(s));
 			}
 			else
 			{
-				ns1=s1;
 				ns2=s2;
-				int vk1=ns1-ms1,vk2=ns2-ms2;
-				int ns=std::max(abs(vk1),abs(vk2))/vv*(int)(1||abs(vk1)>=2*abs(vk2)||abs(vk2)>=2*abs(vk1));
+				int vk2=ns2-ms2;
+				int ns=vk2/vv;
 				if(ns!=s)
 				{
 					dp->cnr();
 					s=ns;
-				}
-				if(ns)
-				{
-					bool nsd=abs(vk1)>abs(vk2);
-					bool nkd=nsd?vk1>0:vk2>0;
-					if(nsd!=sd||nkd!=kd)
-					{
-						sd=nsd;
-						kd=nkd;
-						dp->cnr();
-					}
 				}
 			}
 		}
