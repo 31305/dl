@@ -9,6 +9,7 @@
 #include<vk/vk.h>
 bool vksvl=0;
 pvp pv;
+std::vector<sm::svm> jsml();
 struct jstp
 {
 	jsdp dp;
@@ -43,13 +44,7 @@ struct jstp
 			};
 			auto pkd=[this](double kn,bool vpv)
 			{
-				std::vector<sm::svm> p=
-				{
-					{{-1,-1,-1},{1,0,0,1}},
-					{{1,-1,-1},{1,0,0,1}},
-					{{0,1,-1},{1,0,0,1}},
-				};
-				mk.mk(p,dp.vpv1,dp.vpv2,std::max(90.0,2.0*180.0*std::atan((float)dp.vpv2/(float)dp.vpv1)/M_PI),0,0,0);
+				mk.mk(jsml(),dp.vpv1,dp.vpv2,std::max(90.0,2.0*180.0*std::atan((float)dp.vpv2/(float)dp.vpv1)/M_PI),0,0,-2);
 			};
 			dp.sck=
 			{
@@ -90,3 +85,54 @@ EMSCRIPTEN_KEEPALIVE void jstnk(void *s,int p)
 }
 }
 jstp jst;
+std::vector<sm::svm> jsml()
+{
+	sm::cs v={.6,.6,.3,1};
+	sm::cs dv={.2,.3,.4,1};
+	float m=.25,p=.25;
+	return
+	{
+		{{-1,-1,0},v},
+		{{1,-1,0},v},
+		{{1,1,0},v},
+		{{-1,-1,0},v},
+		{{-1,1,0},v},
+		{{1,1,0},v},
+		{{-1,-m+.75f,0},dv},
+		{{1,-m+.75f,0},dv},
+		{{1,-m+.75f,p},dv},
+		{{1,-m+.75f,p},dv},
+		{{-1,-m+.75f,p},dv},
+		{{-1,-m+.75f,0},dv},
+		{{-1,m+.75f,0},dv},
+		{{1,m+.75f,0},dv},
+		{{1,m+.75f,p},dv},
+		{{1,m+.75f,p},dv},
+		{{-1,m+.75f,p},dv},
+		{{-1,m+.75f,0},dv},
+		{{-1,-m+.75f,p},dv},
+		{{1,-m+.75f,p},dv},
+		{{1,m+.75f,p},dv},
+		{{-1,-m+.75f,p},dv},
+		{{-1,m+.75f,p},dv},
+		{{1,m+.75f,p},dv},
+		{{-1,-m-.75f,0},dv},
+		{{1,-m-.75f,0},dv},
+		{{1,-m-.75f,p},dv},
+		{{1,-m-.75f,p},dv},
+		{{-1,-m-.75f,p},dv},
+		{{-1,-m-.75f,0},dv},
+		{{-1,m-.75f,0},dv},
+		{{1,m-.75f,0},dv},
+		{{1,m-.75f,p},dv},
+		{{1,m-.75f,p},dv},
+		{{-1,m-.75f,p},dv},
+		{{-1,m-.75f,0},dv},
+		{{-1,-m-.75f,p},dv},
+		{{1,-m-.75f,p},dv},
+		{{1,m-.75f,p},dv},
+		{{-1,-m-.75f,p},dv},
+		{{-1,m-.75f,p},dv},
+		{{1,m-.75f,p},dv},
+	};
+}
