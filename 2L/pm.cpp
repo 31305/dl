@@ -1,6 +1,7 @@
 #include<emscripten/emscripten.h>
 #include<jsdp.h>
 #include<dv.h>
+#include<m.h>
 #include<nd.h>
 #include<GLES2/gl2.h>
 #include<vp.h>
@@ -29,15 +30,19 @@ struct jstp
 		dp.pk=[this]()
 		{
 			dvs.dk();
+			auto md=[this](double,bool)
+			{
+				int vv=10*((std::min(dp.vpv1,dp.vpv2)/7)/10);
+				dv::kvsl v={(dp.vpv1-vv)/2,(dp.vpv2-vv)/2,vv,vv,.25,0,.25,1};
+				dv::kvsl dv={(dp.vpv1-vv)/2+vv/10,(dp.vpv2-vv)/2+vv/10,vv*4/5,vv*4/5,0,0,0,1.0};
+				dvs.cl({v,dv},dp.vpv1,dp.vpv2);
+			};
+			auto pkd=[this](double,bool)
+			{
+			};
 			dp.sck=
 			{
-				[this](double,bool)
-				{
-					int vv=10*((std::min(dp.vpv1,dp.vpv2)/7)/10);
-					dv::kvsl v={(dp.vpv1-vv)/2,(dp.vpv2-vv)/2,vv,vv,.25,0,.25,1};
-					dv::kvsl dv={(dp.vpv1-vv)/2+vv/10,(dp.vpv2-vv)/2+vv/10,vv*4/5,vv*4/5,0,0,0,1.0};
-					dvs.cl({v,dv},dp.vpv1,dp.vpv2);
-				},
+				md,
 				[this](double kn,bool vpv)
 				{
 					snd.ck(kn,vpv);
