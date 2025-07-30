@@ -52,7 +52,7 @@ struct jstp
 					{{1,1,-1},{0,1,0,1}},
 					{{0,-1,-2},{0,1,0,1}},
 				};
-				mk.mk(p,dp.vpv1,dp.vpv2,90,0,0,0);
+				mk.mk(p,dp.vpv1,dp.vpv2,std::max(90.0,2.0*180.0*std::atan((float)dp.vpv2/(float)dp.vpv1))/M_PI,0,0,0);
 			};
 			dp.sck=
 			{
