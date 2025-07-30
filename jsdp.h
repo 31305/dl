@@ -31,7 +31,6 @@ struct jsdp
 				const g=gs.find((g)=>g.target===jsdp);
 				let vpv1=g.devicePixelContentBoxSize[0].inlineSize;
 				let vpv2=g.devicePixelContentBoxSize[0].blockSize;
-				console.log(vpv1,vpv2);
 				jsdp.width=vpv1;
 				jsdp.height=vpv2;
 				Module.ccall('jsdpvp',null,['number','number','number'],[$1,vpv1,vpv2]);
@@ -64,7 +63,7 @@ struct jsdp
 		if(p->db)
 		{
 			glClearColor(0,0,0,1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 			p->c=0;
 			for(size_t k=0;k<p->sck.size();k++)
 				if(p->sck[k])p->sck[k](kn,p->vpv);
@@ -86,7 +85,7 @@ EMSCRIPTEN_KEEPALIVE inline void jsdpvp(size_t p,int v1,int v2)
 		EmscriptenWebGLContextAttributes dpps;
 		emscripten_webgl_init_context_attributes(&dpps);
 		dpps.alpha=EM_FALSE;
-		dpps.depth=EM_FALSE;
+		dpps.depth=EM_TRUE;
 		dpps.stencil=EM_FALSE;
 		dpps.antialias=EM_TRUE;
 		dpps.majorVersion=1;
@@ -94,6 +93,7 @@ EMSCRIPTEN_KEEPALIVE inline void jsdpvp(size_t p,int v1,int v2)
 		s->ps=emscripten_webgl_create_context((std::string("#jsdp")+std::to_string(s->tkc)).c_str(),&dpps);
 		emscripten_webgl_make_context_current(s->ps);
 		glEnable(GL_BLEND);
+		glEnable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 		if(s->pk)s->pk();
 	}

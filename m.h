@@ -28,7 +28,7 @@ inline sdn kr() {
 }
 
 inline sdn dkd(float dv, float vnp, float nt, float dt) {
-	float ld = 1.0f / std::tan(dv * 0.5f * 3.1415926f / 180.0f);
+	float ld = 1.0f / std::tan(dv * 0.5f * M_PI / 180.0f);
 	sdn p = {};
 	p[0] = ld / vnp;
 	p[5] = ld;
@@ -112,9 +112,6 @@ struct m {
 	}
 
 	void mk(const std::vector<svm>& sn,int v1,int v2,float dv, float s1, float s2, float s3) {
-		glClearColor(0, 0, 0, 1);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glEnable(GL_DEPTH_TEST);
 		glUseProgram(vsnm);
 
 		sdn pg = dkd(dv, v1 / (float)v2, 0.1f, 100.0f);

@@ -37,17 +37,22 @@ struct jstp
 				int vv=10*((std::min(dp.vpv1,dp.vpv2)/7)/10);
 				dv::kvsl v={(dp.vpv1-vv)/2,(dp.vpv2-vv)/2,vv,vv,.25,0,.25,1};
 				dv::kvsl dv={(dp.vpv1-vv)/2+vv/10,(dp.vpv2-vv)/2+vv/10,vv*4/5,vv*4/5,0,0,0,1.0};
+				glDisable(GL_DEPTH_TEST);
 				dvs.cl({v,dv},dp.vpv1,dp.vpv2);
+				glEnable(GL_DEPTH_TEST);
 			};
 			auto pkd=[this](double kn,bool vpv)
 			{
 				std::vector<sm::svm> p=
 				{
 					{{-1,-1,-1},{1,0,0,1}},
-					{{1,-1,-1},{0,1,0,1}},
-					{{0,1,-1},{0,0,1,1}},
+					{{1,-1,-1},{1,0,0,1}},
+					{{0,1,-2},{1,0,0,1}},
+					{{-1,1,-1},{0,1,0,1}},
+					{{1,1,-1},{0,1,0,1}},
+					{{0,-1,-2},{0,1,0,1}},
 				};
-				mk.mk(p,dp.vpv1,dp.vpv2,70,0,0,-5);
+				mk.mk(p,dp.vpv1,dp.vpv2,90,0,0,0);
 			};
 			dp.sck=
 			{
