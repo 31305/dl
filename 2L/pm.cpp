@@ -12,7 +12,7 @@ struct jstp
 {
 	jsdp dp;
 	dv dvs;
-	ndtp snd={.dp=&dp};
+	ndtp snd={.dp=dp};
 	vp* vps=&pv;
 	vk::vks vk;
 	vk::stslp stsl=vk::stslp(vk.mt.outputSampleRate());

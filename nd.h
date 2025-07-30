@@ -3,7 +3,7 @@
 #include<dv.h>
 struct ndtp
 {
-	jsdp *dp;
+	jsdp &dp;
 	bool n=0;
 	int ms1,ns1;
 	std::function<void(int)>pk=0;
@@ -33,7 +33,7 @@ struct ndtp
 			{
 				ns1=s1;
 				int vk1=ns1-ms1;
-				int vv=10*((std::min(dp->vpv1,dp->vpv2)/9)/10);
+				int vv=10*((std::min(dp.vpv1,dp.vpv2)/9)/10);
 				if(abs(vk1)>=vv)
 				{
 					n=0;
@@ -45,8 +45,8 @@ struct ndtp
 };
 struct nd
 {
-	jsdp *dp;
-	dv* dvs;
+	jsdp &dp;
+	dv& dvs;
 	std::function<void(int)>pk=0;
 	bool n=0;
 	int ms1,ms2,ns2;
@@ -54,7 +54,7 @@ struct nd
 	int s=0;
 	int vvk()
 	{
-		return 10*((std::min(dp->vpv1,dp->vpv2)/9)/10);
+		return 10*((std::min(dp.vpv1,dp.vpv2)/9)/10);
 	}
 	void ck(double kn,bool vpv)
 	{
@@ -70,7 +70,7 @@ struct nd
 			vs[k]={s1+vv/10,s2+vv/10,vv*4/5,vv*4/5,1.0f,1.0f,1.0f,.5f};
 			s2+=s>0?vv:-vv;
 		}
-		if(s!=0)dvs->cl(vs,dp->vpv1,dp->vpv2);
+		if(s!=0)dvs.cl(vs,dp.vpv1,dp.vpv2);
 	}
 	void ndck(int kn,bool ps,double s1,double s2)
 	{
@@ -93,7 +93,7 @@ struct nd
 				if(s)
 				{
 					s=0;
-					dp->cnr();
+					dp.cnr();
 				}
 				if(kn==4&&pk)pk(abs(s));
 			}
@@ -105,7 +105,7 @@ struct nd
 				int ns=vk2/vv;
 				if(ns!=s)
 				{
-					dp->cnr();
+					dp.cnr();
 					s=ns;
 				}
 			}
