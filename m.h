@@ -46,11 +46,11 @@ inline sdn vs(float s1, float s2, float s3) {
 	return p;
 }
 inline sdn pb1(float k) {
-    sdn p = kr();
-    float pm = cosf(k), dm = sinf(k);
-    p.s[0] = pm; p.s[1] = dm;
-    p.s[4] = -dm; p.s[5] = pm;
-    return p;
+	sdn p = kr();
+	float pm = cosf(k), dm = sinf(k);
+	p.s[0] = pm; p.s[1] = dm;
+	p.s[4] = -dm; p.s[5] = pm;
+	return p;
 }
 
 inline sdn gp(const sdn& pd, const sdn& dd) {
@@ -58,7 +58,7 @@ inline sdn gp(const sdn& pd, const sdn& dd) {
 	for (int k = 0; k < 4; ++k)
 		for (int pk = 0; pk < 4; ++pk)
 			for (int ppk = 0; ppk < 4; ++ppk)
-				p[ppk + pk * 4] += pd[ppk + ppk * 4] * dd[ppk + pk * 4];
+				p[k + pk * 4] += pd[k + ppk * 4] * dd[ppk + pk * 4];
 	return p;
 }
 
@@ -68,7 +68,7 @@ inline GLuint pssk(GLenum pk, const char* l)
 	glShaderSource(ps, 1, &l, nullptr);
 	glCompileShader(ps);
 	return ps;
-};
+}
 
 struct m {
 	GLuint st = 0, vsnm = 0;
@@ -112,6 +112,8 @@ struct m {
 	}
 
 	void mk(const std::vector<svm>& sn,int v1,int v2,float dv, float s1, float s2, float s3) {
+		glClearColor(0, 0, 0, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
 		glUseProgram(vsnm);
 
