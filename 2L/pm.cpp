@@ -13,6 +13,7 @@ struct jstp
 {
 	jsdp dp;
 	dv dvs;
+	sm::m mk;
 	ndtp snd={.dp=dp};
 	vp* vps=&pv;
 	vk::vks vk;
@@ -30,19 +31,31 @@ struct jstp
 		dp.pk=[this]()
 		{
 			dvs.dk();
-			auto md=[this](double,bool)
+			mk.dk();
+			[[maybe_unused]]auto md=[this](double,bool)
 			{
 				int vv=10*((std::min(dp.vpv1,dp.vpv2)/7)/10);
 				dv::kvsl v={(dp.vpv1-vv)/2,(dp.vpv2-vv)/2,vv,vv,.25,0,.25,1};
 				dv::kvsl dv={(dp.vpv1-vv)/2+vv/10,(dp.vpv2-vv)/2+vv/10,vv*4/5,vv*4/5,0,0,0,1.0};
 				dvs.cl({v,dv},dp.vpv1,dp.vpv2);
 			};
-			auto pkd=[this](double,bool)
+			auto pkd=[this](double kn,bool vpv)
 			{
+				std::vector<sm::svm> p=
+				{
+					{{-1,-1,-1},{1,0,0,1}},
+					{{1,-1,-1},{0,1,0,1}},
+					{{0,1,-1},{0,0,1,1}},
+					{.sn={0,0,1},.vn={1,0,0,1}},
+					{.sn={1,0,1},.vn={1,0,0,1}},
+					{.sn={0,1,1},.vn={1,0,0,1}},
+				};
+				mk.mk(p,dp.vpv1,dp.vpv2,70,0,0,-5);
 			};
 			dp.sck=
 			{
 				md,
+				pkd,
 				[this](double kn,bool vpv)
 				{
 					snd.ck(kn,vpv);

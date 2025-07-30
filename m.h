@@ -112,8 +112,6 @@ struct m {
 	}
 
 	void mk(const std::vector<svm>& sn,int v1,int v2,float dv, float s1, float s2, float s3) {
-		glClearColor(0, 0, 0, 1);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
 		glUseProgram(vsnm);
 
