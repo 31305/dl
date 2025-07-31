@@ -23,7 +23,8 @@ struct cd
 		float ts=sqrt(1.0-dot(dvn,dvn));
 		vec3 ds=normalize(vec3(dvn.x,dvn.y,ts));
 		vec3 ss=vec3(0,cos(sk),sin(sk));
-		gl_FragColor=vec4((1.0-smoothstep(1.0-0.05,1.0,sqrt(d)))*dot(ss,ds)*vec3(1.0,1.0,1.0),1.0);
+		float cv=1.0;
+		gl_FragColor=vec4((1.0-smoothstep(1.0-0.05,1.0,sqrt(d)))*dot(ss,ds)*vec3(cv),1.0);
 	}
 	)";
 
