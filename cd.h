@@ -96,6 +96,8 @@ struct cd
 		glUniform1f(skp,ss);
 		glUniform2f(bv,vpv1,vpv2);
 
+		glDisable(GL_DEPTH_TEST);
 		glDrawArrays(GL_TRIANGLES,0,6);
+		glEnable(GL_DEPTH_TEST);
 	}
 };

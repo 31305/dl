@@ -66,9 +66,7 @@ struct jstp
 				int vv=10*((std::min(dp.vpv1,dp.vpv2)/7)/10);
 				dv::kvsl v={(dp.vpv1-vv)/2,(dp.vpv2-vv)/2,vv,vv,.25,0,.25,1};
 				dv::kvsl dv={(dp.vpv1-vv)/2+vv/10,(dp.vpv2-vv)/2+vv/10,vv*4/5,vv*4/5,0,0,0,1.0};
-				glDisable(GL_DEPTH_TEST);
 				dvs.cl({v,dv},dp.vpv1,dp.vpv2);
-				glEnable(GL_DEPTH_TEST);
 			};
 			[[maybe_unused]]auto pkd=[this](double kn,bool vpv)
 			{
@@ -77,11 +75,11 @@ struct jstp
 			dp.sck=
 			{
 				[this](double kn,bool vpv){cd.ck(kn,vpv);},
-				[this](double kn,bool vpv){snd.ck(kn,vpv);}
+				[this](double kn,bool vpv){snd.ck(kn,vpv);},
 			};
 			{
 				using namespace std::placeholders;
-				dp.ndk=std::bind(&ndtp::ndck,&snd,_1,_2,_3,_4);
+				dp.ndk=std::bind(&decltype(snd)::ndck,&snd,_1,_2,_3,_4);
 			}
 			EM_ASM
 			({
@@ -110,4 +108,54 @@ EMSCRIPTEN_KEEPALIVE void jstnk(void *s,int p)
 }
 }
 jstp jst;
-
+std::vector<sm::svm> jsml()
+{
+	sm::cs v={.6,.6,.3,1};
+	sm::cs dv={.2,.3,.4,1};
+	float m=.25,p=.25;
+	return
+	{
+		{{-1,-1,0},v},
+		{{1,-1,0},v},
+		{{1,1,0},v},
+		{{-1,-1,0},v},
+		{{-1,1,0},v},
+		{{1,1,0},v},
+		{{-1,-m+.75f,0},dv},
+		{{1,-m+.75f,0},dv},
+		{{1,-m+.75f,p},dv},
+		{{1,-m+.75f,p},dv},
+		{{-1,-m+.75f,p},dv},
+		{{-1,-m+.75f,0},dv},
+		{{-1,m+.75f,0},dv},
+		{{1,m+.75f,0},dv},
+		{{1,m+.75f,p},dv},
+		{{1,m+.75f,p},dv},
+		{{-1,m+.75f,p},dv},
+		{{-1,m+.75f,0},dv},
+		{{-1,-m+.75f,p},dv},
+		{{1,-m+.75f,p},dv},
+		{{1,m+.75f,p},dv},
+		{{-1,-m+.75f,p},dv},
+		{{-1,m+.75f,p},dv},
+		{{1,m+.75f,p},dv},
+		{{-1,-m-.75f,0},dv},
+		{{1,-m-.75f,0},dv},
+		{{1,-m-.75f,p},dv},
+		{{1,-m-.75f,p},dv},
+		{{-1,-m-.75f,p},dv},
+		{{-1,-m-.75f,0},dv},
+		{{-1,m-.75f,0},dv},
+		{{1,m-.75f,0},dv},
+		{{1,m-.75f,p},dv},
+		{{1,m-.75f,p},dv},
+		{{-1,m-.75f,p},dv},
+		{{-1,m-.75f,0},dv},
+		{{-1,-m-.75f,p},dv},
+		{{1,-m-.75f,p},dv},
+		{{1,m-.75f,p},dv},
+		{{-1,-m-.75f,p},dv},
+		{{-1,m-.75f,p},dv},
+		{{1,m-.75f,p},dv},
+	};
+}

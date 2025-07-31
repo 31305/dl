@@ -114,8 +114,9 @@ struct dv
 			glBindTexture(GL_TEXTURE_2D,bvd);
 			glUniform1i(bvd, 0);
 		}
-
+		glDisable(GL_DEPTH_TEST);
 		glDrawArrays(GL_TRIANGLES, 0, 6*pd.size());
+		glEnable(GL_DEPTH_TEST);
 	}
 
 	inline GLuint bvds(int v1, int v2, const unsigned char* vl) {

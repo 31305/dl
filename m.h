@@ -118,8 +118,11 @@ struct m {
 		sdn dg = vs(s1, s2, s3);
 		sdn dgp = gp(pg, dg);
 		glUniformMatrix4fv(vskn, 1, GL_FALSE, dgp.s);
-
 		glBindBuffer(GL_ARRAY_BUFFER, st);
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(svm), (void*)0);
+		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(svm), (void*)(sizeof(ts)));
 		glBufferData(GL_ARRAY_BUFFER, sn.size() * sizeof(svm), sn.data(), GL_DYNAMIC_DRAW);
 		glDrawArrays(GL_TRIANGLES, 0, sn.size());
 	}

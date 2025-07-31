@@ -5,7 +5,7 @@ struct ndtp
 {
 	jsdp &dp;
 	bool n=0;
-	int ms1,ns1;
+	int ms1,ms2,ns1,ns2;
 	std::function<void(int)>pk=0;
 	void ck(double,bool vpv)
 	{
@@ -20,6 +20,8 @@ struct ndtp
 				n=1;
 				ms1=s1;
 				ns1=s1;
+				ms2=s2;
+				ns2=s2;
 			}
 		}
 		else
@@ -27,17 +29,27 @@ struct ndtp
 			if(kn==3||kn==4||!ps)
 			{
 				n=0;
-				if(kn==4&&pk)pk(0);
+				if(kn==4&&pk)
+				{
+					ns1=s1;
+					[[maybe_unused]]int vk1=ns1-ms1;
+					ns2=s2;
+					[[maybe_unused]]int vk2=ns2-ms2;
+					int vv=10*((std::min(dp.vpv1,dp.vpv2)/9)/10);
+					if(abs(vk2)>=vv&&abs(vk2)>abs(vk1))
+						pk(vk2>0?1:-1);
+					else if(abs(vk1)<vv&&abs(vk2)<vv)pk(0);
+				}
 			}
 			else
 			{
-				ns1=s1;
-				int vk1=ns1-ms1;
-				int vv=10*((std::min(dp.vpv1,dp.vpv2)/9)/10);
-				if(abs(vk1)>=vv)
+				if(kn==2)
 				{
-					n=0;
-					if(pk)pk(vk1>0?1:-1);
+					n=1;
+					ms1=s1;
+					ns1=s1;
+					ms2=s2;
+					ns2=s2;
 				}
 			}
 		}
@@ -61,7 +73,7 @@ struct nd
 		if(vpv){n=0;s=0;}
 		if(!n)return;
 		int vv=vvk();
-		vs.resize(s);
+		vs.resize(abs(s));
 		int s1=ms1,s2=ms2;
 		s1-=vv/2;
 		if(s<0)s2-=vv;
