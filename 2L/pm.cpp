@@ -59,8 +59,6 @@ struct jstp
 		};
 		dp.pk=[this]()
 		{
-			dvs.dk();
-			mk.dk();
 			[[maybe_unused]]auto md=[this](double,bool)
 			{
 				int vv=10*((std::min(dp.vpv1,dp.vpv2)/7)/10);

@@ -40,6 +40,8 @@ struct dv
 	GLint bvd, bvdp;
 	GLint skp;
 
+	bool dkk=0;
+
 	void dk() {
 		auto k = [](GLenum pk, const char* l) -> GLuint {
 			GLuint ps = glCreateShader(pk);
@@ -76,6 +78,11 @@ struct dv
 	}
 	inline void cl(const std::vector<kvsl> &pd,int vpv1,int vpv2,GLuint bvd=0)
 	{
+		if(!dkk)
+		{
+			dkk=1;
+			dk();
+		}
 		
 		std::vector<float> snts;
 		snts.resize(pd.size()*6*8);

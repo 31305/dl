@@ -74,6 +74,7 @@ struct m {
 	GLuint st = 0, vsnm = 0;
 	GLint vskn;
 
+	bool dkk=0;
 	void dk() {
 		const char* snm = R"(
 		attribute vec3 sn;
@@ -112,6 +113,11 @@ struct m {
 	}
 
 	void mk(const std::vector<svm>& sn,int v1,int v2,float dv, float s1, float s2, float s3) {
+		if(!dkk)
+		{
+			dkk=1;
+			dk();
+		}
 		glUseProgram(vsnm);
 
 		sdn pg = dkd(dv, v1 / (float)v2, 0.1f, 100.0f);
