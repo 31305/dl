@@ -42,10 +42,10 @@ struct jsdp
 				Module.ccall('jsdpnd',null,['number','number','number','number','number'],
 					[$1,kn,(p.pressure||p.buttons)?true:false,p.clientX/s.width,p.clientY/s.height]);
 			}
-			document.body.addEventListener("pointermove",(p)=>k(p,1));
-			document.body.addEventListener("pointerdown",(p)=>k(p,2));
-			document.body.addEventListener("pointerout",(p)=>k(p,3));
-			document.body.addEventListener("pointerup",(p)=>k(p,4));
+			document.addEventListener("pointermove",(p)=>k(p,1));
+			document.addEventListener("pointerdown",(p)=>k(p,2));
+			document.addEventListener("pointerout",(p)=>k(p,3));
+			document.addEventListener("pointerup",(p)=>k(p,4));
 		},tkc,this);
 	}
 	bool c=0;

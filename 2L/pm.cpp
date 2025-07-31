@@ -11,15 +11,41 @@
 bool vksvl=0;
 pvp pv;
 std::vector<sm::svm> jsml();
+struct cdpv
+{
+	cd cdr;
+	float pss=-M_PI/2.0;
+	float ss=M_PI/2.0;
+	jsdp &dp;
+	double k=0;
+	double g=M_PI*0.1;
+	void ck(double kn,bool)
+	{
+		float b=8;
+		cdr.cl(dp.vpv1,dp.vpv2,std::min(dp.vpv1/b,dp.vpv2/b),pss);
+		if(pss!=ss)
+		{
+			dp.cnr();
+			if(k!=0)
+			{
+				double v=g*(kn-k)/1000.0;
+				if(abs(ss-pss)<v)pss=ss;
+				else if(pss<ss)pss+=v;
+				else pss-=v;
+			}
+		}
+		k=kn;
+	}
+};
 struct jstp
 {
 	jsdp dp;
 	dv dvs;
-	cd cdr;
 	sm::m mk;
 	ndtp snd={.dp=dp};
 	vp* vps=&pv;
 	vk::vks vk;
+	cdpv cd=cdpv({.dp=dp});
 	vk::stslp stsl=vk::stslp(vk.mt.outputSampleRate());
 	jvn jss=jvn(vk.mt.outputSampleRate(),stsl.pc,&(stsl.vy),[this](){dk();});
 	void dk()
@@ -50,15 +76,8 @@ struct jstp
 			};
 			dp.sck=
 			{
-				[this](double,bool)
-				{
-					float b=8;
-					cdr.cl(dp.vpv1,dp.vpv2,std::min(dp.vpv1/b,dp.vpv2/b),M_PI/2.0);
-				},
-				[this](double kn,bool vpv)
-				{
-					snd.ck(kn,vpv);
-				}
+				[this](double kn,bool vpv){cd.ck(kn,vpv);},
+				[this](double kn,bool vpv){snd.ck(kn,vpv);}
 			};
 			{
 				using namespace std::placeholders;
