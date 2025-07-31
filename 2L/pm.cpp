@@ -52,7 +52,8 @@ struct jstp
 			{
 				[this](double,bool)
 				{
-					cdr.cl(dp.vpv1,dp.vpv2,std::min(dp.vpv1/8,dp.vpv2/8),0);
+					float b=8;
+					cdr.cl(dp.vpv1,dp.vpv2,std::min(dp.vpv1/b,dp.vpv2/b),M_PI/2.0);
 				},
 				[this](double kn,bool vpv)
 				{

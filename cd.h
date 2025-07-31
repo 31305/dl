@@ -18,13 +18,12 @@ struct cd
 	uniform vec2 v;
 	void main()
 	{
-		vec2 dvn=2.0*((gl_FragCoord.xy-0.5*v)/vec2(vd,vd));
+		vec2 dvn=(gl_FragCoord.xy-0.5*v)/vd;
 		float d=dot(dvn,dvn);
-		if(d>1.0)discard;
 		float ts=sqrt(1.0-dot(dvn,dvn));
 		vec3 ds=normalize(vec3(dvn.x,dvn.y,ts));
 		vec3 ss=vec3(0,cos(sk),sin(sk));
-		gl_FragColor=dot(ss,ds)*vec4(1.0,1.0,1.0,1.0);
+		gl_FragColor=vec4((1.0-smoothstep(1.0-0.05,1.0,sqrt(d)))*dot(ss,ds)*vec3(1.0,1.0,1.0),1.0);
 	}
 	)";
 
@@ -78,12 +77,12 @@ struct cd
 		int s1=vpv1/2,s2=vpv2/2;
 		float sn[6*2]=
 		{
-			smpv1(s1-vd,vpv1),smpv2(s2-vd,vpv1),
-			smpv1(s1+vd,vpv1),smpv2(s2-vd,vpv1),
-			smpv1(s1+vd,vpv1),smpv2(s2+vd,vpv1),
-			smpv1(s1-vd,vpv1),smpv2(s2-vd,vpv1),
-			smpv1(s1-vd,vpv1),smpv2(s2+vd,vpv1),
-			smpv1(s1+vd,vpv1),smpv2(s2+vd,vpv1),
+			smpv1(s1-vd,vpv1),smpv2(s2-vd,vpv2),
+			smpv1(s1+vd,vpv1),smpv2(s2-vd,vpv2),
+			smpv1(s1+vd,vpv1),smpv2(s2+vd,vpv2),
+			smpv1(s1-vd,vpv1),smpv2(s2-vd,vpv2),
+			smpv1(s1-vd,vpv1),smpv2(s2+vd,vpv2),
+			smpv1(s1+vd,vpv1),smpv2(s2+vd,vpv2),
 		};
 		glUseProgram(vsnm);
 		glBindBuffer(GL_ARRAY_BUFFER, st);
