@@ -7,6 +7,7 @@
 #include<vp.h>
 #include<jss.h>
 #include<vk/vk.h>
+#include<cd.h>
 bool vksvl=0;
 pvp pv;
 std::vector<sm::svm> jsml();
@@ -14,6 +15,7 @@ struct jstp
 {
 	jsdp dp;
 	dv dvs;
+	cd cdr;
 	sm::m mk;
 	ndtp snd={.dp=dp};
 	vp* vps=&pv;
@@ -42,13 +44,16 @@ struct jstp
 				dvs.cl({v,dv},dp.vpv1,dp.vpv2);
 				glEnable(GL_DEPTH_TEST);
 			};
-			auto pkd=[this](double kn,bool vpv)
+			[[maybe_unused]]auto pkd=[this](double kn,bool vpv)
 			{
 				mk.mk(jsml(),dp.vpv1,dp.vpv2,std::max(90.0,2.0*180.0*std::atan((float)dp.vpv2/(float)dp.vpv1)/M_PI),0,0,-2);
 			};
 			dp.sck=
 			{
-				pkd,
+				[this](double,bool)
+				{
+					cdr.cl(dp.vpv1,dp.vpv2,std::min(dp.vpv1/8,dp.vpv2/8),0);
+				},
 				[this](double kn,bool vpv)
 				{
 					snd.ck(kn,vpv);

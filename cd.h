@@ -1,7 +1,6 @@
 #pragma once
 #include<GLES2/gl2.h>
 #include<cstdlib>
-#include<vector>
 struct cd
 {
 	const char* snm = R"(
@@ -15,16 +14,17 @@ struct cd
 	const char* vnm = R"(
 	precision mediump float;
 	uniform float sk;
-	uniform vec2 vd;
+	uniform float vd;
+	uniform vec2 v;
 	void main()
 	{
-		vec2 dvn=2.0*(gl_FragCoord.xy/vd-vec2(.5,.5));
+		vec2 dvn=2.0*((gl_FragCoord.xy-0.5*v)/vec2(vd,vd));
 		float d=dot(dvn,dvn);
 		if(d>1.0)discard;
 		float ts=sqrt(1.0-dot(dvn,dvn));
 		vec3 ds=normalize(vec3(dvn.x,dvn.y,ts));
 		vec3 ss=vec3(0,cos(sk),sin(sk));
-		gl_FragColor=dot(ss,vs)*vec3(1.0,1.0,1.0);
+		gl_FragColor=dot(ss,ds)*vec4(1.0,1.0,1.0,1.0);
 	}
 	)";
 
@@ -32,6 +32,7 @@ struct cd
 	GLuint vsnm=0,st=0;
 	GLint ksn;
 	GLint bvd;
+	GLint bv;
 	GLint skp;
 
 	void dk() {
@@ -53,6 +54,7 @@ struct cd
 
 		ksn=glGetAttribLocation(vsnm, "ksn");
 		bvd=glGetUniformLocation(vsnm, "vd");
+		bv=glGetUniformLocation(vsnm, "v");
 		skp=glGetUniformLocation(vsnm,"sk");
 
 		glGenBuffers(1, &st);
@@ -65,23 +67,34 @@ struct cd
 	{
 		return 1.0-2.0f*(float)s/(float)v;
 	}
-	inline void cl(int vpv1,int vpv2,GLuint bvd=0)
+	bool dkk=0;
+	inline void cl(int vpv1,int vpv2,int vd,float ss=0)
 	{
-		
-		std::vector<float> snts;
+		if(!dkk)
+		{
+			dkk=1;
+			dk();
+		}
+		int s1=vpv1/2,s2=vpv2/2;
+		float sn[6*2]=
+		{
+			smpv1(s1-vd,vpv1),smpv2(s2-vd,vpv1),
+			smpv1(s1+vd,vpv1),smpv2(s2-vd,vpv1),
+			smpv1(s1+vd,vpv1),smpv2(s2+vd,vpv1),
+			smpv1(s1-vd,vpv1),smpv2(s2-vd,vpv1),
+			smpv1(s1-vd,vpv1),smpv2(s2+vd,vpv1),
+			smpv1(s1+vd,vpv1),smpv2(s2+vd,vpv1),
+		};
 		glUseProgram(vsnm);
 		glBindBuffer(GL_ARRAY_BUFFER, st);
-		glBufferData(GL_ARRAY_BUFFER,snts.size()*sizeof(float), snts.data(), GL_STREAM_DRAW);
+		glBufferData(GL_ARRAY_BUFFER,12*sizeof(float),sn,GL_STREAM_DRAW);
 
 		glEnableVertexAttribArray(ksn);
-		glVertexAttribPointer(ksn, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+		glVertexAttribPointer(ksn, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
 
-		glUniform1i(bvd,1.0);
-		if (bvd != 0) {
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D,bvd);
-			glUniform1i(bvd, 0);
-		}
+		glUniform1f(bvd,vd);
+		glUniform1f(skp,ss);
+		glUniform2f(bv,vpv1,vpv2);
 
 		glDrawArrays(GL_TRIANGLES,0,6);
 	}
