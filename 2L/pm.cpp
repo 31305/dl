@@ -47,12 +47,19 @@ struct jstp
 	cdpv cd=cdpv({.dp=dp});
 	vk::stslp stsl=vk::stslp(vk.mt.outputSampleRate());
 	jvn jss=jvn(vk.mt.outputSampleRate(),stsl.pc,&(stsl.vy),[this](){dk();});
-	struct
+	struct scp
 	{
 		ptp* spk=0;
 		int np;
 		int vs=0;
 		std::mutex nm;
+		const double snrn=1.0;
+		double sjsk;
+		void sjskl(jstp& m)
+		{
+			sjsk=emscripten_get_now()/1000.0;
+			MAIN_THREAD_ASYNC_EM_ASM({setTimeout(Module.ccall('jssnr',null,['number'],[$0]),2.0*$1)},&m,sjsk);
+		}
 		void bk(int p,jstp& m)
 		{
 			if(spk==0)return;
@@ -72,6 +79,7 @@ struct jstp
 							p=np;
 							bool tc=vs==2;
 							vs--;
+							if(!tc)sjskl(m);
 							nm.unlock();
 							if(!tc)break;
 							auto b=[&m](std::vector<vk::v> p){m.vk.pmb(p,m.stsl.p,&m.stsl);};
@@ -139,6 +147,13 @@ EMSCRIPTEN_KEEPALIVE void jstnk(void *s,int p)
 {
 	auto jst=(jstp*)s;
 	jst->sc.bk(p,*jst);
+}
+EMSCRIPTEN_KEEPALIVE void jssnr(void* s)
+{
+	jstp &jst=*(jstp*)s;
+	jst.sc.nm.lock();
+	if(jst.sc.vs==0&&(emscripten_get_now()/1000.0-jst.sc.sjsk)>jst.sc.snrn)jst.jss.drk(2);
+	jst.sc.nm.unlock();
 }
 }
 jstp jst;
