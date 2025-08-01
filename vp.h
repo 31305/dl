@@ -2,7 +2,7 @@
 #include<vk/vk.h>
 struct ptp
 {
-	virtual std::vector<vk::v> operator()(int p)=0;
+	virtual std::vector<vk::v> k(int p)=0;
 };
 struct sj
 {

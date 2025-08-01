@@ -8,6 +8,7 @@
 #include<jss.h>
 #include<vk/vk.h>
 #include<cd.h>
+#include<mutex>
 bool vksvl=0;
 struct cdpv
 {
@@ -48,19 +49,39 @@ struct jstp
 	jvn jss=jvn(vk.mt.outputSampleRate(),stsl.pc,&(stsl.vy),[this](){dk();});
 	struct
 	{
-		bool vs=0;
 		ptp* spk=0;
-		int np=-4;
+		int np;
+		int vs=0;
+		std::mutex nm;
 		void bk(int p,jstp& m)
 		{
-			if(np!=-4)return;
-			if(!vs)
+			if(spk==0)return;
+			nm.lock();
+			if(vs<2)
 			{
-				m.jss.drk();
-				vs=1;
-				std::thread s([this,&m](){m.vk.pmb(vk::vs({51,8,75}),m.stsl.p,&m.stsl);vs=0;});
-				s.detach();
+				np=p;
+				if(!vs)
+				{
+					m.jss.drk();
+					std::thread s([this,&m]()
+					{
+						while(1)
+						{
+							int p;
+							nm.lock();
+							p=np;
+							bool tc=vs==2;
+							vs--;
+							nm.unlock();
+							if(!tc)break;
+							m.vk.pmb(spk->k(p),m.stsl.p,&m.stsl);
+						}
+					});
+					s.detach();
+				}
+				vs=2;
 			}
+			nm.unlock();
 		}
 	}sc;
 	void dk()

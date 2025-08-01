@@ -24,16 +24,16 @@ struct jvn
 	}
 	EMSCRIPTEN_WEBAUDIO_T pv;
 	EMSCRIPTEN_AUDIO_WORKLET_NODE_T vkk;
-	void drk(bool kv=0)
+	void drk(int kv=0)
 	{
 		EM_ASM({let pv=emscriptenGetAudioObject($0);
 			let vkk=emscriptenGetAudioObject($1);
-			if(pv.state!='running'||$2)
+			if(pv.state!='running'||$2==1)
 			{
 				pv.resume();
 				vkk.connect(pv.destination);
 			}
-			else if(0)
+			else if($2==2)
 			{
 				pv.suspend();
 			}
