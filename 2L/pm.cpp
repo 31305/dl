@@ -9,7 +9,6 @@
 #include<vk/vk.h>
 #include<cd.h>
 bool vksvl=0;
-pvp pv;
 std::vector<sm::svm> jsml();
 struct cdpv
 {
@@ -43,19 +42,27 @@ struct jstp
 	dv dvs;
 	sm::m mk;
 	nd snd={.dp=dp,.dvs=dvs,.sn=0};
-	vp* vps=&pv;
 	vk::vks vk;
 	cdpv cd=cdpv({.dp=dp});
 	vk::stslp stsl=vk::stslp(vk.mt.outputSampleRate());
 	jvn jss=jvn(vk.mt.outputSampleRate(),stsl.pc,&(stsl.vy),[this](){dk();});
+	bool vs=0;
+	void bk(int p)
+	{
+		printf("p %d\n",p);
+		if(!vs)
+		{
+			jss.drk();
+			vs=1;
+			std::thread s([this](){vk.pmb(vk::vs({51,8,75}),stsl.p,&stsl);vs=0;});
+			s.detach();
+		}
+	}
 	void dk()
 	{
-		vps->stsl=&stsl;
-		vps->vkm=&vk;
-		vps->jss=&jss;
 		snd.pk=[this](int p)
 		{
-			if(vps)vps->bk(p);
+			bk(p);
 		};
 		dp.pk=[this]()
 		{
@@ -102,7 +109,7 @@ extern "C"
 EMSCRIPTEN_KEEPALIVE void jstnk(void *s,int p)
 {
 	auto jst=(jstp*)s;
-	if(jst->vps)jst->vps->bk(p);
+	jst->bk(p);
 }
 }
 jstp jst;
