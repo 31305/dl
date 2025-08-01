@@ -42,7 +42,7 @@ struct jstp
 	jsdp dp;
 	dv dvs;
 	sm::m mk;
-	ndtp snd={.dp=dp};
+	nd snd={.dp=dp,.dvs=dvs,.sn=1};
 	vp* vps=&pv;
 	vk::vks vk;
 	cdpv cd=cdpv({.dp=dp});

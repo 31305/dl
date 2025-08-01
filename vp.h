@@ -14,6 +14,7 @@ struct pvp:vp
 	bool vs=0;
 	void bk(int p)
 	{
+		printf("p %d\n",p);
 		if(!vs)
 		{
 			jss->drk();
