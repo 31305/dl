@@ -47,20 +47,22 @@ struct jstp
 	cdpv cd=cdpv({.dp=dp});
 	vk::stslp stsl=vk::stslp(vk.mt.outputSampleRate());
 	jvn jss=jvn(vk.mt.outputSampleRate(),stsl.pc,&(stsl.vy),[this](){dk();});
+	ksv tdv;
 	struct scp
 	{
 		ptp* spk=0;
+		jstp& m;
 		int np;
 		int vs=0;
 		std::mutex nm;
 		const double snrn=1.0;
 		double sjsk;
-		void sjskl(jstp& m)
+		void sjskl()
 		{
 			sjsk=emscripten_get_now()/1000.0;
-			MAIN_THREAD_ASYNC_EM_ASM({setTimeout(Module.ccall('jssnr',null,['number'],[$0]),2.0*$1)},&m,sjsk);
+			MAIN_THREAD_ASYNC_EM_ASM({setTimeout(Module.ccall('jssnr',null,['number'],[$0]),2.0*$1)},&m,snrn);
 		}
-		void bk(int p,jstp& m)
+		void bk(int p)
 		{
 			if(spk==0)return;
 			nm.lock();
@@ -70,7 +72,7 @@ struct jstp
 				if(!vs)
 				{
 					m.jss.drk();
-					std::thread s([this,&m]()
+					std::thread s([this]()
 					{
 						while(1)
 						{
@@ -79,10 +81,10 @@ struct jstp
 							p=np;
 							bool tc=vs==2;
 							vs--;
-							if(!tc)sjskl(m);
+							if(!tc)sjskl();
 							nm.unlock();
 							if(!tc)break;
-							auto b=[&m](std::vector<vk::v> p){m.vk.pmb(p,m.stsl.p,&m.stsl);};
+							auto b=[this](std::vector<vk::v> p){m.vk.pmb(p,m.stsl.p,&m.stsl);};
 							b(p==-3?vk::vs({70,2}):p==-2?vk::vs({51,8,75}):vk::vs({5,75}));
 							auto s=spk->k(p);
 							if(s.size())b(s);
@@ -94,12 +96,12 @@ struct jstp
 			}
 			nm.unlock();
 		}
-	}sc;
+	}sc{.spk=&tdv,.m=*this};
 	void dk()
 	{
 		snd.pk=[this](int p)
 		{
-			sc.bk(p,*this);
+			sc.bk(p);
 		};
 		dp.pk=[this]()
 		{
@@ -146,7 +148,7 @@ extern "C"
 EMSCRIPTEN_KEEPALIVE void jstnk(void *s,int p)
 {
 	auto jst=(jstp*)s;
-	jst->sc.bk(p,*jst);
+	jst->sc.bk(p);
 }
 EMSCRIPTEN_KEEPALIVE void jssnr(void* s)
 {
