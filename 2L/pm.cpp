@@ -86,9 +86,9 @@ struct jstp
 					if(!p.repeat)
 					{
 						let pt=null;
-						if(p.key=='ArrowUp'||p.key=='ArrowDown')pt=0;
-						else if(p.key=='ArrowRight')pt=1;
-						else if(p.key=='ArrowLeft')pt=-1;
+						if(p.key==' '||p.key=='Enter')pt=0;
+						else if(p.key=='ArrowDown')pt=1;
+						else if(p.key=='ArrowUp')pt=-1;
 						if(pt!=null)Module.ccall('jstnk',null,['number','number'],[$0,pt]);
 					}
 				});
