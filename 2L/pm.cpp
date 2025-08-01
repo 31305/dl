@@ -9,7 +9,6 @@
 #include<vk/vk.h>
 #include<cd.h>
 bool vksvl=0;
-std::vector<sm::svm> jsml();
 struct cdpv
 {
 	cd cdr;
@@ -36,6 +35,7 @@ struct cdpv
 		k=kn;
 	}
 };
+std::vector<sm::svm> jsml();
 struct jstp
 {
 	jsdp dp;
@@ -46,23 +46,28 @@ struct jstp
 	cdpv cd=cdpv({.dp=dp});
 	vk::stslp stsl=vk::stslp(vk.mt.outputSampleRate());
 	jvn jss=jvn(vk.mt.outputSampleRate(),stsl.pc,&(stsl.vy),[this](){dk();});
-	bool vs=0;
-	void bk(int p)
+	struct
 	{
-		printf("p %d\n",p);
-		if(!vs)
+		bool vs=0;
+		ptp* spk=0;
+		int np=-4;
+		void bk(int p,jstp& m)
 		{
-			jss.drk();
-			vs=1;
-			std::thread s([this](){vk.pmb(vk::vs({51,8,75}),stsl.p,&stsl);vs=0;});
-			s.detach();
+			if(np!=-4)return;
+			if(!vs)
+			{
+				m.jss.drk();
+				vs=1;
+				std::thread s([this,&m](){m.vk.pmb(vk::vs({51,8,75}),m.stsl.p,&m.stsl);vs=0;});
+				s.detach();
+			}
 		}
-	}
+	}sc;
 	void dk()
 	{
 		snd.pk=[this](int p)
 		{
-			bk(p);
+			sc.bk(p,*this);
 		};
 		dp.pk=[this]()
 		{
@@ -109,7 +114,7 @@ extern "C"
 EMSCRIPTEN_KEEPALIVE void jstnk(void *s,int p)
 {
 	auto jst=(jstp*)s;
-	jst->bk(p);
+	jst->sc.bk(p,*jst);
 }
 }
 jstp jst;
