@@ -60,7 +60,7 @@ struct jstp
 		void sjskl()
 		{
 			sjsk=emscripten_get_now()/1000.0;
-			MAIN_THREAD_ASYNC_EM_ASM({setTimeout(Module.ccall('jssnr',null,['number'],[$0]),2.0*$1)},&m,snrn);
+			MAIN_THREAD_ASYNC_EM_ASM({setTimeout(()=>{Module.ccall('jssnr',null,['number'],[$0])},2.0*$1*1000.0)},&m,snrn);
 		}
 		void bk(int p)
 		{
