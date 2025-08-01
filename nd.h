@@ -26,7 +26,7 @@ struct nd
 		if(s<0)s2-=vv;
 		for(size_t k=0;k<abs(s);k++)
 		{
-			vs[k]={s1+vv/10,s2+vv/10,vv*4/5,vv*4/5,1.0f,1.0f,1.0f,.5f};
+			vs[k]={s1+vv/10,s2+vv/10,vv*4/5,vv*4/5,1.0f,1.0f,.0f,.3f};
 			s2+=s>0?vv:-vv;
 		}
 		dvs.cl(vs,dp.vpv1,dp.vpv2);
