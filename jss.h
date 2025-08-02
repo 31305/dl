@@ -33,17 +33,8 @@ struct jvn
 				pv.resume();
 				vkk.connect(pv.destination);
 			}
-			else if($2==2)
-			{
-				pv.suspend();
-			}
+			else if($2==2)pv.suspend();
 			},pv,vkk,kv);
-	}
-	void ssk()
-	{
-		EM_ASM({let pv=emscriptenGetAudioObject($0);
-				pv.suspend();
-			},pv);
 	}
 	static void dpk(EMSCRIPTEN_WEBAUDIO_T pv,EM_BOOL ss,void* sg)
 	{
