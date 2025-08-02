@@ -67,7 +67,7 @@ struct nd
 					int vk2=ns2-ms2;
 					int vv=10*((std::min(dp.vpv1,dp.vpv2)/9)/10);
 					if(abs(vk2)>=vv&&abs(vk2)>abs(vk1))
-						pk(vk2>0?-1:-3);
+						pk(vk2<0?-1:-3);
 					else if(abs(vk1)<vv&&abs(vk2)<vv)pk(-2);
 				}
 			}

@@ -84,10 +84,8 @@ struct jstp
 							if(!tc)sjskl();
 							nm.unlock();
 							if(!tc)break;
-							auto b=[this](std::vector<vk::v> p){m.vk.pmb(p,m.stsl.p,&m.stsl);};
-							b(p==-3?vk::vs({70,2}):p==-2?vk::vs({51,8,75}):vk::vs({5,75}));
 							auto s=spk->k(p);
-							if(s.size())b(s);
+							for(size_t k=0;k<s.size();k++)m.vk.pmb(s[k],m.stsl.p,&m.stsl);
 						}
 					});
 					s.detach();
