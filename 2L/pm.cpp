@@ -10,6 +10,7 @@
 #include<cd.h>
 #include<mutex>
 #include"dl.h"
+#include<kk.h>
 bool vksvl=0;
 struct ksv:ptp
 {
@@ -22,28 +23,14 @@ struct ksv:ptp
 struct dlpv
 {
 	dl dlr;
-	float pkb=0.0;
-	float kb=1.0;
+	kk tk={.pm=0.0,.m=1.0,.g=1.0};
 	jsdp &dp;
-	double k=0;
-	double g=1.0;
 	void ck(double kn,bool)
 	{
 		float b=8;
 		float vd=std::min(dp.vpv1/b,dp.vpv2/b);
-		dlr.cl(dp.vpv1,dp.vpv2,vd,vd*1.2,pkb);
-		if(pkb!=kb)
-		{
-			dp.cnr();
-			if(k!=0)
-			{
-				double v=g*(kn-k)/1000.0;
-				if(abs(kb-pkb)<v)pkb=kb;
-				else if(pkb<kb)pkb+=v;
-				else pkb-=v;
-			}
-		}
-		k=kn;
+		if(tk.ck(kn))dp.cnr();
+		dlr.cl(dp.vpv1,dp.vpv2,vd,vd*1.2,tk.pm);
 	}
 };
 struct cdpv
