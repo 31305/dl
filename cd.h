@@ -18,13 +18,14 @@ struct cd
 	uniform vec2 v;
 	void main()
 	{
-		vec2 dvn=(gl_FragCoord.xy-0.5*v)/vd;
-		float d=dot(dvn,dvn);
-		float ts=sqrt(1.0-dot(dvn,dvn));
-		vec3 ds=normalize(vec3(dvn.x,dvn.y,ts));
+		vec2 dvn=(gl_FragCoord.xy-0.5*v);
+		float d=length(dvn);
+		float kt=d/vd;
+		float ts=sqrt(1.0-kt*kt);
+		vec3 ds=normalize(vec3(dvn.x/vd,dvn.y/vd,ts));
 		vec3 ss=vec3(0,cos(sk),sin(sk));
 		float cv=1.0;
-		gl_FragColor=vec4((1.0-smoothstep(1.0-0.05,1.0,sqrt(d)))*dot(ss,ds)*vec3(cv),1.0);
+		gl_FragColor=vec4(dot(ss,ds)*vec3(cv),1.0-smoothstep(vd-2.0,vd,d));
 	}
 	)";
 
