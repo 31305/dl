@@ -36,27 +36,14 @@ struct dlpv
 struct cdpv
 {
 	cd cdr;
-	float pss=-M_PI/2.0;
-	float ss=M_PI/2.0;
+	kk ss={.pm=-M_PI/2.0,.m=M_PI/2.0,.g=M_PI*0.1};
 	jsdp &dp;
 	double k=0;
-	double g=M_PI*0.1;
 	void ck(double kn,bool)
 	{
 		float b=8;
-		cdr.cl(dp.vpv1,dp.vpv2,std::min(dp.vpv1/b,dp.vpv2/b),pss);
-		if(pss!=ss)
-		{
-			dp.cnr();
-			if(k!=0)
-			{
-				double v=g*(kn-k)/1000.0;
-				if(abs(ss-pss)<v)pss=ss;
-				else if(pss<ss)pss+=v;
-				else pss-=v;
-			}
-		}
-		k=kn;
+		if(ss.ck(kn))dp.cnr();
+		cdr.cl(dp.vpv1,dp.vpv2,std::min(dp.vpv1/b,dp.vpv2/b),ss.pm);
 	}
 };
 struct jstp
@@ -66,7 +53,7 @@ struct jstp
 	sm::m mk;
 	nd snd={.dp=dp,.dvs=dvs,.sn=0};
 	vk::vks vk;
-	dlpv dl=dlpv({.dp=dp});
+	dlpv dl={.dp=dp};
 	vk::stslp stsl=vk::stslp(vk.mt.outputSampleRate());
 	jvn jss=jvn(vk.mt.outputSampleRate(),stsl.pc,&(stsl.vy),[this](){dk();});
 	ksv tdv;
