@@ -10,6 +10,14 @@
 #include<cd.h>
 #include<mutex>
 bool vksvl=0;
+struct ksv:ptp
+{
+	std::vector<std::vector<vk::v>> k(int p)
+	{
+		auto ps=(p==-3?vk::vs({70,2}):p==-2?vk::vs({51,8,75}):vk::vs({5,75}));
+		return {ps,vk::vs({46,5,56,3,51,1,75})};
+	}
+};
 struct cdpv
 {
 	cd cdr;
@@ -36,7 +44,6 @@ struct cdpv
 		k=kn;
 	}
 };
-std::vector<sm::svm> jsml();
 struct jstp
 {
 	jsdp dp;
@@ -110,10 +117,6 @@ struct jstp
 				dv::kvsl dv={(dp.vpv1-vv)/2+vv/10,(dp.vpv2-vv)/2+vv/10,vv*4/5,vv*4/5,0,0,0,1.0};
 				dvs.cl({v,dv},dp.vpv1,dp.vpv2);
 			};
-			[[maybe_unused]]auto pkd=[this](double kn,bool vpv)
-			{
-				mk.mk(jsml(),dp.vpv1,dp.vpv2,std::max(90.0,2.0*180.0*std::atan((float)dp.vpv2/(float)dp.vpv1)/M_PI),0,0,-2);
-			};
 			dp.sck=
 			{
 				[this](double kn,bool vpv){cd.ck(kn,vpv);},
@@ -157,54 +160,3 @@ EMSCRIPTEN_KEEPALIVE void jssnr(void* s)
 }
 }
 jstp jst;
-std::vector<sm::svm> jsml()
-{
-	sm::cs v={.6,.6,.3,1};
-	sm::cs dv={.2,.3,.4,1};
-	float m=.25,p=.25;
-	return
-	{
-		{{-1,-1,0},v},
-		{{1,-1,0},v},
-		{{1,1,0},v},
-		{{-1,-1,0},v},
-		{{-1,1,0},v},
-		{{1,1,0},v},
-		{{-1,-m+.75f,0},dv},
-		{{1,-m+.75f,0},dv},
-		{{1,-m+.75f,p},dv},
-		{{1,-m+.75f,p},dv},
-		{{-1,-m+.75f,p},dv},
-		{{-1,-m+.75f,0},dv},
-		{{-1,m+.75f,0},dv},
-		{{1,m+.75f,0},dv},
-		{{1,m+.75f,p},dv},
-		{{1,m+.75f,p},dv},
-		{{-1,m+.75f,p},dv},
-		{{-1,m+.75f,0},dv},
-		{{-1,-m+.75f,p},dv},
-		{{1,-m+.75f,p},dv},
-		{{1,m+.75f,p},dv},
-		{{-1,-m+.75f,p},dv},
-		{{-1,m+.75f,p},dv},
-		{{1,m+.75f,p},dv},
-		{{-1,-m-.75f,0},dv},
-		{{1,-m-.75f,0},dv},
-		{{1,-m-.75f,p},dv},
-		{{1,-m-.75f,p},dv},
-		{{-1,-m-.75f,p},dv},
-		{{-1,-m-.75f,0},dv},
-		{{-1,m-.75f,0},dv},
-		{{1,m-.75f,0},dv},
-		{{1,m-.75f,p},dv},
-		{{1,m-.75f,p},dv},
-		{{-1,m-.75f,p},dv},
-		{{-1,m-.75f,0},dv},
-		{{-1,-m-.75f,p},dv},
-		{{1,-m-.75f,p},dv},
-		{{1,m-.75f,p},dv},
-		{{-1,-m-.75f,p},dv},
-		{{-1,m-.75f,p},dv},
-		{{1,m-.75f,p},dv},
-	};
-}
