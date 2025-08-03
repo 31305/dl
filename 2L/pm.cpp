@@ -9,6 +9,7 @@
 #include<vk/vk.h>
 #include<cd.h>
 #include<mutex>
+#include"dl.h"
 bool vksvl=0;
 struct ksv:ptp
 {
@@ -16,6 +17,33 @@ struct ksv:ptp
 	{
 		auto ps=(p==-3?vk::vs({70,2}):p==-2?vk::vs({51,8,75}):vk::vs({5,75}));
 		return {ps,vk::vs({46,5,56,3,51,1,75})};
+	}
+};
+struct dlpv
+{
+	dl dlr;
+	float pkb=0.0;
+	float kb=1.0;
+	jsdp &dp;
+	double k=0;
+	double g=1.0;
+	void ck(double kn,bool)
+	{
+		float b=8;
+		float vd=std::min(dp.vpv1/b,dp.vpv2/b);
+		dlr.cl(dp.vpv1,dp.vpv2,vd,vd*1.2,pkb);
+		if(pkb!=kb)
+		{
+			dp.cnr();
+			if(k!=0)
+			{
+				double v=g*(kn-k)/1000.0;
+				if(abs(kb-pkb)<v)pkb=kb;
+				else if(pkb<kb)pkb+=v;
+				else pkb-=v;
+			}
+		}
+		k=kn;
 	}
 };
 struct cdpv
@@ -51,7 +79,7 @@ struct jstp
 	sm::m mk;
 	nd snd={.dp=dp,.dvs=dvs,.sn=0};
 	vk::vks vk;
-	cdpv cd=cdpv({.dp=dp});
+	dlpv dl=dlpv({.dp=dp});
 	vk::stslp stsl=vk::stslp(vk.mt.outputSampleRate());
 	jvn jss=jvn(vk.mt.outputSampleRate(),stsl.pc,&(stsl.vy),[this](){dk();});
 	ksv tdv;
@@ -119,7 +147,7 @@ struct jstp
 			};
 			dp.sck=
 			{
-				[this](double kn,bool vpv){cd.ck(kn,vpv);},
+				[this](double kn,bool vpv){dl.ck(kn,vpv);},
 				[this](double kn,bool vpv){snd.ck(kn,vpv);},
 			};
 			{
