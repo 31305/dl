@@ -16,6 +16,7 @@ struct ksv:ptp
 {
 	std::vector<std::vector<vk::v>> k(int p)
 	{
+		if(p==-4)return {};
 		auto ps=(p==-3?vk::vs({70,2}):p==-2?vk::vs({51,8,75}):vk::vs({5,75}));
 		return {ps,vk::vs({46,5,56,3,51,1,75})};
 	}
@@ -75,7 +76,7 @@ struct jstp
 		{
 			if(spk==0)return;
 			nm.lock();
-			if(vs<2)
+			if(1||vs<2)
 			{
 				np=p;
 				if(!vs)
@@ -106,10 +107,8 @@ struct jstp
 	}sc{.spk=&tdv,.m=*this};
 	void dk()
 	{
-		snd.pk=[this](int p)
-		{
-			sc.bk(p);
-		};
+		tdv.dbks([this](){sc.bk(-4);});
+		snd.pk=[this](int p){sc.bk(p);};
 		dp.pk=[this]()
 		{
 			[[maybe_unused]]auto md=[this](double,bool)
