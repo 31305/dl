@@ -39,7 +39,6 @@ struct cdpv
 	cd cdr;
 	kk ss={.pm=-M_PI/2.0,.m=M_PI/2.0,.g=M_PI*0.1};
 	jsdp &dp;
-	double k=0;
 	void ck(double kn,bool)
 	{
 		float b=8;
