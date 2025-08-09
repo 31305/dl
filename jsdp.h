@@ -72,6 +72,13 @@ struct jsdp
 		return 0;
 	}
 };
+std::string inline jsn()
+{
+	char *p=(char*)EM_ASM_PTR({return stringToNewUTF8(window.location.href)});
+	std::string tp=std::string(p);
+	if(p)free(p);
+	return tp;
+}
 extern "C"
 {
 EMSCRIPTEN_KEEPALIVE inline void jsdpvp(size_t p,int v1,int v2)

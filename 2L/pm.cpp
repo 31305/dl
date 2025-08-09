@@ -11,6 +11,7 @@
 #include<mutex>
 #include"dl.h"
 #include<kk.h>
+#include<psv.h>
 bool vksvl=0;
 struct ksv:ptp
 {
@@ -56,10 +57,9 @@ struct jstp
 	dlpv dl={.dp=dp};
 	vk::stslp stsl=vk::stslp(vk.mt.outputSampleRate());
 	jvn jss=jvn(vk.mt.outputSampleRate(),stsl.pc,&(stsl.vy),[this](){dk();});
-	ksv tdv;
 	struct scp
 	{
-		ptp* spk=0;
+		std::unique_ptr<ptp> spk=0;
 		jstp& m;
 		int np;
 		int vs=0;
@@ -103,10 +103,32 @@ struct jstp
 			}
 			nm.unlock();
 		}
-	}sc{.spk=&tdv,.m=*this};
+	}sc{.m=*this};
+	void vss()
+	{
+		auto n=jsn();
+		auto ksvv=[this](){sc.spk=std::make_unique<ksv>();};
+		size_t ms=n.find('?');
+		if(ms!=-1&&ms<n.size()-3&&n[ms+1]=='1'&&n[ms+2]==':')
+		{
+			bool nv=1;
+			for(size_t k=ms+3;k<n.size();k++)if(!(n[k]>='0'&&n[k]<='9')){nv=0;break;}
+			if(nv)
+			{
+				int k=std::stoi(n.substr(ms+3));
+				auto p=psv::pss();
+				if(k<p.size())
+				{
+					sc.spk=std::make_unique<psv::psv>(psv::psv(p[k]));
+					return;
+				}
+			}
+		}
+		ksvv();
+	}
 	void dk()
 	{
-		tdv.dbks([this](){sc.bk(-4);});
+		sc.spk->dbks([this](){sc.bk(-4);});
 		snd.pk=[this](int p){sc.bk(p);};
 		dp.pk=[this]()
 		{
