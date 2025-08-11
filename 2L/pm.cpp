@@ -128,6 +128,7 @@ struct jstp
 	}
 	void dk()
 	{
+		vss();
 		sc.spk->dbks([this](){sc.bk(-4);});
 		snd.pk=[this](int p){sc.bk(p);};
 		dp.pk=[this]()
