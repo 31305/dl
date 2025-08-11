@@ -1,3 +1,4 @@
+#include<emscripten/fetch.h>
 #include<emscripten/emscripten.h>
 #include<jsdp.h>
 #include<dv.h>
@@ -105,6 +106,25 @@ struct jstp
 			nm.unlock();
 		}
 	}sc{.m=*this};
+	void jvss(const char* s)
+	{
+		emscripten_fetch_attr_t l;
+		emscripten_fetch_attr_init(&l);
+		l.userData=this;
+		strcpy(l.requestMethod,"GET");
+		l.attributes=EMSCRIPTEN_FETCH_LOAD_TO_MEMORY;
+		auto pk=[](emscripten_fetch_t* p)
+		{
+			std::vector<std::vector<std::vector<vk::v>>> ps;
+			if(p->status==200)ps={{vk::vs({71,44,5,71,66,3,75})}};
+			else ps={{vk::vs({70,2,71,44,5,71,66,3,75})}};
+			((jstp*)(p->userData))->sc.spk=std::make_unique<psv::psv>(ps);
+			emscripten_fetch_close(p);
+		};
+		l.onsuccess=pk;
+		l.onerror=pk;
+		emscripten_fetch(&l,s);
+	}
 	void vss()
 	{
 		auto n=jsn();
