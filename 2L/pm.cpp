@@ -19,7 +19,8 @@ struct ksv:ptp
 	{
 		if(p==-4)return {};
 		auto ps=(p==-3?vk::vs({70,2}):p==-2?vk::vs({51,8,75}):vk::vs({5,75}));
-		return {ps,vk::vs({46,5,56,3,51,1,75})};
+		if(p==-2)return {ps,vk::vs({46,5,56,3,51,1,75})};
+		else return {ps};
 	}
 };
 struct dlpv
@@ -117,9 +118,9 @@ struct jstp
 			{
 				int k=std::stoi(n.substr(ms+3));
 				auto p=psv::pss();
-				if(k<p.size())
+				if(k>0&&k<=p.size())
 				{
-					sc.spk=std::make_unique<psv::psv>(psv::psv(p[k]));
+					sc.spk=std::make_unique<psv::psv>(psv::psv(p[k-1]));
 					return;
 				}
 			}
