@@ -5,6 +5,7 @@
 #include<vector>
 struct jsdp
 {
+	const bool vscl;
 	EMSCRIPTEN_WEBGL_CONTEXT_HANDLE ps;
 	std::function<void()> pk;
 	size_t tkc=(size_t)this;
@@ -13,6 +14,7 @@ struct jsdp
 	std::vector<std::function<void(double,bool)>> sck;
 	std::function<void(int,bool,double,double)> ndk=0;
 	int vpv1,vpv2;
+	jsdp(const bool pvscl=1):vscl(pvscl){};
 	void dk()
 	{
 		EM_ASM
@@ -62,8 +64,11 @@ struct jsdp
 		jsdp* p=(jsdp*)pd;
 		if(p->db)
 		{
-			glClearColor(0,0,0,1);
-			glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+			if(p->vscl)
+			{
+				glClearColor(0,0,0,1);
+				glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+			}
 			p->c=0;
 			for(size_t k=0;k<p->sck.size();k++)
 				if(p->sck[k])p->sck[k](kn,p->vpv);
@@ -89,24 +94,27 @@ EMSCRIPTEN_KEEPALIVE inline void jsdpvp(size_t p,int v1,int v2)
 	if(!s->db)
 	{
 		s->db=1;
-		EmscriptenWebGLContextAttributes dpps;
-		emscripten_webgl_init_context_attributes(&dpps);
-		dpps.alpha=EM_FALSE;
-		dpps.depth=EM_TRUE;
-		dpps.stencil=EM_FALSE;
-		dpps.antialias=EM_TRUE;
-		dpps.majorVersion=1;
-		dpps.minorVersion=0;
-		s->ps=emscripten_webgl_create_context((std::string("#jsdp")+std::to_string(s->tkc)).c_str(),&dpps);
-		emscripten_webgl_make_context_current(s->ps);
-		glEnable(GL_BLEND);
-		glEnable(GL_DEPTH_TEST);
-		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+		if(s->vscl)
+		{
+			EmscriptenWebGLContextAttributes dpps;
+			emscripten_webgl_init_context_attributes(&dpps);
+			dpps.alpha=EM_FALSE;
+			dpps.depth=EM_TRUE;
+			dpps.stencil=EM_FALSE;
+			dpps.antialias=EM_TRUE;
+			dpps.majorVersion=1;
+			dpps.minorVersion=0;
+			s->ps=emscripten_webgl_create_context((std::string("#jsdp")+std::to_string(s->tkc)).c_str(),&dpps);
+			emscripten_webgl_make_context_current(s->ps);
+			glEnable(GL_BLEND);
+			glEnable(GL_DEPTH_TEST);
+			glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+		}
 		if(s->pk)s->pk();
 	}
 	else
 	{
-		glViewport(0,0,v1,v2);
+		if(s->vscl)glViewport(0,0,v1,v2);
 	}
 	s->vpv=1;
 	s->cnr();
