@@ -6,3 +6,68 @@ struct ptp
 	virtual void dbks(std::function<void()>){}
 	virtual ~ptp()=default;
 };
+struct svvs
+{
+	std::vector<svvs> pv;
+	std::vector<std::vector<vk::v>> s;
+	std::function<void()> nk=0;
+};
+struct bvv:ptp
+{
+	std::vector<svvs*> pvk;
+	svvs m;
+	void ksm()
+	{
+		auto t=pvk.back();
+		pvk.pop_back();
+		while(pvk.size())
+		{
+			auto p=pvk.back();
+			if(t-&p->pv[0]<p->pv.size()-1)
+			{
+				pvk.push_back(t+1);
+				break;
+			}
+			t=p;
+			pvk.pop_back();
+		}
+	}
+	std::vector<std::vector<vk::v>> k(int p)override
+	{
+		if(p==-3)
+		{
+			std::vector<std::vector<vk::v>> tp={vk::vs({70,2})};
+			if(pvk.back()->pv.size()||pvk.back()->nk)ksm();
+			else pvk.pop_back();
+			if(pvk.size())tp.insert(tp.end(),pvk.back()->s.begin(),pvk.back()->s.end());
+			return tp;
+		}
+		else if(p==-2)
+		{
+			std::vector<std::vector<vk::v>> tp={vk::vs({51,8,75})};
+			if(!pvk.size())pvk.push_back(&m);
+			tp.insert(tp.end(),pvk.back()->s.begin(),pvk.back()->s.end());
+			return tp;
+		}
+		else if(p==-1)
+		{
+			std::vector<std::vector<vk::v>> tp={vk::vs({5,75})};
+			if(pvk.size())
+			{
+				if(pvk.back()->pv.size())
+				{
+					pvk.push_back(&pvk.back()->pv[0]);
+					tp.insert(tp.end(),pvk.back()->s.begin(),pvk.back()->s.end());
+				}
+				else if(pvk.back()->nk)pvk.back()->nk();
+				else
+				{
+					ksm();
+					if(pvk.size())tp.insert(tp.end(),pvk.back()->s.begin(),pvk.back()->s.end());
+				}
+			}
+			return tp;
+		}
+		return {};
+	}
+};
