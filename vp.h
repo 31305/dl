@@ -4,6 +4,7 @@ struct ptp
 {
 	virtual std::vector<std::vector<vk::v>> k(int)=0;
 	virtual void dbks(std::function<void()>){}
+	virtual void vtpk(){}
 	virtual ~ptp()=default;
 };
 struct svvs
@@ -17,6 +18,12 @@ struct bvv:ptp
 	std::vector<svvs*> pvk;
 	svvs m;
 	bvv(const svvs& pm):m(pm){}
+	std::function<void()> nk=0;
+	void vtpk()override
+	{
+		if(nk)nk();
+		nk=0;
+	}
 	void ksm()
 	{
 		auto t=pvk.back();
@@ -63,7 +70,7 @@ struct bvv:ptp
 					pvk.push_back(&pvk.back()->pv[0]);
 					tp.insert(tp.end(),pvk.back()->s.begin(),pvk.back()->s.end());
 				}
-				else if(pvk.back()->nk)pvk.back()->nk();
+				else if(pvk.back()->nk)nk=pvk.back()->nk;
 				else
 				{
 					ksm();

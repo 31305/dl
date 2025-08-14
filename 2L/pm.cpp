@@ -1,5 +1,6 @@
 #include<emscripten/fetch.h>
 #include<emscripten/emscripten.h>
+#include<emscripten/threading.h>
 #include<jsdp.h>
 #include<dv.h>
 #include<m.h>
@@ -97,6 +98,8 @@ struct jstp
 							if(!tc)break;
 							auto s=spk->k(p);
 							for(size_t k=0;k<s.size();k++)m.vk.pmb(s[k],m.stsl.p,&m.stsl);
+							auto pkk=[](void* p){((ptp*)p)->vtpk();};
+							emscripten_sync_run_in_main_runtime_thread(EM_FUNC_SIG_VI,(void(*)(void*))pkk,spk.get());
 						}
 					});
 					s.detach();
