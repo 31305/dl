@@ -16,6 +16,7 @@ struct bvv:ptp
 {
 	std::vector<svvs*> pvk;
 	svvs m;
+	bvv(const svvs& pm):m(pm){}
 	void ksm()
 	{
 		auto t=pvk.back();
@@ -37,8 +38,11 @@ struct bvv:ptp
 		if(p==-3)
 		{
 			std::vector<std::vector<vk::v>> tp={vk::vs({70,2})};
-			if(pvk.back()->pv.size()||pvk.back()->nk)ksm();
-			else pvk.pop_back();
+			if(pvk.size())
+			{
+				if(pvk.back()->pv.size()||pvk.back()->nk)ksm();
+				else pvk.pop_back();
+			}
 			if(pvk.size())tp.insert(tp.end(),pvk.back()->s.begin(),pvk.back()->s.end());
 			return tp;
 		}

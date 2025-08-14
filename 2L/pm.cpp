@@ -128,7 +128,7 @@ struct jstp
 	void vss()
 	{
 		auto n=jsn();
-		auto ksvv=[this](){sc.spk=std::make_unique<ksv>();};
+		auto ksvv=[this](){sc.spk=std::make_unique<bvv>(svvs({.s={vk::vs({51,8,76,45,3,51,48,43,1,66,31})}}));};
 		size_t ms=n.find('?');
 		if(ms!=-1&&ms<n.size()-3&&n[ms+1]=='1'&&n[ms+2]==':')
 		{
