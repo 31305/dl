@@ -12,6 +12,8 @@ struct svvs
 	std::vector<svvs> pv;
 	std::vector<std::vector<vk::v>> s;
 	std::function<void()> nk=0;
+	svvs(std::initializer_list<std::initializer_list<unsigned char>> ps,std::initializer_list<svvs> pvs={})
+		:pv(pvs){for(auto&& k:ps)s.push_back(vk::vs(k));}
 };
 struct bvv:ptp
 {
