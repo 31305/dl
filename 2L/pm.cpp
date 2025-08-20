@@ -12,6 +12,7 @@
 #include<cd.h>
 #include<mutex>
 #include"dl.h"
+#include"vsg.h"
 #include<kk.h>
 #include<psv.h>
 bool vksvl=0;
@@ -121,7 +122,7 @@ struct jstp
 	void vss()
 	{
 		auto n=jsn();
-		auto ksvv=[this](){sc.spk=std::make_unique<bvv>(svvs({{51,8,76,45,3,51,48,43,1,66,31}},{{{{51,1,67,5}}},{{{47,4,49,66,44,2,75}}}}));};
+		auto ksvv=[this](){sc.spk=std::make_unique<bvv>(vsg());};
 		size_t ms=n.find('?');
 		if(ms!=-1&&ms<n.size()-3&&n[ms+1]=='1'&&n[ms+2]==':')
 		{
