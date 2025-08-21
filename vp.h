@@ -19,7 +19,7 @@ struct bvv:ptp
 {
 	std::vector<svvs*> pvk;
 	svvs m;
-	bvv(const svvs& pm):m(pm){printf("ks %ld\n",m.pv.size());}
+	bvv(const svvs& pm):m(pm){}
 	std::function<void()> nk=0;
 	void vtpk()override
 	{
