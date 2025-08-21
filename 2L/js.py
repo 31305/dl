@@ -3,7 +3,7 @@ import sys
 from os import system
 ls='./rs'
 system('mkdir -p '+ls)
-system('cp 2L.html '+ls)
+system('cp 2L.html '+ls+'/index.html')
 system('cp ss.js '+ls)
 system('cp 2L.svg '+ls)
 system('cp sks '+ls)
