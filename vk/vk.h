@@ -363,7 +363,7 @@ struct stslp
 };
 struct vks
 {
-	const bool smg=getenv("SMG");
+	bool smg=0;
 	GS::VTM::VocalTractModel5<double,1> mt=GS::VTM::VocalTractModel5<double,1>();
 	double mk=0.1;
 	size_t vks=0;

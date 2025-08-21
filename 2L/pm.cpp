@@ -88,6 +88,7 @@ struct jstp
 							nm.unlock();
 							if(!tc)break;
 							auto s=spk->k(p);
+							m.vk.smg=1;
 							for(size_t k=0;k<s.size();k++)m.vk.pmb(s[k],m.stsl.p,&m.stsl);
 							auto pkk=[](void* p){((ptp*)p)->vtpk();};
 							emscripten_sync_run_in_main_runtime_thread(EM_FUNC_SIG_VI,(void(*)(void*))pkk,spk.get());
