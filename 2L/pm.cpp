@@ -125,6 +125,7 @@ struct jstp
 		auto n=jsn();
 		auto ksvv=[this](){sc.spk=std::make_unique<bvv>(vsg());};
 		size_t ms=n.find('?');
+		if(ms==-1)ms=n.find('#');
 		if(ms!=-1&&ms<n.size()-3&&n[ms+1]=='1'&&n[ms+2]==':')
 		{
 			bool nv=1;
