@@ -11,10 +11,11 @@
 #include<vk/vk.h>
 #include<cd.h>
 #include<mutex>
-#include"dl.h"
-#include"vsg.h"
 #include<kk.h>
 #include<psv.h>
+#include<ns.h>
+#include"dl.h"
+#include"vsg.h"
 bool vksvl=0;
 struct dlpv
 {
