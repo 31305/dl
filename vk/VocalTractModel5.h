@@ -54,7 +54,8 @@ namespace VTM {
 template<typename TFloat, unsigned int SectionDelay>
 class VocalTractModel5 : public VocalTractModel {
 public:
-	explicit VocalTractModel5(bool interactive=false);
+	struct Configuration;
+	explicit VocalTractModel5(bool interactive=false,std::function<void(Configuration &)> pk=0);
 	virtual ~VocalTractModel5() = default;
 
 	virtual void reset();
@@ -220,11 +221,6 @@ public:
 		PARAM_VB         = 19,
 		TOTAL_PARAMETERS = 20
 	};
-private:
-	enum LogParameters {
-		log_param_vtm5_pitch
-	};
-
 	struct Configuration {
 		TFloat outputRate;                  // output sample rate (22.05, 44.1)
 		int    waveform;                    // GS waveform type (0=PULSE, 1=SINE)
@@ -247,6 +243,11 @@ private:
 		TFloat maxGlottalLoss;              // maximum loss at glottis (%)
 		TFloat glottalLowpassCutoff;        // glottal wave lowpass cutoff frequency (Hz)
 		int    bypass;
+	};
+
+private:
+	enum LogParameters {
+		log_param_vtm5_pitch
 	};
 	struct Junction2 {
 		TFloat coeff{};
@@ -387,11 +388,12 @@ private:
 
 
 template<typename TFloat, unsigned int SectionDelay>
-VocalTractModel5<TFloat, SectionDelay>::VocalTractModel5(bool interactive)
+VocalTractModel5<TFloat, SectionDelay>::VocalTractModel5(bool interactive,std::function<void(Configuration &)> pk)
 		: interactive_(interactive)
 		, logParameters_()
 {
 	loadConfiguration();
+	if(pk)pk(config_);
 	VocalTractModel5::reset();
 	initializeSynthesizer();
 	outputBuffer_.reserve(OUTPUT_BUFFER_RESERVE);
