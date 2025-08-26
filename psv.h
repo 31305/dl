@@ -36,12 +36,16 @@ namespace psv
 			return {};
 		}
 	};
-	inline std::vector<std::vector<std::vector<std::vector<vk::v>>>> pss()
+	inline std::function<std::unique_ptr<ptp>()> sl(const std::vector<std::vector<std::vector<vk::v>>> &p)
+	{
+		return [p](){return std::make_unique<psv>(psv(p));};
+	}
+	inline std::vector<std::function<std::unique_ptr<ptp>()>> pss()
 	{
 		return
 		{
-			{{vk::vs({46,43,4,54,44,38,50,3,70,66,7}),vk::vs({51,8,75})},{vk::vs({75,19,53,5,70})}},
-			{{vk::vs({71,14,49,66,3,51,1,76,51,14,66,39,45,1,74,43,1,66,31})}},
+			sl({{vk::vs({46,43,4,54,44,38,50,3,70,66,7}),vk::vs({51,8,75})},{vk::vs({75,19,53,5,70})}}),
+			sl({{vk::vs({71,14,49,66,3,51,1,76,51,14,66,39,45,1,74,43,1,66,31})}}),
 		};
 	}
 }

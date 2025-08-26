@@ -137,7 +137,7 @@ struct jstp
 				auto p=psv::pss();
 				if(k>0&&k<=p.size())
 				{
-					sc.spk=std::make_unique<psv::psv>(psv::psv(p[k-1]));
+					sc.spk=p[k-1]();
 					return;
 				}
 			}
@@ -151,13 +151,6 @@ struct jstp
 		snd.pk=[this](int p){sc.bk(p);};
 		dp.pk=[this]()
 		{
-			[[maybe_unused]]auto md=[this](double,bool)
-			{
-				int vv=10*((std::min(dp.vpv1,dp.vpv2)/7)/10);
-				dv::kvsl v={(dp.vpv1-vv)/2,(dp.vpv2-vv)/2,vv,vv,.25,0,.25,1};
-				dv::kvsl dv={(dp.vpv1-vv)/2+vv/10,(dp.vpv2-vv)/2+vv/10,vv*4/5,vv*4/5,0,0,0,1.0};
-				dvs.cl({v,dv},dp.vpv1,dp.vpv2);
-			};
 			dp.sck=
 			{
 				[this](double kn,bool vpv){dl.ck(kn,vpv);},
