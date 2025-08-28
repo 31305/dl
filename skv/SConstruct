@@ -1,0 +1,10 @@
+import os
+import subprocess
+import urllib.request
+import shutil
+p=Environment(COMPILATIONDB_USE_ABSPATH=True,CCFLAGS=['-Wall','-I../','-O2'],CXXFLAGS=['--std=c++20'],LIBS='pthread')
+p.AppendENVPath('PATH',os.environ.get('PATH'))
+p.Tool('compilation_db')
+p.CompilationDatabase()
+ss=['m.cpp']
+skv=p.Program('skv',ss)
