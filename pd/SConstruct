@@ -1,0 +1,34 @@
+import os
+import subprocess
+import urllib.request
+import shutil
+p=Environment(COMPILATIONDB_USE_ABSPATH=True,CCFLAGS=['-Wall','-I../','-Icpd/include','-Icpd/build/Emscripten/include','-sUSE_PTHREADS=1'],CXXFLAGS=['--std=c++20'],LIBS='pthread')
+p.AppendENVPath('PATH',os.environ.get('PATH'))
+ss=['pm.cpp']
+os.environ['EMSCRIPTEN_ROOT']=os.path.dirname(subprocess.run(['which', 'emcc'],stdout=subprocess.PIPE).stdout.decode('utf-8'))
+p.Tool('emscripten',toolpath=[os.environ['EMSCRIPTEN_TOOL_PATH']])
+p.Append(CCFLAGS=['-MJs.o.json'])
+p.Append(LINKFLAGS=['-sAUDIO_WORKLET=1','-sWASM_WORKERS=1','-sEXPORTED_RUNTIME_METHODS=HEAPU8,ccall,stringToNewUTF8,FS','-sWASM=1','-O3','-s','-pthread','--use-preload-plugins','-sPTHREAD_POOL_SIZE=4','-sEXPORTED_FUNCTIONS=_malloc,_free','-sMODULARIZE','-sEXPORT_NAME=pd'])
+pd=p.Program('pd',ss)
+def f(target,source,env):
+    l=open('s.o.json','r').read()
+    open('../compile_commands.json','w').write('['+l[0:len(l)-2]+']')
+AddPostAction('pm.o',f)
+def ppd(block_num, block_size, total_size):
+    print(round(block_num*block_size/total_size,2),end="\r")
+cpdt=True
+def hk(target,source,env):
+    cks='3.6.5'
+    if cpdt:
+        urllib.request.urlretrieve("https://github.com/31305/OpenSceneGraph/releases/download/cpdt/cpdt.tar.gz","cpdt.tar.gz",ppd)
+    else:urllib.request.urlretrieve("https://codeload.github.com/openscenegraph/OpenSceneGraph/tar.gz/refs/tags/OpenSceneGraph-"+cks,"cpd.tar.xz",ppd)
+def cksk(target,source,env):
+    if cpdt:
+        os.system('tar xvf cpdt.tar.gz')
+    else:
+        os.system('tar xvf cpd.tar.xz')
+        os.system('mv OpenSceneGraph* cpd')
+        os.system('cd cpd&&mkdir -p tp&&cd tp&&emcmake cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=14 ../examples/osgemscripten&&emmake make')
+if True:
+    p.Command('cpd','cpdt.tar.gz' if cpdt else 'cpd.tar.xz',cksk)
+    p.Command('cpdt.tar.gz' if cpdt else 'cpd.tar.xz',None,hk)
