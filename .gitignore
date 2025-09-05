@@ -22,3 +22,4 @@ skv/skv
 *.tar.xz
 *.tar.gz
 pd*js
+pd/cpd
