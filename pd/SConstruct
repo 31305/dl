@@ -4,11 +4,12 @@ import urllib.request
 import shutil
 p=Environment(COMPILATIONDB_USE_ABSPATH=True,CCFLAGS=['-Wall','-I../','-Icpd/include','-Icpd/build/Emscripten/include','-sUSE_PTHREADS=1'],CXXFLAGS=['--std=c++20'],LIBS='pthread')
 p.AppendENVPath('PATH',os.environ.get('PATH'))
-ss=['pm.cpp']
+ngs='cpd/build/Emscripten/lib/'
+ss=['pm.cpp',ngs+'libosg.a',ngs+'libOpenThreads.a',ngs+'libosgUtil.a',ngs+'libosgViewer.a',ngs+'libosgGA.a',ngs+'libosgDB.a',ngs+'libosgShadow.a']
 os.environ['EMSCRIPTEN_ROOT']=os.path.dirname(subprocess.run(['which', 'emcc'],stdout=subprocess.PIPE).stdout.decode('utf-8'))
 p.Tool('emscripten',toolpath=[os.environ['EMSCRIPTEN_TOOL_PATH']])
 p.Append(CCFLAGS=['-MJs.o.json'])
-p.Append(LINKFLAGS=['-sAUDIO_WORKLET=1','-sWASM_WORKERS=1','-sEXPORTED_RUNTIME_METHODS=HEAPU8,ccall,stringToNewUTF8,FS','-sWASM=1','-O3','-s','-pthread','--use-preload-plugins','-sPTHREAD_POOL_SIZE=4','-sEXPORTED_FUNCTIONS=_malloc,_free','-sMODULARIZE','-sEXPORT_NAME=pd'])
+p.Append(LINKFLAGS=['-sUSE_SDL=2','-sEXPORTED_RUNTIME_METHODS=HEAPU8,ccall,stringToNewUTF8,FS','-sWASM=1','-O3','--use-preload-plugins','-sEXPORTED_FUNCTIONS=_malloc,_free','-sMODULARIZE','-sEXPORT_NAME=pd','-sFULL_ES2'])
 pd=p.Program('pd',ss)
 def f(target,source,env):
     l=open('s.o.json','r').read()
