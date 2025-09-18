@@ -18,9 +18,10 @@ rs
 *.wasm
 2L*js
 sks
-sksl
+sksl/sksl
 skv/skv
 *.tar.xz
 *.tar.gz
 pd*js
 pd/cpd
+*.wav
