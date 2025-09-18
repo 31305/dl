@@ -16,6 +16,7 @@ int main(int nds,char* nd[])
 	vv.channels=1;
 	vv.format=SF_FORMAT_WAV|SF_FORMAT_FLOAT;
 	SNDFILE* tp=sf_open(nd[1],SFM_WRITE,&vv);
+	if(!tp)return 0;
 	while(!std::cin.eof())
 	{
 		std::string l;
