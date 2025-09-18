@@ -8,6 +8,7 @@ void lk(void* nv,float l)
 }
 int main(int nds,char* nd[])
 {
+	if(nds<2)return 0;
 	vk::vks m;
 	m.smg=1;
 	SF_INFO vv;
