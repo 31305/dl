@@ -18,6 +18,7 @@ rs
 *.wasm
 2L*js
 sks
+sksl
 skv/skv
 *.tar.xz
 *.tar.gz
