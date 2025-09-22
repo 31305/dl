@@ -8,11 +8,11 @@ def ndl(ss):
     v2=10
     pl=''
     for pk in range(0,int(math.ceil(len(ss)/(v1*v2)))):
-        sl='<html><body>'
+        sl='<html><head><style>@media print{@page{size:A4;}}</style></head><body>'
         for k in range(pk*v1*v2,min((pk+1)*v1*v2,len(ss))):
             ndn=str(k)+'.svg'
             system('qrencode -t svg --svg-path "https://1007.in?1:'+str(ss[k])+'" -o nd/'+ndn)
-            sl+='<img style="border:1px solid #000000" src="'+ndn+'"></img>'
+            sl+='<img style="border:0px solid #000000" src="'+ndn+'"></img>'
         sl+='</body></html>'
         open('nd/'+str(pk)+'p.html','w').write(sl)
         system('wkhtmltopdf --enable-local-file-access nd/'+str(pk)+'p.html nd/'+str(pk)+'p.pdf')
