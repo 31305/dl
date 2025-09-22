@@ -13,7 +13,7 @@ def ndl(ss):
         for k in range(pk*v1*v2,min((pk+1)*v1*v2,len(ss))):
             ndn=str(k)+'.svg'
             system('qrencode -t svg --svg-path "https://1007.in?1:'+str(ss[k])+'" -o nd/'+ndn)
-            sl+='<img style="margin:0;padding:0;border:0px solid #000000" src="'+ndn+'"></img>'
+            sl+='<img style="width:16.66666vw;margin:0;padding:0;border:0px solid #000000" src="'+ndn+'"></img>'
         sl+='</body></html>'
         open('nd/'+str(pk)+'p.html','w').write(sl)
         if not nvl:system('wkhtmltopdf -L 0 -T 0 -B 0 -R 0 --enable-local-file-access nd/'+str(pk)+'p.html nd/'+str(pk)+'p.pdf')
