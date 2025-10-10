@@ -51,7 +51,7 @@ struct jstp
 	vk::vks vk;
 	dlpv dl={.dp=dp};
 	vk::stslp stsl=vk::stslp(vk.mt.outputSampleRate());
-	jvn jss=jvn(vk.mt.outputSampleRate(),stsl.pc,&(stsl.vy),[this](){dk();});
+	jvn jss=jvn(vk.mt.outputSampleRate(),stsl.pc,&(stsl.vy),[this](){vss();});
 	struct scp
 	{
 		std::unique_ptr<ptp> spk=0;
@@ -127,6 +127,7 @@ struct jstp
 		auto ksvv=[this](){sc.spk=std::make_unique<bvv>(vsg());};
 		size_t ms=n.find('?');
 		if(ms==-1)ms=n.find('#');
+		bool ksk=1;
 		if(ms!=-1&&ms<n.size()-3&&n[ms+1]=='1'&&n[ms+2]==':')
 		{
 			bool nv=1;
@@ -135,18 +136,45 @@ struct jstp
 			{
 				int k=std::stoi(n.substr(ms+3));
 				auto p=psv::pss();
-				if(k>0&&k<=p.size())
+				if(k>0)
 				{
-					sc.spk=p[k-1]();
-					return;
+					if(k<=p.size())
+					{
+						sc.spk=p[k-1]();
+						ksk=0;
+					}
 				}
 			}
 		}
-		ksvv();
+		else if(ms!=-1&&ms<n.size()-3&&n[ms+1]=='2'&&n[ms+2]==':')
+		{
+			emscripten_fetch_attr_t l;
+			emscripten_fetch_attr_init(&l);
+			l.userData=this;
+			strcpy(l.requestMethod,"GET");
+			l.attributes=EMSCRIPTEN_FETCH_LOAD_TO_MEMORY;
+			auto pk=[](emscripten_fetch_t* p)
+			{
+				std::vector<std::vector<std::vector<vk::v>>> ps;
+				if(p->status==200)
+				{
+					std::string pl(p->data,p->data+p->numBytes);
+				}
+				else ps={{vk::vs({70,2,71,44,5,71,66,3,75})}};
+				((jstp*)(p->userData))->sc.spk=std::make_unique<psv::psv>(ps);
+				((jstp*)(p->userData))->dk();
+				emscripten_fetch_close(p);
+			};
+			l.onsuccess=pk;
+			l.onerror=pk;
+			emscripten_fetch(&l,(std::string("https://raw.githubusercontent.com/31305/dl/refs/heads/master/2L/vs/")+n.substr(ms+1)).c_str());
+			return;
+		}
+		if(ksk)ksvv();
+		dk();
 	}
 	void dk()
 	{
-		vss();
 		sc.spk->dbks([this](){sc.bk(-4);});
 		snd.pk=[this](int p){sc.bk(p);};
 		dp.pk=[this]()
