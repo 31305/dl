@@ -29,7 +29,7 @@ namespace psv
 				{
 					s+=1;
 					if(s==ps.size()){s=0;kp=0;}
-					else tp.insert(tp.end(),ps[s].begin(),ps[s].end());
+					else tp=ps[s];
 				}
 				return tp;
 			}
