@@ -158,7 +158,29 @@ struct jstp
 				std::vector<std::vector<std::vector<vk::v>>> ps;
 				if(p->status==200)
 				{
-					std::string pl(p->data,p->data+p->numBytes);
+					unsigned int vn=0;
+					std::vector<vk::v> vm;
+					std::vector<std::vector<vk::v>> vsm;
+					for(size_t k=0;k<p->numBytes;k++)
+					{
+						char t=p->data[k];
+						if(t=='\n')
+						{
+							ps.push_back(vsm);
+							vsm={};
+						}
+						else if(t>='0'&&t<='9')vn=vn*10+(t-'0');
+						else if(t==','||t==';')
+						{
+							if(vn>0)vm.push_back(vk::vkvl(vn));
+							vn=0;
+							if(t==';'&&vm.size()>0)
+							{
+								vsm.push_back(vm);
+								vm={};
+							}
+						}
+					}
 				}
 				else ps={{vk::vs({70,2,71,44,5,71,66,3,75})}};
 				((jstp*)(p->userData))->sc.spk=std::make_unique<psv::psv>(ps);
@@ -167,7 +189,7 @@ struct jstp
 			};
 			l.onsuccess=pk;
 			l.onerror=pk;
-			emscripten_fetch(&l,(std::string("https://raw.githubusercontent.com/31305/dl/refs/heads/master/2L/vs/")+n.substr(ms+1)).c_str());
+			emscripten_fetch(&l,(std::string("https://raw.githubusercontent.com/31305/dl/refs/heads/master/2L/vs/")+n.substr(ms+3)).c_str());
 			return;
 		}
 		if(ksk)ksvv();
