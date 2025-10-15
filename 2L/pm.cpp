@@ -128,6 +128,7 @@ struct jstp
 		size_t ms=n.find('?');
 		if(ms==-1)ms=n.find('#');
 		bool ksk=1;
+		bool npk=0;
 		if(ms!=-1&&ms<n.size()-3&&n[ms+1]=='1'&&n[ms+2]==':')
 		{
 			bool nv=1;
@@ -143,10 +144,11 @@ struct jstp
 						sc.spk=p[k-1]();
 						ksk=0;
 					}
+					else npk=1;
 				}
 			}
 		}
-		else if(ms!=-1&&ms<n.size()-3&&n[ms+1]=='2'&&n[ms+2]==':')
+		if(npk||(ms!=-1&&ms<n.size()-3&&n[ms+1]=='2'&&n[ms+2]==':'))
 		{
 			emscripten_fetch_attr_t l;
 			emscripten_fetch_attr_init(&l);
