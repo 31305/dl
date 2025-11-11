@@ -4,19 +4,28 @@
 bool vksvl=0;
 void lk(void* nv,float l)
 {
-	sf_write_float((SNDFILE*)nv,&l,1);
+	if(nv)sf_write_float((SNDFILE*)nv,&l,1);
+	else
+	{
+		fwrite(&l,sizeof(l),1,stdout);
+		fflush(stdout);
+	}
 }
 int main(int nds,char* nd[])
 {
-	if(nds<2)return 0;
 	vk::vks m;
 	m.smg=1;
 	SF_INFO vv;
 	vv.samplerate=m.mt.outputSampleRate();
 	vv.channels=1;
 	vv.format=SF_FORMAT_WAV|SF_FORMAT_FLOAT;
-	SNDFILE* tp=sf_open(nd[1],SFM_WRITE,&vv);
-	if(!tp)return 0;
+	SNDFILE* tp=0;
+	if(nds<1)tp=sf_open(nd[1],SFM_WRITE,&vv);
+	if(!tp)
+	{
+		uint32_t dl[7]={0x2e736e64,28,0xffffffff,6,(uint32_t)m.mt.outputSampleRate(),1};
+		fwrite(dl,4,7,stdout);
+	}
 	while(!std::cin.eof())
 	{
 		std::string l;
@@ -31,6 +40,6 @@ int main(int nds,char* nd[])
 			m.pmb(p,lk,tp);
 		}
 	}
-	sf_close(tp);
+	if(tp)sf_close(tp);
 	return 0;
 }
