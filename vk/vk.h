@@ -1,5 +1,6 @@
 #pragma once
 #include"VocalTractModel5.h"
+#include"Butterworth2LowpassFilter.h"
 #include<stdlib.h>
 #include<array>
 #include<algorithm>
@@ -363,12 +364,15 @@ struct stslp
 };
 struct vks
 {
-	bool smg=0;
-	GS::VTM::VocalTractModel5<double,1> mt=GS::VTM::VocalTractModel5<double,1>();
+	bool smg=0,spnkp=0;
+	typedef double skp;
+	GS::VTM::VocalTractModel5<skp,1> mt=GS::VTM::VocalTractModel5<double,1>();
+	GS::VTM::Butterworth2LowPassFilter<skp> spnk;
 	double mk=0.1;
 	size_t vks=0;
 	void pmb(std::vector<v> gv,void (*p)(void*,float),void* nv)
 	{
+		spnk.update(mt.outputSampleRate(),4000);
 		double ms[2][decltype(mt)::TOTAL_PARAMETERS];
 		for(int k=0;k<2;k++)
 			for(int pk=0;pk<mt.TOTAL_PARAMETERS;pk++)
@@ -391,6 +395,7 @@ struct vks
 			for(size_t k=0;k<mt.outputBuffer().size();k++)
 			{
 				double tp=mt.outputBuffer()[k];
+				if(spnkp)tp=spnk.filter(tp);
 				ct=std::max(ct,abs(tp));
 				float ls=std::max(std::min(tp/ctdm,1.0),-1.0);
 				p(nv,ls);
