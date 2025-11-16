@@ -6,7 +6,7 @@ p=Environment(COMPILATIONDB_USE_ABSPATH=True,CCFLAGS=['-Wall','-I../','-O2'],CXX
 p.AppendENVPath('PATH',os.environ.get('PATH'))
 p.Tool('compilation_db')
 p.CompilationDatabase()
-if 0:
+if not type(ARGUMENTS.get('pv'))==str:
     p.Append(CCFLAGS=['-DPVL'])
     p.ParseConfig('pkg-config --cflags --libs sndfile')
 ss=['m.cpp']

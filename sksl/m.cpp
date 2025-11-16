@@ -22,6 +22,7 @@ int main(int nds,char* nd[])
 {
 	vk::vks m;
 	m.smg=1;
+	m.spnkp=1;
 	void *tp=0;
 #ifdef PVL
 	SF_INFO vv;

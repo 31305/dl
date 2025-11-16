@@ -364,7 +364,7 @@ struct stslp
 };
 struct vks
 {
-	bool smg=0,spnkp=0;
+	bool smg=0,spnkp=1;
 	typedef double skp;
 	GS::VTM::VocalTractModel5<skp,1> mt=GS::VTM::VocalTractModel5<double,1>();
 	GS::VTM::Butterworth2LowPassFilter<skp> spnk;
