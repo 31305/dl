@@ -8,10 +8,9 @@ inline std::function<void()> njsps(const std::string &nd)
 }
 inline svvs vsg()
 {
-	const svvs kvs{{{51,44,31,43,1,49,1,55,53,44,1,50,2,77}},
+	const svvs ss{{{47,1,73,68,1,47,44,2,46,3,65,1,75}},
 	{
-		{{{49,1,76,53,2,65,3,51,1,75}},{},njsps("https://amzn.to/3UDsTDX")},
-		{{{51,2,70,68,15,51,1,75}},{},njsps("https://amzn.to/4mYRj7b")},
+		{{{75,5,44,58,6,44,1,49,43,1}},{},njsps("https://w.wiki/GVGm")},
 	}};
 	return {{{45,1,51,48,43,2,66,31,51,8,75}}};
 }
