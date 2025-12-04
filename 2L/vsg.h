@@ -4,7 +4,7 @@
 #include<string>
 inline std::function<void()> njsps(const std::string &nd)
 {
-	return [nd](){EM_ASM({window.open(UTF8ToString($0));},nd.c_str());};
+	return [nd](){EM_ASM({window.location=(UTF8ToString($0));},nd.c_str());};
 }
 inline svvs vsg()
 {
