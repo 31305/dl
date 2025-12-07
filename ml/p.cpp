@@ -5,15 +5,16 @@ void pk()
 	auto d=pd->getSceneManager();
 	auto b=d->addCubeSceneNode();
 	b->setMaterialFlag(irr::video::EMF_LIGHTING,false);
-	auto n=d->addCameraSceneNodeFPS(0,100,.3,0,0,0,true,3);
-	n->setPosition(irr::core::vector3df(0,0,100));
+	auto n=d->addCameraSceneNodeFPS(0,100,.002,0,0,0,true,1);
+	n->setPosition(irr::core::vector3df(0,1000,0));
 	n->setTarget(irr::core::vector3df(0,0,0));
 	auto k=pd->getVideoDriver();
 	auto p=pd->getGUIEnvironment();
 	irr::scene::ITriangleSelector* c;
 	c=d->createTriangleSelector(b->getMesh(),b);
 	b->setTriangleSelector(c);
-	auto g=d->createCollisionResponseAnimator(c,n);
+	auto g=d->createCollisionResponseAnimator(c,n,irr::core::vector3df(.2,1,.2),
+			irr::core::vector3df(0,-10,0),irr::core::vector3df(0,.75,0));
 	n->addAnimator(g);
 	g->drop();
 
