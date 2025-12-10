@@ -72,11 +72,9 @@ irr::scene::IMesh* nmk::p()
 	if (!nk)
 	{
 		nk = true;
-
 		tpj->recalculateBoundingBox();
 		tp->addMeshBuffer(tpj);
 		tp->recalculateBoundingBox();
-
 		tpj->drop();
 	}
 	tp->grab();
@@ -84,13 +82,16 @@ irr::scene::IMesh* nmk::p()
 }
 void pk()
 {
-	irr::IrrlichtDevice *pd=irr::createDevice(irr::video::EDT_OPENGL,irr::core::dimension2du(1024,768),16,false);
+	irr::IrrlichtDevice *pd=irr::createDevice(irr::video::EDT_OPENGL,irr::core::dimension2du(1200,900),16,false);
 	pd->getCursorControl()->setVisible(false);
 	auto d=pd->getSceneManager();
 	nmk nm(d);
-	nm.k({0,0,0},irr::video::SColor(255,100,100,120),{1,.25,1});
-	nm.k({1,-.25,0},irr::video::SColor(255,100,150,120),{1,.25,1});
-	nm.k({0,-1,1},irr::video::SColor(255,150,100,120),{1,.25,1});
+	nm.k({0,0,0},{255,100,100,120},{1,.25,1});
+	nm.k({1,-.25,0},{255,100,150,120},{1,.25,1});
+	nm.k({0,-.75,1},{255,150,100,120},{1,.25,1});
+	nm.k({1,-.5,1},{255,100,100,100},{1,.25,1});
+	nm.k({-2,-1,4},{255,100,100,80},{5,.25,5});
+	nm.k({-3,.5,4},{255,150,80,80},{.25,1,.25});
 	auto b=d->addOctreeSceneNode(nm.p());
 	b->setMaterialFlag(irr::video::EMF_LIGHTING,false);
 	auto n=d->addCameraSceneNodeFPS(0,100,.002,0,0,0,true,0);
