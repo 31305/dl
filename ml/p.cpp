@@ -85,17 +85,16 @@ irr::scene::IMesh* nmk::p()
 void pk()
 {
 	irr::IrrlichtDevice *pd=irr::createDevice(irr::video::EDT_OPENGL,irr::core::dimension2du(1024,768),16,false);
+	pd->getCursorControl()->setVisible(false);
 	auto d=pd->getSceneManager();
 	nmk nm(d);
-	nm.k({0,0,0},irr::video::SColor(255,100,100,120),{10,10,10});
-	if(1)nm.k({-5,0,0},irr::video::SColor(255,80,80,100),{0.25,12,10});
-	if(1)nm.k({5,0,0},irr::video::SColor(255,80,80,100),{0.25,12,10});
-	if(1)nm.k({0,0,-5},irr::video::SColor(255,80,80,100),{10,12,0.25});
-	if(1)nm.k({0,0,5},irr::video::SColor(255,80,80,100),{10,12,0.25});
+	nm.k({0,0,0},irr::video::SColor(255,100,100,120),{1,.25,1});
+	nm.k({1,-.25,0},irr::video::SColor(255,100,150,120),{1,.25,1});
+	nm.k({0,-1,1},irr::video::SColor(255,150,100,120),{1,.25,1});
 	auto b=d->addOctreeSceneNode(nm.p());
 	b->setMaterialFlag(irr::video::EMF_LIGHTING,false);
 	auto n=d->addCameraSceneNodeFPS(0,100,.002,0,0,0,true,0);
-	n->setPosition(irr::core::vector3df(0,1000,0));
+	n->setPosition(irr::core::vector3df(0,100,0));
 	n->setTarget(irr::core::vector3df(0,0,0));
 	auto k=pd->getVideoDriver();
 	auto p=pd->getGUIEnvironment();
