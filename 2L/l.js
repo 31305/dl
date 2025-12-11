@@ -24,12 +24,20 @@ l.checkCollisions=true;
 l.applyGravity=true;
 l.ellipsoid=new BABYLON.Vector3(1,1,1);
 l.ellipsoidOffset=new BABYLON.Vector3(0,.5,0);
+l.inputs.remove(l.inputs.attached.mouse);
 l.keysUp.push(87);
 l.keysDown.push(83);
 l.keysRight.push(68);
 l.keysLeft.push(65);
 l.keysUpward.push(32);
 l.angularSensibility*=-1;
+d.addEventListener("click",()=>{(d.requestPointerLock||d.msRequestPointerLock).call(d);});
+d.addEventListener("mousemove",(e)=>{if(document.pointerLockElement===d)
+{
+	let g=0.002;
+	l.rotation.y-=e.movementX*g; 
+	l.rotation.x-=e.movementY*g;
+}
+});
 c.runRenderLoop(()=>s.render());
 window.addEventListener("resize",()=>{c.resize();});
-
