@@ -13,6 +13,7 @@ l.minZ=0.5;
 var p=new BABYLON.HemisphericLight("p",new BABYLON.Vector3(0,10,-5),s);
 const bv=1000;
 var b=BABYLON.MeshBuilder.CreateGround("b",{size:bv},s);
+b.n=[74,17,75,9,77];
 b.checkCollisions=true;
 var g=BABYLON.MeshBuilder.CreateBox("g",{size:2},s);
 g.material=new BABYLON.StandardMaterial("pd",s);
@@ -32,7 +33,13 @@ l.keysDown.push(83);
 l.keysRight.push(68);
 l.keysLeft.push(65);
 if(1)l.angularSensibility*=-1;
-d.addEventListener("click",()=>{(d.requestPointerLock||d.msRequestPointerLock).call(d);});
+var pndv=null;
+d.addEventListener("click",(p)=>
+{
+	(d.requestPointerLock||d.msRequestPointerLock).call(d);
+	let n=s.pick(d.width/2,d.height/2).pickedMesh;
+	pndv=n;
+});
 d.addEventListener("mousemove",(p)=>{if(document.pointerLockElement===d)
 {
 	let g=1;
