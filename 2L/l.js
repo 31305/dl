@@ -42,7 +42,7 @@ var pndv=null;
 d.addEventListener("click",(p)=>
 {
 	if(!jdv()){if(document.pointerLockElement!=d)d.requestPointerLock();}
-	else{d.requestFullscreen();}
+	else if(0){d.requestFullscreen();}
 	let n=s.pick(d.width/2,d.height/2).pickedMesh;
 	pndv=n;
 });
@@ -70,7 +70,7 @@ d.addEventListener("touchcancel",(p)=>
 	for(const s of p.changedTouches)
 		sss.delete(s.identifier);
 });
-d.addEventListener("touchmove",(p)=>{if(document.fullscreenElement==d)
+d.addEventListener("touchmove",(p)=>{if(1||document.fullscreenElement==d)
 {
 	for(const s of p.changedTouches)
 	{
@@ -78,12 +78,12 @@ d.addEventListener("touchmove",(p)=>{if(document.fullscreenElement==d)
 		let g2=(s.clientY-sss.get(s.identifier).s2)/d.height*vg;
 		if(sss.get(s.identifier).m)
 		{
-			l.rotation.y+=g1; 
-			l.rotation.x+=g2;
+			l.rotation.y-=g1; 
+			l.rotation.x-=g2;
 		}
 		else
 			l.cameraDirection.addInPlace(BABYLON.Vector3.TransformCoordinates
-				(new BABYLON.Vector3(g1,0,-g2),BABYLON.Matrix.RotationY(l.rotation.y)));
+				(new BABYLON.Vector3(-g1,0,g2),BABYLON.Matrix.RotationY(l.rotation.y)));
 		sss.get(s.identifier).s1=s.clientX;
 		sss.get(s.identifier).s2=s.clientY;
 	}
