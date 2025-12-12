@@ -1,3 +1,8 @@
+function jdv()
+{
+	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){return true;}
+    return false;
+}
 d=document.createElement('canvas')
 document.body.style.margin='0';
 document.body.style.touchAction='none';
@@ -36,15 +41,52 @@ if(1)l.angularSensibility*=-1;
 var pndv=null;
 d.addEventListener("click",(p)=>
 {
-	(d.requestPointerLock||d.msRequestPointerLock).call(d);
+	if(!jdv()){if(document.pointerLockElement!=d)d.requestPointerLock();}
+	else{d.requestFullscreen();}
 	let n=s.pick(d.width/2,d.height/2).pickedMesh;
 	pndv=n;
 });
+const vg=1;
 d.addEventListener("mousemove",(p)=>{if(document.pointerLockElement===d)
 {
-	let g=1;
-	l.rotation.y+=p.movementX/d.width*g; 
-	l.rotation.x+=p.movementY/d.height*g;
+	l.rotation.y+=p.movementX/d.height*vg; 
+	l.rotation.x+=p.movementY/d.height*vg;
+}
+});
+const sss=new Map();
+d.addEventListener("touchstart",(p)=>
+{
+	for(const s of p.changedTouches)
+		if(!sss.has(s.identifier))
+			sss.set(s.identifier,{s1:s.clientX,s2:s.clientY,m:s.clientX/d.offsetWidth>0.5});
+});
+d.addEventListener("touchend",(p)=>
+{
+	for(const s of p.changedTouches)
+		sss.delete(s.identifier);
+});
+d.addEventListener("touchcancel",(p)=>
+{
+	for(const s of p.changedTouches)
+		sss.delete(s.identifier);
+});
+d.addEventListener("touchmove",(p)=>{if(document.fullscreenElement==d)
+{
+	for(const s of p.changedTouches)
+	{
+		let g1=(s.clientX-sss.get(s.identifier).s1)/d.height*vg;
+		let g2=(s.clientY-sss.get(s.identifier).s2)/d.height*vg;
+		if(sss.get(s.identifier).m)
+		{
+			l.rotation.y+=g1; 
+			l.rotation.x+=g2;
+		}
+		else
+			l.cameraDirection.addInPlace(BABYLON.Vector3.TransformCoordinates
+				(new BABYLON.Vector3(g1,0,-g2),BABYLON.Matrix.RotationY(l.rotation.y)));
+		sss.get(s.identifier).s1=s.clientX;
+		sss.get(s.identifier).s2=s.clientY;
+	}
 }
 });
 const ppd=BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("PPD",true,s);
