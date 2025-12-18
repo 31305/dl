@@ -5,6 +5,7 @@
 #include<array>
 #include<algorithm>
 #include<thread>
+#include<span>
 namespace vk
 {
 struct v
@@ -316,12 +317,16 @@ inline size_t vsks(v p)
 			return k;
 	return 0;
 };
-inline const std::vector<v> vs(const std::vector<unsigned char> &d)
+inline const std::vector<v> vsp(std::span<const unsigned char> d)
 {
 	std::vector<v> vk;
 	for(size_t k=0;k<d.size();k++)
 		vk.push_back(vkvl(d[k]));	
 	return vk;
+};
+inline const std::vector<v> vs(const std::vector<unsigned char> d)
+{
+	return vsp(d);
 };
 struct stslp
 {

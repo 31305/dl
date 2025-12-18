@@ -3,6 +3,18 @@ function jdv()
 	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){return true;}
     return false;
 }
+class vp
+{
+	constructor(pk=null)
+	{
+		vm({dk:()=>{if(pk!=null)pk()},vppk:()=>{}}).then(p=>this.p=p)
+	}
+	b(v)
+	{
+		this.p.ccall('jb',null,['array','number'],[new Uint8Array(v),v.length]);
+	}
+}
+var v=new vp();
 d=document.createElement('canvas')
 document.body.style.margin='0';
 document.body.style.touchAction='none';
