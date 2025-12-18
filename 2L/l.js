@@ -14,25 +14,31 @@ class vp
 		this.p.ccall('jb',null,['array','number'],[new Uint8Array(v),v.length]);
 	}
 }
-var v=new vp();
+const v=new vp();
 d=document.createElement('canvas')
 document.body.style.margin='0';
 document.body.style.touchAction='none';
 d.style="position:absolute;display:block;width:100%;height:100%";
 document.body.appendChild(d);
-var c=new BABYLON.Engine(d,true);
-var s=new BABYLON.Scene(c);
+const c=new BABYLON.Engine(d,true);
+const s=new BABYLON.Scene(c);
+s.clearColor=new BABYLON.Color3(0,0,0);
 const ls=1;
-var l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*1.2,-10),s);
+const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*1.2,-10),s);
 l.setTarget(BABYLON.Vector3.Zero());
 l.attachControl(d,true);
 l.minZ=0.5;
-var p=new BABYLON.HemisphericLight("p",new BABYLON.Vector3(0,10,-5),s);
+const p=new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s);
+p.parent=l;
+const dp=new BABYLON.SpotLight("dp",new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,0,1),0.02,2,s);
+dp.diffuse=new BABYLON.Color3(1,0.5,0.5);
+dp.intensity=2;
+dp.parent=l;
 const bv=1000;
-var b=BABYLON.MeshBuilder.CreateGround("b",{size:bv},s);
+const b=BABYLON.MeshBuilder.CreateGround("b",{size:bv},s);
 b.n=[74,17,75,9,77];
 b.checkCollisions=true;
-var g=BABYLON.MeshBuilder.CreateBox("g",{size:2},s);
+const g=BABYLON.MeshBuilder.CreateBox("g",{size:2},s);
 g.material=new BABYLON.StandardMaterial("pd",s);
 g.material.diffuseColor=new BABYLON.Color3(1,0,0);
 g.position=new BABYLON.Vector3(0,1,0);
@@ -101,26 +107,5 @@ d.addEventListener("touchmove",(p)=>{if(1||document.fullscreenElement==d)
 	}
 }
 });
-const ppd=BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("PPD",true,s);
-const ld = new BABYLON.GUI.Rectangle();
-ld.width="30px";
-ld.height="30px";
-ld.background="transparent";
-ld.thickness=0;
-ld.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-ld.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
-ppd.addControl(ld);
-const ldp=new BABYLON.GUI.Rectangle();
-ldp.width="2px";
-ldp.height="20px";
-ldp.background="black"
-ldp.thickness=0;
-ld.addControl(ldp);
-const ldd=new BABYLON.GUI.Rectangle();
-ldd.width="20px";
-ldd.height="2px";
-ldd.background="black";
-ldd.thickness=0;
-ld.addControl(ldd);
 c.runRenderLoop(()=>s.render());
 window.addEventListener("resize",()=>{c.resize();});
