@@ -17,3 +17,8 @@ def f(target,source,env):
     l=open('s.o.json','r').read()
     open('../compile_commands.json','w').write('['+l[0:len(l)-2]+']')
 AddPostAction('pm.o',f)
+d=Environment(COMPILATIONDB_USE_ABSPATH=True,CCFLAGS=['-Wall','-I../'],CXXFLAGS=['--std=c++20'],LIBS='pthread')
+d.AppendENVPath('PATH',os.environ.get('PATH'))
+d.Tool('emscripten',toolpath=[os.environ['EMSCRIPTEN_TOOL_PATH']])
+d.Append(LINKFLAGS=['-sAUDIO_WORKLET=1','-sWASM_WORKERS=1','-sEXPORTED_RUNTIME_METHODS=HEAPU8,ccall,stringToNewUTF8,FS','-sWASM=1','-O3','-s','-pthread','--use-preload-plugins','-sPTHREAD_POOL_SIZE=4','-sEXPORTED_FUNCTIONS=_malloc,_free','-sMODULARIZE','-sEXPORT_NAME=vm','-sFETCH'])
+vm=p.Program('vm',['vm.cpp'])
