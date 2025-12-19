@@ -56,13 +56,21 @@ l.keysDown.push(83);
 l.keysRight.push(68);
 l.keysLeft.push(65);
 if(1)l.angularSensibility*=-1;
-var pndv=null;
 d.addEventListener("click",(p)=>
 {
-	if(!jdv()){if(document.pointerLockElement!=d)d.requestPointerLock();}
+	if(!jdv()){if(document.pointerLockElement!=d){d.requestPointerLock();return;}}
 	else if(0){d.requestFullscreen();}
 	let n=s.pick(d.width/2,d.height/2).pickedMesh;
-	pndv=n;
+	if(n==undefined)v.b([1,70,66,2,44,9,51,48,1,77]);
+	else
+	{
+		let p=n;
+		while(p!=undefined)
+		{
+			if(p.n!=undefined){v.b(n.n);return;}
+			else p=p.parent;
+		}
+	}
 });
 const vg=1;
 d.addEventListener("mousemove",(p)=>{if(document.pointerLockElement===d)
