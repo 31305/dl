@@ -24,7 +24,7 @@ const c=new BABYLON.Engine(d,true);
 const s=new BABYLON.Scene(c);
 s.clearColor=new BABYLON.Color3(0,0,0);
 const ls=1;
-const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*1.2,0),s);
+const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*1.5,0),s);
 l.attachControl(d,true);
 l.minZ=0.5;
 const p=new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s);
@@ -35,14 +35,24 @@ dp.intensity=2;
 dp.parent=l;
 function bnm()
 {
-	const bv=10;
-	const b=BABYLON.MeshBuilder.CreateGround("b",{size:bv},s);
+	const bv=100;
+	const b=BABYLON.MeshBuilder.CreateGround("b",{size:bv});
 	b.n=[74,17,75,9,77];
 	b.checkCollisions=true;
 	b.material=new BABYLON.StandardMaterial("pd",s);
 	b.material.diffuseColor=new BABYLON.Color3(.5,.5,.5);
 	b.material.specularColor=new BABYLON.Color3(0,0,0);
-
+	const pst=2;
+	for(let k=0;k<4;k++)
+	{
+		const ps=BABYLON.MeshBuilder.CreatePlane("ps"+k.toString(),{height:pst,width:bv},s);
+		ps.position=new BABYLON.Vector3(0,pst/2,bv/2);
+		ps.material=new BABYLON.StandardMaterial("pd",s);
+		ps.material.diffuseColor=new BABYLON.Color3(.8,.8,.8);
+		ps.material.specularColor=new BABYLON.Color3(0,0,0);
+		ps.rotateAround(new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,1,0),k*Math.PI/2);
+		ps.checkCollisions=true;
+	}
 }
 bnm();
 s.collisionsEnabled=true;
