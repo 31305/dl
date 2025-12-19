@@ -117,8 +117,8 @@ d.addEventListener("touchmove",(p)=>{if(1||document.fullscreenElement==d)
 {
 	for(const s of p.changedTouches)
 	{
-		let g1=(s.clientX-sss.get(s.identifier).s1)/d.height*vg;
-		let g2=(s.clientY-sss.get(s.identifier).s2)/d.height*vg;
+		let g1=(s.clientX-sss.get(s.identifier).s1)/Math.min(d.width,d.height)*vg;
+		let g2=(s.clientY-sss.get(s.identifier).s2)/Math.min(d.width,d.height)*vg;
 		if(sss.get(s.identifier).m)
 		{
 			l.cameraRotation.y-=g1; 
@@ -126,7 +126,7 @@ d.addEventListener("touchmove",(p)=>{if(1||document.fullscreenElement==d)
 		}
 		else
 			l.cameraDirection.addInPlace(BABYLON.Vector3.TransformCoordinates
-				(new BABYLON.Vector3(-g1,0,g2),BABYLON.Matrix.RotationY(l.rotation.y)));
+				(new BABYLON.Vector3(-g1,0,g2),BABYLON.Matrix.RotationY(l.rotation.y)).scale(10));
 		sss.get(s.identifier).s1=s.clientX;
 		sss.get(s.identifier).s2=s.clientY;
 	}
