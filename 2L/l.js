@@ -24,8 +24,7 @@ const c=new BABYLON.Engine(d,true);
 const s=new BABYLON.Scene(c);
 s.clearColor=new BABYLON.Color3(0,0,0);
 const ls=1;
-const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*1.2,-10),s);
-l.setTarget(BABYLON.Vector3.Zero());
+const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*1.2,0),s);
 l.attachControl(d,true);
 l.minZ=0.5;
 const p=new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s);
@@ -34,15 +33,18 @@ const dp=new BABYLON.SpotLight("dp",new BABYLON.Vector3(0,0,0),new BABYLON.Vecto
 dp.diffuse=new BABYLON.Color3(1,0.5,0.5);
 dp.intensity=2;
 dp.parent=l;
-const bv=1000;
-const b=BABYLON.MeshBuilder.CreateGround("b",{size:bv},s);
-b.n=[74,17,75,9,77];
-b.checkCollisions=true;
-const g=BABYLON.MeshBuilder.CreateBox("g",{size:2},s);
-g.material=new BABYLON.StandardMaterial("pd",s);
-g.material.diffuseColor=new BABYLON.Color3(1,0,0);
-g.position=new BABYLON.Vector3(0,1,0);
-g.checkCollisions=true;
+function bnm()
+{
+	const bv=10;
+	const b=BABYLON.MeshBuilder.CreateGround("b",{size:bv},s);
+	b.n=[74,17,75,9,77];
+	b.checkCollisions=true;
+	b.material=new BABYLON.StandardMaterial("pd",s);
+	b.material.diffuseColor=new BABYLON.Color3(.5,.5,.5);
+	b.material.specularColor=new BABYLON.Color3(0,0,0);
+
+}
+bnm();
 s.collisionsEnabled=true;
 s.gravity=new BABYLON.Vector3(0,-0.1,0);
 l.speed=0.4;
