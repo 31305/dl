@@ -28,6 +28,7 @@ const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*1.5,0),s);
 l.attachControl(d,true);
 l.minZ=0.5;
 const p=new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s);
+p.intensity=2;
 p.parent=l;
 const dp=new BABYLON.SpotLight("dp",new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,0,1),0.02,2,s);
 dp.diffuse=new BABYLON.Color3(1,0.5,0.5);
@@ -54,12 +55,14 @@ function bnm()
 		ps.position=new BABYLON.Vector3(0,pst/2,bv/2);
 		ps.rotateAround(new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,1,0),k*Math.PI/2);
 		ps.checkCollisions=true;
+		ps.n=[74,8,66,66,9,77];
 	}
 }
 bnm();
 s.collisionsEnabled=true;
 s.gravity=new BABYLON.Vector3(0,-0.1,0);
-l.speed=0.4;
+l.speed=1;
+l.inertia=0;
 l.checkCollisions=true;
 l.applyGravity=true;
 l.ellipsoid=new BABYLON.Vector3(1,ls,1);
@@ -89,8 +92,8 @@ d.addEventListener("click",(p)=>
 const vg=1;
 d.addEventListener("mousemove",(p)=>{if(document.pointerLockElement===d)
 {
-	l.rotation.y+=p.movementX/d.height*vg; 
-	l.rotation.x+=p.movementY/d.height*vg;
+	l.cameraRotation.y+=p.movementX/d.height*vg; 
+	l.cameraRotation.x+=p.movementY/d.height*vg;
 }
 });
 const sss=new Map();
@@ -118,8 +121,8 @@ d.addEventListener("touchmove",(p)=>{if(1||document.fullscreenElement==d)
 		let g2=(s.clientY-sss.get(s.identifier).s2)/d.height*vg;
 		if(sss.get(s.identifier).m)
 		{
-			l.rotation.y-=g1; 
-			l.rotation.x-=g2;
+			l.cameraRotation.y-=g1; 
+			l.cameraRotation.x-=g2;
 		}
 		else
 			l.cameraDirection.addInPlace(BABYLON.Vector3.TransformCoordinates
