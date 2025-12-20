@@ -11,7 +11,7 @@ class vp
 	}
 	b(v)
 	{
-		this.p.ccall('jb',null,['array','number'],[new Uint8Array(v),v.length]);
+		if(this.p!=undefined)this.p.ccall('jb',null,['array','number'],[new Uint8Array(v),v.length]);
 	}
 }
 const v=new vp();
@@ -30,10 +30,13 @@ l.minZ=0.5;
 const p=new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s);
 p.intensity=2;
 p.parent=l;
-const dp=new BABYLON.SpotLight("dp",new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,0,1),0.02,2,s);
-dp.diffuse=new BABYLON.Color3(1,0.5,0.5);
-dp.intensity=10;
-dp.parent=l;
+if(0)
+{
+	const dp=new BABYLON.SpotLight("dp",new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,0,1),0.02,2,s);
+	dp.diffuse=new BABYLON.Color3(1,0.5,0.5);
+	dp.intensity=10;
+	dp.parent=l;
+}
 function bnm()
 {
 	const bv=10;
@@ -76,7 +79,7 @@ if(1)l.angularSensibility*=-1;
 d.addEventListener("click",(p)=>
 {
 	if(!jdv()){if(document.pointerLockElement!=d){d.requestPointerLock();return;}}
-	else if(0){d.requestFullscreen();}
+	else if(dcoument.fullscreenElement!=d){d.requestFullscreen();screen.orientation.lock("landscape-primary");return;}
 	let n=s.pick(d.width/2,d.height/2).pickedMesh;
 	if(n==undefined)v.b([1,70,66,2,44,9,51,48,1,77]);
 	else
@@ -113,7 +116,7 @@ d.addEventListener("touchcancel",(p)=>
 	for(const s of p.changedTouches)
 		sss.delete(s.identifier);
 });
-d.addEventListener("touchmove",(p)=>{if(1||document.fullscreenElement==d)
+d.addEventListener("touchmove",(p)=>{if(document.fullscreenElement==d)
 {
 	for(const s of p.changedTouches)
 	{
@@ -132,5 +135,27 @@ d.addEventListener("touchmove",(p)=>{if(1||document.fullscreenElement==d)
 	}
 }
 });
+const ppd=BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("PPD",true,s);
+function lds()
+{
+	const ldv1='2px',ldv2='20px';
+	const ldp=new BABYLON.GUI.Rectangle();
+	ldp.width=ldv1;
+	ldp.height=ldv2;
+	ldp.background="white"
+	ldp.thickness=0;
+	ldp.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+	ldp.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+	ppd.addControl(ldp);
+	const ldd=new BABYLON.GUI.Rectangle();
+	ldd.width=ldv2;
+	ldd.height=ldv1;
+	ldd.background="white";
+	ldd.thickness=0;
+	ldd.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+	ldd.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+	ppd.addControl(ldd);
+}
+lds();
 c.runRenderLoop(()=>s.render());
 window.addEventListener("resize",()=>{c.resize();});
