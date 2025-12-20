@@ -79,7 +79,7 @@ if(1)l.angularSensibility*=-1;
 d.addEventListener("click",(p)=>
 {
 	if(!jdv()){if(document.pointerLockElement!=d){d.requestPointerLock();return;}}
-	else if(dcoument.fullscreenElement!=d){d.requestFullscreen();screen.orientation.lock("landscape-primary");return;}
+	else if(document.fullscreenElement!=d){d.requestFullscreen();screen.orientation.lock("landscape-primary");return;}
 	let n=s.pick(d.width/2,d.height/2).pickedMesh;
 	if(n==undefined)v.b([1,70,66,2,44,9,51,48,1,77]);
 	else
