@@ -26,7 +26,7 @@ s.clearColor=new BABYLON.Color3(0,0,0);
 const ls=1;
 const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*1.5,0),s);
 l.attachControl(d,true);
-l.minZ=0.5;
+l.minZ=0.1;
 const p=new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s);
 p.intensity=2;
 p.parent=l;
@@ -62,6 +62,7 @@ function bnm()
 	}
 }
 bnm();
+const pv=(p,d,t)=>{return new BABYLON.Vector3(p,d,t);}
 function gmnk(s1,s2,dk=null)
 {
 	let t=s1.subtract(s2);
@@ -81,7 +82,7 @@ l.speed=1;
 l.inertia=0;
 l.checkCollisions=true;
 l.applyGravity=true;
-l.ellipsoid=new BABYLON.Vector3(1,ls,1);
+l.ellipsoid=new BABYLON.Vector3(.3,ls,.3);
 l.ellipsoidOffset=new BABYLON.Vector3(0,.5,0);
 l.inputs.remove(l.inputs.attached.mouse);
 l.keysUp.push(87);
