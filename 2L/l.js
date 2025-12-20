@@ -62,6 +62,19 @@ function bnm()
 	}
 }
 bnm();
+function gmnk(s1,s2,dk=null)
+{
+	let t=s1.subtract(s2);
+	const g=BABYLON.MeshBuilder.CreateBox("gkc",{width:Math.abs(t.x),height:Math.abs(t.y),depth:Math.abs(t.z)});
+	if(dk)g.parent=dk;
+	g.position=s1.add(s2).scale(0.5);
+	g.material=new BABYLON.PBRMetallicRoughnessMaterial("pd",s);
+	g.material.baseColor=new BABYLON.Color3(.8,.8,.8);
+	g.material.metallic=0;
+	g.material.roughness=1;
+	g.checkCollisions=true;
+	return g;
+}
 s.collisionsEnabled=true;
 s.gravity=new BABYLON.Vector3(0,-0.1,0);
 l.speed=1;
