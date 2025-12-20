@@ -44,7 +44,7 @@ function bnm()
 	b.n=[74,17,75,9,77];
 	b.checkCollisions=true;
 	b.material=new BABYLON.PBRMetallicRoughnessMaterial("pd",s);
-	b.material.baseColor=new BABYLON.Color3(.8,.8,.5);
+	b.material.baseColor=new BABYLON.Color3(1,1,.3);
 	b.material.metallic=0;
 	b.material.roughness=1;
 	const pst=2;
