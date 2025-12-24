@@ -30,7 +30,7 @@ l.minZ=0.1;
 const p=new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s);
 p.intensity=2;
 p.parent=l;
-function bnm()
+const bnm=function()
 {
 	const bv=10;
 	const b=BABYLON.MeshBuilder.CreateGround("b",{size:bv});
@@ -54,12 +54,11 @@ function bnm()
 		ps.n=[74,8,66,66,9,77];
 	}
 }
-bnm();
 const pv=(p,d,t)=>{return new BABYLON.Vector3(p,d,t);}
-function gmnk(s1,s2,dk=null)
+const gmnk=function(s1,s2,dk=null)
 {
 	let t=s1.subtract(s2);
-	const g=BABYLON.MeshBuilder.CreateBox("gkc",{width:Math.abs(t.x),height:Math.abs(t.y),depth:Math.abs(t.z)});
+	let g=BABYLON.MeshBuilder.CreateBox("gkc",{width:Math.abs(t.x),height:Math.abs(t.y),depth:Math.abs(t.z)});
 	if(dk)g.parent=dk;
 	g.position=s1.add(s2).scale(0.5);
 	g.material=new BABYLON.PBRMetallicRoughnessMaterial("pd",s);
@@ -69,6 +68,65 @@ function gmnk(s1,s2,dk=null)
 	g.checkCollisions=true;
 	return g;
 }
+const sgbnm=function(s1,s2,g)
+{
+	let p=[]
+	p.push(gmnk(new BABYLON.Vector3(s1.x-g,s1.y-g,s1.z-g),new BABYLON.Vector3(s2.x+g,s1.y,s2.z+g)));
+	p.push(gmnk(new BABYLON.Vector3(s1.x-g,s2.y,s1.z-g),new BABYLON.Vector3(s2.x+g,s2.y+g,s2.z+g)));
+	p.push(gmnk(new BABYLON.Vector3(s1.x-g,s1.y,s1.z-g),new BABYLON.Vector3(s1.x,s2.y,s2.z+g)));
+	p.push(gmnk(new BABYLON.Vector3(s2.x,s1.y,s1.z-g),new BABYLON.Vector3(s2.x+g,s2.y,s2.z+g)));
+	p.push(gmnk(new BABYLON.Vector3(s1.x,s1.y,s1.z-g),new BABYLON.Vector3(s2.x,s2.y,s1.z)));
+	p.push(gmnk(new BABYLON.Vector3(s1.x,s1.y,s2.z),new BABYLON.Vector3(s2.x,s2.y,s2.z+g)));
+	return p;
+}
+if(0)bnm();
+else
+{
+	const s1=10,s2=100,s3=10,ds=1,g=1;
+	let p=sgbnm({x:-s1/2,y:0,z:-ds},{x:s1/2,y:s2,z:s3-ds},g);
+	p[0].n=[74,17,75,9,77];
+	p[1].n=[57,1,68,8,77];
+	for(let k=2;k<6;k++)p[k].n=[74,8,66,66,9,77];
+}
+const ndnm=function()
+{
+	const nd=BABYLON.MeshBuilder.CreateBox("nd",{height:1,width:1,depth:1},s);
+	nd.position=new BABYLON.Vector3(0,0.5,3);
+	nd.material=new BABYLON.PBRMetallicRoughnessMaterial("v",s);
+	const vs=256;
+	const pdc=new BABYLON.DynamicTexture("l",vs,s);
+	nd.material.baseTexture=pdc;
+	pdc.updateSamplingMode(BABYLON.Constants.NEAREST_LINEAR_MIPNEAREST);
+	nd.material.metallic=0;
+	nd.material.roughness=1;
+	const pv=pdc.getContext();
+	pv.fillStyle='white';
+	pv.fillRect(0,0,vs,vs);
+	const lv=nlv();
+	const ln=new Array(lv.length);
+	for(let k=0;k<lv.length;k++)
+	{
+		if(lv[k]==null)continue;
+		ln[k]=pv.createImageData(8,8);
+		for(let pk=0;pk<8;pk++)
+			for(let ppk=0;ppk<8;ppk++)
+			{
+				const v=lv[k][pk]&(1<<(8-ppk))
+				ln[k].data[8*4*pk+4*ppk]=v?0:255;
+				ln[k].data[8*4*pk+4*ppk+1]=v?0:255;
+				ln[k].data[8*4*pk+4*ppk+2]=v?0:255;
+				ln[k].data[8*4*pk+4*ppk+3]=255;
+			}
+	}
+	const lk=(l)=>
+	{
+		for(let k=0;k<l.length;k++)
+			pv.putImageData(ln[l.charCodeAt(k)],(k+1)*8,8);
+	}
+	lk('1@1007.in');
+	pdc.update();
+	return nd;
+};
 s.collisionsEnabled=true;
 s.gravity=new BABYLON.Vector3(0,-0.1,0);
 l.speed=1;
@@ -148,7 +206,7 @@ const ssk=function()
 	window.addEventListener("resize",()=>{c.resize();});
 }
 const ppd=BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("PPD",true,s);
-function lds()
+const lds=function()
 {
 	const ldv1='2px',ldv2='20px';
 	const ldp=new BABYLON.GUI.Rectangle();
