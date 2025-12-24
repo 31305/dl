@@ -23,8 +23,8 @@ document.body.appendChild(d);
 const c=new BABYLON.Engine(d,true);
 const s=new BABYLON.Scene(c);
 s.clearColor=new BABYLON.Color3(0,0,0);
-const ls=1;
-const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*1.5,0),s);
+const ls=1.75/2;
+const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*2,0),s);
 l.attachControl(d,true);
 l.minZ=0.1;
 const p=new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s);
@@ -93,6 +93,12 @@ const ndnm=function(ss,vsm)
 	const pv=pdc.getContext();
 	pv.fillStyle='white';
 	pv.fillRect(0,0,vs,vs);
+	pv.fillStyle='#F54927';
+	const vk=2;
+	pv.fillRect(0,0,vs,vk);
+	pv.fillRect(0,vs-vk,vs,vk);
+	pv.fillRect(0,0,vk,vs);
+	pv.fillRect(vs-vk,0,vk,vs);
 	const lv=nlv();
 	const ln=new Array(lv.length);
 	for(let k=0;k<lv.length;k++)
@@ -120,7 +126,7 @@ const ndnm=function(ss,vsm)
 };
 if(1)
 {
-	const s1=10,s2=10,s3=10,ds=1;
+	const s1=5,s2=3,s3=5,ds=1;
 	const vs=1000;
 	const mg=BABYLON.MeshBuilder.CreateBox('mg',{width:vs,height:vs,depth:vs});
 	const tksg=[]
@@ -152,8 +158,6 @@ l.speed=1;
 l.inertia=0;
 l.checkCollisions=true;
 l.applyGravity=true;
-l.ellipsoid=new BABYLON.Vector3(.3,ls,.3);
-l.ellipsidOffset=new BABYLON.Vector3(0,.5,0);
 l.inputs.remove(l.inputs.attached.mouse);
 l.keysUp.push(87);
 l.keysDown.push(83);
