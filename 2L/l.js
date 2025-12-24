@@ -79,29 +79,10 @@ const sgbnm=function(s1,s2,g)
 	p.push(gmnk(new BABYLON.Vector3(s1.x,s1.y,s2.z),new BABYLON.Vector3(s2.x,s2.y,s2.z+g)));
 	return p;
 }
-if(1)
+const ndnm=function(ss,vsm)
 {
-	const s1=10,s2=10,s3=10;
-	const vs=1000;
-	const mg=BABYLON.MeshBuilder.CreateBox('mg',{width:vs,height:vs,depth:vs});
-	const tk=BABYLON.MeshBuilder.CreateBox('tk',{width:s1,height:s2,depth:s3});
-	tk.position.set(0,s2/2,s3/2-1);
-	const mgs=BABYLON.CSG.FromMesh(mg);
-	const tks=BABYLON.CSG.FromMesh(tk);
-	const b=mgs.subtract(tks).toMesh("b",null,s,true);
-	b.checkCollisions=true;
-	b.material=new BABYLON.PBRMetallicRoughnessMaterial("pd",s);
-	b.material.baseColor=new BABYLON.Color3(.8,.8,.8);
-	b.material.metallic=0;
-	b.material.roughness=1;
-	mg.dispose();
-	tk.dispose();
-	window.b=b;
-}
-const ndnm=function()
-{
-	const nd=BABYLON.MeshBuilder.CreateBox("nd",{height:1,width:1,depth:1},s);
-	nd.position=new BABYLON.Vector3(0,0.5,3);
+	const nd=BABYLON.MeshBuilder.CreatePlane("nd",{width:vsm,height:vsm},s);
+	nd.position=ss;
 	nd.material=new BABYLON.PBRMetallicRoughnessMaterial("v",s);
 	const vs=256;
 	const pdc=new BABYLON.DynamicTexture("l",vs,s);
@@ -137,6 +118,32 @@ const ndnm=function()
 	pdc.update();
 	return nd;
 };
+if(1)
+{
+	const s1=10,s2=10,s3=10,ds=1;
+	const vs=1000;
+	const mg=BABYLON.MeshBuilder.CreateBox('mg',{width:vs,height:vs,depth:vs});
+	const tksg=[]
+	let tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:s1,height:s2,depth:s3});
+	tkb.position.set(0,s2/2,s3/2-ds);
+	tksg.push(tkb);
+	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:1,depth:0.2});
+	tkb.position.set(0,1.5,s3-ds);
+	tksg.push(tkb);
+	ndnm(pv(0,1.5,s3-ds),1);
+	const tk=BABYLON.Mesh.MergeMeshes(tksg);
+	const mgs=BABYLON.CSG.FromMesh(mg);
+	const tks=BABYLON.CSG.FromMesh(tk);
+	const b=mgs.subtract(tks).toMesh("b",null,s,true);
+	b.checkCollisions=true;
+	b.material=new BABYLON.PBRMetallicRoughnessMaterial("pd",s);
+	b.material.baseColor=new BABYLON.Color3(.8,.8,.8);
+	b.material.metallic=0;
+	b.material.roughness=1;
+	mg.dispose();
+	tk.dispose();
+	window.b=b;
+}
 s.collisionsEnabled=true;
 s.gravity=new BABYLON.Vector3(0,-0.1,0);
 l.speed=1;
