@@ -142,6 +142,7 @@ if(1)
 	b.material.baseColor=new BABYLON.Color3(.5,.5,.5);
 	b.material.metallic=0;
 	b.material.roughness=1;
+	b.n=[74,2,46,3,70,1,75];
 	mg.dispose();
 	for(let k=0;k<tksg.length;k++)tksg[k].dispose();
 }
@@ -152,7 +153,7 @@ l.inertia=0;
 l.checkCollisions=true;
 l.applyGravity=true;
 l.ellipsoid=new BABYLON.Vector3(.3,ls,.3);
-l.ellipsoidOffset=new BABYLON.Vector3(0,.5,0);
+l.ellipsidOffset=new BABYLON.Vector3(0,.5,0);
 l.inputs.remove(l.inputs.attached.mouse);
 l.keysUp.push(87);
 l.keysDown.push(83);
@@ -228,22 +229,17 @@ const ssk=function()
 const ppd=BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("PPD",true,s);
 const lds=function()
 {
-	const ldv1='2px',ldv2='20px';
-	const ldp=new BABYLON.GUI.Rectangle();
-	ldp.width=ldv1;
-	ldp.height=ldv2;
-	ldp.background="white"
-	ldp.thickness=0;
-	ldp.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-	ldp.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
-	ppd.addControl(ldp);
-	const ldd=new BABYLON.GUI.Rectangle();
-	ldd.width=ldv2;
-	ldd.height=ldv1;
-	ldd.background="white";
-	ldd.thickness=0;
-	ldd.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-	ldd.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
-	ppd.addControl(ldd);
+	const ldv=['2px','20px','4px','22px'];
+	for(let k=3;k>=0;k--)
+	{
+		const ld=new BABYLON.GUI.Rectangle();
+		ld.width=ldv[Math.floor(k/2)*2+k%2];
+		ld.height=ldv[Math.floor(k/2)*2+(1-k%2)];
+		ld.background=k>1?"black":"white";
+		ld.thickness=0;
+		ld.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+		ld.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+		ppd.addControl(ld);
+	}
 }
 lds();
