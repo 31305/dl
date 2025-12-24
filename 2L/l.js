@@ -126,7 +126,7 @@ const ndnm=function(ss,vsm)
 };
 if(1)
 {
-	const s1=5,s2=3,s3=5,ds=1;
+	const s1=5,s2=ls*4,s3=5,ds=1;
 	const vs=1000;
 	const mg=BABYLON.MeshBuilder.CreateBox('mg',{width:vs,height:vs,depth:vs});
 	const tksg=[]
@@ -134,9 +134,9 @@ if(1)
 	tkb.position.set(0,s2/2,s3/2-ds);
 	tksg.push(tkb);
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:1,depth:0.2});
-	tkb.position.set(0,1.5,s3-ds);
+	tkb.position.set(0,ls*2,s3-ds);
 	tksg.push(tkb);
-	const ndp=ndnm(pv(0,1.5,s3-ds),1);
+	const ndp=ndnm(pv(0,ls*2,s3-ds),1);
 	ndp.n=[70,7,44,68,31,47,2,77];
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
