@@ -79,14 +79,24 @@ const sgbnm=function(s1,s2,g)
 	p.push(gmnk(new BABYLON.Vector3(s1.x,s1.y,s2.z),new BABYLON.Vector3(s2.x,s2.y,s2.z+g)));
 	return p;
 }
-if(0)bnm();
-else
+if(1)
 {
-	const s1=10,s2=100,s3=10,ds=1,g=1;
-	let p=sgbnm({x:-s1/2,y:0,z:-ds},{x:s1/2,y:s2,z:s3-ds},g);
-	p[0].n=[74,17,75,9,77];
-	p[1].n=[57,1,68,8,77];
-	for(let k=2;k<6;k++)p[k].n=[74,8,66,66,9,77];
+	const s1=10,s2=10,s3=10;
+	const vs=1000;
+	const mg=BABYLON.MeshBuilder.CreateBox('mg',{width:vs,height:vs,depth:vs});
+	const tk=BABYLON.MeshBuilder.CreateBox('tk',{width:s1,height:s2,depth:s3});
+	tk.position.set(0,s2/2,s3/2-1);
+	const mgs=BABYLON.CSG.FromMesh(mg);
+	const tks=BABYLON.CSG.FromMesh(tk);
+	const b=mgs.subtract(tks).toMesh("b",null,s,true);
+	b.checkCollisions=true;
+	b.material=new BABYLON.PBRMetallicRoughnessMaterial("pd",s);
+	b.material.baseColor=new BABYLON.Color3(.8,.8,.8);
+	b.material.metallic=0;
+	b.material.roughness=1;
+	mg.dispose();
+	tk.dispose();
+	window.b=b;
 }
 const ndnm=function()
 {
