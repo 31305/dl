@@ -84,7 +84,7 @@ const ndnm=function(ss,vsm)
 	const nd=BABYLON.MeshBuilder.CreatePlane("nd",{width:vsm,height:vsm},s);
 	nd.position=ss;
 	nd.material=new BABYLON.PBRMetallicRoughnessMaterial("v",s);
-	const vs=256;
+	const vs=128;
 	const pdc=new BABYLON.DynamicTexture("l",vs,s);
 	nd.material.baseTexture=pdc;
 	pdc.updateSamplingMode(BABYLON.Constants.NEAREST_LINEAR_MIPNEAREST);
@@ -109,12 +109,12 @@ const ndnm=function(ss,vsm)
 				ln[k].data[8*4*pk+4*ppk+3]=255;
 			}
 	}
-	const lk=(l)=>
+	const lk=(l,s1,s2)=>
 	{
 		for(let k=0;k<l.length;k++)
-			pv.putImageData(ln[l.charCodeAt(k)],(k+1)*8,8);
+			pv.putImageData(ln[l.charCodeAt(k)],k*8+s1,s2);
 	}
-	lk('1@1007.in');
+	lk('1@1007.in',28,60);
 	pdc.update();
 	return nd;
 };
@@ -130,10 +130,11 @@ if(1)
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:1,depth:0.2});
 	tkb.position.set(0,1.5,s3-ds);
 	tksg.push(tkb);
-	ndnm(pv(0,1.5,s3-ds),1);
-	const tk=BABYLON.Mesh.MergeMeshes(tksg);
+	ndnm(pv(0,1.5,s3-ds+0.05),1);
 	const mgs=BABYLON.CSG.FromMesh(mg);
-	const tks=BABYLON.CSG.FromMesh(tk);
+	let tks=BABYLON.CSG.FromMesh(tksg[0]);
+	for(let k=1;k<tksg.length;k++)
+		tks=tks.union(BABYLON.CSG.FromMesh(tksg[k]));
 	const b=mgs.subtract(tks).toMesh("b",null,s,true);
 	b.checkCollisions=true;
 	b.material=new BABYLON.PBRMetallicRoughnessMaterial("pd",s);
@@ -141,7 +142,7 @@ if(1)
 	b.material.metallic=0;
 	b.material.roughness=1;
 	mg.dispose();
-	tk.dispose();
+	for(let k=0;k<tksg.length;k++)tksg[k].dispose();
 	window.b=b;
 }
 s.collisionsEnabled=true;
@@ -164,7 +165,9 @@ const ssk=function()
 	{
 		if(!jdv()){if(document.pointerLockElement!=d){d.requestPointerLock();return;}}
 		else if(document.fullscreenElement!=d){d.requestFullscreen();screen.orientation.lock("landscape-primary");return;}
-		let n=s.pick(d.width/2,d.height/2).pickedMesh;
+		let sp=s.pick(d.width/2,d.height/2);
+		console.log(sp.pickedPoint);
+		let n=sp.pickedMesh;
 		if(n==undefined)v.b([1,70,66,2,44,9,51,48,1,75]);
 		else
 		{
