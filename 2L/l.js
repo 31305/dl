@@ -130,7 +130,8 @@ if(1)
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:1,depth:0.2});
 	tkb.position.set(0,1.5,s3-ds);
 	tksg.push(tkb);
-	ndnm(pv(0,1.5,s3-ds+0.05),1);
+	const ndp=ndnm(pv(0,1.5,s3-ds),1);
+	ndp.n=[70,7,44,68,31,47,2,77];
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
 	for(let k=1;k<tksg.length;k++)
@@ -138,12 +139,11 @@ if(1)
 	const b=mgs.subtract(tks).toMesh("b",null,s,true);
 	b.checkCollisions=true;
 	b.material=new BABYLON.PBRMetallicRoughnessMaterial("pd",s);
-	b.material.baseColor=new BABYLON.Color3(.8,.8,.8);
+	b.material.baseColor=new BABYLON.Color3(.5,.5,.5);
 	b.material.metallic=0;
 	b.material.roughness=1;
 	mg.dispose();
 	for(let k=0;k<tksg.length;k++)tksg[k].dispose();
-	window.b=b;
 }
 s.collisionsEnabled=true;
 s.gravity=new BABYLON.Vector3(0,-0.1,0);
