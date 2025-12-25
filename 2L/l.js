@@ -31,31 +31,8 @@ l.minZ=0.1;
 const p=new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s);
 p.intensity=2;
 p.parent=l;
-const bnm=function()
-{
-	const bv=10;
-	const b=BABYLON.MeshBuilder.CreateGround("b",{size:bv});
-	b.n=[74,17,75,9,77];
-	b.checkCollisions=true;
-	b.material=new BABYLON.PBRMetallicRoughnessMaterial("pd",s);
-	b.material.baseColor=new BABYLON.Color3(1,1,.3);
-	b.material.metallic=0;
-	b.material.roughness=1;
-	const pst=2;
-	for(let k=0;k<4;k++)
-	{
-		const ps=BABYLON.MeshBuilder.CreatePlane("ps"+k.toString(),{height:pst,width:bv},s);
-		ps.material=new BABYLON.PBRMetallicRoughnessMaterial("pd",s);
-		ps.material.baseColor=new BABYLON.Color3(.8,.8,.8);
-		ps.material.metallic=0;
-		ps.material.roughness=1;
-		ps.position=new BABYLON.Vector3(0,pst/2,bv/2);
-		ps.rotateAround(new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,1,0),k*Math.PI/2);
-		ps.checkCollisions=true;
-		ps.n=[74,8,66,66,9,77];
-	}
-}
 const pv=(p,d,t)=>{return new BABYLON.Vector3(p,d,t);}
+const bdnv=new BABYLON.Color3(.5,.5,.5);
 const gmnk=function(s1,s2,dk=null)
 {
 	let t=s1.subtract(s2);
@@ -63,13 +40,13 @@ const gmnk=function(s1,s2,dk=null)
 	if(dk)g.parent=dk;
 	g.position=s1.add(s2).scale(0.5);
 	g.material=new BABYLON.PBRMetallicRoughnessMaterial("pd",s);
-	g.material.baseColor=new BABYLON.Color3(.8,.8,.8);
+	g.material.baseColor=bdnv;
 	g.material.metallic=0;
 	g.material.roughness=1;
 	g.checkCollisions=true;
 	return g;
 }
-const sgbnm=function(s1,s2,g)
+const sgbnm=function(s1,s2,g,d=0)
 {
 	let p=[]
 	p.push(gmnk(new BABYLON.Vector3(s1.x-g,s1.y-g,s1.z-g),new BABYLON.Vector3(s2.x+g,s1.y,s2.z+g)));
@@ -77,7 +54,7 @@ const sgbnm=function(s1,s2,g)
 	p.push(gmnk(new BABYLON.Vector3(s1.x-g,s1.y,s1.z-g),new BABYLON.Vector3(s1.x,s2.y,s2.z+g)));
 	p.push(gmnk(new BABYLON.Vector3(s2.x,s1.y,s1.z-g),new BABYLON.Vector3(s2.x+g,s2.y,s2.z+g)));
 	p.push(gmnk(new BABYLON.Vector3(s1.x,s1.y,s1.z-g),new BABYLON.Vector3(s2.x,s2.y,s1.z)));
-	p.push(gmnk(new BABYLON.Vector3(s1.x,s1.y,s2.z),new BABYLON.Vector3(s2.x,s2.y,s2.z+g)));
+	p.push(gmnk(new BABYLON.Vector3(s1.x,s1.y,s2.z),new BABYLON.Vector3(s2.x-d,s2.y,s2.z+g)));
 	return p;
 }
 const ndnm=function(ss,vsm)
@@ -125,9 +102,19 @@ const ndnm=function(ss,vsm)
 	pdc.update();
 	return nd;
 };
+const bcd=function(s)
+{
+	const p=new BABYLON.TransformNode("bcd");
+	const bcds=sgbnm(pv(0,0,0),pv(4,2,3),0.2,1.2);
+	bcds.forEach((s)=>s.parent=p);
+	bcds[0].dispose();
+	bcds[1].n=[57,1,68,8,77];
+	p.position=s;
+	return p;
+}
 if(1)
 {
-	const s1=5,s2=ls*4,s3=5,ds=1;
+	const s1=5,s2=ls*4,s3=5,ds=s3/2;
 	const vs=1000;
 	const mg=BABYLON.MeshBuilder.CreateBox('mg',{width:vs,height:vs,depth:vs});
 	const tksg=[]
@@ -141,7 +128,7 @@ if(1)
 	ndp.n=[70,7,44,68,31,47,2,77];
 	const gmc=2.5;
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:50,height:gmc,depth:1.2});
-	tkb.position.set(0,gmc/2,1);
+	tkb.position.set(0,gmc/2,0);
 	tksg.push(tkb);
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:1,depth:1});
 	tkb.position.set(0,ls*2,-ds);
@@ -149,6 +136,9 @@ if(1)
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:s1,height:s2,depth:s3});
 	tkb.position.set(0,s2/2,-ds-s3/2-0.2);
 	tksg.push(tkb);
+	tkb=gmnk(pv(-s1/2-.2,0,-10),pv(-s1/2-.2-50,10,10));
+	tksg.push(tkb);
+	bcd(pv(-s1/2-.2-5,0,-4));
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
 	for(let k=1;k<tksg.length;k++)
@@ -156,7 +146,7 @@ if(1)
 	const b=mgs.subtract(tks).toMesh("b",null,s,true);
 	b.checkCollisions=true;
 	b.material=new BABYLON.PBRMetallicRoughnessMaterial("pd",s);
-	b.material.baseColor=new BABYLON.Color3(.5,.5,.5);
+	b.material.baseColor=bdnv;
 	b.material.metallic=0;
 	b.material.roughness=1;
 	b.n=[74,2,46,3,70,1,75];
