@@ -102,6 +102,15 @@ const ndnm=function(ss,vsm)
 	pdc.update();
 	return nd;
 };
+const spd=function(s)
+{
+	const p=new BABYLON.TransformNode("pd");
+	const vs=1;
+	const tp=gmnk(pv(-vs/2,0,-vs/2),pv(vs/2,.5,vs/2));
+	tp.parent=p;
+	p.position=s;
+	return p;
+}
 const bcd=function(s)
 {
 	const p=new BABYLON.TransformNode("bcd");
@@ -143,6 +152,7 @@ if(1)
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1.2});
 	tkb.position.set(-s1/2,gmc/2,-s3/2-.2-s3/2);
 	tksg.push(tkb);
+	spd(pv(0,0,-s3-.2));
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
 	for(let k=1;k<tksg.length;k++)
@@ -174,7 +184,7 @@ const ssk=function()
 	d.addEventListener("click",(p)=>
 	{
 		if(!jdv()){if(document.pointerLockElement!=d){d.requestPointerLock();return;}}
-		else if(document.fullscreenElement!=d){d.requestFullscreen();screen.orientation.lock("landscape-primary");return;}
+		else if(document.fullscreenElement!=d||d.width<d.height){d.requestFullscreen();screen.orientation.lock("landscape-primary");return;}
 		let sp=s.pick(d.width/2,d.height/2);
 		console.log(sp.pickedPoint);
 		let n=sp.pickedMesh;
@@ -197,21 +207,33 @@ const ssk=function()
 	}
 	});
 	const sss=new Map();
+	const gs=new BABYLON.Vector3(0,0,0);
 	d.addEventListener("touchstart",(p)=>
 	{
 		for(const s of p.changedTouches)
 			if(!sss.has(s.identifier))
 				sss.set(s.identifier,{s1:s.clientX,s2:s.clientY,m:s.clientX/d.offsetWidth>0.5});
 	});
-	d.addEventListener("touchend",(p)=>
+	const spk=(p)=>
 	{
 		for(const s of p.changedTouches)
+		{
+			if(!sss.get(s.identifier).m)
+			{
+				console.log('sp');
+				gs.set(0,0,0);
+			}
 			sss.delete(s.identifier);
-	});
-	d.addEventListener("touchcancel",(p)=>
+		}
+	}
+	d.addEventListener("touchend",spk);
+	d.addEventListener("touchcancel",spk);
+	s.onBeforeRenderObservable.add(()=>
 	{
-		for(const s of p.changedTouches)
-			sss.delete(s.identifier);
+		const kn=s.getEngine().getDeltaTime()/1000;
+		const t=gs.normalizeToNew().scale(l.speed*kn);
+		l.cameraDirection.addInPlace(t);
+		gs.subtractInPlace(t);
 	});
 	d.addEventListener("touchmove",(p)=>{if(document.fullscreenElement==d)
 	{
@@ -228,7 +250,7 @@ const ssk=function()
 			{
 				let g=BABYLON.Vector3.TransformCoordinates
 					(new BABYLON.Vector3(-g1,0,g2),BABYLON.Matrix.RotationY(l.rotation.y)).scale(10);
-				l.cameraDirection.addInPlace(g);
+				gs.addInPlace(g);
 			}
 			sss.get(s.identifier).s1=s.clientX;
 			sss.get(s.identifier).s2=s.clientY;
