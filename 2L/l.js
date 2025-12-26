@@ -32,18 +32,18 @@ const p=new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s);
 p.intensity=2;
 p.parent=l;
 const pv=(p,d,t)=>{return new BABYLON.Vector3(p,d,t);}
-const bdnv=new BABYLON.Color3(.5,.5,.5);
-const gmnk=function(s1,s2,dk=null)
+const bdnv=new BABYLON.Color3(1,1,1);
+const gmnk=function(s1,s2,dk=null,sv=bdnv,vr=true)
 {
 	let t=s1.subtract(s2);
 	let g=BABYLON.MeshBuilder.CreateBox("gkc",{width:Math.abs(t.x),height:Math.abs(t.y),depth:Math.abs(t.z)});
 	if(dk)g.parent=dk;
 	g.position=s1.add(s2).scale(0.5);
 	g.material=new BABYLON.PBRMetallicRoughnessMaterial("pd",s);
-	g.material.baseColor=bdnv;
+	g.material.baseColor=sv;
 	g.material.metallic=0;
 	g.material.roughness=1;
-	g.checkCollisions=true;
+	g.checkCollisions=vr;
 	return g;
 }
 const sgbnm=function(s1,s2,g,d=0)
@@ -105,10 +105,23 @@ const ndnm=function(ss,vsm)
 const spd=function(s)
 {
 	const p=new BABYLON.TransformNode("pd");
-	const vs=1;
-	const tp=gmnk(pv(-vs/2,0,-vs/2),pv(vs/2,.5,vs/2));
-	tp.parent=p;
+	const vs=1,sv=0.1,tc1=.5,tc2=2;
+	const pgv=new BABYLON.Color3(0,0,0);
+	const tp=gmnk(pv(-vs/2+sv,0,-vs/2+sv),pv(vs/2-sv,tc1,vs/2-sv),p,new BABYLON.Color3(1,1,1),false);
+	for(let k=0;k<4;k++)
+	{
+		const s1=-vs/2;
+		const s3=-vs/2;
+		const tp=gmnk(pv(s1,0,s3),pv(s1+sv,tc1+tc2-sv,s3+sv),p,new BABYLON.Color3(0,0,0),false);
+		tp.rotateAround(new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,1,0),Math.PI/2*k);
+		const dtp=gmnk(pv(s1+sv,0,s3),pv(vs/2-sv,tc1,s3+sv),p,new BABYLON.Color3(0,0,0),false);
+		dtp.rotateAround(new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,1,0),Math.PI/2*k);
+	}
+	const ttp=gmnk(pv(-vs/2,tc1+tc2-sv,-vs/2),pv(vs/2,tc1+tc2,vs/2),p,new BABYLON.Color3(0,0,0),false);
+	const ctp=gmnk(pv(-vs/2,0,-vs/2),pv(vs/2,tc1+tc2,vs/2),p);
+	ctp.isVisible=false;
 	p.position=s;
+	p.n=[71,44,1,68,2,44,47,3,70,1,75];
 	return p;
 }
 const bcd=function(s)
@@ -152,7 +165,7 @@ if(1)
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1.2});
 	tkb.position.set(-s1/2,gmc/2,-s3/2-.2-s3/2);
 	tksg.push(tkb);
-	if(0)spd(pv(0,0,-s3-.2));
+	if(1)spd(pv(0,0,-s3-.2));
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
 	for(let k=1;k<tksg.length;k++)
@@ -188,13 +201,14 @@ const ssk=function()
 		let sp=s.pick(d.width/2,d.height/2);
 		console.log(sp.pickedPoint);
 		let n=sp.pickedMesh;
+		window.plv=n;
 		if(n==undefined)v.b([1,70,66,2,44,9,51,48,1,75]);
 		else
 		{
 			let p=n;
 			while(p!=undefined)
 			{
-				if(p.n!=undefined){v.b(n.n);return;}
+				if(p.n!=undefined){v.b(p.n);return;}
 				else p=p.parent;
 			}
 		}
