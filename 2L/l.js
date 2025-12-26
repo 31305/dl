@@ -140,6 +140,9 @@ if(1)
 	tksg.push(tkb);
 	tkb=gmnk(pv(-s1/2-.2,0,-s3/2-.2-s3),pv(-s1/2-.2-5,s2,s3/2));
 	tksg.push(tkb);
+	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1.2});
+	tkb.position.set(-s1/2,gmc/2,-s3/2-.2-s3/2);
+	tksg.push(tkb);
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
 	for(let k=1;k<tksg.length;k++)
