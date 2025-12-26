@@ -54,7 +54,7 @@ const sgbnm=function(s1,s2,g,d=0)
 	p.push(gmnk(new BABYLON.Vector3(s1.x-g,s1.y,s1.z-g),new BABYLON.Vector3(s1.x,s2.y,s2.z+g)));
 	p.push(gmnk(new BABYLON.Vector3(s2.x,s1.y,s1.z-g),new BABYLON.Vector3(s2.x+g,s2.y,s2.z+g)));
 	p.push(gmnk(new BABYLON.Vector3(s1.x,s1.y,s1.z-g),new BABYLON.Vector3(s2.x,s2.y,s1.z)));
-	p.push(gmnk(new BABYLON.Vector3(s1.x,s1.y,s2.z),new BABYLON.Vector3(s2.x-d,s2.y,s2.z+g)));
+	p.push(gmnk(new BABYLON.Vector3(s1.x+d,s1.y,s2.z),new BABYLON.Vector3(s2.x-d,s2.y,s2.z+g)));
 	return p;
 }
 const ndnm=function(ss,vsm)
@@ -109,6 +109,8 @@ const bcd=function(s)
 	bcds.forEach((s)=>s.parent=p);
 	bcds[0].dispose();
 	bcds[1].n=[57,1,68,8,77];
+	for(let k=2;k<6;k++)
+		bcds[k].n=[74,8,66,66,9,77];
 	p.position=s;
 	return p;
 }
@@ -127,8 +129,8 @@ if(1)
 	const ndp=ndnm(pv(0,ls*2,s3-ds),1);
 	ndp.n=[70,7,44,68,31,47,2,77];
 	const gmc=2.5;
-	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:50,height:gmc,depth:1.2});
-	tkb.position.set(0,gmc/2,0);
+	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1.2});
+	tkb.position.set(-s1/2,gmc/2,0);
 	tksg.push(tkb);
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:1,depth:1});
 	tkb.position.set(0,ls*2,-ds);
@@ -136,9 +138,8 @@ if(1)
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:s1,height:s2,depth:s3});
 	tkb.position.set(0,s2/2,-ds-s3/2-0.2);
 	tksg.push(tkb);
-	tkb=gmnk(pv(-s1/2-.2,0,-10),pv(-s1/2-.2-50,10,10));
+	tkb=gmnk(pv(-s1/2-.2,0,-s3/2-.2-s3),pv(-s1/2-.2-5,s2,s3/2));
 	tksg.push(tkb);
-	bcd(pv(-s1/2-.2-5,0,-4));
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
 	for(let k=1;k<tksg.length;k++)
@@ -221,8 +222,11 @@ const ssk=function()
 				l.cameraRotation.x-=g2;
 			}
 			else
-				l.cameraDirection.addInPlace(BABYLON.Vector3.TransformCoordinates
-					(new BABYLON.Vector3(-g1,0,g2),BABYLON.Matrix.RotationY(l.rotation.y)).scale(10));
+			{
+				let g=BABYLON.Vector3.TransformCoordinates
+					(new BABYLON.Vector3(-g1,0,g2),BABYLON.Matrix.RotationY(l.rotation.y)).scale(10);
+				l.cameraDirection.addInPlace(g);
+			}
 			sss.get(s.identifier).s1=s.clientX;
 			sss.get(s.identifier).s2=s.clientY;
 		}
