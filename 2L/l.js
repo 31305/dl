@@ -152,7 +152,7 @@ if(1)
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1.2});
 	tkb.position.set(-s1/2,gmc/2,-s3/2-.2-s3/2);
 	tksg.push(tkb);
-	spd(pv(0,0,-s3-.2));
+	if(0)spd(pv(0,0,-s3-.2));
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
 	for(let k=1;k<tksg.length;k++)
@@ -231,7 +231,7 @@ const ssk=function()
 	s.onBeforeRenderObservable.add(()=>
 	{
 		const kn=s.getEngine().getDeltaTime()/1000;
-		const t=gs.normalizeToNew().scale(l.speed*kn);
+		const t=gs.normalizeToNew().scale(l.speed*kn*3);
 		l.cameraDirection.addInPlace(t);
 		gs.subtractInPlace(t);
 	});
