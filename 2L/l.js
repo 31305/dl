@@ -105,7 +105,7 @@ const ndnm=function(ss,vsm)
 const spd=function(s)
 {
 	const p=new BABYLON.TransformNode("pd");
-	const vs=1,sv=0.1,tc1=.5,tc2=2;
+	const vs=3,sv=0.1,tc1=.5,tc2=2;
 	const pgv=new BABYLON.Color3(0,0,0);
 	const tp=gmnk(pv(-vs/2+sv,0,-vs/2+sv),pv(vs/2-sv,tc1,vs/2-sv),p,new BABYLON.Color3(1,1,1),false);
 	for(let k=0;k<4;k++)
@@ -118,6 +118,18 @@ const spd=function(s)
 		dtp.rotateAround(new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,1,0),Math.PI/2*k);
 	}
 	const ttp=gmnk(pv(-vs/2,tc1+tc2-sv,-vs/2),pv(vs/2,tc1+tc2,vs/2),p,new BABYLON.Color3(0,0,0),false);
+	const pksc=0.02;
+	const pkvs=(vs-2*sv)/(tc2-sv+pksc);
+	const pks=BABYLON.MeshBuilder.CreateCylinder("pk",{height:pksc,diameter:pkvs*pksc});
+	pks.position.set(0,tc1+tc2-sv+pksc/2,0);
+	pks.parent=p;
+	pks.material=new BABYLON.PBRMaterial("pd");
+	pks.material.emissiveColor=new BABYLON.Color3(1,1,1);
+	pks.material.zOffset=-sv;
+	const pk=new BABYLON.SpotLight("pk",new BABYLON.Vector3(0,tc1+tc2-sv+pksc,0),new BABYLON.Vector3(0,-1,0),2*Math.atan(pkvs/2),2);
+	pk.parent=p;
+	pk.intensity=10;
+	pk.includedOnlyMeshes=p.getChildren();
 	const ctp=gmnk(pv(-vs/2,0,-vs/2),pv(vs/2,tc1+tc2,vs/2),p);
 	ctp.isVisible=false;
 	p.position=s;
