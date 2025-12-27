@@ -174,20 +174,23 @@ const pvsnm=()=>
 const tpnm=()=>
 {
 	const p=new BABYLON.TransformNode("tp");
-	const vs1=1.5,vs3=1,tc=.75,sv=.05,v=kmvv;
+	const vs1=1.5,vs3=1,tc=.75,sv=.1,v=kmvv;
 	for(let k=0;k<4;k++)
 	{
 		const s1=(2*Math.floor(k/2)-1)*(vs1-sv)/2;
 		const s3=(2*(k%2)-1)*(vs3-sv)/2;
 		const tp=gmnk(pv(s1-sv/2,0,s3-sv/2),pv(s1+sv/2,tc,s3+sv/2),p,v,false);
 	}
-	gmnk(pv(-vs1/2,0,-vs3/2),pv(vs1/2,tc+sv,vs3/2),p).isVisible=false;
+	gmnk(pv(-vs1/2-sv,tc,-vs3/2-sv),pv(vs1/2+sv,tc+sv,vs3/2+sv),p,v,false);
+	gmnk(pv(-vs1/2-sv,0,-vs3/2-sv),pv(vs1/2+sv,tc+sv,vs3/2+sv),p).isVisible=false;
 	p.n=[14,66,71,12,62,1,75];
 	return p;
 };
 const lnm=()=>
 {
 	const s1=5,s2=ls*4,s3=5,ds=s3/2,ntvs=0.001,bvs=.2;
+	l.position.addInPlaceFromFloats(-s1-bvs,0,0);
+	l.rotation.set(0,Math.PI/2,0);
 	const vs=1000;
 	const mg=BABYLON.MeshBuilder.CreateBox('mg',{width:vs,height:vs,depth:vs});
 	const tksg=[];
@@ -212,8 +215,12 @@ const lnm=()=>
 	tkb.position.set(-s1/2,gmc/2,-s3/2-bvs-s3/2);
 	tksg.push(tkb);
 	spd(pv(0,0,-s3-bvs));
-	pvsnm().position.set(0,0,-2);
-	tpnm().position.set(1.2,0,-1.5);
+	const mks=pvsnm();
+	mks.position.set(2,0,-1.5);
+	mks.rotation.set(0,-Math.PI/2,0);
+	const mtp=tpnm();
+	mtp.position.set(1.2,0,-1.5);
+	mtp.rotation.set(0,-Math.PI/2,0);
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
 	for(let k=1;k<tksg.length;k++)
