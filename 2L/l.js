@@ -148,22 +148,27 @@ const bcd=function(s)
 	p.position=s;
 	return p;
 }
+const kmvv=new BABYLON.Color3(.6,.4,.2);
 const pvsnm=()=>
 {
 	const p=new BABYLON.TransformNode("pd");
-	const vs=0.5,sv=.05,tc1=.5,tc2=.5,v=new BABYLON.Color3(.6,.4,.2);
+	const vs=0.5,sv=.05,tc1=.5,tc2=.5,tc3=.15,v=kmvv;
 	for(let k=0;k<4;k++)
 	{
 		const s1=-vs/2;
 		const s3=-vs/2;
-		const tp=gmnk(pv(s1,0,s3),pv(s1+sv,tc1+sv+(k==0||k==3?tc2:.15),s3+sv),p,v,false);
+		const tp=gmnk(pv(s1,0,s3),pv(s1+sv,tc1+sv+(k==0||k==3?tc2:tc3),s3+sv),p,v,false);
 		tp.rotateAround(new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,1,0),Math.PI/2*k);
 	}
 	for(let k=0;k<2;k++)
 	{
+		gmnk(pv(k*(vs-sv)-vs/2,tc1+sv+tc3,-vs/2+sv),pv(k*(vs-sv)-vs/2+sv,tc1+sv+tc3+sv,vs/2),p,v,false);
+		gmnk(pv((2*k-1)*((vs-4*sv)/6+sv),tc1+sv,-vs/2),pv((2*k-1)*(vs-4*sv)/6,tc1+tc2,-vs/2+sv),p,v,false);
 	}
+	gmnk(pv(-vs/2+sv,tc1+tc2,-vs/2),pv(vs/2-sv,tc1+tc2+sv,-vs/2+sv),p,v,false);
 	gmnk(pv(-vs/2,tc1,-vs/2),pv(vs/2,tc1+sv,vs/2),p,v,false);
 	gmnk(pv(-vs/2,0,-vs/2),pv(vs/2,tc1+tc2+sv,vs/2),p).isVisible=false;
+	p.n=[5,49,3,70,1,75];
 	return p;
 };
 const lnm=()=>
