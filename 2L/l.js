@@ -133,7 +133,7 @@ const spd=function(s)
 	const ctp=gmnk(pv(-vs/2,0,-vs/2),pv(vs/2,tc1+tc2,vs/2),p);
 	ctp.isVisible=false;
 	p.position=s;
-	p.n=[71,44,1,68,2,44,47,3,70,1,75];
+	p.n=[71,44,1,68,2,44,47,3,70,10];
 	return p;
 }
 const bcd=function(s)
@@ -148,24 +148,35 @@ const bcd=function(s)
 	p.position=s;
 	return p;
 }
+const pvsnm=()=>
+{
+	const p=new BABYLON.TransformNode("pd");
+	const vs=0.5,sv=.05,tc1=.5,tc2=.5,v=new BABYLON.Color3(.6,.4,.2);
+	for(let k=0;k<4;k++)
+	{
+		const s1=-vs/2;
+		const s3=-vs/2;
+		const tp=gmnk(pv(s1,0,s3),pv(s1+sv,tc1+sv+(k==0||k==3?tc2:.15),s3+sv),p,v,false);
+		tp.rotateAround(new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,1,0),Math.PI/2*k);
+	}
+	for(let k=0;k<2;k++)
+	{
+	}
+	gmnk(pv(-vs/2,tc1,-vs/2),pv(vs/2,tc1+sv,vs/2),p,v,false);
+	gmnk(pv(-vs/2,0,-vs/2),pv(vs/2,tc1+tc2+sv,vs/2),p).isVisible=false;
+	return p;
+};
 const lnm=()=>
 {
 	const s1=5,s2=ls*4,s3=5,ds=s3/2,ntvs=0.001,bvs=.2;
 	const vs=1000;
 	const mg=BABYLON.MeshBuilder.CreateBox('mg',{width:vs,height:vs,depth:vs});
-	const tksg=[]
+	const tksg=[];
 	let tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:s1,height:s2,depth:s3});
 	tkb.position.set(0,s2/2,s3/2-ds);
 	tksg.push(tkb);
-	if(0)
-	{
-		tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:1,depth:0.2});
-		tkb.position.set(0,ls*2,s3-ds);
-		tksg.push(tkb);
-	}
 	const ndp=ndnm(pv(0,ls*2,s3-ds-ntvs),1);
 	ndp.n=[70,7,44,68,31,47,2,77];
-	window.ndp=ndp;
 	const gmc=2.5;
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1.2});
 	tkb.position.set(-s1/2,gmc/2,0);
@@ -181,7 +192,8 @@ const lnm=()=>
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1.2});
 	tkb.position.set(-s1/2,gmc/2,-s3/2-bvs-s3/2);
 	tksg.push(tkb);
-	if(1)spd(pv(0,0,-s3-bvs));
+	spd(pv(0,0,-s3-bvs));
+	pvsnm().position.set(0,0,-2);
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
 	for(let k=1;k<tksg.length;k++)
