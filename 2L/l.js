@@ -148,20 +148,24 @@ const bcd=function(s)
 	p.position=s;
 	return p;
 }
-if(1)
+const lnm=()=>
 {
-	const s1=5,s2=ls*4,s3=5,ds=s3/2;
+	const s1=5,s2=ls*4,s3=5,ds=s3/2,ntvs=0.001,bvs=.2;
 	const vs=1000;
 	const mg=BABYLON.MeshBuilder.CreateBox('mg',{width:vs,height:vs,depth:vs});
 	const tksg=[]
 	let tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:s1,height:s2,depth:s3});
 	tkb.position.set(0,s2/2,s3/2-ds);
 	tksg.push(tkb);
-	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:1,depth:0.2});
-	tkb.position.set(0,ls*2,s3-ds);
-	tksg.push(tkb);
-	const ndp=ndnm(pv(0,ls*2,s3-ds),1);
+	if(0)
+	{
+		tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:1,depth:0.2});
+		tkb.position.set(0,ls*2,s3-ds);
+		tksg.push(tkb);
+	}
+	const ndp=ndnm(pv(0,ls*2,s3-ds-ntvs),1);
 	ndp.n=[70,7,44,68,31,47,2,77];
+	window.ndp=ndp;
 	const gmc=2.5;
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1.2});
 	tkb.position.set(-s1/2,gmc/2,0);
@@ -170,14 +174,14 @@ if(1)
 	tkb.position.set(0,ls*2,-ds);
 	tksg.push(tkb);
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:s1,height:s2,depth:s3});
-	tkb.position.set(0,s2/2,-ds-s3/2-0.2);
+	tkb.position.set(0,s2/2,-ds-s3/2-bvs);
 	tksg.push(tkb);
-	tkb=gmnk(pv(-s1/2-.2,0,-s3/2-.2-s3),pv(-s1/2-.2-5,s2,s3/2));
+	tkb=gmnk(pv(-s1/2-bvs,0,-s3/2-bvs-s3),pv(-s1/2-bvs-5,s2,s3/2));
 	tksg.push(tkb);
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1.2});
-	tkb.position.set(-s1/2,gmc/2,-s3/2-.2-s3/2);
+	tkb.position.set(-s1/2,gmc/2,-s3/2-bvs-s3/2);
 	tksg.push(tkb);
-	if(1)spd(pv(0,0,-s3-.2));
+	if(1)spd(pv(0,0,-s3-bvs));
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
 	for(let k=1;k<tksg.length;k++)
@@ -303,3 +307,4 @@ const lds=function()
 	}
 }
 lds();
+lnm();
