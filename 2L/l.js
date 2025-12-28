@@ -186,9 +186,10 @@ const tpnm=()=>
 	p.n=[14,66,71,12,62,1,75];
 	return p;
 };
+const s2=ls*4,bvs=.2;
 const lnm=()=>
 {
-	const s1=5,s2=ls*4,s3=5,ds=s3/2,ntvs=0.001,bvs=.2;
+	const s1=5,s3=5,ds=s3/2,ntvs=0.001;
 	l.position.addInPlaceFromFloats(-s1-bvs,0,0);
 	l.rotation.set(0,Math.PI/2,0);
 	const vs=1000;
@@ -232,6 +233,7 @@ const lnm=()=>
 	b.material.metallic=0;
 	b.material.roughness=1;
 	b.n=[74,2,46,3,70,1,75];
+	window.b=b;
 	mg.dispose();
 	for(let k=0;k<tksg.length;k++)tksg[k].dispose();
 }
@@ -258,6 +260,14 @@ const ssk=function()
 		let n=sp.pickedMesh;
 		window.plv=n;
 		if(n==undefined)v.b([1,70,66,2,44,9,51,48,1,75]);
+		else if(n==b)
+		{
+			const ss=sp.pickedPoint.y%(s2+bvs);
+			const vks=0.001;
+			if(Math.abs(ss)<vks)v.b([74,17,75,9,77]);
+			else if(Math.abs(ss-s2)<vks)v.b([57,1,68,8,77]);
+			else v.b([74,8,66,66,9,77]);
+		}
 		else
 		{
 			let p=n;
