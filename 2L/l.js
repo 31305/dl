@@ -300,7 +300,9 @@ const ssk=function()
 	s.onBeforeRenderObservable.add(()=>
 	{
 		const kn=s.getEngine().getDeltaTime()/1000;
-		const t=gs.normalizeToNew().scale(l.speed*kn*3);
+		const g=l.speed*kn*3;
+		const gg=gs.length();
+		const t=gs.normalizeToNew().scale(Math.min(g,gg));
 		l.cameraDirection.addInPlace(t);
 		gs.subtractInPlace(t);
 	});
