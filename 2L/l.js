@@ -28,7 +28,7 @@ const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*2,0),s);
 l.ellipsoid=new BABYLON.Vector3(.3,ls,.3);
 l.attachControl(d,true);
 l.minZ=0.1;
-const p=new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s);
+const p=1?new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s):new BABYLON.SpotLight("p",new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,0,1),Math.PI/2,2);
 p.intensity=2;
 p.parent=l;
 const pv=(p,d,t)=>{return new BABYLON.Vector3(p,d,t);}
