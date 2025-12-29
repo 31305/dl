@@ -228,10 +228,35 @@ const lnm=()=>
 		tks=tks.union(BABYLON.CSG.FromMesh(tksg[k]));
 	const b=mgs.subtract(tks).toMesh("b",null,s,true);
 	b.checkCollisions=true;
-	b.material=new BABYLON.PBRMetallicRoughnessMaterial("pd",s);
-	b.material.baseColor=bdnv;
-	b.material.metallic=0;
-	b.material.roughness=1;
+	const vr=()=>
+	{
+		const tv=new BABYLON.NodeMaterial("v");
+		window.tv=tv;
+		tv.setToDefault();
+		tv.build();
+		const sk=new BABYLON.PBRMetallicRoughnessBlock("v");
+		window.sk=sk;
+		const pk=new BABYLON.InputBlock("pk");
+		pk.value=0;
+		pk.output.connectTo(sk.metallic);
+		const k=new BABYLON.InputBlock("pk");
+		k.value=1;
+		k.output.connectTo(sk.roughness);
+		const v=new BABYLON.InputBlock("v");
+		v.value=bdnv;
+		v.output.connectTo(sk.baseColor);
+		const ptp=tv.getBlockByName('FragmentOutput');
+		window.ptp=ptp;
+		sk.lighting.connectTo(ptp.rgb);
+		sk.alpha.connectTo(ptp.a);
+		tv.getBlockByName("WorldPos").output.connectTo(sk.worldPosition);
+		const d=new BABYLON.InputBlock("d");
+		d.setAsSystemValue(BABYLON.NodeMaterialSystemValues.View);
+		d.output.connectTo(sk.view);
+		tv.build();
+		return tv;
+	}
+	b.material=vr();
 	b.n=[74,2,46,3,70,1,75];
 	window.b=b;
 	mg.dispose();
