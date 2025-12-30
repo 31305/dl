@@ -31,6 +31,7 @@ l.minZ=0.1;
 const p=1?new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s):new BABYLON.SpotLight("p",new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,0,1),Math.PI/2,2);
 p.intensity=2;
 p.parent=l;
+const ntvs=0.001;
 const pv=(p,d,t)=>{return new BABYLON.Vector3(p,d,t);}
 const bdnv=new BABYLON.Color3(1,1,1);
 const gmnk=function(s1,s2,dk=null,sv=bdnv,vr=true)
@@ -121,11 +122,11 @@ const spd=function(s)
 	const pksc=0.02;
 	const pkvs=(vs-2*sv)/(tc2-sv+pksc);
 	const pks=BABYLON.MeshBuilder.CreateCylinder("pk",{height:pksc,diameter:pkvs*pksc});
-	pks.position.set(0,tc1+tc2-sv+pksc/2,0);
+	pks.position.set(0,tc1+tc2-sv+pksc/2-ntvs,0);
 	pks.parent=p;
 	pks.material=new BABYLON.PBRMaterial("pd");
 	pks.material.emissiveColor=new BABYLON.Color3(1,1,1);
-	pks.material.zOffset=-sv;
+	pks.n=[68,10,71,2,77];
 	const pk=new BABYLON.SpotLight("pk",new BABYLON.Vector3(0,tc1+tc2-sv+pksc,0),new BABYLON.Vector3(0,-1,0),2*Math.atan(pkvs/2),2);
 	pk.parent=p;
 	pk.intensity=10;
@@ -189,7 +190,7 @@ const tpnm=()=>
 const s2=ls*4,bvs=.2;
 const lnm=()=>
 {
-	const s1=5,s3=5,ds=s3/2,ntvs=0.001;
+	const s1=5,s3=5,ds=s3/2;
 	l.position.addInPlaceFromFloats(-s1-bvs,0,0);
 	l.rotation.set(0,Math.PI/2,0);
 	const vs=1000;
@@ -296,7 +297,7 @@ const ssk=function()
 		else if(n==b)
 		{
 			const ss=sp.pickedPoint.y%(s2+bvs);
-			const vks=0.001;
+			const vks=ntvs;
 			if(Math.abs(ss)<vks)v.b([74,17,75,9,77]);
 			else if(Math.abs(ss-s2)<vks)v.b([57,1,68,8,77]);
 			else v.b([74,8,66,66,9,77]);
