@@ -190,11 +190,11 @@ const tpnm=()=>
 const ppcnm=()=>
 {
 	const p=new BABYLON.TransformNode("tp");
-	const c=.1,v1=.03,v2=.04,vk=0.001;
-	const n1=new BABYLON.MeshBuilder.CreateCylinder("n",{height:c,diameter1:v1,diameter2:v2});
+	const c=.1,v1=.05,v2=.07,vk=0.003;
+	const n1=new BABYLON.MeshBuilder.CreateCylinder("n",{height:c,diameterBottom:v1,diameterTop:v2});
 	n1.position.set(0,c/2,0);
-	const n2=new BABYLON.MeshBuilder.CreateCylinder("n",{height:c-vk,diameter1:v1-vk,diameter2:v2-vk});
-	n2.position.set(0,(c-vk)/2,0);
+	const n2=new BABYLON.MeshBuilder.CreateCylinder("n",{height:c,diameterBottom:v1-vk,diameterTop:v2-vk});
+	n2.position.set(0,c/2+vk,0);
 	const n1p=BABYLON.CSG.FromMesh(n1);
 	const n2p=BABYLON.CSG.FromMesh(n2);
 	const pc=n1p.subtract(n2p).toMesh("c",null,s,true);
@@ -204,6 +204,10 @@ const ppcnm=()=>
 		n1.dispose();
 		n2.dispose();
 	}
+	pc.material=new BABYLON.PBRMetallicRoughnessMaterial("v");
+	pc.material.baseColor=new BABYLON.Color3(.1,.1,.1);
+	pc.material.metallic=.5;
+	pc.material.roughness=.0;
 	p.n=[56,2,48,3,51,1,77];
 	return p;
 };
@@ -244,8 +248,8 @@ const lnm=()=>
 	mtp.position.set(1.2,0,-1.5);
 	mtp.rotation.set(0,-Math.PI/2,0);
 	const pc=ppcnm();
-	pc.parent=mtp;
-	pc.position.set(0,.85,0);
+	window.pc=pc;
+	pc.position.set(1.9,0,-1.2);
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
 	for(let k=1;k<tksg.length;k++)
