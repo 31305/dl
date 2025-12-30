@@ -256,7 +256,15 @@ const lnm=()=>
 		tv.build();
 		return tv;
 	}
-	b.material=vr();
+	if(0)
+		b.material=vr();
+	else
+	{
+		b.material=new BABYLON.PBRMetallicRoughnessMaterial("v");
+		b.material.baseColor=bdnv;
+		b.material.roughness=1;
+		b.material.metallic=0;
+	}
 	b.n=[74,2,46,3,70,1,75];
 	window.b=b;
 	mg.dispose();
@@ -339,7 +347,7 @@ const ssk=function()
 		const gg=gs.length();
 		const t=gs.normalizeToNew().scale(Math.min(g,gg));
 		l.cameraDirection.addInPlace(t);
-		gs.subtractInPlace(t);
+		gs.set(0,0,0);
 	});
 	d.addEventListener("touchmove",(p)=>{if(document.fullscreenElement==d)
 	{
