@@ -285,7 +285,6 @@ const knsnm=()=>
 		setTimeout(knss,(1000-k.getMilliseconds()));
 	};
 	knss();
-	window.knss=knss;
 	p.n=[54,1,61,11];
 	return p;
 };
