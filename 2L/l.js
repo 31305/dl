@@ -276,9 +276,13 @@ const knsnm=()=>
 	const knss=()=>
 	{
 		const k=new Date();
-		s3.rotation.set(0,0,-(k.getHours()%12)*Math.PI*2/12);
-		s2.rotation.set(0,0,-k.getMinutes()*Math.PI*2/60);
-		s1.rotation.set(0,0,-k.getSeconds()*Math.PI*2/60);
+		const k3=k.getSeconds()/60;
+		const k2=(k.getMinutes()+k3)/60;
+		const k1=(k.getHours()%12+k2)/12;
+		s3.rotation.set(0,0,-k1*Math.PI*2);
+		s2.rotation.set(0,0,-k2*Math.PI*2);
+		s1.rotation.set(0,0,-k3*Math.PI*2);
+		setTimeout(knss,(1000-k.getMilliseconds()));
 	};
 	knss();
 	window.knss=knss;
