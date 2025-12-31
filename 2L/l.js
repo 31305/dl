@@ -211,6 +211,19 @@ const ppcnm=()=>
 	p.n=[56,2,48,3,51,1,77];
 	return p;
 };
+const knsnm=()=>
+{
+	const p=new BABYLON.TransformNode("tp");
+	const v1=.15,sv=.03;
+	const bv=new BABYLON.Color3(.5,.35,.22);
+	for(let k=0;k<4;k++)
+	{
+		const tp=gmnk(pv(-v1/2,-v1/2,0),pv(v1/2+sv,-v1/2-sv,-sv),p,bv,false);
+		tp.rotateAround(new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,0,1),Math.PI/2*k);
+	}
+	p.n=[54,1,61,11];
+	return p;
+};
 const s2=ls*4,bvs=.2;
 const lnm=()=>
 {
@@ -248,8 +261,11 @@ const lnm=()=>
 	mtp.position.set(1.2,0,-1.5);
 	mtp.rotation.set(0,-Math.PI/2,0);
 	const pc=ppcnm();
-	window.pc=pc;
 	pc.position.set(1.9,0,-1.2);
+	const kns=knsnm();
+	kns.position.set(-s1/2,gmc+.3,0);
+	kns.rotation.set(0,-Math.PI/2,0);
+	window.kns=kns;
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
 	for(let k=1;k<tksg.length;k++)
