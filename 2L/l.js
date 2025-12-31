@@ -243,15 +243,45 @@ const knsnm=()=>
 	const s2c=v1*.35;
 	const s2=BABYLON.MeshBuilder.CreatePlane("s",{width:v1/50,height:s2c});
 	s2.parent=p;
-	s2.position.set(0,s2c/2-vs,-sv/2-ntvs);
+	s2.position.set(0,s2c/2-vs,-sv/2-ntvs*2);
 	s2.setPivotPoint(new BABYLON.Vector3(0,vs-s2c/2,0));
 	s2.material=s1.material;
 	const s3c=v1*.2;
 	const s3=BABYLON.MeshBuilder.CreatePlane("s",{width:v1/25,height:s3c});
 	s3.parent=p;
-	s3.position.set(0,s3c/2-vs,-sv/2-ntvs);
+	s3.position.set(0,s3c/2-vs,-sv/2-ntvs*3);
 	s3.setPivotPoint(new BABYLON.Vector3(0,vs-s3c/2,0));
 	s3.material=s1.material;
+	for(let k=0;k<12;k++)
+	{
+		const vs=0.005;
+		const t=BABYLON.MeshBuilder.CreateBox("t",{width:vs,height:vs,depth:ntvs});
+		const kn=k*Math.PI*2/12;
+		let s1=Math.cos(kn),s2=Math.sin(kn);
+		const s=v1*.45;
+		if(Math.abs(s1)>Math.abs(s2))
+		{
+			s2*=s/Math.abs(s1);
+			s1=s1>0?s:-s;
+		}
+		else
+		{
+			s1*=s/Math.abs(s2);
+			s2=s2>0?s:-s;
+		}
+		t.parent=p;
+		t.position.set(s1,s2,-sv/2-ntvs);
+		t.material=s3.material;
+	}
+	const knss=()=>
+	{
+		const k=new Date();
+		s3.rotation.set(0,0,-(k.getHours()%12)*Math.PI*2/12);
+		s2.rotation.set(0,0,-k.getMinutes()*Math.PI*2/60);
+		s1.rotation.set(0,0,-k.getSeconds()*Math.PI*2/60);
+	};
+	knss();
+	window.knss=knss;
 	p.n=[54,1,61,11];
 	return p;
 };
