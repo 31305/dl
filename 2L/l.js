@@ -215,12 +215,31 @@ const knsnm=()=>
 {
 	const p=new BABYLON.TransformNode("tp");
 	const v1=.15,sv=.03;
-	const bv=new BABYLON.Color3(.5,.35,.22);
+	const bv=new BABYLON.Color3(.4,.25,.12);
 	for(let k=0;k<4;k++)
 	{
 		const tp=gmnk(pv(-v1/2,-v1/2,0),pv(v1/2+sv,-v1/2-sv,-sv),p,bv,false);
 		tp.rotateAround(new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,0,1),Math.PI/2*k);
 	}
+	const gp=BABYLON.MeshBuilder.CreatePlane("gp",{width:v1,height:v1});
+	gp.position.set(0,0,-sv/2);
+	gp.parent=p;
+	gp.material=new BABYLON.PBRMetallicRoughnessMaterial("v");
+	gp.material.baseColor=new BABYLON.Color3(1,1,.5);
+	gp.material.metallic=0;
+	gp.material.roughness=1;
+	ntvs==0.001;
+	const vs=v1/30;
+	const s1c=v1*.4;
+	const s1=BABYLON.MeshBuilder.CreatePlane("s",{width:v1/100,height:s1c});
+	s1.parent=p;
+	s1.position.set(0,s1c/2-vs,-sv/2-ntvs);
+	s1.setPivotPoint(new BABYLON.Vector3(0,vs-s1c/2,0));
+	s1.material=new BABYLON.PBRMetallicRoughnessMaterial("v");
+	s1.material.baseColor=new BABYLON.Color3(0,0,0);
+	s1.material.metallic=0;
+	s1.material.roughness=1;
+	window.nkv=s1;
 	p.n=[54,1,61,11];
 	return p;
 };
