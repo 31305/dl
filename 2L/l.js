@@ -240,6 +240,18 @@ const knsnm=()=>
 	s1.material.metallic=0;
 	s1.material.roughness=1;
 	window.nkv=s1;
+	const s2c=v1*.35;
+	const s2=BABYLON.MeshBuilder.CreatePlane("s",{width:v1/50,height:s2c});
+	s2.parent=p;
+	s2.position.set(0,s2c/2-vs,-sv/2-ntvs);
+	s2.setPivotPoint(new BABYLON.Vector3(0,vs-s2c/2,0));
+	s2.material=s1.material;
+	const s3c=v1*.2;
+	const s3=BABYLON.MeshBuilder.CreatePlane("s",{width:v1/25,height:s3c});
+	s3.parent=p;
+	s3.position.set(0,s3c/2-vs,-sv/2-ntvs);
+	s3.setPivotPoint(new BABYLON.Vector3(0,vs-s3c/2,0));
+	s3.material=s1.material;
 	p.n=[54,1,61,11];
 	return p;
 };
