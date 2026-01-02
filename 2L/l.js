@@ -484,7 +484,7 @@ const ssk=function()
 	{
 		c.resize();
 	};
-	d.addEventListener("resize",pssk);
+	window.addEventListener("resize",pssk);
 	pssk();
 }
 const ppd=BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("PPD",true,s);
