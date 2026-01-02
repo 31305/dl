@@ -480,7 +480,12 @@ const ssk=function()
 	}
 	});
 	c.runRenderLoop(()=>s.render());
-	window.addEventListener("resize",()=>{c.resize();});
+	const pssk=()=>
+	{
+		c.resize();
+	};
+	d.addEventListener("resize",pssk);
+	pssk();
 }
 const ppd=BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("PPD",true,s);
 const lds=function()
