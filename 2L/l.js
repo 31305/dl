@@ -292,7 +292,6 @@ const s2=ls*4,bvs=.2;
 const lnm=()=>
 {
 	const s1=5,s3=5,ds=s3/2;
-	l.rotation.set(0,-Math.PI/2,0);
 	const vs=1000;
 	const mg=BABYLON.MeshBuilder.CreateBox('mg',{width:vs,height:vs,depth:vs});
 	const tksg=[];
@@ -522,14 +521,30 @@ const lds=function()
 		ld.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
 		dk.addControl(ld);
 	}
+	let nv={s1:0,s2:0,g1:0,g2:0};
 	const pk=()=>{for(let k=0;k<pvs.length;k++)pvs[k].background=k<2?"black":"white";};
-	document.addEventListener("pointerdown",()=>
+	document.addEventListener("pointerdown",(p)=>
 	{
 		for(let k=0;k<pvs.length;k++)
 			pvs[k].background=k>1?"black":"white";
-		setTimeout(pk,500);
+		nv.s1=p.screenX;nv.s2=p.screenY;
+		nv.g1=0;nv.g2=0;
 	});
 	document.addEventListener("pointerup",()=>{if(dk.isVisible&&pvs[0].background=='white')nkp();pk();});
+	document.addEventListener("pointermove",(p)=>
+	{
+		if(p.screenX==nv.s1&&p.screenY==nv.s2)
+		{
+			nv.g1+=p.movementX;
+			nv.g2+=p.movementY;
+		}
+		else
+		{
+			nv.g1=p.screenX-nv.s1;
+			nv.g2=p.screenX-nv.s2;
+		}
+		if(Math.abs(nv.g1)>20||Math.abs(nv.g2)>20)pk();
+	});
 	document.addEventListener("pointerout",pk);
 	document.addEventListener("pointercancel",pk);
 }
