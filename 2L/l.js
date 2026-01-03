@@ -364,12 +364,12 @@ const lnm=()=>
 		dg.setAsAttribute("normal");
 		const vdg=new BABYLON.TransformBlock("vdg");
 		dg.output.connectTo(vdg.vector);
-		if(0)vdg.output.connectTo(sk.worldNormal);
 		tv.getBlockByName("World").output.connectTo(vdg.transform);
+		vdg.output.connectTo(sk.worldNormal);
 		tv.build();
 		return tv;
 	}
-	if(1)
+	if(0)
 		b.material=vr();
 	else
 	{
