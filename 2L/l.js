@@ -347,9 +347,10 @@ const lnm=()=>
 		k.value=1;
 		k.output.connectTo(sk.roughness);
 		const v=new BABYLON.InputBlock("v");
-		v.value=bdnv;
+		v.value=new BABYLON.Color3(1,0,0);
 		v.output.connectTo(sk.baseColor);
 		const ptp=tv.getBlockByName('FragmentOutput');
+		window.ptp=ptp;
 		sk.lighting.connectTo(ptp.rgb);
 		sk.alpha.connectTo(ptp.a);
 		tv.getBlockByName("WorldPos").output.connectTo(sk.worldPosition);
@@ -362,9 +363,9 @@ const lnm=()=>
 		const dg=new BABYLON.InputBlock("ls");
 		dg.setAsAttribute("normal");
 		const vdg=new BABYLON.TransformBlock("vdg");
-		dg.connectTo(vdg);
-		vdg.connectTo(sk);
-		tv.getBlockByName("World").connectTo(vdg);
+		dg.output.connectTo(vdg.vector);
+		if(0)vdg.output.connectTo(sk.worldNormal);
+		tv.getBlockByName("World").output.connectTo(vdg.transform);
 		tv.build();
 		return tv;
 	}
