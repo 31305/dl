@@ -239,7 +239,6 @@ const knsnm=()=>
 	s1.material.baseColor=new BABYLON.Color3(0,0,0);
 	s1.material.metallic=0;
 	s1.material.roughness=1;
-	window.nkv=s1;
 	const s2c=v1*.35;
 	const s2=BABYLON.MeshBuilder.CreatePlane("s",{width:v1/50,height:s2c});
 	s2.parent=p;
@@ -327,7 +326,6 @@ const lnm=()=>
 	const kns=knsnm();
 	kns.position.set(-s1/2,gmc+.3,0);
 	kns.rotation.set(0,-Math.PI/2,0);
-	window.kns=kns;
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
 	for(let k=1;k<tksg.length;k++)
@@ -352,17 +350,25 @@ const lnm=()=>
 		v.value=bdnv;
 		v.output.connectTo(sk.baseColor);
 		const ptp=tv.getBlockByName('FragmentOutput');
-		window.ptp=ptp;
 		sk.lighting.connectTo(ptp.rgb);
 		sk.alpha.connectTo(ptp.a);
 		tv.getBlockByName("WorldPos").output.connectTo(sk.worldPosition);
 		const d=new BABYLON.InputBlock("d");
 		d.setAsSystemValue(BABYLON.NodeMaterialSystemValues.View);
 		d.output.connectTo(sk.view);
+		const ls=new BABYLON.InputBlock("ls");
+		ls.setAsSystemValue(BABYLON.NodeMaterialSystemValues.CameraPosition);
+		ls.output.connectTo(sk.cameraPosition);
+		const dg=new BABYLON.InputBlock("ls");
+		dg.setAsAttribute("normal");
+		const vdg=new BABYLON.TransformBlock("vdg");
+		dg.connectTo(vdg);
+		vdg.connectTo(sk);
+		tv.getBlockByName("World").connectTo(vdg);
 		tv.build();
 		return tv;
 	}
-	if(0)
+	if(1)
 		b.material=vr();
 	else
 	{
@@ -508,7 +514,6 @@ const lds=function()
 	});
 	const ldv=['2px','20px','4px','22px'];
 	let pvs=[];
-	window.pvs=pvs;
 	for(let k=3;k>=0;k--)
 	{
 		const ld=new BABYLON.GUI.Rectangle();
