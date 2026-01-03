@@ -292,8 +292,7 @@ const s2=ls*4,bvs=.2;
 const lnm=()=>
 {
 	const s1=5,s3=5,ds=s3/2;
-	l.position.addInPlaceFromFloats(-s1-bvs,0,0);
-	l.rotation.set(0,Math.PI/2,0);
+	l.rotation.set(0,-Math.PI/2,0);
 	const vs=1000;
 	const mg=BABYLON.MeshBuilder.CreateBox('mg',{width:vs,height:vs,depth:vs});
 	const tksg=[];
@@ -530,7 +529,7 @@ const lds=function()
 			pvs[k].background=k>1?"black":"white";
 		setTimeout(pk,500);
 	});
-	document.addEventListener("pointerup",()=>{if(pvs[0].background=='white')nkp();pk();});
+	document.addEventListener("pointerup",()=>{if(dk.isVisible&&pvs[0].background=='white')nkp();pk();});
 	document.addEventListener("pointerout",pk);
 	document.addEventListener("pointercancel",pk);
 }
