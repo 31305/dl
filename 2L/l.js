@@ -523,13 +523,14 @@ const lds=function()
 		ld.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
 		dk.addControl(ld);
 	}
-	const pk=()=>{for(let k=0;k<pvs.length;k++)pvs[k].background=k<2?"black":"white";console.log('pv');}
+	const pk=()=>{for(let k=0;k<pvs.length;k++)pvs[k].background=k<2?"black":"white";};
 	document.addEventListener("pointerdown",()=>
 	{
 		for(let k=0;k<pvs.length;k++)
 			pvs[k].background=k>1?"black":"white";
+		setTimeout(pk,500);
 	});
-	document.addEventListener("pointerup",()=>{console.log(pvs[0].background);if(pvs[0].background=='black')nkp();pk();});
+	document.addEventListener("pointerup",()=>{if(pvs[0].background=='white')nkp();pk();});
 	document.addEventListener("pointerout",pk);
 	document.addEventListener("pointercancel",pk);
 }
