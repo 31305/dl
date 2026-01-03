@@ -390,35 +390,33 @@ l.keysDown.push(83);
 l.keysRight.push(68);
 l.keysLeft.push(65);
 if(1)l.angularSensibility*=-1;
+const nkp=()=>
+{
+	let sp=s.pick(d.width/2,d.height/2);
+	console.log(sp.pickedPoint);
+	let n=sp.pickedMesh;
+	window.plv=n;
+	if(n==undefined)v.b([1,70,66,2,44,9,51,48,1,75]);
+	else if(n==b)
+	{
+		const ss=sp.pickedPoint.y%(s2+bvs);
+		const vks=ntvs;
+		if(Math.abs(ss)<vks)v.b([74,17,75,9,77]);
+		else if(Math.abs(ss-s2)<vks)v.b([57,1,68,8,77]);
+		else v.b([74,8,66,66,9,77]);
+	}
+	else
+	{
+		let p=n;
+		while(p!=undefined)
+		{
+			if(p.n!=undefined){v.b(p.n);return;}
+			else p=p.parent;
+		}
+	}
+}
 const ssk=function()
 {
-	d.addEventListener("click",(p)=>
-	{
-		if(!jdv()){if(document.pointerLockElement!=d){d.requestPointerLock();return;}}
-		else if(document.fullscreenElement!=d){d.requestFullscreen();screen.orientation.lock("landscape-primary");return;}
-		let sp=s.pick(d.width/2,d.height/2);
-		console.log(sp.pickedPoint);
-		let n=sp.pickedMesh;
-		window.plv=n;
-		if(n==undefined)v.b([1,70,66,2,44,9,51,48,1,75]);
-		else if(n==b)
-		{
-			const ss=sp.pickedPoint.y%(s2+bvs);
-			const vks=ntvs;
-			if(Math.abs(ss)<vks)v.b([74,17,75,9,77]);
-			else if(Math.abs(ss-s2)<vks)v.b([57,1,68,8,77]);
-			else v.b([74,8,66,66,9,77]);
-		}
-		else
-		{
-			let p=n;
-			while(p!=undefined)
-			{
-				if(p.n!=undefined){v.b(p.n);return;}
-				else p=p.parent;
-			}
-		}
-	});
 	const vg=1;
 	d.addEventListener("mousemove",(p)=>{if(document.pointerLockElement===d)
 	{
@@ -491,8 +489,28 @@ const ssk=function()
 const ppd=BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("PPD",true,s);
 const lds=function()
 {
+	const dk=new BABYLON.GUI.Rectangle();
+	dk.width='30px';
+	dk.height='30px';
+	dk.background='transparent';
+	dk.thickness=0;
+	dk.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+	dk.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+	ppd.addControl(dk);
+	dk.isVisible=false;
+	if(!jdv())document.addEventListener("pointerlockchange",()=>{dk.isVisible=document.pointerLockElement==d;});
+	else document.addEventListener("fullscreenchange",()=>{dk.isVisible=document.fullscreenElement==d;});
+	d.addEventListener("click",(p)=>
+	{
+		if(!dk.isVisible)
+		{
+			if(!jdv())d.requestPointerLock();
+			else {d.requestFullscreen();screen.orientation.lock("landscape-primary");dk.isVisible=true;}
+		}
+	});
 	const ldv=['2px','20px','4px','22px'];
 	let pvs=[];
+	window.pvs=pvs;
 	for(let k=3;k>=0;k--)
 	{
 		const ld=new BABYLON.GUI.Rectangle();
@@ -503,11 +521,15 @@ const lds=function()
 		ld.thickness=0;
 		ld.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
 		ld.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
-		ppd.addControl(ld);
+		dk.addControl(ld);
 	}
-	document.addEventListener("pointerdown",()=>{for(let k=0;k<pvs.length;k++)pvs[k].background=k>1?"black":"white";console.log('pv');});
 	const pk=()=>{for(let k=0;k<pvs.length;k++)pvs[k].background=k<2?"black":"white";console.log('pv');}
-	document.addEventListener("pointerup",pk);
+	document.addEventListener("pointerdown",()=>
+	{
+		for(let k=0;k<pvs.length;k++)
+			pvs[k].background=k>1?"black":"white";
+	});
+	document.addEventListener("pointerup",()=>{console.log(pvs[0].background);if(pvs[0].background=='black')nkp();pk();});
 	document.addEventListener("pointerout",pk);
 	document.addEventListener("pointercancel",pk);
 }
