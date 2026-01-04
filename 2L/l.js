@@ -293,6 +293,14 @@ const lnm=()=>
 	const s1=5,s3=5,ds=s3/2;
 	const vs=1000;
 	const mg=BABYLON.MeshBuilder.CreateBox('mg',{width:vs,height:vs,depth:vs});
+	const prb=BABYLON.MeshBuilder.CreatePlane('prb',{width:vs,height:vs});
+	prb.rotation.set(Math.PI/2,0,0);
+	prb.position.set(0,ntvs,0);
+	prb.n=[74,17,75,9,77];
+	prb.material=new BABYLON.PBRMetallicRoughnessMaterial("v");
+	prb.material.baseColor=new BABYLON.Color3(.6,.5,.5);
+	prb.material.metallic=0;
+	prb.material.roughness=1;
 	const tksg=[];
 	let tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:s1,height:s2,depth:s3});
 	tkb.position.set(0,s2/2,s3/2-ds);
