@@ -347,7 +347,7 @@ const lnm=()=>
 		k.value=1;
 		k.output.connectTo(sk.roughness);
 		const v=new BABYLON.InputBlock("v");
-		v.value=new BABYLON.Color3(1,0,0);
+		v.value=bdnv;
 		v.output.connectTo(sk.baseColor);
 		const ptp=tv.getBlockByName('FragmentOutput');
 		window.ptp=ptp;
@@ -366,10 +366,12 @@ const lnm=()=>
 		dg.output.connectTo(vdg.vector);
 		tv.getBlockByName("World").output.connectTo(vdg.transform);
 		vdg.output.connectTo(sk.worldNormal);
+		tv.getBlockByName('color').output.disconnectFrom(ptp.rgba);
 		tv.build();
 		return tv;
 	}
-	if(0)
+	window.vr=vr;
+	if(1)
 		b.material=vr();
 	else
 	{
