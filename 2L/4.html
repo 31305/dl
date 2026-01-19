@@ -72,9 +72,23 @@ navigator.serviceWorker.register('ss.js')
 			const l=nv.getImageData(0,0,jsdp.width,jsdp.height);
 			const ss=lv._malloc(l.data.byteLength);
 			lv.HEAPU8.set(l.data,ss);
-			const tp=lv.readBarcodeFromPixmap(ss,jsdp.width,jsdp.height,"",true);
+			const tp=lv.readBarcodeFromPixmap(ss,jsdp.width,jsdp.height,true,"");
 			lv._free(ss);
-			console.log(tp);
+			if(tp.format)
+			{
+				nv.beginPath();
+				nv.lineWidth=4;
+				nv.strokeStyle="red";
+				with(tp.position)
+				{
+					nv.moveTo(topLeft.x,topLeft.y);
+					nv.lineTo(topRight.x,topRight.y);
+					nv.lineTo(bottomRight.x,bottomRight.y);
+					nv.lineTo(bottomLeft.x,bottomLeft.y);
+					nv.lineTo(topLeft.x,topLeft.y);
+					nv.stroke();
+				}
+			}
 			requestAnimationFrame(nk);
 		};
 		document.body.addEventListener('click',()=>
