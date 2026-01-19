@@ -50,8 +50,8 @@ navigator.serviceWorker.register('ss.js')
 			const g=gs.find((g)=>g.target===jsdp);
 			const vpv1=g.devicePixelContentBoxSize[0].inlineSize;
 			const vpv2=g.devicePixelContentBoxSize[0].blockSize;
-			jsdp.width=vpv1;
-			jsdp.height=vpv2;
+			jsdp.width=vpv1/2;
+			jsdp.height=vpv2/2;
 		});
 		l.observe(jsdp,{box:"device-pixel-content-box"});
 		const nv=jsdp.getContext("2d",{willReadFrequently:true});
