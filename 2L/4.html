@@ -58,6 +58,7 @@ navigator.serviceWorker.register('ss.js')
 		const nv=jsdp.getContext("2d",{willReadFrequently:true});
 		let pc=0;
 		const nl=document.createElement("video");
+		let k=0,tp={};
 		const nk=function()
 		{
 			if(nl.videoHeight*jsdp.width>jsdp.height*nl.videoWidth)
@@ -70,11 +71,15 @@ navigator.serviceWorker.register('ss.js')
 				const vk=nl.videoWidth*jsdp.height/nl.videoHeight;
 				nv.drawImage(nl,(jsdp.width-vk)/2,0,vk,jsdp.height);
 			}
-			const l=nv.getImageData(0,0,jsdp.width,jsdp.height);
-			const ss=lv._malloc(l.data.byteLength);
-			lv.HEAPU8.set(l.data,ss);
-			const tp=lv.readBarcodeFromPixmap(ss,jsdp.width,jsdp.height,true,"EAN-13");
-			lv._free(ss);
+			if(k==2)
+			{
+				const l=nv.getImageData(0,0,jsdp.width,jsdp.height);
+				const ss=lv._malloc(l.data.byteLength);
+				lv.HEAPU8.set(l.data,ss);
+				tp=lv.readBarcodeFromPixmap(ss,jsdp.width,jsdp.height,true,"EAN-13");
+				lv._free(ss);
+				k=0;
+			}
 			if(tp.format)
 			{
 				vv=tp.text;
@@ -92,7 +97,7 @@ navigator.serviceWorker.register('ss.js')
 				}
 			}
 			else vv='';
-			requestAnimationFrame(nk);
+			setTimeout(nk,40);
 		};
 		const vs=new Map();
 		vs.set('8904063223449',[74,1,51,48,43,3,75]);
