@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P8JPB16JP8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-P8JPB16JP8');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, interactive-widget=resizes-content">
+<title>s7</title>
+<meta property="og:site_name" content="s7" />
+<meta name="theme-color" content="#000000" />
+<script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"WebSite",
+"name":"s7",
+"url":"https://1007.in"
+}
+</script>
+<link rel="icon" href="/2L.svg"/>
+<link rel="manifest" href="/2L.json"/>
+</head>
+<body style='image-rendering: crisp-edges;margin:0;background-color:black;overflow:hidden'>
+<script type='text/javascript'>
+navigator.serviceWorker.register('ss.js')
+</script>
+<script src="vm.js"></script>
+<script src="zxing_reader.js"></script>
+<script>
+	Promise.all(ZXing(),vm()).then(p=>
+	{
+		const lv=p[0];
+		const v=p[1];
+		const jsdp=document.createElement('canvas');
+		document.body.style.margin='0';
+		document.body.style.touchAction='none';
+		jsdp.style="position:absolute;display:block;width:100%;height:100%";
+		jsdp.oncontextmenu=(p)=>p.preventDefault();
+		jsdp.width=0;
+		jsdp.height=0;
+		document.body.appendChild(jsdp);
+		const l=new ResizeObserver((gs)=>
+		{
+			const g=gs.find((g)=>g.target===jsdp);
+			const vpv1=g.devicePixelContentBoxSize[0].inlineSize;
+			const vpv2=g.devicePixelContentBoxSize[0].blockSize;
+			jsdp.width=vpv1;
+			jsdp.height=vpv2;
+		});
+		l.observe(jsdp,{box:"device-pixel-content-box"});
+		let pc=0;
+		document.body.addEventListener('click',()=>
+		{
+			if(!pc)
+			{
+				pc=1;
+				navigator.mediaDevices.getUserMedia({nl:{facingMode:'environment'},audio:false})
+				.then(function(p)
+				{
+					const nl=document.createElement("video");
+					nl.setAttribute("autoplay","");
+					nl.srcObject=p;
+					nl.setAttribute("playsinline",true);
+					nl.play();
+				})
+				.catch(function(p)
+				{
+					pc=0;
+					console.error(p);
+				});
+			}
+			else
+			{
+			}
+		});
+	});
+</script>
+</body>
+</html>
