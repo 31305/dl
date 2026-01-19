@@ -26,14 +26,14 @@
 <link rel="icon" href="/2L.svg"/>
 <link rel="manifest" href="/2L.json"/>
 </head>
-<body style='image-rendering: crisp-edges;margin:0;background-color:black;overflow:hidden'>
+<body style='image-rendering:crisp-edges;margin:0;background-color:black;overflow:hidden'>
 <script type='text/javascript'>
 navigator.serviceWorker.register('ss.js')
 </script>
 <script src="vm.js"></script>
 <script src="zxing_reader.js"></script>
 <script>
-	Promise.all(ZXing(),vm()).then(p=>
+	Promise.all([ZXing(),vm({dk:()=>{},vppk:()=>{}})]).then(p=>
 	{
 		const lv=p[0];
 		const v=p[1];
@@ -54,20 +54,36 @@ navigator.serviceWorker.register('ss.js')
 			jsdp.height=vpv2;
 		});
 		l.observe(jsdp,{box:"device-pixel-content-box"});
+		const nv=jsdp.getContext("2d",{willReadFrequently:true});
 		let pc=0;
+		const nl=document.createElement("video");
+		const nk=function()
+		{
+			if(nl.videoHeight*jsdp.width>jsdp.height*nl.videoWidth)
+			{
+				const vk=nl.videoHeight*jsdp.width/nl.videoWidth;
+				nv.drawImage(nl,0,(jsdp.height-vk)/2,jsdp.width,vk);
+			}
+			else 
+			{
+				const vk=nl.videoWidth*jsdp.height/nl.videoHeight;
+				nv.drawImage(nl,(jsdp.width-vk)/2,0,vk,jsdp.height);
+			}
+			requestAnimationFrame(nk);
+		};
 		document.body.addEventListener('click',()=>
 		{
 			if(!pc)
 			{
 				pc=1;
-				navigator.mediaDevices.getUserMedia({nl:{facingMode:'environment'},audio:false})
+				navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false})
 				.then(function(p)
 				{
-					const nl=document.createElement("video");
 					nl.setAttribute("autoplay","");
 					nl.srcObject=p;
 					nl.setAttribute("playsinline",true);
 					nl.play();
+					nk();
 				})
 				.catch(function(p)
 				{
