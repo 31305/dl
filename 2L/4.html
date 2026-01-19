@@ -33,6 +33,7 @@ navigator.serviceWorker.register('ss.js')
 <script src="vm.js"></script>
 <script src="zxing_reader.js"></script>
 <script>
+	let vv="",sv="";
 	Promise.all([ZXing(),vm({dk:()=>{},vppk:()=>{}})]).then(p=>
 	{
 		const lv=p[0];
@@ -72,13 +73,14 @@ navigator.serviceWorker.register('ss.js')
 			const l=nv.getImageData(0,0,jsdp.width,jsdp.height);
 			const ss=lv._malloc(l.data.byteLength);
 			lv.HEAPU8.set(l.data,ss);
-			const tp=lv.readBarcodeFromPixmap(ss,jsdp.width,jsdp.height,true,"");
+			const tp=lv.readBarcodeFromPixmap(ss,jsdp.width,jsdp.height,true,"EAN-13");
 			lv._free(ss);
 			if(tp.format)
 			{
+				vv=tp.text;
 				nv.beginPath();
 				nv.lineWidth=4;
-				nv.strokeStyle="red";
+				nv.strokeStyle=vv!=sv?"red":"green";
 				with(tp.position)
 				{
 					nv.moveTo(topLeft.x,topLeft.y);
@@ -89,8 +91,11 @@ navigator.serviceWorker.register('ss.js')
 					nv.stroke();
 				}
 			}
+			else vv='';
 			requestAnimationFrame(nk);
 		};
+		const vs=new Map();
+		vs.set('8904063223449',[74,1,51,48,43,3,65]);
 		document.body.addEventListener('click',()=>
 		{
 			if(!pc)
@@ -111,8 +116,15 @@ navigator.serviceWorker.register('ss.js')
 					console.error(p);
 				});
 			}
-			else
+			else if(sv=='')
 			{
+				sv=vv;
+				const n=vs.get(sv);
+				if(n)
+				{
+					v.vppk=()=>{sv='';};
+					v.ccall('jb',null,['array','number'],[new Uint8Array(n),n.length]);
+				}
 			}
 		});
 	});
