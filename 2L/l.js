@@ -15,7 +15,7 @@ const vp=class
 	}
 }
 const v=new vp(()=>{ssk();});
-d=document.createElement('canvas')
+const d=document.createElement('canvas')
 document.body.style.margin='0';
 document.body.style.touchAction='none';
 d.style="position:absolute;display:block;width:100%;height:100%";

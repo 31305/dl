@@ -1,5 +1,18 @@
-import {ZXing} from './zxing_reader.js'
-let vv="",sv="";
+const ss=(n)=>
+{
+	return new Promise((p,d)=>
+	{
+			
+		let v=document.createElement('script');
+		v.src=n;
+		v.async=false;
+		v.onload=p;
+		document.body.appendChild(v);
+	});
+}
+Promise.all([ss('zxing_reader.js'),ss('vm.js')]).then(p=>
+{
+	let vv="",sv="";
 	Promise.all([ZXing(),vm({dk:()=>{},vppk:()=>{}})]).then(p=>
 	{
 		const lv=p[0];
@@ -97,3 +110,4 @@ let vv="",sv="";
 			}
 		});
 	});
+});
