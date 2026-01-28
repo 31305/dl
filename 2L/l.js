@@ -16,10 +16,18 @@ const vp=class
 }
 const dnsnd=class
 {
-	constructor(bkv)
+	constructor(bkv,gk,spk,v)
 	{
 		this.bkv=bkv;
+		this.gk=gk;
+		this.spk=spk;
+		this.v=v;
 		this.sg=new Map();
+		this.dg=[];
+	}
+	s(s,pk)
+	{
+		s=[Math.floor(s[0]/bkv),Math.floor(s[1]/bkv),Math.floor(s[2]/bkv)];
 	}
 }
 const v=new vp(()=>{ssk();});
