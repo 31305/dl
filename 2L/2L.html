@@ -26,11 +26,27 @@
 <link rel="icon" href="/2L.svg"/>
 <link rel="manifest" href="/2L.json"/>
 </head>
-<body style='image-rendering: crisp-edges;margin:0;background-color:black;overflow:hidden'>
+<body style='image-rendering:crisp-edges;margin:0;background-color:black;overflow:hidden'>
+<script>
+	if(location.pathname=='/2L.html'||location.pathname=='/'||location.pathname=='/index.html')
+	{
+		let v=document.createElement('script');
+		v.src='2L.js'
+		v.onload=()=>{dl().then((p)=>{window.p=p;});};
+		document.head.appendChild(v);
+	}
+	else
+	{
+		let v=document.createElement('script');
+		v.type='module';
+		v.src=location.pathname.replace('.html','')+'.js'
+		document.head.appendChild(v);
+	}
+</script>
+<script src="2L.js"></script>
+<script></script>
 <script type='text/javascript'>
 navigator.serviceWorker.register('ss.js')
 </script>
-<script src="2L.js"></script>
-<script>dl().then((p)=>{window.p=p;});</script>
 </body>
 </html>
