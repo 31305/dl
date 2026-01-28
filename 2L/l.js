@@ -14,6 +14,14 @@ const vp=class
 		if(this.p!=undefined)this.p.ccall('jb',null,['array','number'],[new Uint8Array(v),v.length]);
 	}
 }
+const dnsnd=class
+{
+	constructor(bkv)
+	{
+		this.bkv=bkv;
+		this.sg=new Map();
+	}
+}
 const v=new vp(()=>{ssk();});
 const d=document.createElement('canvas')
 document.body.style.margin='0';
