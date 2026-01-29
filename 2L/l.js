@@ -20,12 +20,12 @@ const dnsnd=class
 	{
 		this.spk=spk;
 		this.sg=new Map();
-		this.dg=[];
+		this.dg=new Map();
 	}
+	ns(s){return [Math.floor(s[0]/bkv),Math.floor(s[1]/bkv),Math.floor(s[2]/bkv)];}
 	kg(s)
 	{
 		const bkv=50;
-		s=[Math.floor(s[0]/bkv),Math.floor(s[1]/bkv),Math.floor(s[2]/bkv)];
 		let ps=0;
 		for(let k=0;k<3;k++)
 		{
@@ -36,9 +36,19 @@ const dnsnd=class
 	}
 	s(s,pk)
 	{
-		const k=kg(s);
+		const k=kg(ns(s));
 		if(!this.sg.get(k))this.sg.set(k,[]);
 		this.sg.get(k).push(pk);
+	}
+	k(s)
+	{
+		const v=3;
+		const n=ns(s);
+		const nsg=new Set();
+		for(let k1=-v;k1<v;k1++)
+			for(let k2=-v;k2<v;k2++)
+				for(let k3=-v;k3<v;k3++)
+					nsg.add(kg([n[0]+k1,n[1]+k2,n[2]+k3]));
 	}
 }
 const v=new vp(()=>{ssk();});
