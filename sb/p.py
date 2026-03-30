@@ -8,15 +8,20 @@ from supabase import acreate_client
 
 sn = "ps"
 pn = str(uuid.uuid4())[:6]
-
+def vk(s):
+    system('echo '+s+'| '+sksl+' | '+ss+' -t au - -d 2>/dev/null')
 async def k():
     sv= await acreate_client("https://wgjgbevxmdkhadvfnrco.supabase.co","sb_publishable_wkMomrBAGwVqd8pGb6hDDA_N5q2uUS7")
-
+    
+    global pkl
+    pkl=None
     def pk(p):
+        global pkl
         s=p['data']['record']
 
         if s["sn"] == sn and s["pn"] != pn:
-            system('echo '+s['l']+'| '+sksl+' | '+ss+' -t au - -d 2>/dev/null')
+            pkl=s['l']
+            vk(pkl)
 
     g=sv.channel("realtime:sg")
 
@@ -50,6 +55,8 @@ async def k():
                 "pn": pn,
                 "l":' '.join([str(s) for s in lsk.snl(pl)])
             }).execute()
+        elif pkl!=None:
+            vk(pkl)
 
 
 if __name__ == "__main__":
