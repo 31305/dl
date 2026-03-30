@@ -48,6 +48,9 @@ async def k():
     import lsk
     while True:
         l = await sk.run_in_executor(None, sys.stdin.readline)
+        if l=='':
+            print('')
+            exit()
         pl = l.strip()
         if pl:
             await sv.table("sg").insert({
