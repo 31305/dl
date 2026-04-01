@@ -9,7 +9,7 @@ from supabase import acreate_client
 sn = "ps"
 pn = str(uuid.uuid4())[:6]
 def vk(s):
-    system('echo '+s+'| '+sksl+' | '+ss+' -t au - -d 2>/dev/null')
+    system('echo '+' '.join([str(int(n)) for n in s.split(' ')])+'| '+sksl+' | '+ss+' -t au - -d 2>/dev/null')
 async def k():
     sv= await acreate_client("https://wgjgbevxmdkhadvfnrco.supabase.co","sb_publishable_wkMomrBAGwVqd8pGb6hDDA_N5q2uUS7")
     
@@ -36,7 +36,6 @@ async def k():
 
     print(f"sn: {sn}")
     print(f"pn: {pn}")
-    print("> ", end="", flush=True)
 
     sk= asyncio.get_event_loop()
     
