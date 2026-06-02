@@ -463,7 +463,8 @@ const nkp=()=>
 		while(p!=undefined)
 		{
 			if(p.n!=undefined){v.b(p.n);return;}
-			else p=p.parent;
+			else if(p.parent!=null)p=p.parent;
+			else return;
 		}
 	}
 }
