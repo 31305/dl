@@ -5,9 +5,10 @@ const jdv=function()
 }
 const vp=class
 {
+	vp=null
 	constructor(pk=null)
 	{
-		vm({dk:()=>{if(pk!=null)pk()},vppk:()=>{}}).then(p=>this.p=p)
+		vm({dk:()=>{if(pk!=null)pk()},vppk:()=>{if(this.vp!=null)this.vp()}}).then(p=>this.p=p)
 	}
 	b(v)
 	{
