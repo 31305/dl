@@ -398,7 +398,7 @@ const lnm=()=>
 		const ptp=tv.getBlockByName('FragmentOutput');
 		window.ptp=ptp;
 		sk.lighting.connectTo(ptp.rgb);
-		sk.alpha.connectTo(ptp.a);
+		if(0)sk.alpha.connectTo(ptp.a);
 		tv.getBlockByName("WorldPos").output.connectTo(sk.worldPosition);
 		const d=new BABYLON.InputBlock("d");
 		d.setAsSystemValue(BABYLON.NodeMaterialSystemValues.View);
@@ -417,7 +417,7 @@ const lnm=()=>
 		return tv;
 	}
 	window.vr=vr;
-	if(0)
+	if(1)
 		b.material=vr();
 	else
 	{
