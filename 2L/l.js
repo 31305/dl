@@ -67,7 +67,7 @@ l.ellipsoid=new BABYLON.Vector3(.3,ls,.3);
 l.attachControl(d,true);
 l.minZ=0.1;
 const p=1?new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s):new BABYLON.SpotLight("p",new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,0,1),Math.PI/4,2);
-p.intensity=2;
+p.intensity=10;
 p.parent=l;
 const ntvs=0.001;
 const pv=(p,d,t)=>{return new BABYLON.Vector3(p,d,t);}
@@ -331,14 +331,17 @@ const lnm=()=>
 	const s1=5,s3=5,ds=s3/2;
 	const vs=1000;
 	const mg=BABYLON.MeshBuilder.CreateBox('mg',{width:vs,height:vs,depth:vs});
-	const prb=BABYLON.MeshBuilder.CreatePlane('prb',{width:vs,height:vs});
-	prb.rotation.set(Math.PI/2,0,0);
-	prb.position.set(0,ntvs,0);
-	prb.n=[74,17,75,9,77];
-	prb.material=new BABYLON.PBRMetallicRoughnessMaterial("v");
-	prb.material.baseColor=new BABYLON.Color3(.6,.5,.5);
-	prb.material.metallic=0;
-	prb.material.roughness=1;
+	if(0)
+	{
+		const prb=BABYLON.MeshBuilder.CreatePlane('prb',{width:vs,height:vs});
+		prb.rotation.set(Math.PI/2,0,0);
+		prb.position.set(0,ntvs,0);
+		prb.n=[74,17,75,9,77];
+		prb.material=new BABYLON.PBRMetallicRoughnessMaterial("v");
+		prb.material.baseColor=new BABYLON.Color3(.6,.5,.5);
+		prb.material.metallic=0;
+		prb.material.roughness=1;
+	}
 	const tksg=[];
 	let tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:s1,height:s2,depth:s3});
 	tkb.position.set(0,s2/2,s3/2-ds);
@@ -417,14 +420,33 @@ const lnm=()=>
 		return tv;
 	}
 	window.vr=vr;
-	if(1)
+	if(0)
 		b.material=vr();
 	else
 	{
-		b.material=new BABYLON.PBRMetallicRoughnessMaterial("v");
+		b.material=new BABYLON.PBRCustomMaterial("v");
 		b.material.baseColor=bdnv;
 		b.material.roughness=1;
 		b.material.metallic=0;
+		if(0)b.material.Fragment_Custom_Albedo(`
+			float g=2.0;
+			float v=0.0;
+			float n1=abs(fract(vPositionW.x*g)-0.5);
+			float n2=abs(fract(vPositionW.y*g)-0.5);
+			float n3=abs(fract(vPositionW.z*g)-0.5);
+			if(abs(normalW.x)>0.5)n1=0.0;
+			if(abs(normalW.y)>0.5)
+			{
+				v=1.0;
+				n2=0.0;
+			}
+			if(abs(normalW.z)>0.5)n3=0.0;
+			surfaceAlbedo=vec3(1.0,1.0,1.0)*(max(max(n1,n2),n3)<0.45?v:1.0-v);
+			if(false)surfaceAlbedo=vec3(1.0,1.0,1.0)*((fract(vPositionW.x*g)>0.5?1.0:-1.0)*(fract(vPositionW.y*g)>0.5?1.0:-1.0)*(fract(vPositionW.z*g)>0.5?1.0:-1.0)+1.0)*0.5;
+		`);
+		else if(0)b.material.Fragment_Before_FragColor(`
+			finalColor.rgb=fract(vPositionW/2.5);
+		`);
 	}
 	b.n=[74,2,46,3,70,1,75];
 	window.b=b;
