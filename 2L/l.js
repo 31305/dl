@@ -325,7 +325,7 @@ const knsnm=()=>
 	p.n=[54,1,61,11];
 	return p;
 };
-const s2=ls*4,bvs=.2;
+const s2=ls*4,bvs=.5;
 const lnm=()=>
 {
 	const s1=5,s3=5,ds=s3/2;
@@ -349,18 +349,18 @@ const lnm=()=>
 	const ndp=ndnm(pv(0,ls*2,s3-ds-ntvs),1);
 	ndp.n=[70,7,44,68,31,47,2,77];
 	const gmc=2.5;
-	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1.2});
+	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1});
 	tkb.position.set(-s1/2,gmc/2,0);
 	tksg.push(tkb);
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:1,depth:1});
-	tkb.position.set(0,ls*2,-ds);
+	tkb.position.set(0,1.5,-ds);
 	tksg.push(tkb);
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:s1,height:s2,depth:s3});
 	tkb.position.set(0,s2/2,-ds-s3/2-bvs);
 	tksg.push(tkb);
 	tkb=gmnk(pv(-s1/2-bvs,0,-s3/2-bvs-s3),pv(-s1/2-bvs-5,s2,s3/2));
 	tksg.push(tkb);
-	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1.2});
+	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1});
 	tkb.position.set(-s1/2,gmc/2,-s3/2-bvs-s3/2);
 	tksg.push(tkb);
 	spd(pv(0,0,-s3-bvs));
@@ -428,7 +428,7 @@ const lnm=()=>
 		b.material.baseColor=bdnv;
 		b.material.roughness=1;
 		b.material.metallic=0;
-		if(0)b.material.Fragment_Custom_Albedo(`
+		if(1)b.material.Fragment_Custom_Albedo(`
 			float g=2.0;
 			float v=0.0;
 			float n1=abs(fract(vPositionW.x*g)-0.5);
