@@ -441,7 +441,9 @@ const lnm=()=>
 				n2=0.0;
 			}
 			if(abs(normalW.z)>0.5)n3=0.0;
-			surfaceAlbedo=vec3(1.0,1.0,1.0)*(max(max(n1,n2),n3)<0.45?v:1.0-v);
+			float p=max(max(n1,n2),n3);
+			float tp=smoothstep(0.45-fwidth(p),0.45,p);
+			surfaceAlbedo=vec3(1.0,1.0,1.0)*abs(v-tp);
 			if(false)surfaceAlbedo=vec3(1.0,1.0,1.0)*((fract(vPositionW.x*g)>0.5?1.0:-1.0)*(fract(vPositionW.y*g)>0.5?1.0:-1.0)*(fract(vPositionW.z*g)>0.5?1.0:-1.0)+1.0)*0.5;
 		`);
 		else if(0)b.material.Fragment_Before_FragColor(`
