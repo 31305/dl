@@ -461,6 +461,7 @@ l.speed=1;
 l.inertia=0;
 l.checkCollisions=true;
 l.applyGravity=true;
+if(0)l.needMoveForGravity=true;
 l.inputs.remove(l.inputs.attached.mouse);
 l.keysUp.push(87);
 l.keysDown.push(83);
