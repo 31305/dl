@@ -531,7 +531,7 @@ const ssk=function()
 	const nps={};
 	window.nps=nps;
 	window.addEventListener('keydown',(p)=>{
-		nps[p.code]=true;
+		if(!nps[p.code])nps[p.code]=true;
 	});
 	window.addEventListener('keyup',(p)=>{
 		nps[p.code]=false; 
@@ -559,6 +559,7 @@ const ssk=function()
 		if(t.length()>0.001)l.cameraDirection.addInPlace(t);
 		if(nps["Space"]==true&&dg<=0&&Math.abs(l.position.y-ps)<0.001)
 		{
+			nps["Space"]=2;
 			dg=15;
 		}
 		ps=l.position.y;
