@@ -462,7 +462,7 @@ const lnm=()=>
 }
 s.collisionsEnabled=true;
 s.gravity=new BABYLON.Vector3(0,-0.1,0);
-l.speed=2;
+l.speed=1.5;
 l.inertia=0;
 l.checkCollisions=true;
 l.applyGravity=true;
