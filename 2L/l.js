@@ -527,15 +527,11 @@ const ssk=function()
 	}
 	d.addEventListener("touchend",spk);
 	d.addEventListener("touchcancel",spk);
-	let dg=0;
+	let dg=0,ps=0;
 	const nps={};
 	window.nps=nps;
 	window.addEventListener('keydown',(p)=>{
-		nps[p.code]=true; 
-		if(p.code==="Space")
-		{
-			dg=15;
-		}
+		nps[p.code]=true;
 	});
 	window.addEventListener('keyup',(p)=>{
 		nps[p.code]=false; 
@@ -561,6 +557,11 @@ const ssk=function()
 		const gg=gs.length();
 		const t=gs.normalizeToNew().scale(Math.min(g,gg));
 		if(t.length()>0.001)l.cameraDirection.addInPlace(t);
+		if(nps["Space"]==true&&dg<=0&&Math.abs(l.position.y-ps)<0.001)
+		{
+			dg=15;
+		}
+		ps=l.position.y;
 		if(dg>0)
 		{
 			l.cameraDirection.addInPlace(pv(0,dg*kn,0));
