@@ -462,7 +462,7 @@ const lnm=()=>
 }
 s.collisionsEnabled=true;
 s.gravity=new BABYLON.Vector3(0,-0.1,0);
-l.speed=1;
+l.speed=2;
 l.inertia=0;
 l.checkCollisions=true;
 l.applyGravity=true;
@@ -566,7 +566,7 @@ const ssk=function()
 			l.cameraDirection.addInPlace(pv(0,dg*kn,0));
 			dg-=kn*50;
 		}
-		gs.set(0,0,0);
+		gs.scaleInPlace(Math.max(1-100*kn,0));
 	});
 	d.addEventListener("touchmove",(p)=>{if(1||document.fullscreenElement==d)
 	{
