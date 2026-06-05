@@ -1,7 +1,7 @@
 const jdv=function()
 {
 	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){return true;}
-    return false;
+	return false;
 }
 const vp=class
 {
@@ -468,10 +468,7 @@ l.checkCollisions=true;
 l.applyGravity=true;
 if(1)l.needMoveForGravity=true;
 l.inputs.remove(l.inputs.attached.mouse);
-l.keysUp.push(87);
-l.keysDown.push(83);
-l.keysRight.push(68);
-l.keysLeft.push(65);
+l.inputs.remove(l.inputs.attached.keyboard);
 if(1)l.angularSensibility*=-1;
 const nkp=()=>
 {
@@ -531,16 +528,36 @@ const ssk=function()
 	d.addEventListener("touchend",spk);
 	d.addEventListener("touchcancel",spk);
 	let dg=0;
-	window.addEventListener("keydown",p=>{
-	    if(p.code==="Space")
+	const nps={};
+	window.nps=nps;
+	window.addEventListener('keydown',(p)=>{
+		nps[p.code]=true; 
+		if(p.code==="Space")
 		{
 			dg=15;
 		}
+	});
+	window.addEventListener('keyup',(p)=>{
+		nps[p.code]=false; 
+	});
+	window.addEventListener('blur',()=>{
+		for(let k in nps)nps[k]=false;
 	});
 	s.onBeforeRenderObservable.add(()=>
 	{
 		const kn=s.getEngine().getDeltaTime()/1000;
 		const g=l.speed*kn*3;
+		(()=>
+		{
+			const g2=Number(nps['ArrowUp']==true||nps['KeyW']==true)-Number(nps['ArrowDown']==true||nps['KeyS']==true);
+			const g1=Number(nps['ArrowRight']==true||nps['KeyD']==true)-Number(nps['ArrowLeft']==true||nps['KeyA']==true);
+			if(g1!=0||g2!=0)
+			{
+				gs.copyFrom(BABYLON.Vector3.TransformCoordinates
+					(new BABYLON.Vector3(g1,0,g2),BABYLON.Matrix.RotationY(l.rotation.y)));
+				gs.normalize().scale(g);
+			}
+		})();
 		const gg=gs.length();
 		const t=gs.normalizeToNew().scale(Math.min(g,gg));
 		if(t.length()>0.001)l.cameraDirection.addInPlace(t);
