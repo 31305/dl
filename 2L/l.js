@@ -60,17 +60,22 @@ d.style="position:absolute;display:block;width:100%;height:100%";
 document.body.appendChild(d);
 const c=new BABYLON.Engine(d,true);
 const s=new BABYLON.Scene(c);
+const pv=(p,d,t)=>{return new BABYLON.Vector3(p,d,t);}
 s.clearColor=new BABYLON.Color3(0,0,0);
 const ls=1.75/2;
 const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*2,0),s);
-l.ellipsoid=new BABYLON.Vector3(.3,ls,.3);
+(()=>
+{
+	const vk=.2;
+	l.ellipsoid=new BABYLON.Vector3(.3,ls+vk/2,.3);
+	l.ellipsoidOffset=pv(0,vk,0);
+})();
 l.attachControl(d,true);
 l.minZ=0.1;
 const p=1?new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s):new BABYLON.SpotLight("p",new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,0,1),Math.PI/4,2);
 p.intensity=10;
 p.parent=l;
 const ntvs=0.001;
-const pv=(p,d,t)=>{return new BABYLON.Vector3(p,d,t);}
 const bdnv=new BABYLON.Color3(1,1,1);
 const gmnk=function(s1,s2,dk=null,sv=bdnv,vr=true)
 {
@@ -461,7 +466,7 @@ l.speed=1;
 l.inertia=0;
 l.checkCollisions=true;
 l.applyGravity=true;
-if(0)l.needMoveForGravity=true;
+if(1)l.needMoveForGravity=true;
 l.inputs.remove(l.inputs.attached.mouse);
 l.keysUp.push(87);
 l.keysDown.push(83);
@@ -525,13 +530,25 @@ const ssk=function()
 	}
 	d.addEventListener("touchend",spk);
 	d.addEventListener("touchcancel",spk);
+	let dg=0;
+	window.addEventListener("keydown",p=>{
+	    if(p.code==="Space")
+		{
+			dg=15;
+		}
+	});
 	s.onBeforeRenderObservable.add(()=>
 	{
 		const kn=s.getEngine().getDeltaTime()/1000;
 		const g=l.speed*kn*3;
 		const gg=gs.length();
 		const t=gs.normalizeToNew().scale(Math.min(g,gg));
-		l.cameraDirection.addInPlace(t);
+		if(t.length()>0.001)l.cameraDirection.addInPlace(t);
+		if(dg>0)
+		{
+			l.cameraDirection.addInPlace(pv(0,dg*kn,0));
+			dg-=kn*50;
+		}
 		gs.set(0,0,0);
 	});
 	d.addEventListener("touchmove",(p)=>{if(1||document.fullscreenElement==d)
