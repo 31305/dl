@@ -333,6 +333,7 @@ const knsnm=()=>
 const s2=ls*4,bvs=.5;
 const lnm=()=>
 {
+	const tpbnm=false;
 	const s1=5,s3=5,ds=s3/2;
 	const vs=1000;
 	const mg=BABYLON.MeshBuilder.CreateBox('mg',{width:vs,height:vs,depth:vs});
@@ -357,26 +358,32 @@ const lnm=()=>
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1});
 	tkb.position.set(-s1/2,gmc/2,0);
 	tksg.push(tkb);
-	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:1,depth:1});
-	tkb.position.set(0,1.5,-ds);
+	if(tpbnm)
+	{
+		tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:1,depth:1});
+		tkb.position.set(0,1.5,-ds);
+		tksg.push(tkb);
+		tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:s1,height:s2,depth:s3});
+		tkb.position.set(0,s2/2,-ds-s3/2-bvs);
+		tksg.push(tkb);
+	}
+	tkb=gmnk(pv(-s1/2-bvs,0,-s3/2-(tpbnm?bvs-s3:0)),pv(-s1/2-bvs-5,s2,s3/2));
 	tksg.push(tkb);
-	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:s1,height:s2,depth:s3});
-	tkb.position.set(0,s2/2,-ds-s3/2-bvs);
-	tksg.push(tkb);
-	tkb=gmnk(pv(-s1/2-bvs,0,-s3/2-bvs-s3),pv(-s1/2-bvs-5,s2,s3/2));
-	tksg.push(tkb);
-	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1});
-	tkb.position.set(-s1/2,gmc/2,-s3/2-bvs-s3/2);
-	tksg.push(tkb);
-	spd(pv(0,0,-s3-bvs));
-	const mks=pvsnm();
-	mks.position.set(2,0,-1.5);
-	mks.rotation.set(0,-Math.PI/2,0);
-	const mtp=tpnm();
-	mtp.position.set(1.2,0,-1.5);
-	mtp.rotation.set(0,-Math.PI/2,0);
-	const pc=ppcnm();
-	pc.position.set(1.9,0,-1.2);
+	if(tpbnm)
+	{
+		tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1});
+		tkb.position.set(-s1/2,gmc/2,-s3/2-bvs-s3/2);
+		tksg.push(tkb);
+		spd(pv(0,0,-s3-bvs));
+		const mks=pvsnm();
+		mks.position.set(2,0,-1.5);
+		mks.rotation.set(0,-Math.PI/2,0);
+		const mtp=tpnm();
+		mtp.position.set(1.2,0,-1.5);
+		mtp.rotation.set(0,-Math.PI/2,0);
+		const pc=ppcnm();
+		pc.position.set(1.9,0,-1.2);
+	}
 	const kns=knsnm();
 	kns.position.set(-s1/2,gmc+.3,0);
 	kns.rotation.set(0,-Math.PI/2,0);
