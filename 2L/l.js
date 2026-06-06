@@ -367,7 +367,7 @@ const lnm=()=>
 		tkb.position.set(0,s2/2,-ds-s3/2-bvs);
 		tksg.push(tkb);
 	}
-	tkb=gmnk(pv(-s1/2-bvs,0,-s3/2-(tpbnm?bvs-s3:0)),pv(-s1/2-bvs-5,s2,s3/2));
+	tkb=gmnk(pv(-s1/2-bvs,0,-s3/2-(tpbnm?bvs-s3:0)),pv(-s1/2-bvs-s1,s2,s3/2));
 	tksg.push(tkb);
 	if(tpbnm)
 	{
@@ -387,6 +387,28 @@ const lnm=()=>
 	const kns=knsnm();
 	kns.position.set(-s1/2,gmc+.3,0);
 	kns.rotation.set(0,-Math.PI/2,0);
+	(()=>
+	{
+		const d=100;
+		const vk=0.05;
+		const ns1=-s1*1.5-bvs-d/2+vk,ns2=2.5,pd=.7;
+		tkb=BABYLON.MeshBuilder.CreateCylinder('ng',{height:d,diameter:pd});
+		tkb.position.set(ns1,ns2,0);
+		tkb.rotation.set(0,0,Math.PI/2);
+		tksg.push(tkb);
+		let dg=null;
+		dg=BABYLON.MeshBuilder.CreateCylinder('ng',{height:d,diameter:pd+vk});
+		let ddg=BABYLON.MeshBuilder.CreateCylinder('ng',{height:d+vk*2,diameter:pd-vk});
+		const ndg=BABYLON.CSG.FromMesh(dg).subtract(BABYLON.CSG.FromMesh(ddg)).toMesh("dg",null,s,true);
+		dg.dispose();
+		ddg.dispose();
+		ndg.material=new BABYLON.PBRMetallicRoughnessMaterial("pd",s);
+		ndg.material.baseColor=new BABYLON.Color3(0.2,0.2,0.2);
+		ndg.material.metallic=0;
+		ndg.material.roughness=1;
+		ndg.position.set(ns1,ns2,0);
+		ndg.rotation.set(0,0,Math.PI/2);
+	})();
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
 	for(let k=1;k<tksg.length;k++)
