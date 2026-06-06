@@ -391,7 +391,7 @@ const lnm=()=>
 	{
 		const d=100;
 		const vk=0.05;
-		const ns1=-s1*1.5-bvs-d/2+vk,ns2=2.5,pd=.7;
+		const ns1=-s1*1.5-bvs-d/2+vk,ns2=ls*2,pd=.7;
 		tkb=BABYLON.MeshBuilder.CreateCylinder('ng',{height:d,diameter:pd});
 		tkb.position.set(ns1,ns2,0);
 		tkb.rotation.set(0,0,Math.PI/2);
@@ -406,8 +406,9 @@ const lnm=()=>
 		ndg.material.baseColor=new BABYLON.Color3(0.2,0.2,0.2);
 		ndg.material.metallic=0;
 		ndg.material.roughness=1;
-		ndg.position.set(ns1,ns2,0);
+		ndg.position.set(ns1-vk+0.01,ns2,0);
 		ndg.rotation.set(0,0,Math.PI/2);
+		ndg.n=[44,2,70,69,44,3,75];
 	})();
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
