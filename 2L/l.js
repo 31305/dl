@@ -420,7 +420,6 @@ const lnm=()=>
 		const pk=new BABYLON.PointLight("pk",g.position);
 		pk.diffuse=g.material.emissiveColor;
 		pk.includedOnlyMeshes.push(ndg);
-		window.tp=pk;
 	})();
 	const mgs=BABYLON.CSG.FromMesh(mg);
 	let tks=BABYLON.CSG.FromMesh(tksg[0]);
