@@ -56,7 +56,7 @@ const dnsnd=class
 	}
 }
 const v=new vp();
-Promise.all([v.dk(),HavokPhysics()]).then((p)=>{s.enablePhysics(new BABYLON.Vector3(0,-9.8,0),new BABYLON.HavokPlugin(true,p[1]));lnm();ssk();});
+Promise.all([v.dk()]+(lnc?[HavokPhysics()]:[])).then((p)=>{if(lnc){s.enablePhysics(new BABYLON.Vector3(0,-9.8,0),new BABYLON.HavokPlugin(true,p[1]));}lnm();ssk();});
 const d=document.createElement('canvas')
 document.body.style.margin='0';
 document.body.style.touchAction='none';
