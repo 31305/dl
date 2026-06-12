@@ -6,9 +6,12 @@ const jdv=function()
 const vp=class
 {
 	vp=null
-	constructor(pk=null)
+	dk()
 	{
-		vm({dk:()=>{if(pk!=null)pk()},vppk:()=>{if(this.vp!=null)this.vp()}}).then(p=>this.p=p)
+		return new Promise((p,d)=>
+		{
+			vm({dk:p,vppk:()=>{if(this.vp!=null)this.vp()}}).then(p=>this.p=p);
+		});
 	}
 	b(v)
 	{
@@ -52,7 +55,8 @@ const dnsnd=class
 					nsg.add(kg([n[0]+k1,n[1]+k2,n[2]+k3]));
 	}
 }
-const v=new vp(()=>{ssk();});
+const v=new vp();
+Promise.all([v.dk(),HavokPhysics()]).then((p)=>{s.enablePhysics(new BABYLON.Vector3(0,-9.8,0),new BABYLON.HavokPlugin(true,p[1]));lnm();ssk();});
 const d=document.createElement('canvas')
 document.body.style.margin='0';
 document.body.style.touchAction='none';
@@ -705,4 +709,3 @@ const lds=function()
 	document.addEventListener("pointerout",pk);
 	document.addEventListener("pointercancel",pk);
 }
-lnm();

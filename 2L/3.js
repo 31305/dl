@@ -8,6 +8,7 @@ const ss=(n)=>
 ss("babylon.js")
 ss("babylonjs.materials.min.js")
 ss("babylon.gui.min.js")
+ss("HavokPhysics_umd.js")
 ss("nlv.js")
 ss('vm.js')
 ss("l.js")
