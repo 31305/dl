@@ -59,7 +59,7 @@ ss('vm.js').then(p=>{
 		s.style.color='white'
 		s.style.fontFamily='monospace';
 		document.body.appendChild(s);
-		const pkk=()=>{};
+		let pkk=()=>{};
 		const sk=(k)=>{
 			s.innerHTML='<strong>'+(k+1).toString()+'/'+nrsg.length.toString()+'</strong> ';
 			const nk=document.createElement('span');
@@ -67,6 +67,9 @@ ss('vm.js').then(p=>{
 			nk.style.userSelect='none';
 			nk.svs=(k)=>{nk.svk=k;nk.style.backgroundColor=k==0?'red':k==1?'#cca200':'green'};
 			nk.svs(0);
+			const knl=document.createElement('span');
+			const knlv=(n)=>{knl.innerText=n.toFixed(2).toString().padStart(5,'0')}
+			knlv(0);
 			nk.onclick=()=>{
 				if(nk.svk!=0||v.bs)return;
 				nk.svs(1);
@@ -76,13 +79,45 @@ ss('vm.js').then(p=>{
 				const pk=()=>
 				{
 					const tk=ps.values().next().value;
-					v.b(nrsg[k][tk][1]);
-					ps.delete(tk);
+					const b=nrsg[k][tk][1];
+					let ns=0;
+					for(let k=b.length-1;k>=0;k--)
+						if(b[k]<43){ns=b[k];break;}
+					const sv=(ns-1)%3==1;
+					v.b(b.concat([49,16+2*Number(sv),56,43,1,66,4,75])).then(()=>{
+						let kn=Date.now();
+						const vk=3;
+						const nkk=()=>
+						{
+							nk.svs(0);
+							pkk=()=>{};
+						}
+						pkk=(k)=>
+						{
+							if(k==tk&&Date.now()-kn<vk*1000)
+							{
+								ps.delete(tk);
+								if(ps.size>0)pk();
+								else nk.svs(2);
+							}
+							else nkk();
+						}
+						const knlk=()=>
+						{
+							const n=Math.max(0,vk-(Date.now()-kn)/1000);
+							knlv(n);
+							if(n!=0)
+								requestAnimationFrame(knlk);
+						}
+						requestAnimationFrame(knlk);
+						setTimeout(nkk,vk*1000);
+					});
 				}
 				pk();
 			}
 			window.tp=nk;
 			s.appendChild(nk);
+			s.appendChild(knl);
 			s.appendChild(document.createElement('p'));
 			for(let pk=0;pk<nrsg[k].length;pk++)
 			{
