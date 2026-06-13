@@ -55,15 +55,30 @@ const nrsg=
 ss('vm.js').then(p=>{
 	const v=new vp();
 	v.dk().then(p=>{
+		const vvss=document.createElement('style');
+		vvss.textContent=`
+		.nv{
+			border:2px solid transparent;
+			padding:3px;
+			margin:1px;
+			display:inline-block;
+		}
+		.nv:active{
+			border-color:white;
+		}
+		`;
+		document.head.appendChild(vvss);
 		const s=document.createElement('div');
 		s.style.color='white'
 		s.style.fontFamily='monospace';
 		document.body.appendChild(s);
+		const plv='2px'
 		let pkk=null;
 		const sk=(k)=>{
 			s.innerHTML='<strong>'+(k+1).toString()+'/'+nrsg.length.toString()+'</strong> ';
 			const nk=document.createElement('span');
 			nk.innerHTML='<strong>⏭</strong>';
+			nk.className='nv';
 			nk.style.userSelect='none';
 			nk.svs=(k)=>{nk.svk=k;nk.style.backgroundColor=k==0?'red':k==1?'#cca200':'green'};
 			nk.svs(0);
@@ -71,6 +86,8 @@ ss('vm.js').then(p=>{
 			const knlv=(n)=>{knl.innerText=n.toFixed(2).toString().padStart(5,'0')}
 			knlv(0);
 			nk.kns=true;
+			const pss=[]
+			const pssv=(p,k)=>{pss[k].style.backgroundColor=p?'#555580':'black'}
 			nk.onclick=()=>{
 				if(nk.svk==2){sk(k+1);return;}
 				else if(nk.svk!=0||v.bs)return;
@@ -103,7 +120,9 @@ ss('vm.js').then(p=>{
 							if(tkk==tk&&Date.now()-nk.kn<vk*1000)
 							{
 								ps.delete(tk);
+								pssv(1,tk);
 								v.b(nrsg[k][tk][1]).then(()=>{
+									pssv(0,tk);
 									if(ps.size>0)pk();
 									else
 									{
@@ -116,7 +135,8 @@ ss('vm.js').then(p=>{
 							else
 							{
 								nkk();
-								v.b(nrsg[k][tkk][1])
+								pssv(1,tkk);
+								v.b(nrsg[k][tkk][1]).then(pssv(0,tkk))
 							}
 						}
 						const knlk=()=>
@@ -145,9 +165,11 @@ ss('vm.js').then(p=>{
 			{
 				const p=nrsg[k][pk];
 				const ps=document.createElement('span');
+				pss.push(ps);
 				ps.innerText=p[0];
-				ps.onclick=()=>{if(v.bs)return;else if(pkk!=null)pkk(pk);else v.b(p[1])};
+				ps.onclick=()=>{if(v.bs)return;else if(pkk!=null)pkk(pk);else{pssv(1,pk);v.b(p[1]).then(()=>{pssv(0,pk)})}};
 				ps.style.userSelect='none';
+				ps.className='nv';
 				s.appendChild(ps);
 			}
 		}
