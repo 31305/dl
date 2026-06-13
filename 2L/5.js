@@ -41,7 +41,9 @@ const nrsg=
 		['🐕',[47,46,5]],
 		['🦮',[70,4,43,11]],
 		['🐩',[53,13,56,57,11]],
-		['🐈',[38,66,15,77]],
+		['🐈',[38,66,15,77]]
+	],
+	[
 		['🐅',[46,43,4,54,44,2,77]],
 		['🐆',[68,46,10,71,11]],
 		['🫏',[53,1,44,68,1,74,2,77]],
@@ -50,7 +52,6 @@ const nrsg=
 		['🦌',[50,1,44,7,65,2,77]],
 	]
 ];
-window.tp=nrsg;
 ss('vm.js').then(p=>{
 	const v=new vp();
 	v.dk().then(p=>{
@@ -62,16 +63,33 @@ ss('vm.js').then(p=>{
 		const sk=(k)=>{
 			s.innerHTML='<strong>'+(k+1).toString()+'/'+nrsg.length.toString()+'</strong> ';
 			const nk=document.createElement('span');
-			nk.innerHTML='<strong>>></strong>';
+			nk.innerHTML='<strong>⏭</strong>';
 			nk.style.userSelect='none';
+			nk.svs=(k)=>{nk.svk=k;nk.style.backgroundColor=k==0?'red':k==1?'#cca200':'green'};
+			nk.svs(0);
+			nk.onclick=()=>{
+				if(nk.svk!=0||v.bs)return;
+				nk.svs(1);
+				const ps=new Set();
+				while(ps.size<Math.min(5,nrsg[k].length))
+					ps.add(Math.floor(Math.random()*nrsg[k].length))
+				const pk=()=>
+				{
+					const tk=ps.values().next().value;
+					v.b(nrsg[k][tk][1]);
+					ps.delete(tk);
+				}
+				pk();
+			}
+			window.tp=nk;
 			s.appendChild(nk);
-			s.innerHTML+='<p>';
+			s.appendChild(document.createElement('p'));
 			for(let pk=0;pk<nrsg[k].length;pk++)
 			{
 				const p=nrsg[k][pk];
 				const ps=document.createElement('span');
 				ps.innerText=p[0];
-				ps.onclick=()=>{v.b(p[1]).then(pkk(pk)).catch(()=>{});};
+				ps.onclick=()=>{if(v.bs)return;v.b(p[1]).then(pkk(pk)).catch(()=>{});};
 				ps.style.userSelect='none';
 				s.appendChild(ps);
 			}
