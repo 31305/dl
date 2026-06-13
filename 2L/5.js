@@ -58,9 +58,9 @@ ss('vm.js').then(p=>{
 		const vvss=document.createElement('style');
 		vvss.textContent=`
 		.nv{
-			border:2px solid transparent;
-			padding:3px;
-			margin:1px;
+			border:.2em solid transparent;
+			padding:.3em;
+			margin:.1em;
 			display:inline-block;
 		}
 		.nv:active{
@@ -71,8 +71,10 @@ ss('vm.js').then(p=>{
 		const s=document.createElement('div');
 		s.style.color='white'
 		s.style.fontFamily='monospace';
+		s.style.margin='1em'
+		s.style.userSelect='none'
+		s.style.fontSize='20px'
 		document.body.appendChild(s);
-		const plv='2px'
 		let pkk=null;
 		const sk=(k)=>{
 			s.innerHTML='<strong>'+(k+1).toString()+'/'+nrsg.length.toString()+'</strong> ';
@@ -80,6 +82,7 @@ ss('vm.js').then(p=>{
 			nk.innerHTML='<strong>⏭</strong>';
 			nk.className='nv';
 			nk.style.userSelect='none';
+			nk.style.fontSize='32px';
 			nk.svs=(k)=>{nk.svk=k;nk.style.backgroundColor=k==0?'red':k==1?'#cca200':'green'};
 			nk.svs(0);
 			const knl=document.createElement('span');
@@ -153,7 +156,6 @@ ss('vm.js').then(p=>{
 				}
 				pk();
 			}
-			window.tp=nk;
 			if(k<nrsg.length-1)
 			{
 				s.appendChild(nk);
@@ -169,6 +171,7 @@ ss('vm.js').then(p=>{
 				ps.innerText=p[0];
 				ps.onclick=()=>{if(v.bs)return;else if(pkk!=null)pkk(pk);else{pssv(1,pk);v.b(p[1]).then(()=>{pssv(0,pk)})}};
 				ps.style.userSelect='none';
+				ps.style.fontSize='40px';
 				ps.className='nv';
 				s.appendChild(ps);
 			}
