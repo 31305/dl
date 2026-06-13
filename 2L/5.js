@@ -55,16 +55,22 @@ ss('vm.js').then(p=>{
 	const v=new vp();
 	v.dk().then(p=>{
 		const s=document.createElement('div');
+		s.style.color='white'
+		s.style.fontFamily='monospace';
 		document.body.appendChild(s);
 		const pkk=()=>{};
 		const sk=(k)=>{
-			s.innerHTML='';
+			s.innerHTML='<strong>'+(k+1).toString()+'/'+nrsg.length.toString()+'</strong> ';
+			const nk=document.createElement('span');
+			nk.innerHTML='<strong>>></strong>';
+			nk.style.userSelect='none';
+			s.appendChild(nk);
+			s.innerHTML+='<p>';
 			for(let pk=0;pk<nrsg[k].length;pk++)
 			{
 				const p=nrsg[k][pk];
 				const ps=document.createElement('span');
 				ps.innerText=p[0];
-				console.log(p);
 				ps.onclick=()=>{v.b(p[1]).then(pkk(pk)).catch(()=>{});};
 				ps.style.userSelect='none';
 				s.appendChild(ps);
