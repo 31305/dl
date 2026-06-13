@@ -72,7 +72,8 @@ ss('vm.js').then(p=>{
 			knlv(0);
 			nk.kns=true;
 			nk.onclick=()=>{
-				if(nk.svk!=0||v.bs)return;
+				if(nk.svk==2){sk(k+1);return;}
+				else if(nk.svk!=0||v.bs)return;
 				nk.svs(1);
 				const ps=new Set();
 				while(ps.size<Math.min(5,nrsg[k].length))
@@ -93,20 +94,30 @@ ss('vm.js').then(p=>{
 						const nkk=()=>
 						{
 							nk.svs(0);
+							knlv(0);
 							pkk=null;
 						}
 						pkk=(tkk)=>
 						{
+							nk.kns=false;
 							if(tkk==tk&&Date.now()-nk.kn<vk*1000)
 							{
-								nk.kns=false;
 								ps.delete(tk);
 								v.b(nrsg[k][tk][1]).then(()=>{
 									if(ps.size>0)pk();
-									else nk.svs(2);
+									else
+									{
+										nk.svs(2);
+										knlv(0);
+										pkk=null;
+									}
 								})
 							}
-							else nkk();
+							else
+							{
+								nkk();
+								v.b(nrsg[k][tkk][1])
+							}
 						}
 						const knlk=()=>
 						{
@@ -123,9 +134,12 @@ ss('vm.js').then(p=>{
 				pk();
 			}
 			window.tp=nk;
-			s.appendChild(nk);
-			s.append(' ');
-			s.appendChild(knl);
+			if(k<nrsg.length-1)
+			{
+				s.appendChild(nk);
+				s.append(' ');
+				s.appendChild(knl);
+			}
 			s.appendChild(document.createElement('p'));
 			for(let pk=0;pk<nrsg[k].length;pk++)
 			{
