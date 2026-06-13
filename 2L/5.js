@@ -59,7 +59,7 @@ ss('vm.js').then(p=>{
 		s.style.color='white'
 		s.style.fontFamily='monospace';
 		document.body.appendChild(s);
-		let pkk=()=>{};
+		let pkk=null;
 		const sk=(k)=>{
 			s.innerHTML='<strong>'+(k+1).toString()+'/'+nrsg.length.toString()+'</strong> ';
 			const nk=document.createElement('span');
@@ -70,6 +70,7 @@ ss('vm.js').then(p=>{
 			const knl=document.createElement('span');
 			const knlv=(n)=>{knl.innerText=n.toFixed(2).toString().padStart(5,'0')}
 			knlv(0);
+			nk.kns=true;
 			nk.onclick=()=>{
 				if(nk.svk!=0||v.bs)return;
 				nk.svs(1);
@@ -84,39 +85,46 @@ ss('vm.js').then(p=>{
 					for(let k=b.length-1;k>=0;k--)
 						if(b[k]<43){ns=b[k];break;}
 					const sv=(ns-1)%3==1;
+					const vk=3;
+					knlv(vk);
 					v.b(b.concat([49,16+2*Number(sv),56,43,1,66,4,75])).then(()=>{
-						let kn=Date.now();
-						const vk=3;
+						nk.kn=Date.now();
+						nk.kns=true;
 						const nkk=()=>
 						{
 							nk.svs(0);
-							pkk=()=>{};
+							pkk=null;
 						}
-						pkk=(k)=>
+						pkk=(tkk)=>
 						{
-							if(k==tk&&Date.now()-kn<vk*1000)
+							if(tkk==tk&&Date.now()-nk.kn<vk*1000)
 							{
+								nk.kns=false;
 								ps.delete(tk);
-								if(ps.size>0)pk();
-								else nk.svs(2);
+								v.b(nrsg[k][tk][1]).then(()=>{
+									if(ps.size>0)pk();
+									else nk.svs(2);
+								})
 							}
 							else nkk();
 						}
 						const knlk=()=>
 						{
-							const n=Math.max(0,vk-(Date.now()-kn)/1000);
+							if(!nk.kns)return;
+							const n=Math.max(0,vk-(Date.now()-nk.kn)/1000);
 							knlv(n);
 							if(n!=0)
 								requestAnimationFrame(knlk);
+							else nkk();
 						}
-						requestAnimationFrame(knlk);
-						setTimeout(nkk,vk*1000);
+						knlk();
 					});
 				}
 				pk();
 			}
 			window.tp=nk;
 			s.appendChild(nk);
+			s.append(' ');
 			s.appendChild(knl);
 			s.appendChild(document.createElement('p'));
 			for(let pk=0;pk<nrsg[k].length;pk++)
@@ -124,7 +132,7 @@ ss('vm.js').then(p=>{
 				const p=nrsg[k][pk];
 				const ps=document.createElement('span');
 				ps.innerText=p[0];
-				ps.onclick=()=>{if(v.bs)return;v.b(p[1]).then(pkk(pk)).catch(()=>{});};
+				ps.onclick=()=>{if(v.bs)return;else if(pkk!=null)pkk(pk);else v.b(p[1])};
 				ps.style.userSelect='none';
 				s.appendChild(ps);
 			}
