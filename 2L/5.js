@@ -32,7 +32,7 @@ const vp=class
 		});
 	}
 }
-const nrsg=
+let nrsg=
 [
 	[
 		['🐒',[51,1,71,8,77]],
@@ -52,6 +52,9 @@ const nrsg=
 		['🦌',[50,1,44,7,65,2,77]],
 	]
 ];
+const ppdk=false;
+if(!ppdk)nrsg=[nrsg.flat()];
+window.tp=nrsg;
 ss('vm.js').then(p=>{
 	const v=new vp();
 	v.dk().then(p=>{
@@ -77,7 +80,7 @@ ss('vm.js').then(p=>{
 		document.body.appendChild(s);
 		let pkk=null;
 		const sk=(k)=>{
-			s.innerHTML='<strong>'+(k+1).toString()+'/'+nrsg.length.toString()+'</strong> ';
+			if(ppdk)s.innerHTML='<strong>'+(k+1).toString()+'/'+nrsg.length.toString()+'</strong> ';
 			const nk=document.createElement('span');
 			nk.innerHTML='<strong>⏭</strong>';
 			nk.className='nv';
@@ -156,13 +159,13 @@ ss('vm.js').then(p=>{
 				}
 				pk();
 			}
-			if(k<nrsg.length-1)
+			if(ppdk)if(k<nrsg.length-1)
 			{
 				s.appendChild(nk);
 				s.append(' ');
 				s.appendChild(knl);
 			}
-			s.appendChild(document.createElement('p'));
+			if(ppdk)s.appendChild(document.createElement('p'));
 			for(let pk=0;pk<nrsg[k].length;pk++)
 			{
 				const p=nrsg[k][pk];
