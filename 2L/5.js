@@ -91,12 +91,15 @@ let nrsg=
 		['🐜',[71,7,71,11,45,3,51,1,77]],
 		['🐝',[71,1,69,13,75,1,51,48,2,77]],
 		['🦗',[59,7,60,59,11]],
+		['🕷️',[16,44,65,1,46,5,74,9,77]],
+		['🕸️',[17,44,65,6]],
+		['🦂',[46,20,47,56,9,51,1,77]],
+		['🦟',[75,2,47,3,51,1,77]],
 	]
 ];
 const ppdk=false;
 if(!ppdk)nrsg=[nrsg.flat()];
 document.body.style.overflow='auto'
-window.tp=nrsg;
 ss('vm.js').then(p=>{
 	const v=new vp();
 	v.dk().then(p=>{
@@ -119,6 +122,7 @@ ss('vm.js').then(p=>{
 		s.style.margin='1em'
 		s.style.userSelect='none'
 		s.style.fontSize='20px'
+		if(!ppdk)s.style.textAlign='center'
 		document.body.appendChild(s);
 		let pkk=null;
 		const sk=(k)=>{
@@ -208,6 +212,7 @@ ss('vm.js').then(p=>{
 				s.appendChild(knl);
 			}
 			if(ppdk)s.appendChild(document.createElement('p'));
+			if(!ppdk)s.style.margin='0px';
 			for(let pk=0;pk<nrsg[k].length;pk++)
 			{
 				const p=nrsg[k][pk];
@@ -226,6 +231,11 @@ ss('vm.js').then(p=>{
 				};
 				ps.style.userSelect='none';
 				ps.style.fontSize=ppdk?'40px':'60px';
+				if(!ppdk)
+				{
+					ps.style.border='.1em';
+					ps.style.padding='.1em';
+				}
 				ps.className='nv';
 				s.appendChild(ps);
 			}
