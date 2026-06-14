@@ -233,7 +233,7 @@ ss('vm.js').then(p=>{
 				ps.style.fontSize=ppdk?'40px':'60px';
 				if(!ppdk)
 				{
-					ps.style.border='.1em';
+					ps.style.borderWidth='.05em';
 					ps.style.padding='.1em';
 				}
 				ps.className='nv';
