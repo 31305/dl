@@ -139,7 +139,7 @@ ss('vm.js').then(p=>{
 							{
 								nkk();
 								pssv(1,tkk);
-								v.b(nrsg[k][tkk][1]).then(pssv(0,tkk))
+								v.b(nrsg[k][tkk][1]).then(()=>pssv(0,tkk))
 							}
 						}
 						const knlk=()=>
