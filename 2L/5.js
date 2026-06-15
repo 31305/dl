@@ -104,7 +104,7 @@ ss('vm.js').then(p=>{
 		const vvss=document.createElement('style');
 		vvss.textContent=`
 		.nv{
-			border:.2em solid transparent;
+			border:.2em solid var(--nvv,black);
 			padding:.3em;
 			margin:.1em;
 			display:inline-block;
@@ -137,7 +137,7 @@ ss('vm.js').then(p=>{
 			knlv(0);
 			nk.kns=true;
 			const pss=[]
-			const pssv=(p,k)=>{pss[k].style.backgroundColor=p?'#555580':'black'}
+			const pssv=(p,k)=>{pss[k].style.setProperty('--nvv',p?'lightgreen':'black')}
 			nk.onclick=()=>{
 				if(nk.svk==2){sk(k+1);return;}
 				else if(nk.svk!=0||v.bs)return;
