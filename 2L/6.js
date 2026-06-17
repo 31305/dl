@@ -56,9 +56,47 @@ const vsgk=(s,v1,v2,vk)=>
 	}
 	return v;
 }
+const vsp=(s)=>
+{
+	const plm=0.02;
+	const vkm=0.2;
+	const v=vsgk(s,window.innerWidth,window.innerHeight,vkm);
+	console.log(v);
+	const vv=v/(1+plm*2);
+	document.body.style.setProperty('--pl',(plm*vv).toString()+'px');
+	document.body.style.setProperty('--vk',(v*vkm).toString()+'px');
+	document.body.style.setProperty('--v',vv.toString()+'px');
+}
+const sg=document.createElement('div');
+document.body.appendChild(sg);
+const ssk=(s)=>
+{
+	for(let k=0;k<s;k++)
+	{
+		const p=document.createElement('div');
+		p.className='nv';
+		sg.appendChild(p);
+	}
+	vsp(s);
+}
+window.tp=ssk
 ss('vm.js').then(p=>{
 	const v=new vp();
 	v.dk().then(p=>{
-		
+		const vvss=document.createElement('style');
+		vvss.textContent=`
+		.nv{
+			border:var(--pl) solid var(--nvv,black);
+			margin-left:var(--vk);
+			margin-top:var(--vk);
+			display:inline-block;
+			width:var(--v);
+			height:var(--v);
+		}
+		.nv:active{
+			border-color:white;
+		}
+		`;
+		document.head.appendChild(vvss);
 	})
 });
