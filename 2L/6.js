@@ -60,23 +60,35 @@ const jnm=()=>
 jnm();
 const vsgk=(s,v1,v2,vk)=>
 {
-	let v=0;
+	let v=0,k1=0,k2=0;
 	for(let k=1;k<=s;k++)
 	{
-		const k2=Math.ceil(s/k);
-		const nv=Math.min(v1/(k+vk*k+vk),v2/(k2+vk*k2+vk));
-		if(nv>v)v=nv;
+		const dk=Math.ceil(s/k);
+		const nv=Math.min(v1/(k+vk*k+vk),v2/(dk+vk*dk+vk));
+		if(nv>v)
+		{
+			v=nv;
+			k1=k;
+			k2=dk;
+		}
 	}
-	return v;
+	return [v,k1,k2];
 }
 const vsp=(s)=>
 {
 	const plm=0.02;
 	const vkm=0.2;
-	const v=vsgk(s,window.innerWidth,window.innerHeight,vkm);
+	const [v,k1,k2]=vsgk(s,window.innerWidth,window.innerHeight,vkm);
+	sg.style.width=(v*(k1+vkm*k1-vkm)).toString()+'px';
+	sg.style.height=(v*(k2+vkm*k2-vkm)).toString()+'px';
+    sg.style.display='grid';
+    sg.style.gridTemplateColumns='repeat('+k1.toString()+', '+v.toString()+'px';
+    sg.style.gridTemplateRows='repeat('+k2.toString()+', '+v.toString()+'px';
+    sg.style.gap=(v*vkm).toString()+'px';
+    sg.style.padding=(v*vkm).toString()+'px';
 	const vv=v/(1+plm*2);
 	document.body.style.setProperty('--pl',(plm*vv).toString()+'px');
-	document.body.style.setProperty('--vk',(v*vkm).toString()+'px');
+	document.body.style.setProperty('--vk',1?'0px':(v*vkm).toString()+'px');
 	document.body.style.setProperty('--v',vv.toString()+'px');
 	document.body.style.setProperty('--dv',(vv*0.95).toString()+'px');
 	return vv;
@@ -84,6 +96,10 @@ const vsp=(s)=>
 const sg=document.createElement('div');
 document.body.appendChild(sg);
 var s=1;
+document.body.style.display='grid';
+document.body.style.width='100dvw';
+document.body.style.height='100dvh';
+document.body.style.placeItems='center';
 const ssk=(k)=>
 {
 	sg.innerHTML='';
@@ -130,7 +146,7 @@ ss('vm.js').then(p=>{
 			border:var(--pl) solid var(--nvv,black);
 			margin-left:var(--vk);
 			margin-top:var(--vk);
-			display:grid;
+			display:inline-grid;
 			place-items:center;
 			width:var(--v);
 			height:var(--v);
