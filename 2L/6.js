@@ -78,7 +78,8 @@ const vsp=(s)=>
 {
 	const plm=0.02;
 	const vkm=0.2;
-	const [v,k1,k2]=vsgk(s,window.innerWidth,window.innerHeight,vkm);
+	let [v,k1,k2]=vsgk(s,window.innerWidth,window.innerHeight,vkm);
+	v=Math.min(v,200);
 	sg.style.width=(v*(k1+vkm*k1-vkm)).toString()+'px';
 	sg.style.height=(v*(k2+vkm*k2-vkm)).toString()+'px';
     sg.style.display='grid';
@@ -99,6 +100,7 @@ document.body.style.display='grid';
 document.body.style.width='100dvw';
 document.body.style.height='100dvh';
 document.body.style.placeItems='center';
+var vsv=null;
 const ssk=(k)=>
 {
 	sg.innerHTML='';
@@ -111,29 +113,42 @@ const ssk=(k)=>
 		sg.appendChild(ps);
 		const plv='#225';
 		ps.style.setProperty('--nvv',plv);
+		ps.b=false;
 		ps.onclick=()=>
 		{
-			if(window.v.bs)return;
-			ps.style.setProperty('--nvv','#88B');
-			window.v.b(j.p(k).n).then(()=>{ps.style.setProperty('--nvv',plv)})
+			if(ps.b)location.hash=k;
+			else if(!vsv.bs)
+			{
+				ps.b=true;
+				ps.style.setProperty('--nvv','#88B');
+				vsv.b(j.p(k).n).then(()=>{ps.b=false;ps.style.setProperty('--nvv',plv)})
+			}
 		}
-		fetch('https://www.wikidata.org/wiki/Special:EntityData/Q'+k.toString()+'.json').then(p=>p.json()).then(p=>
+		const dnm=(n)=>
+		{
+			const d=document.createElement('img')
+			d.style.width='var(--dv)';
+			d.style.height='var(--dv)';
+			d.crossOrigin="anonymous";
+			d.style.objectFit='contain';
+			d.draggable=false
+			d.src=n;
+			ps.appendChild(d);
+		}
+		const dn=localStorage.getItem('Q'+k.toString())
+		if(dn)dnm(dn);
+		else fetch('https://www.wikidata.org/wiki/Special:EntityData/Q'+k.toString()+'.json').then(p=>p.json()).then(p=>
 		{
 			const n=p.entities['Q'+k.toString()].claims.P18[0].mainsnak.datavalue.value.replace(' ', '_')
 			fetch('https://commons.m.wikimedia.org/w/api.php?action=query&titles=File:'+n
 				+'&prop=imageinfo&iiprop=url&iiurlwidth='
 				+Math.floor(v*window.devicePixelRatio).toString()+
 				'&format=json&formatversion=2&origin=*').then(p=>p.json()).then(p=>
-				{
-					const d=document.createElement('img')
-					d.style.width='var(--dv)';
-					d.style.height='var(--dv)';
-					d.crossOrigin="anonymous";
-					d.style.objectFit='contain';
-					d.draggable=false
-					d.src=p.query.pages[0].imageinfo[0].thumburl;
-					ps.appendChild(d);
-				})
+					{
+						const n=p.query.pages[0].imageinfo[0].thumburl;
+						localStorage.setItem('Q'+k.toString(),n)
+						dnm(n)
+					})
 		})
 	}
 	ss(k)
@@ -145,7 +160,7 @@ const nk=()=>{ssk(Number(location.hash.substr(1)))}
 window.onhashchange=nk
 ss('vm.js').then(p=>{
 	const v=new vp();
-	window.v=v;
+	vsv=v;
 	v.dk().then(p=>{
 		const vvss=document.createElement('style');
 		vvss.textContent=`
