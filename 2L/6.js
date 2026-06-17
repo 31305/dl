@@ -74,11 +74,11 @@ const vsp=(s)=>
 	const plm=0.02;
 	const vkm=0.2;
 	const v=vsgk(s,window.innerWidth,window.innerHeight,vkm);
-	console.log(v);
 	const vv=v/(1+plm*2);
 	document.body.style.setProperty('--pl',(plm*vv).toString()+'px');
 	document.body.style.setProperty('--vk',(v*vkm).toString()+'px');
 	document.body.style.setProperty('--v',vv.toString()+'px');
+	document.body.style.setProperty('--dv',(vv*0.95).toString()+'px');
 	return vv;
 }
 const sg=document.createElement('div');
@@ -86,6 +86,7 @@ document.body.appendChild(sg);
 var s=1;
 const ssk=(k)=>
 {
+	sg.innerHTML='';
 	s=1+j.p(k).sb.size
 	const v=vsp(s);
 	const ss=(k)=>
@@ -102,18 +103,23 @@ const ssk=(k)=>
 				'&format=json&formatversion=2&origin=*').then(p=>p.json()).then(p=>
 				{
 					const d=document.createElement('img')
-					const m=(0.95*v).toString()+'px';
-					d.style.width=m;
-					d.style.height=m;
+					d.style.width='var(--dv)';
+					d.style.height='var(--dv)';
 					d.crossOrigin="anonymous";
+					d.style.objectFit='contain';
+					d.draggable=false
 					d.src=p.query.pages[0].imageinfo[0].thumburl;
 					ps.appendChild(d);
 				})
 		})
 	}
 	ss(k)
+	for(const pk of j.p(k).sb)
+		ss(pk)
 }
 window.onresize=()=>{vsp(s)}
+const nk=()=>{ssk(Number(location.hash.substr(1)))}
+window.onhashchange=nk
 window.tp=ssk;
 ss('vm.js').then(p=>{
 	const v=new vp();
@@ -134,5 +140,8 @@ ss('vm.js').then(p=>{
 		}
 		`;
 		document.head.appendChild(vvss);
+		if(location.hash.length<2)
+			location.hash=7206969;
+		else nk();
 	})
 });
