@@ -88,7 +88,6 @@ const vsp=(s)=>
     sg.style.padding=(v*vkm).toString()+'px';
 	const vv=v/(1+plm*2);
 	document.body.style.setProperty('--pl',(plm*vv).toString()+'px');
-	document.body.style.setProperty('--vk',1?'0px':(v*vkm).toString()+'px');
 	document.body.style.setProperty('--v',vv.toString()+'px');
 	document.body.style.setProperty('--dv',(vv*0.95).toString()+'px');
 	return vv;
@@ -110,6 +109,14 @@ const ssk=(k)=>
 		const ps=document.createElement('div');
 		ps.className='nv';
 		sg.appendChild(ps);
+		const plv='#225';
+		ps.style.setProperty('--nvv',plv);
+		ps.onclick=()=>
+		{
+			if(window.v.bs)return;
+			ps.style.setProperty('--nvv','#88B');
+			window.v.b(j.p(k).n).then(()=>{ps.style.setProperty('--nvv',plv)})
+		}
 		fetch('https://www.wikidata.org/wiki/Special:EntityData/Q'+k.toString()+'.json').then(p=>p.json()).then(p=>
 		{
 			const n=p.entities['Q'+k.toString()].claims.P18[0].mainsnak.datavalue.value.replace(' ', '_')
@@ -136,23 +143,22 @@ const ssk=(k)=>
 window.onresize=()=>{vsp(s)}
 const nk=()=>{ssk(Number(location.hash.substr(1)))}
 window.onhashchange=nk
-window.tp=ssk;
 ss('vm.js').then(p=>{
 	const v=new vp();
+	window.v=v;
 	v.dk().then(p=>{
 		const vvss=document.createElement('style');
 		vvss.textContent=`
 		.nv{
-			border:var(--pl) solid var(--nvv,black);
-			margin-left:var(--vk);
-			margin-top:var(--vk);
+			border:var(--pl) solid var(--nvv);
+			margin:0;
 			display:inline-grid;
 			place-items:center;
 			width:var(--v);
 			height:var(--v);
 		}
 		.nv:active{
-			border-color:white;
+			border-color:#DDF;
 		}
 		`;
 		document.head.appendChild(vvss);
