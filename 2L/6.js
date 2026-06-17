@@ -107,16 +107,20 @@ const ssk=(k)=>
 		const plv='#225';
 		ps.style.setProperty('--nvv',plv);
 		ps.b=false;
+		const cb=document.createElement('span')
+		cb.className='cb'
+		ps.appendChild(cb);
 		ps.onclick=()=>
 		{
 			if(ps.b)location.hash=k;
-			else if(!vsv.bs)
+			else if(!vsv.bs&&ps.children.length&&ps.children[0].tagName=='IMG')
 			{
 				ps.b=true;
 				ps.style.setProperty('--nvv','#88B');
 				vsv.b(j.p(k).n).then(()=>{ps.b=false;ps.style.setProperty('--nvv',plv)})
 			}
 		}
+		const npk=()=>ps.removeChild(ps.children[0])
 		const dnm=(n)=>
 		{
 			const d=document.createElement('img')
@@ -126,7 +130,8 @@ const ssk=(k)=>
 			d.style.objectFit='contain';
 			d.draggable=false
 			d.src=n;
-			ps.appendChild(d);
+			d.onload=()=>ps.replaceChild(d,ps.children[0]);
+			d.onerror=npk;
 		}
 		const dn=localStorage.getItem('Q'+k.toString())
 		if(dn)dnm(dn);
@@ -135,14 +140,14 @@ const ssk=(k)=>
 			const n=p.entities['Q'+k.toString()].claims.P18[0].mainsnak.datavalue.value.replace(' ', '_')
 			fetch('https://commons.m.wikimedia.org/w/api.php?action=query&titles=File:'+n
 				+'&prop=imageinfo&iiprop=url&iiurlwidth='
-				+Math.floor(v*window.devicePixelRatio).toString()+
+				+Math.floor(v*Math.min(window.devicePixelRatio,1)).toString()+
 				'&format=json&formatversion=2&origin=*').then(p=>p.json()).then(p=>
 					{
 						const n=p.query.pages[0].imageinfo[0].thumburl;
 						localStorage.setItem('Q'+k.toString(),n)
 						dnm(n)
-					})
-		})
+					}).catch(npk)
+		}).catch(npk)
 	}
 	ss(k)
 	for(const pk of j.p(k).sb)
@@ -168,6 +173,24 @@ ss('vm.js').then(p=>{
 		.nv:active{
 			border-color:#DDF;
 		}
+		.cb{
+			width:calc(var(--dv) * 0.25);
+			height:calc(var(--dv) * 0.25);
+			border:calc(var(--dv) * 0.05) solid #FFF;
+			border-bottom-color:transparent;
+			border-radius:50%;
+			display:inline-block;
+			box-sizing:border-box;
+			animation:ck 1s linear infinite;
+			}
+			@keyframes ck{
+			0%{
+				transform:rotate(0deg);
+			}
+			100%{
+				transform:rotate(360deg);
+			}
+			}
 		`;
 		document.head.appendChild(vvss);
 		if(location.hash.length<2)
