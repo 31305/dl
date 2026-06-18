@@ -94,6 +94,15 @@ document.body.style.width='100dvw';
 document.body.style.height='100dvh';
 document.body.style.placeItems='center';
 var vsv=null;
+const dsk=new Date('2026-06-18');
+const ndss=(n)=>
+{
+	fetch('https://www.wikidata.org/w/api.php?action=query&titles=Q'+n.toString()+
+		'&prop=revisions&rvprop=ids|timestamp&rvstart='+dsk.toISOString()
+		+'&rvlimit=1&format=json&formatversion=2&origin=*')
+	.then(p=>p.json()).then(p=>fetch(p.query.pages[0].revisions[0].revid.toString()))
+}
+window.tp=ndss;
 const ssk=(mk)=>
 {
 	sg.innerHTML='';
