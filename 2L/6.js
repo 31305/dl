@@ -94,10 +94,10 @@ document.body.style.width='100dvw';
 document.body.style.height='100dvh';
 document.body.style.placeItems='center';
 var vsv=null;
-const ssk=(k)=>
+const ssk=(mk)=>
 {
 	sg.innerHTML='';
-	s=1+j.p(k).sb.size
+	s=1+j.p(mk).sb.size
 	const v=vsp(s);
 	const ss=(k)=>
 	{
@@ -139,18 +139,22 @@ const ssk=(k)=>
 		{
 			const n=p.entities['Q'+k.toString()].claims.P18[0].mainsnak.datavalue.value.replace(' ', '_')
 			fetch('https://commons.m.wikimedia.org/w/api.php?action=query&titles=File:'+n
-				+'&prop=imageinfo&iiprop=url&iiurlwidth='
-				+Math.floor(v*Math.min(window.devicePixelRatio,1)).toString()+
+				+'&prop=imageinfo&iiprop=timestamp|url&iiurlwidth='
+				+Math.floor(Math.min(v*window.devicePixelRatio,200)).toString()+
 				'&format=json&formatversion=2&origin=*').then(p=>p.json()).then(p=>
 					{
-						const n=p.query.pages[0].imageinfo[0].thumburl;
-						localStorage.setItem('Q'+k.toString(),n)
-						dnm(n)
+						if(new Date(p.query.pages[0].imageinfo[0].timestamp)<new Date('2026-06-18'))
+						{
+							const n=p.query.pages[0].imageinfo[0].thumburl;
+							localStorage.setItem('Q'+k.toString(),n)
+							dnm(n)
+						}
+						else npk()
 					}).catch(npk)
 		}).catch(npk)
 	}
-	ss(k)
-	for(const pk of j.p(k).sb)
+	ss(mk)
+	for(const pk of j.p(mk).sb)
 		ss(pk)
 }
 window.onresize=()=>{vsp(s)}
