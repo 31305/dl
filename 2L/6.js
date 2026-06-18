@@ -158,7 +158,11 @@ const ssk=(mk)=>
 		ss(pk)
 }
 window.onresize=()=>{vsp(s)}
-const nk=()=>{ssk(Number(location.hash.substr(1)))}
+const nk=()=>
+{
+	if(location.hash.length<2)location.hash=893;
+	else ssk(Number(location.hash.substr(1)))
+}
 window.onhashchange=nk
 ss('vm.js').then(p=>{
 	const v=new vp();
@@ -197,9 +201,7 @@ ss('vm.js').then(p=>{
 			}
 		`;
 		document.head.appendChild(vvss);
-		if(location.hash.length<2)
-			location.hash=893;
-		else nk();
+		nk();
 	})
 });
 const jnm=()=>
