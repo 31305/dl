@@ -95,12 +95,31 @@ document.body.style.height='100dvh';
 document.body.style.placeItems='center';
 var vsv=null;
 const dsk=new Date('2026-06-18');
-const ndss=(n)=>
+const ndss=(n,v)=>
 {
-	fetch('https://www.wikidata.org/w/api.php?action=query&titles=Q'+n.toString()+
-		'&prop=revisions&rvprop=ids|timestamp&rvstart='+dsk.toISOString()
-		+'&rvlimit=1&format=json&formatversion=2&origin=*')
-	.then(p=>p.json()).then(p=>fetch(p.query.pages[0].revisions[0].revid.toString()))
+	return new Promise((ps,ds)=>
+	{
+		Promise.all([fetch('https://www.wikidata.org/w/api.php?action=query&titles=Q'+n.toString()+
+			'&prop=revisions&rvprop=ids|timestamp&rvstart='+dsk.toISOString()
+			+'&rvlimit=1&format=json&formatversion=2&origin=*')
+		.then(p=>p.json()).then(p=>fetch('https://www.wikidata.org/wiki/Special:EntityData/Q'
+			+n.toString()+'.json?revision='+p.query.pages[0].revisions[0].revid.toString()))
+		.then(p=>p.json()).then(p=>fetch('https://commons.m.wikimedia.org/w/api.php?action=query&titles=File:'
+			+p.entities['Q'+n.toString()].claims.P18[0].mainsnak.datavalue.value.replace(' ', '_')
+			+'&prop=imageinfo&iiprop=timestamp|url&iiurlwidth='
+			+Math.floor(Math.min(v*window.devicePixelRatio,200)).toString()
+			+'&format=json&iiend='+dsk.toISOString()+'&formatversion=2&origin=*'))
+		.then(p=>p.json()).then(p=>{window.p=p;return fetch(p.query.pages[0].imageinfo[0].thumburl)}),
+		caches.open('vcsg')]).then(p=>
+			{
+				if(Date.now()-(new Date(p[0].headers.get('Last-Modified')))>1000*60*60)
+				{
+					p[1].put('Q'+n.toString()+'.jpg',p[0])
+					ps();
+				}
+				else ds();
+			}).catch(ds)
+	})
 }
 window.tp=ndss;
 const ssk=(mk)=>
