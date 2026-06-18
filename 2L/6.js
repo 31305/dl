@@ -108,7 +108,7 @@ const ndss=(n,v)=>
 			+p.entities['Q'+n.toString()].claims.P18[0].mainsnak.datavalue.value.replace(' ', '_')
 			+'&prop=imageinfo&iiprop=timestamp|url&iiurlwidth='
 			+Math.floor(Math.min(v*window.devicePixelRatio,200)).toString()
-			+'&format=json&iiend='+dsk.toISOString()+'&formatversion=2&origin=*'))
+			+'&format=json&iistart='+dsk.toISOString()+'&formatversion=2&origin=*'))
 		.then(p=>p.json()).then(p=>{window.p=p;return fetch(p.query.pages[0].imageinfo[0].thumburl)}),
 		caches.open('vcsg')]).then(p=>
 			{
