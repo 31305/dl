@@ -99,7 +99,8 @@ const ndss=(n,v)=>
 {
 	return new Promise((ps,ds)=>
 	{
-		Promise.all([fetch('https://www.wikidata.org/w/api.php?action=query&titles=Q'+n.toString()+
+		const sk=Date.now();
+		fetch('https://www.wikidata.org/w/api.php?action=query&titles=Q'+n.toString()+
 			'&prop=revisions&rvprop=ids|timestamp&rvstart='+dsk.toISOString()
 			+'&rvlimit=1&format=json&formatversion=2&origin=*')
 		.then(p=>p.json()).then(p=>fetch('https://www.wikidata.org/wiki/Special:EntityData/Q'
@@ -109,19 +110,28 @@ const ndss=(n,v)=>
 			+'&prop=imageinfo&iiprop=timestamp|url&iiurlwidth='
 			+Math.floor(Math.min(v*window.devicePixelRatio,200)).toString()
 			+'&format=json&iistart='+dsk.toISOString()+'&formatversion=2&origin=*'))
-		.then(p=>p.json()).then(p=>{window.p=p;return fetch(p.query.pages[0].imageinfo[0].thumburl)}),
-		caches.open('vcsg')]).then(p=>
+		.then(p=>p.json()).then(p=>fetch(p.query.pages[0].imageinfo[0].thumburl))
+		.then(p=>
 			{
-				if(Date.now()-(new Date(p[0].headers.get('Last-Modified')))>1000*60*60)
-				{
-					p[1].put('Q'+n.toString()+'.jpg',p[0])
-					ps();
-				}
+				if(sk-(new Date(p.headers.get('Last-Modified')))>1000)ps(p);
 				else ds();
 			}).catch(ds)
 	})
 }
-window.tp=ndss;
+const dsnm=async(n,v)=>
+{
+	const s=await caches.open('vcsg');
+	let p=await s.match(n);
+	if(!p)
+	{
+		p=await ndss(n,v);
+		s.put(n,p.clone());
+	}
+	const tp=await p.blob();
+	const l=URL.createObjectURL(tp);
+	return l;
+}
+window.tp=dsnm;
 const ssk=(mk)=>
 {
 	sg.innerHTML='';
@@ -132,54 +142,39 @@ const ssk=(mk)=>
 		const ps=document.createElement('div');
 		ps.className='nv';
 		sg.appendChild(ps);
-		const plv='#225';
+		const plv=k==mk?'#88B':'#225';
 		ps.style.setProperty('--nvv',plv);
 		ps.b=false;
 		const cb=document.createElement('span')
 		cb.className='cb'
 		ps.appendChild(cb);
+		const srk=()=>
+		{
+			dsnm(k,v).then(p=>
+			{
+				const d=document.createElement('img')
+				d.style.width='var(--dv)';
+				d.style.height='var(--dv)';
+				d.style.objectFit='contain';
+				d.draggable=false
+				d.src=p;
+				d.onload=()=>
+				{
+					URL.revokeObjectURL(p);
+					ps.replaceChild(d,ps.children[0]);
+				}
+			}).catch(()=>{ps.removeChild(ps.children[0])})
+		}
 		ps.onclick=()=>
 		{
-			if(ps.b)location.hash=k;
-			else if(!vsv.bs&&ps.children.length&&ps.children[0].tagName=='IMG')
+			if(!ps.children.length)srk();
+			else if(ps.children[0].tagName=='IMG')
 			{
-				ps.b=true;
-				ps.style.setProperty('--nvv','#88B');
-				vsv.b(j.p(k).n).then(()=>{ps.b=false;ps.style.setProperty('--nvv',plv)})
+				if(k==mk)vsv.b(j.p(k).n)
+				else location.hash=k;
 			}
 		}
-		const npk=()=>ps.removeChild(ps.children[0])
-		const dnm=(n)=>
-		{
-			const d=document.createElement('img')
-			d.style.width='var(--dv)';
-			d.style.height='var(--dv)';
-			d.crossOrigin="anonymous";
-			d.style.objectFit='contain';
-			d.draggable=false
-			d.src=n;
-			d.onload=()=>ps.replaceChild(d,ps.children[0]);
-			d.onerror=npk;
-		}
-		const dn=localStorage.getItem('Q'+k.toString())
-		if(dn)dnm(dn);
-		else fetch('https://www.wikidata.org/wiki/Special:EntityData/Q'+k.toString()+'.json').then(p=>p.json()).then(p=>
-		{
-			const n=p.entities['Q'+k.toString()].claims.P18[0].mainsnak.datavalue.value.replace(' ', '_')
-			fetch('https://commons.m.wikimedia.org/w/api.php?action=query&titles=File:'+n
-				+'&prop=imageinfo&iiprop=timestamp|url&iiurlwidth='
-				+Math.floor(Math.min(v*window.devicePixelRatio,200)).toString()+
-				'&format=json&formatversion=2&origin=*').then(p=>p.json()).then(p=>
-					{
-						if(new Date(p.query.pages[0].imageinfo[0].timestamp)<new Date('2026-06-18'))
-						{
-							const n=p.query.pages[0].imageinfo[0].thumburl;
-							localStorage.setItem('Q'+k.toString(),n)
-							dnm(n)
-						}
-						else npk()
-					}).catch(npk)
-		}).catch(npk)
+		srk();
 	}
 	ss(mk)
 	for(const pk of j.p(mk).sb)
