@@ -86,6 +86,7 @@ const vsp=(s)=>
 	document.body.style.setProperty('--dv',(vv*0.95).toString()+'px');
 	return vv;
 }
+document.oncontextmenu=(p)=>p.preventDefault()
 const sg=document.createElement('div');
 document.body.appendChild(sg);
 var s=1;
