@@ -4,7 +4,7 @@ self.addEventListener('install',(p)=>{p.waitUntil(self.skipWaiting())});
 self.addEventListener('activate',(p)=>{p.waitUntil(clients.claim())});
 function mk()
 {
-	const hs=[ph,nh];
+	const hs=[ph,nh,'vcsg'];
 	caches.keys().then(p=>{return p.filter(p=>!hs.includes(p));}).
 	then(p=>{return Promise.all(p.map(d=>{return caches.delete(d);}));})
 }
