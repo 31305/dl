@@ -185,7 +185,7 @@ const ssk=(mk)=>
 window.onresize=()=>{vsp(s)}
 const nk=()=>
 {
-	if(location.hash.length<2)location.hash=893;
+	if(location.hash.length<2)location.hash=1;
 	else ssk(Number(location.hash.substr(1)))
 }
 window.onhashchange=nk
