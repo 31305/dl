@@ -93,6 +93,7 @@ document.body.style.display='grid';
 document.body.style.width='100dvw';
 document.body.style.height='100dvh';
 document.body.style.placeItems='center';
+document.body.style.imageRendering='auto';
 var vsv=null;
 const dsk=new Date('2026-06-18');
 const ndss=(n,v)=>
