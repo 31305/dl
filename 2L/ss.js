@@ -14,7 +14,8 @@ function pk(m,kn)
 	if(m.request.cache!=='reload')console.log('nnp',m.request.url,m.request.cache)
 	return caches.open(kn).then(k=>{return k.match(m.request).then(p=>{
 		if(p){return p;};
-		return fetch(m.request).then(p=>{return k.put(m.request,p.clone()).then(()=>{return p;});});
+		return (kn==nh?fetch(m.request):fetch(new Request(m.request,{cache:'reload'})))
+			.then(p=>{return k.put(m.request,p.clone()).then(()=>{return p;});});
 	})})
 }
 self.addEventListener('fetch',m=>{
