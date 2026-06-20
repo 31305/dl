@@ -145,7 +145,7 @@ const ssk=(mk)=>
 		const ps=document.createElement('div');
 		ps.className='nv';
 		sg.appendChild(ps);
-		const plv=k==mk?'#88B':'#225';
+		const plv=k==mk?'#88B':j.p(k).sb.size==1?'#882':'#225';
 		ps.style.setProperty('--nvv',plv);
 		ps.b=false;
 		const srk=()=>
@@ -173,7 +173,7 @@ const ssk=(mk)=>
 			if(!ps.children.length)srk();
 			else if(ps.children[0].tagName=='IMG')
 			{
-				if(k==mk)vsv.b(j.p(k).n)
+				if(k==mk||j.p(k).sb.size==1)vsv.b(j.p(k).n)
 				else location.hash=k;
 			}
 		}
