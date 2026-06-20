@@ -145,7 +145,7 @@ const ssk=(mk)=>
 		const ps=document.createElement('div');
 		ps.className='nv';
 		sg.appendChild(ps);
-		const plv=(k==mk||j.p(k).sb.size==1)?'#88B':'#225';
+		const plv=(k==mk||j.p(k).sb.size==1)?'#441':'#225';
 		ps.style.setProperty('--nvv',plv);
 		ps.b=false;
 		const srk=()=>
