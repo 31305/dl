@@ -148,11 +148,11 @@ const ssk=(mk)=>
 		const plv=k==mk?'#88B':'#225';
 		ps.style.setProperty('--nvv',plv);
 		ps.b=false;
-		const cb=document.createElement('span')
-		cb.className='cb'
-		ps.appendChild(cb);
 		const srk=()=>
 		{
+			const cb=document.createElement('span')
+			cb.className='cb'
+			ps.appendChild(cb);
 			dsnm(k,v).then(p=>
 			{
 				const d=document.createElement('img')
