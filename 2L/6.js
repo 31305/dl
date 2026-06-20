@@ -133,7 +133,7 @@ const dsnm=async(n,v)=>
 	const l=URL.createObjectURL(tp);
 	return l;
 }
-window.tp=dsnm;
+window.tp=j;
 const ssk=(mk)=>
 {
 	sg.innerHTML='';
