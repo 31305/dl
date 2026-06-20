@@ -126,7 +126,8 @@ const dsnm=async(n,v)=>
 	let p=await s.match(n);
 	if(!p)
 	{
-		p=await ndss(n,v);
+		if(!j.p(n).sgk)j.p(n).sgk=ndss(n,v);
+		p=await j.p(n).sgk;
 		s.put(n,p.clone());
 	}
 	const tp=await p.blob();
