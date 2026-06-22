@@ -101,7 +101,7 @@ Promise.all([ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre
 	b.on('click', p => {console.log(p.lngLat.lng, p.lngLat.lat);});
 	b.on('click','n',p=>
 	{
-		v.b(JSON.parse(p.features[0].properties.n));
+		if(!v.bs)v.b(JSON.parse(p.features[0].properties.n));
 	});
 	b.dragRotate.disable();
 	b.keyboard.disable();
