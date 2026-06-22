@@ -23,4 +23,3 @@ if len(sys.argv)>1 and sys.argv[1]=='j':
 for p in s:
     system('cp '+p+' '+ls)
 system('mv '+ls+'/2L.html '+ls+'/index.html')
-system('mv '+ls+'/6.js '+ls+'/5.js')

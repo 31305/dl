@@ -28,6 +28,7 @@ Promise.all([ss('https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre-gl.js'),
 	d.style.height='100dvh';
 	const b=new maplibregl.Map({
 		attributionControl:false,
+		zoom:2,
 		container: "d",
 		style: {
 			version: 8,
