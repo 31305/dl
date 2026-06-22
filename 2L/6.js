@@ -27,6 +27,7 @@ Promise.all([ss('https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre-gl.js'),
 	d.style.width='100dvw';
 	d.style.height='100dvh';
 	const b=new maplibregl.Map({
+		attributionControl:false,
 		container: "d",
 		style: {
 			version: 8,
@@ -46,4 +47,32 @@ Promise.all([ss('https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre-gl.js'),
 			layers: [{ id: "raster-layer", type: "raster", source: "raster-tiles" }],
 		},
 	});
+	b.on('load',()=>{
+		b.addSource('s', {
+			type: 'geojson',
+			data: {
+				type: 'FeatureCollection',
+				features: [
+					{
+						type: 'Feature',
+						geometry: {
+							type: 'Point',
+							coordinates: [75, 20]
+						},
+					},
+				]
+			}
+		});
+		b.addLayer({
+			id: 'n',
+			type: 'circle',
+			source: 's',
+			paint: {
+				'circle-radius': 10,
+				'circle-color': '#ff0000'
+			}
+		});
+	});
+	b.on('click', p => {console.log(p.lngLat.lng, p.lngLat.lat);});
+	window.tp=b;
 });
