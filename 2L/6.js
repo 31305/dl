@@ -112,7 +112,7 @@ Promise.all([ss('bs.js'),ss('vm.js'),ss('maplibre-gl.js'),
 	b.on('click', p => {console.log(p.lngLat.lng, p.lngLat.lat);});
 	b.on('click','n',p=>
 	{
-		b.flyTo({center:JSON.parse(p.features[0].properties.s),zoom:20})
+		if(tp.getZoom()<19)b.flyTo({center:JSON.parse(p.features[0].properties.s),zoom:20})
 		if(!v.bs)v.b(JSON.parse(p.features[0].properties.n));
 	});
 	b.on('mouseenter', 'n', () => {
