@@ -53,6 +53,7 @@ Promise.all([ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre
 		attributionControl:false,
 		minZoom:2,
 		container: "d",
+		center:[75,20],
 		style: {
 			version: 8,
 				projection:{'type':'globe'},
@@ -93,8 +94,18 @@ Promise.all([ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre
 			type: 'circle',
 			source: 's',
 			paint: {
+				'circle-radius': 30,
+				'circle-opacity':0,
+			}
+		});
+		b.addLayer({
+			id: 'nd',
+			type: 'circle',
+			source: 's',
+			paint: {
 				'circle-radius': 10,
-				'circle-color': '#ff0000'
+				'circle-color': '#ff0000',
+				'circle-opacity':0.5,
 			}
 		});
 	});
@@ -103,6 +114,12 @@ Promise.all([ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre
 	{
 		if(!v.bs)v.b(JSON.parse(p.features[0].properties.n));
 	});
+	b.on('mouseenter', 'n', () => {
+        b.getCanvas().style.cursor = 'pointer';
+    });
+	b.on('mouseleave', 'n', () => {
+        b.getCanvas().style.cursor = '';
+    });
 	b.dragRotate.disable();
 	b.keyboard.disable();
 	b.touchZoomRotate.disableRotation();
