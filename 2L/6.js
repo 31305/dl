@@ -74,10 +74,10 @@ Promise.all([ss('bs.js'),ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/d
 	});
 	b.on('load',()=>{
 		const ss=[]
-		for(const s of bsn)
+		for(let s of bsn)
 		{
-			const tp={type:'Feature',properties:s,geometry:{type:'Point',coordinates:s.s}};
-			ss.push(tp)
+			if(s.dd==20){s.d1=20;s.d2=24}else{s.d1=0;s.d2=24;}
+			ss.push({type:'Feature',properties:s,geometry:{type:'Point',coordinates:s.s}})
 		}
 		b.addSource('s', {
 			type: 'geojson',
@@ -86,6 +86,7 @@ Promise.all([ss('bs.js'),ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/d
 				features:ss 
 			}
 		});
+		const dvv=['all',['<=',['get','d1'],['zoom']],['>',['get','d2'],['zoom']]]
 		b.addLayer({
 			id: 'n',
 			type: 'circle',
