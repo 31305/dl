@@ -33,12 +33,12 @@ const vp=class
 	}
 }
 
-Promise.all([ss('bs.js'),ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre-gl.js'),
+Promise.all([ss('bs.js'),ss('vm.js'),ss('maplibre-gl.js'),
 	new Promise((p,d)=>
 	{
 		let s=document.createElement('link');
 		s.rel='stylesheet';
-		s.href='https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre-gl.css';
+		s.href='maplibre-gl.css';
 		s.onload=p();
 		document.head.appendChild(s);
 	})
@@ -76,14 +76,14 @@ Promise.all([ss('bs.js'),ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/d
 		const ss=[]
 		for(let s of bsn)
 		{
-			if(s.dd==20){s.d1=20;s.d2=24}else{s.d1=0;s.d2=24;}
+			if(s.dd){s.d1=18;s.d2=24}else{s.d1=0;s.d2=24;}
 			ss.push({type:'Feature',properties:s,geometry:{type:'Point',coordinates:s.s}})
 		}
 		b.addSource('s', {
 			type: 'geojson',
 			data: {
 				type: 'FeatureCollection',
-				features:ss 
+				features:ss
 			}
 		});
 		const dvv=['all',['<=',['get','d1'],['zoom']],['>',['get','d2'],['zoom']]]
@@ -95,11 +95,7 @@ Promise.all([ss('bs.js'),ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/d
 				'circle-radius': 30,
 				'circle-opacity':0,
 			},
-			filter: [
-				'<=',
-				['get', 'dd'],
-				['zoom']
-			]
+			filter:dvv
 		});
 		b.addLayer({
 			id: 'nd',
@@ -110,11 +106,7 @@ Promise.all([ss('bs.js'),ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/d
 				'circle-color': '#ff0000',
 				'circle-opacity':0.5,
 			},
-			filter: [
-				'<=',
-				['get', 'dd'],
-				['zoom']
-			]
+			filter:dvv
 		});
 	});
 	b.on('click', p => {console.log(p.lngLat.lng, p.lngLat.lat);});
