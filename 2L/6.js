@@ -93,7 +93,12 @@ Promise.all([ss('bs.js'),ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/d
 			paint: {
 				'circle-radius': 30,
 				'circle-opacity':0,
-			}
+			},
+			filter: [
+				'<=',
+				['get', 'dd'],
+				['zoom']
+			]
 		});
 		b.addLayer({
 			id: 'nd',
@@ -103,7 +108,12 @@ Promise.all([ss('bs.js'),ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/d
 				'circle-radius': 10,
 				'circle-color': '#ff0000',
 				'circle-opacity':0.5,
-			}
+			},
+			filter: [
+				'<=',
+				['get', 'dd'],
+				['zoom']
+			]
 		});
 	});
 	b.on('click', p => {console.log(p.lngLat.lng, p.lngLat.lat);});
