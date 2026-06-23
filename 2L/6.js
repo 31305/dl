@@ -76,7 +76,8 @@ Promise.all([ss('bs.js'),ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/d
 		const ss=[]
 		for(const s of bsn)
 		{
-			ss.push({type:'Feature',properties:{n:s[1],s:s[0]},geometry:{type:'Point',coordinates:s[0]}})
+			const tp={type:'Feature',properties:s,geometry:{type:'Point',coordinates:s.s}};
+			ss.push(tp)
 		}
 		b.addSource('s', {
 			type: 'geojson',
