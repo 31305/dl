@@ -33,7 +33,7 @@ const vp=class
 	}
 }
 
-Promise.all([ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre-gl.js'),
+Promise.all([ss('bs.js'),ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre-gl.js'),
 	new Promise((p,d)=>
 	{
 		let s=document.createElement('link');
@@ -73,20 +73,16 @@ Promise.all([ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre
 		},
 	});
 	b.on('load',()=>{
+		const ss=[]
+		for(const s of bsn)
+		{
+			ss.push({type:'Feature',properties:{n:s[1],s:s[0]},geometry:{type:'Point',coordinates:s[0]}})
+		}
 		b.addSource('s', {
 			type: 'geojson',
 			data: {
 				type: 'FeatureCollection',
-				features: [
-					{
-						type: 'Feature',
-						properties:{n:[49,67,5,70,3,75]},
-						geometry: {
-							type: 'Point',
-							coordinates: [75, 20]
-						},
-					},
-				]
+				features:ss 
 			}
 		});
 		b.addLayer({
@@ -112,6 +108,7 @@ Promise.all([ss('vm.js'),ss('https://unpkg.com/maplibre-gl@^5.24.0/dist/maplibre
 	b.on('click', p => {console.log(p.lngLat.lng, p.lngLat.lat);});
 	b.on('click','n',p=>
 	{
+		b.flyTo({center:JSON.parse(p.features[0].properties.s),zoom:20})
 		if(!v.bs)v.b(JSON.parse(p.features[0].properties.n));
 	});
 	b.on('mouseenter', 'n', () => {
