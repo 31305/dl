@@ -121,7 +121,7 @@ Promise.all([ss('bs.js'),ss('vm.js'),ss('maplibre-gl.js'),
 				b.getSource('s').getClusterChildren(tp.properties.cluster_id),
 				b.getSource('s').getClusterExpansionZoom(tp.properties.cluster_id)
 			]);
-        	b.flyTo({center:n[0].properties.s,zoom:gs,speed:g});
+			b.flyTo({center:tp.geometry.coordinates,zoom:Math.min(gs,b.getZoom()+10),speed:g});
 		}
 		else
 		{
