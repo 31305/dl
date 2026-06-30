@@ -74,6 +74,7 @@ Promise.all([ss('bs.js'),ss('vm.js'),ss('maplibre-gl.js'),
 	});
 	b.on('load',()=>{
 		const ss=[]
+		const vtp=10;
 		for(let s of bsn)
 		{
 			if(s.dd){s.d1=18;s.d2=24}else{s.d1=0;s.d2=24;}
@@ -84,7 +85,9 @@ Promise.all([ss('bs.js'),ss('vm.js'),ss('maplibre-gl.js'),
 			data: {
 				type: 'FeatureCollection',
 				features:ss
-			}
+			},
+			cluster: true,
+			clusterRadius:vtp*3
 		});
 		const dvv=['all',['<=',['get','d1'],['zoom']],['>',['get','d2'],['zoom']]]
 		b.addLayer({
@@ -92,28 +95,39 @@ Promise.all([ss('bs.js'),ss('vm.js'),ss('maplibre-gl.js'),
 			type: 'circle',
 			source: 's',
 			paint: {
-				'circle-radius': 30,
+				'circle-radius':3*vtp,
 				'circle-opacity':0,
-			},
-			filter:dvv
+			}
 		});
 		b.addLayer({
 			id: 'nd',
 			type: 'circle',
 			source: 's',
 			paint: {
-				'circle-radius': 10,
-				'circle-color': '#ff0000',
+				'circle-radius':vtp,
+				'circle-color':["case",["boolean",["get","cluster"],false],"#ff0000","#ffff00"],
 				'circle-opacity':0.5,
 			},
-			filter:dvv
 		});
 	});
 	b.on('click', p => {console.log(p.lngLat.lng, p.lngLat.lat);});
-	b.on('click','n',p=>
+	b.on('click','n',async p=>
 	{
-		if(tp.getZoom()<19)b.flyTo({center:JSON.parse(p.features[0].properties.s),zoom:20})
-		if(!v.bs)v.b(JSON.parse(p.features[0].properties.n));
+		const g=10;
+		if(p.features[0].properties.cluster)
+		{
+			const tp=p.features[0];
+			const [n,gs]=await Promise.all([
+				b.getSource('s').getClusterChildren(tp.properties.cluster_id),
+				b.getSource('s').getClusterExpansionZoom(tp.properties.cluster_id)
+			]);
+        	b.flyTo({center:n[0].properties.s,zoom:gs,speed:g});
+		}
+		else
+		{
+			if(b.getZoom()<19)b.flyTo({center:JSON.parse(p.features[0].properties.s),zoom:20,speed:g})
+			if(!v.bs)v.b(JSON.parse(p.features[0].properties.n));
+		}
 	});
 	b.on('mouseenter', 'n', () => {
         b.getCanvas().style.cursor = 'pointer';
