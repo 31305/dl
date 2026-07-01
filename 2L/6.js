@@ -105,8 +105,8 @@ Promise.all([ss('bs.js'),ss('vm.js'),ss('maplibre-gl.js'),
 			source: 's',
 			paint: {
 				'circle-radius':vtp,
-				'circle-color':["case",["boolean",["get","cluster"],false],"#ff0000","#ffff00"],
-				'circle-opacity':0.5,
+				'circle-color':["case",["boolean",["get","cluster"],false],"#ff0000","#0000ff"],
+				'circle-opacity':0.8,
 			},
 		});
 	});
