@@ -32,15 +32,15 @@ const vp=class
 		});
 	}
 }
-Promise.all([ss('nlv.js'),ss('vm.js'),]).then(p=>{const v=new vp();v.dk().then(p=>
+Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.dk().then(p=>
 {
 	const cp=document.createElement('canvas');
 	cp.style.width='90dvw';
 	cp.style.height='50dvh';
 	cp.style.maxWidth='200px';
 	cp.style.objectFit='contain'
-	cp.width=64;
-	cp.height=64;
+	cp.width=8*8;
+	cp.height=4*8;
 	const pv=cp.getContext('2d');
 	pv.fillStyle='white';
 	pv.fillRect(0,0,cp.width,cp.height);
@@ -60,7 +60,6 @@ Promise.all([ss('nlv.js'),ss('vm.js'),]).then(p=>{const v=new vp();v.dk().then(p
 				ln[k].data[8*4*pk+4*ppk+3]=255;
 			}
 	}
-	pv.putImageData(ln['0'.charCodeAt(0)],8,8)
 	document.oncontextmenu=(p)=>p.preventDefault()
 	document.body.appendChild(cp);
 	document.body.style.display='grid';
