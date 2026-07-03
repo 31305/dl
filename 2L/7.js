@@ -125,21 +125,26 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		s.style.filter='invert(1)'
 		k().then(()=>s.style.filter='')
 	}
+	const snsvv=(p,d)=>
+	{
+		return Boolean(p)==Boolean(d)?[49,1,66,43,2,75]:[2,49,3,66,43,1,75]
+	}
+	let vc=0
 	const pn=document.createElement('canvas');
 	nsk(pn);
 	psd.appendChild(pn);
 	nsnl(pn,'?')
-	npks(pn,()=>v.b(ps[0].p))
+	npks(pn,()=>{vc=1;return v.b(ps[0].p)})
 	const nn=document.createElement('canvas');
 	nsk(nn);
 	psd.appendChild(nn);
 	nsnl(nn,'-')
-	npks(nn,()=>v.b([70,2]))
+	npks(nn,()=>v.b([70,2]).then(()=>vc?v.b(snsvv(0,ps[0].s)):Promise.resolve()))
 	const mn=document.createElement('canvas');
 	nsk(mn);
 	psd.appendChild(mn);
 	nsnl(mn,'+')
-	npks(mn,()=>v.b([5,75]))
+	npks(mn,()=>v.b([5,75]).then(()=>vc?v.b(snsvv(1,ps[0].s)):Promise.resolve()))
 	document.body.appendChild(sd);
 	const pvsk=()=>
 	{
