@@ -50,28 +50,26 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	const pv=cp.getContext('2d');
 	const lv=nlv();
 	const ln=new Array(lv.length);
-	for(let k=0;k<lv.length;k++)
+	const knl=(s,k,s1,s2)=>
 	{
-		if(lv[k]==null)continue;
-		ln[k]=pv.createImageData(8,8);
+		k=k.charCodeAt(0)
+		if(lv[k]==null)return;
 		for(let pk=0;pk<8;pk++)
 			for(let ppk=0;ppk<8;ppk++)
 			{
 				const v=lv[k][pk]&(1<<(7-ppk))
-				ln[k].data[8*4*pk+4*ppk]=v?255:0;
-				ln[k].data[8*4*pk+4*ppk+1]=v?255:0;
-				ln[k].data[8*4*pk+4*ppk+2]=v?255:0;
-				ln[k].data[8*4*pk+4*ppk+3]=v?255:0;
+				if(v)s.fillRect(s1+ppk,s2+pk,1,1)
 			}
 	}
 	const nlk=(n)=>
 	{
 		pv.fillStyle='green';
 		pv.fillRect(0,0,cp.width,cp.height);
+		pv.fillStyle='white';
 		let k=0;
 		while(k<cp.n)
 		{
-			pv.putImageData(ln[(n%10).toString().charCodeAt(0)],cp.width-10-k*8,2)
+			knl(pv,(n%10).toString(),cp.width-10-k*8,2)
 			n=Math.floor(n/10)
 			k++;
 		}
@@ -90,7 +88,6 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	sd.appendChild(psd);
 	sd.style.margin=0;
 	sd.style.textAlign='center'
-	const pn=document.createElement('div');
 	const nsk=(n)=>
 	{
 		n.width=12;
@@ -102,25 +99,39 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		n.style.margin=mnl(1)
 		n.style.borderStyle='solid'
 		n.className='nv';
+		n.style.imageRendering='pixelated';
+		n.pv=n.getContext('2d');
+		n.pv.fillStyle='brown'
+		n.pv.fillRect(0,0,12,12)
+	}
+	const nsnl=(s,n)=>
+	{
+		s.pv.fillStyle='white'
+		knl(s.pv,n,2,2)
 	}
 	const vvss=document.createElement('style');
 	vvss.textContent=`
 	.nv{
-		border-color:red;
+		border-color:black;
 	}
 	.nv:active{
-		border-color:#DDF;
+		border-color:white;
 	}
 	`;
 	document.head.appendChild(vvss);
+	const pn=document.createElement('canvas');
 	nsk(pn);
 	psd.appendChild(pn);
-	const mn=document.createElement('canvas');
-	nsk(mn);
-	psd.appendChild(mn);
+	nsnl(pn,'?')
+	pn.onclick=()=>{if(v.bs)return;pn.style.filter='invert(1)';v.b([51,8,75]).then(()=>pn.style.filter='')}
 	const nn=document.createElement('canvas');
 	nsk(nn);
 	psd.appendChild(nn);
+	nsnl(nn,'-')
+	const mn=document.createElement('canvas');
+	nsk(mn);
+	psd.appendChild(mn);
+	nsnl(mn,'+')
 	document.body.appendChild(sd);
 	const pvsk=()=>
 	{
