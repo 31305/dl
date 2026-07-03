@@ -74,7 +74,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 			k++;
 		}
 	}
-	nlk(1234567890)
+	nlk(0)
 	document.oncontextmenu=(p)=>p.preventDefault()
 	document.body.style.display='grid';
 	document.body.style.width='100dvw';
@@ -119,19 +119,27 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	}
 	`;
 	document.head.appendChild(vvss);
+	const npks=(s,k)=>s.onclick=()=>
+	{
+		if(v.bs)return;
+		s.style.filter='invert(1)'
+		k().then(()=>s.style.filter='')
+	}
 	const pn=document.createElement('canvas');
 	nsk(pn);
 	psd.appendChild(pn);
 	nsnl(pn,'?')
-	pn.onclick=()=>{if(v.bs)return;pn.style.filter='invert(1)';v.b([51,8,75]).then(()=>pn.style.filter='')}
+	npks(pn,()=>v.b(ps[0].p))
 	const nn=document.createElement('canvas');
 	nsk(nn);
 	psd.appendChild(nn);
 	nsnl(nn,'-')
+	npks(nn,()=>v.b([70,2]))
 	const mn=document.createElement('canvas');
 	nsk(mn);
 	psd.appendChild(mn);
 	nsnl(mn,'+')
+	npks(mn,()=>v.b([5,75]))
 	document.body.appendChild(sd);
 	const pvsk=()=>
 	{
