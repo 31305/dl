@@ -35,16 +35,15 @@ const vp=class
 Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.dk().then(p=>
 {
 	const cp=document.createElement('canvas');
-	cp.v1=10;
-	cp.v2=6;
+	cp.v1=8*10;
+	cp.v2=12;
 	const mnl=(m)=>'calc('+m.toString()+' *var(--m))';
 	cp.pm=3;
-	cp.style.width=mnl(cp.pm*cp.v1);
-	cp.style.height=mnl(cp.pm*cp.v2);
+	cp.style.width='100%';
 	cp.style.objectFit='contain'
-	cp.style.display='block'
-	cp.width=cp.v1*8;
-	cp.height=cp.v2*8;
+	cp.style.display='inline-block'
+	cp.width=cp.v1;
+	cp.height=cp.v2;
 	cp.style.imageRendering='pixelated';
 	const pv=cp.getContext('2d');
 	pv.fillStyle='white';
@@ -72,7 +71,28 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	document.body.style.placeItems='center';
 	const sd=document.createElement('div');
 	sd.style.display='inline-block';
+	sd.style.lineHeight=0
 	sd.appendChild(cp);
+	const psd=document.createElement('div');
+	sd.appendChild(psd);
+	sd.style.margin=0;
+	const pn=document.createElement('canvas');
+	const nsk=(n)=>
+	{
+		n.width=12;
+		n.height=12;
+		n.style.width=mnl(2);
+		n.style.height=mnl(2);
+		n.style.display='inline-block'
+	}
+	nsk(pn);
+	psd.appendChild(pn);
+	const mn=document.createElement('canvas');
+	nsk(mn);
+	psd.appendChild(mn);
+	const nn=document.createElement('canvas');
+	nsk(nn);
+	psd.appendChild(nn);
 	document.body.appendChild(sd);
 	const pvsk=()=>
 	{
