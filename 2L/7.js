@@ -35,19 +35,19 @@ const vp=class
 Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.dk().then(p=>
 {
 	const cp=document.createElement('canvas');
-	cp.v1=8*10;
+	cp.n=12;
+	cp.v1=8*cp.n+4;
 	cp.v2=12;
 	const mnl=(m)=>'calc('+m.toString()+' *var(--m))';
 	cp.style.objectFit='contain'
 	cp.style.display='inline-block'
 	cp.style.width=mnl(cp.v1);
 	cp.style.height=mnl(cp.v2);
+	cp.style.margin=mnl(1)
 	cp.width=cp.v1;
 	cp.height=cp.v2;
 	cp.style.imageRendering='pixelated';
 	const pv=cp.getContext('2d');
-	pv.fillStyle='white';
-	pv.fillRect(0,0,cp.width,cp.height);
 	const lv=nlv();
 	const ln=new Array(lv.length);
 	for(let k=0;k<lv.length;k++)
@@ -57,13 +57,26 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		for(let pk=0;pk<8;pk++)
 			for(let ppk=0;ppk<8;ppk++)
 			{
-				const v=lv[k][pk]&(1<<(8-ppk))
-				ln[k].data[8*4*pk+4*ppk]=v?0:255;
-				ln[k].data[8*4*pk+4*ppk+1]=v?0:255;
-				ln[k].data[8*4*pk+4*ppk+2]=v?0:255;
-				ln[k].data[8*4*pk+4*ppk+3]=255;
+				const v=lv[k][pk]&(1<<(7-ppk))
+				ln[k].data[8*4*pk+4*ppk]=v?255:0;
+				ln[k].data[8*4*pk+4*ppk+1]=v?255:0;
+				ln[k].data[8*4*pk+4*ppk+2]=v?255:0;
+				ln[k].data[8*4*pk+4*ppk+3]=v?255:0;
 			}
 	}
+	const nlk=(n)=>
+	{
+		pv.fillStyle='green';
+		pv.fillRect(0,0,cp.width,cp.height);
+		let k=0;
+		while(k<cp.n)
+		{
+			pv.putImageData(ln[(n%10).toString().charCodeAt(0)],cp.width-10-k*8,2)
+			n=Math.floor(n/10)
+			k++;
+		}
+	}
+	nlk(1234567890)
 	document.oncontextmenu=(p)=>p.preventDefault()
 	document.body.style.display='grid';
 	document.body.style.width='100dvw';
@@ -76,6 +89,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	const psd=document.createElement('div');
 	sd.appendChild(psd);
 	sd.style.margin=0;
+	sd.style.textAlign='center'
 	const pn=document.createElement('div');
 	const nsk=(n)=>
 	{
@@ -85,6 +99,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		n.style.height=mnl(12);
 		n.style.display='inline-block'
 		n.style.borderWidth=mnl(1);
+		n.style.margin=mnl(1)
 		n.style.borderStyle='solid'
 		n.className='nv';
 	}
