@@ -35,12 +35,17 @@ const vp=class
 Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.dk().then(p=>
 {
 	const cp=document.createElement('canvas');
-	cp.style.width='90dvw';
-	cp.style.height='50dvh';
-	cp.style.maxWidth='200px';
+	cp.v1=10;
+	cp.v2=6;
+	const mnl=(m)=>'calc('+m.toString()+' *var(--m))';
+	cp.pm=3;
+	cp.style.width=mnl(cp.pm*cp.v1);
+	cp.style.height=mnl(cp.pm*cp.v2);
 	cp.style.objectFit='contain'
-	cp.width=8*8;
-	cp.height=4*8;
+	cp.style.display='block'
+	cp.width=cp.v1*8;
+	cp.height=cp.v2*8;
+	cp.style.imageRendering='pixelated';
 	const pv=cp.getContext('2d');
 	pv.fillStyle='white';
 	pv.fillRect(0,0,cp.width,cp.height);
@@ -61,10 +66,22 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 			}
 	}
 	document.oncontextmenu=(p)=>p.preventDefault()
-	document.body.appendChild(cp);
 	document.body.style.display='grid';
 	document.body.style.width='100dvw';
 	document.body.style.height='100dvh';
 	document.body.style.placeItems='center';
-	cp.style.imageRendering='pixelated';
+	const sd=document.createElement('div');
+	sd.style.display='inline-block';
+	sd.appendChild(cp);
+	document.body.appendChild(sd);
+	const pvsk=()=>
+	{
+		const mm=12;
+		document.body.style.setProperty('--m',mm.toString()+'px');
+		const vk=.9
+		const nm=mm*Math.min(1,Math.min(window.innerHeight*vk/sd.offsetHeight,window.innerWidth*vk/sd.offsetWidth))
+		if(nm!=mm)document.body.style.setProperty('--m',nm.toString()+'px');
+	}
+	pvsk();
+	window.addEventListener("resize",pvsk);
 })})
