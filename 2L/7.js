@@ -76,7 +76,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	const psd=document.createElement('div');
 	sd.appendChild(psd);
 	sd.style.margin=0;
-	const pn=document.createElement('canvas');
+	const pn=document.createElement('div');
 	const nsk=(n)=>
 	{
 		n.width=12;
@@ -86,8 +86,18 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		n.style.display='inline-block'
 		n.style.borderWidth=mnl(1);
 		n.style.borderStyle='solid'
-		n.style.borderColor='red'
+		n.className='nv';
 	}
+	const vvss=document.createElement('style');
+	vvss.textContent=`
+	.nv{
+		border-color:red;
+	}
+	.nv:active{
+		border-color:#DDF;
+	}
+	`;
+	document.head.appendChild(vvss);
 	nsk(pn);
 	psd.appendChild(pn);
 	const mn=document.createElement('canvas');
