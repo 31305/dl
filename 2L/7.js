@@ -38,10 +38,10 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	cp.v1=8*10;
 	cp.v2=12;
 	const mnl=(m)=>'calc('+m.toString()+' *var(--m))';
-	cp.pm=3;
-	cp.style.width='100%';
 	cp.style.objectFit='contain'
 	cp.style.display='inline-block'
+	cp.style.width=mnl(cp.v1);
+	cp.style.height=mnl(cp.v2);
 	cp.width=cp.v1;
 	cp.height=cp.v2;
 	cp.style.imageRendering='pixelated';
@@ -81,9 +81,12 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	{
 		n.width=12;
 		n.height=12;
-		n.style.width=mnl(2);
-		n.style.height=mnl(2);
+		n.style.width=mnl(12);
+		n.style.height=mnl(12);
 		n.style.display='inline-block'
+		n.style.borderWidth=mnl(1);
+		n.style.borderStyle='solid'
+		n.style.borderColor='red'
 	}
 	nsk(pn);
 	psd.appendChild(pn);
@@ -96,7 +99,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	document.body.appendChild(sd);
 	const pvsk=()=>
 	{
-		const mm=12;
+		const mm=4;
 		document.body.style.setProperty('--m',mm.toString()+'px');
 		const vk=.9
 		const nm=mm*Math.min(1,Math.min(window.innerHeight*vk/sd.offsetHeight,window.innerWidth*vk/sd.offsetWidth))
