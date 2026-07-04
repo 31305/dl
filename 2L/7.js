@@ -104,15 +104,15 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		n.pv.fillStyle='darkblue'
 		n.pv.fillRect(0,0,12,12)
 	}
-	const nsnl=(s,n)=>
+	const nsnl=(s,n,sv=1)=>
 	{
-		s.pv.fillStyle='white'
+		s.pv.fillStyle=sv?'yellow':'white'
 		knl(s.pv,n,2,2)
 	}
 	const vvss=document.createElement('style');
 	vvss.textContent=`
 	.nv{
-		border-color:white;
+		border-color:black;
 		cursor:pointer
 	}
 	.nv:active{
@@ -122,11 +122,11 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	`;
 	document.head.appendChild(vvss);
 	const bs=document.createElement('canvas');
-	const npks=(s,k)=>s.onclick=()=>
+	const npks=(k)=>()=>
 	{
 		if(v.bs)return;
 		bs.style.filter='invert(1)'
-		psd.style.setProperty('--nvpv','black')
+		psd.style.setProperty('--nvpv','white')
 		psd.style.setProperty('--nvvpv',0)
 		k().then(()=>
 		{
@@ -178,26 +178,35 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		return sns?[49,1,66,43,2,75]:[2,49,3,66,43,1,75]
 	}
 	let vc=0
+	const pnk=npks(()=>{vc=1;return v.b(ps[0].p)})
+	const nnk=npks(()=>v.b([70,2]).then(()=>vc?v.b(snsvv(0,ps[0].s)).then(()=>v.b(ps[0].p)):Promise.resolve()))
+	const mnk=npks(()=>v.b([5,75]).then(()=>vc?v.b(snsvv(1,ps[0].s)).then(()=>v.b(ps[0].p)):Promise.resolve()))
+	document.addEventListener('keydown',(p)=>
+	{
+		if(p.code=='Space'||p.key=='?'||p.code=='Slash'||p.code=='Enter')pnk()
+		else if(p.code=='KeyX'||p.code=='ArrowUp')nnk()
+		else if(p.code=='KeyO'||p.code=='ArrowDown')mnk()
+	})
 	nsk(bs);
 	bs.className=''
 	bs.style.borderColor='transparent'
 	psd.appendChild(bs);
-	nsnl(bs,'"')
+	nsnl(bs,'"',0)
 	const pn=document.createElement('canvas');
 	nsk(pn);
 	psd.appendChild(pn);
 	nsnl(pn,'?')
-	npks(pn,()=>{vc=1;return v.b(ps[0].p)})
+	pn.onclick=pnk
 	const nn=document.createElement('canvas');
 	nsk(nn);
 	psd.appendChild(nn);
 	nsnl(nn,'x')
-	npks(nn,()=>v.b([70,2]).then(()=>vc?v.b(snsvv(0,ps[0].s)).then(()=>v.b(ps[0].p)):Promise.resolve()))
+	nn.onclick=nnk
 	const mn=document.createElement('canvas');
 	nsk(mn);
 	psd.appendChild(mn);
 	nsnl(mn,'o')
-	npks(mn,()=>v.b([5,75]).then(()=>vc?v.b(snsvv(1,ps[0].s)).then(()=>v.b(ps[0].p)):Promise.resolve()))
+	mn.onclick=mnk
 	document.body.appendChild(sd);
 	const pvsk=()=>
 	{
