@@ -144,6 +144,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	}
 	let ng=0,cpn=0;
 	const pdn=(p)=>Math.min(ctn-p.dn,p.vk)
+	let vc=0
 	const snsvv=(p,d)=>
 	{
 		const sns=Boolean(p)==Boolean(d)
@@ -157,6 +158,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 			if(pdn(ps[0]))
 			{
 				ng+=pdn(ps[0])
+				if(ng==ctn*ps.length)vc=0
 				ps[0].dn+=pdn(ps[0])
 				cpn=0
 			}
@@ -175,10 +177,10 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		nlk((ng+cpn).toString())
 		return sns?[49,1,66,43,2,75]:[2,49,3,66,43,1,75]
 	}
-	let vc=0
+	const pkpv=[71,16,44,66,8,77];
 	const pnk=npks(()=>{vc=1;return v.b(ps[0].p)})
-	const nnk=npks(()=>v.b([70,2]).then(()=>vc?v.b(snsvv(0,ps[0].s)).then(()=>v.b(ps[0].p)):Promise.resolve()))
-	const mnk=npks(()=>v.b([5,75]).then(()=>vc?v.b(snsvv(1,ps[0].s)).then(()=>v.b(ps[0].p)):Promise.resolve()))
+	const nnk=npks(()=>v.b([70,2]).then(()=>vc?v.b(snsvv(0,ps[0].s)).then(()=>v.b(vc?ps[0].p:pkpv)):Promise.resolve()))
+	const mnk=npks(()=>v.b([5,75]).then(()=>vc?v.b(snsvv(1,ps[0].s)).then(()=>v.b(vc?ps[0].p:pkpv)):Promise.resolve()))
 	document.addEventListener('keydown',(p)=>
 	{
 		if(p.code=='Space'||p.key=='?'||p.code=='Slash'||p.code=='Enter')pnk()
