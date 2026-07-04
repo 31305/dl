@@ -7,7 +7,8 @@ system('mkdir -p '+ls)
 s=['2L.html','ss.js','2L.svg','sks','2L.json','2L.js','2L.wasm','3.js','l.js',
    'babylon.js','babylon.gui.min.js','babylonjs.materials.min.js','HavokPhysics_umd.js',
     'HavokPhysics.wasm','_headers','vm.js','vm.wasm','nlv.js','zxing_reader.js',
-   'zxing_reader.wasm','4.js','5.js','6.js','j.js','bs.js','maplibre-gl.js','maplibre-gl.css']
+   'zxing_reader.wasm','4.js','5.js','6.js','j.js','bs.js','maplibre-gl.js','maplibre-gl.css',
+   '7.js','ps.js']
 if 0:
     system('wget -O lk.zip "https://github.com/BabylonJS/Babylon.js/releases/download/8.40.1/cdnSnapshot.zip"')
     system('unzip lk.zip && rm lk.zip')
