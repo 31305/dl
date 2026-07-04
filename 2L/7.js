@@ -126,7 +126,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		k().then(()=>s.style.filter='')
 	}
 	const pdvk=5;
-	let ng=0;
+	let ng=0,pnpvk=0;
 	const ctn=(()=>
 	{
 		let n=0;
@@ -145,14 +145,31 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		}
 		if(sns)
 		{
-			ng+=ps[0].pdn
-			if(ps[0].vk<ps.length)ps[0].vk*=pdvk;
-			ps[0].pdn=Math.min(ps[0].vk,ps.length)
+			if(ps[0].pdn)ng+=ps[0].pdn
+			ps[0].pdn=0;
+			else
+			{
+				if(pnpvk==0)
+					while(!ps[pnpvk].pdn&&pnpvk<ps.length)pnpvk++;
+				if(pnpvk<ps.length)
+				{
+					ng+=1
+					ps[pnpvk].pdn--;
+					pnpvk--;
+				}
+			}
+			if(ps[0].vk<ps.length)
+			{
+				ps[0].vk*=pdvk;
+				ps[0].pdn=Math.min(ps[0].vk,ps.length)
+			}
 			const tp=ps.shift()
 			ps.splice(tp.pdn-1,0,tp)
 		}
 		else if(ps[0].vk>1)
 		{
+			pnpvk=0;
+			ng-=(ps[0].vk-1)/(pdvk-1)
 		}
 		return sns?[49,1,66,43,2,75]:[2,49,3,66,43,1,75]
 	}
