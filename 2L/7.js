@@ -34,6 +34,11 @@ const vp=class
 }
 Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.dk().then(p=>
 {
+	if(Number(location.hash.slice(1)))
+	{
+		const k=Number(location.hash.slice(1))
+		ps.push(...ps.splice(0,k-1))
+	}
 	const pdvk=5;
 	const ctn=(()=>
 	{
@@ -120,8 +125,8 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	vvss.textContent=`
 	.nv{
 		border-color:black;
-		cursor:pointer
 	}
+	@media (hover:hover) and (pointer:fine){.nv{cursor: pointer;}}
 	.nv:active{
 		filter:invert(var(--nvvpv, 1));
 		border-color:var(--nvpv, white);
@@ -165,7 +170,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 			else if(ng<ps.length*ctn)cpn++
 			if(ps[0].vk<ps.length)ps[0].vk*=pdvk;
 			const tp=ps.shift()
-			ps.splice(Math.min(tp.vk-1,ps.length),0,tp)
+			ps.splice(location.hash.endsWith('.')?ps.length:Math.min(tp.vk-1,ps.length),0,tp)
 		}
 		else
 		{
