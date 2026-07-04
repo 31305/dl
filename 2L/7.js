@@ -126,7 +126,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		k().then(()=>s.style.filter='')
 	}
 	const pdvk=5;
-	let ng=0,pnpvk=0;
+	let ng=0,cpn=0;
 	const ctn=(()=>
 	{
 		let n=0;
@@ -135,48 +135,44 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		n+=Math.min(k,ps.length)
 		return n;
 	})()
+	const pdn=(p)=>p.pp?0:Math.min(ps.length,p.vk)
 	const snsvv=(p,d)=>
 	{
 		const sns=Boolean(p)==Boolean(d)
 		if(ps[0].vk==null)
 		{
 			ps[0].vk=1
-			ps[0].pdn=ps[0].vk;
-			ps[0].ppn=0
+			ps[0].pp=false;
 		}
 		if(sns)
 		{
-			if(ps[0].pdn)
+			if(pdn(ps[0]))
 			{
-				ng+=ps[0].pdn
-				ps[0].ppn+=ps[0].pdn
+				ng+=pdn(ps[0])-cpn
+				cpn=0
 			}
-			else
+			else if(ng<ps.length*ctn)
 			{
-				if(pnpvk==0)
-					while(pnpvk<ps.length&&!ps[pnpvk].pdn)pnpvk++;
-				if(pnpvk<ps.length)
-				{
-					ng+=1
-					ps[pnpvk].pdn--;
-					pnpvk--;
-				}
+				ng++
+				cpn++
 			}
-			ps[0].pdn=0;
-			if(ps[0].vk<ps.length)
-			{
-				ps[0].vk*=pdvk;
-				ps[0].pdn=Math.min(ps[0].vk,ps.length)
-			}
+			if(ps[0].vk<ps.length)ps[0].vk*=pdvk;
+			else ps[0].pp=true;
 			const tp=ps.shift()
-			ps.splice(Math.min(tp.vk,ps.length+1),0,tp)
+			ps.splice(Math.min(tp.vk-1,ps.length),0,tp)
 		}
-		else if(ps[0].vk>1)
+		else
 		{
-			pnpvk=0;
-			ng-=ps[0].pdp?(ps[0].vk-1)/(pdvk-1):ctn
+			ng-=(ps[0].vk-1)/(pdvk-1)+cpn
+			if(ps[0].pp)
+			{
+				ng-=ps.length
+				ps[0].pp=false
+			}
+			ps[0].vk=1
+			cpn=0
 		}
-		console.log(p,ng)
+		nlk(ng)
 		return sns?[49,1,66,43,2,75]:[2,49,3,66,43,1,75]
 	}
 	let vc=0
