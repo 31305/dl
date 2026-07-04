@@ -101,29 +101,39 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		n.className='nv';
 		n.style.imageRendering='pixelated';
 		n.pv=n.getContext('2d');
-		n.pv.fillStyle='white'
+		n.pv.fillStyle='darkblue'
 		n.pv.fillRect(0,0,12,12)
 	}
 	const nsnl=(s,n)=>
 	{
-		s.pv.fillStyle='darkblue'
+		s.pv.fillStyle='white'
 		knl(s.pv,n,2,2)
 	}
 	const vvss=document.createElement('style');
 	vvss.textContent=`
 	.nv{
-		border-color:black;
+		border-color:white;
+		cursor:pointer
 	}
 	.nv:active{
-		border-color:white;
+		filter:invert(var(--nvvpv, 1));
+		border-color:var(--nvpv, white);
 	}
 	`;
 	document.head.appendChild(vvss);
+	const bs=document.createElement('canvas');
 	const npks=(s,k)=>s.onclick=()=>
 	{
 		if(v.bs)return;
-		s.style.filter='invert(1)'
-		k().then(()=>s.style.filter='')
+		bs.style.filter='invert(1)'
+		psd.style.setProperty('--nvpv','black')
+		psd.style.setProperty('--nvvpv',0)
+		k().then(()=>
+		{
+			bs.style.filter=''
+			psd.style.removeProperty('--nvpv')
+			psd.style.removeProperty('--nvvpv')
+		})
 	}
 	const pdvk=5;
 	let ng=0,cpn=0;
@@ -135,47 +145,44 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		n+=Math.min(k,ps.length)
 		return n;
 	})()
-	const pdn=(p)=>p.pp?0:Math.min(ps.length,p.vk)
+	const pdn=(p)=>Math.min(ctn-p.dn,p.vk)
 	const snsvv=(p,d)=>
 	{
 		const sns=Boolean(p)==Boolean(d)
 		if(ps[0].vk==null)
 		{
 			ps[0].vk=1
-			ps[0].pp=false;
+			ps[0].dn=0;
 		}
 		if(sns)
 		{
 			if(pdn(ps[0]))
 			{
-				ng+=pdn(ps[0])-cpn
+				ng+=pdn(ps[0])
+				ps[0].dn+=pdn(ps[0])
 				cpn=0
 			}
-			else if(ng<ps.length*ctn)
-			{
-				ng++
-				cpn++
-			}
+			else if(ng<ps.length*ctn)cpn++
 			if(ps[0].vk<ps.length)ps[0].vk*=pdvk;
-			else ps[0].pp=true;
 			const tp=ps.shift()
 			ps.splice(Math.min(tp.vk-1,ps.length),0,tp)
 		}
 		else
 		{
-			ng-=(ps[0].vk-1)/(pdvk-1)+cpn
-			if(ps[0].pp)
-			{
-				ng-=ps.length
-				ps[0].pp=false
-			}
+			ng-=ps[0].dn
+			ps[0].dn=0;
 			ps[0].vk=1
 			cpn=0
 		}
-		nlk(ng)
+		nlk(ng+cpn)
 		return sns?[49,1,66,43,2,75]:[2,49,3,66,43,1,75]
 	}
 	let vc=0
+	nsk(bs);
+	bs.className=''
+	bs.style.borderColor='transparent'
+	psd.appendChild(bs);
+	nsnl(bs,'"')
 	const pn=document.createElement('canvas');
 	nsk(pn);
 	psd.appendChild(pn);
