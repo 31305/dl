@@ -35,7 +35,7 @@ const vp=class
 Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.dk().then(p=>
 {
 	const cp=document.createElement('canvas');
-	cp.n=12;
+	cp.n=11;
 	cp.v1=8*cp.n+4;
 	cp.v2=12;
 	const mnl=(m)=>'calc('+m.toString()+' *var(--m))';
@@ -63,7 +63,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	}
 	const nlk=(n)=>
 	{
-		pv.fillStyle='green';
+		pv.fillStyle='darkblue';
 		pv.fillRect(0,0,cp.width,cp.height);
 		pv.fillStyle='white';
 		let k=0;
@@ -101,12 +101,12 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		n.className='nv';
 		n.style.imageRendering='pixelated';
 		n.pv=n.getContext('2d');
-		n.pv.fillStyle='brown'
+		n.pv.fillStyle='white'
 		n.pv.fillRect(0,0,12,12)
 	}
 	const nsnl=(s,n)=>
 	{
-		s.pv.fillStyle='white'
+		s.pv.fillStyle='darkblue'
 		knl(s.pv,n,2,2)
 	}
 	const vvss=document.createElement('style');
@@ -125,9 +125,36 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		s.style.filter='invert(1)'
 		k().then(()=>s.style.filter='')
 	}
+	const pdvk=5;
+	let ng=0;
+	const ctn=(()=>
+	{
+		let n=0;
+		let k=1;
+		do{n+=k;k*=pdvk;}while(k<ps.length)
+		n+=Math.min(k,ps.length)
+		return n;
+	})()
 	const snsvv=(p,d)=>
 	{
-		return Boolean(p)==Boolean(d)?[49,1,66,43,2,75]:[2,49,3,66,43,1,75]
+		const sns=Boolean(p)==Boolean(d)
+		if(ps[0].vk==null)
+		{
+			ps[0].vk=1
+			ps[0].pdn=ps[0].vk;
+		}
+		if(sns)
+		{
+			ng+=ps[0].pdn
+			if(ps[0].vk<ps.length)ps[0].vk*=pdvk;
+			ps[0].pdn=Math.min(ps[0].vk,ps.length)
+			const tp=ps.shift()
+			ps.splice(tp.pdn-1,0,tp)
+		}
+		else if(ps[0].vk>1)
+		{
+		}
+		return sns?[49,1,66,43,2,75]:[2,49,3,66,43,1,75]
 	}
 	let vc=0
 	const pn=document.createElement('canvas');
@@ -138,12 +165,12 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	const nn=document.createElement('canvas');
 	nsk(nn);
 	psd.appendChild(nn);
-	nsnl(nn,'-')
+	nsnl(nn,'x')
 	npks(nn,()=>v.b([70,2]).then(()=>vc?v.b(snsvv(0,ps[0].s)):Promise.resolve()))
 	const mn=document.createElement('canvas');
 	nsk(mn);
 	psd.appendChild(mn);
-	nsnl(mn,'+')
+	nsnl(mn,'o')
 	npks(mn,()=>v.b([5,75]).then(()=>vc?v.b(snsvv(1,ps[0].s)):Promise.resolve()))
 	document.body.appendChild(sd);
 	const pvsk=()=>
