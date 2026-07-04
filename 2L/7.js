@@ -142,15 +142,19 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		{
 			ps[0].vk=1
 			ps[0].pdn=ps[0].vk;
+			ps[0].ppn=0
 		}
 		if(sns)
 		{
-			if(ps[0].pdn)ng+=ps[0].pdn
-			ps[0].pdn=0;
+			if(ps[0].pdn)
+			{
+				ng+=ps[0].pdn
+				ps[0].ppn+=ps[0].pdn
+			}
 			else
 			{
 				if(pnpvk==0)
-					while(!ps[pnpvk].pdn&&pnpvk<ps.length)pnpvk++;
+					while(pnpvk<ps.length&&!ps[pnpvk].pdn)pnpvk++;
 				if(pnpvk<ps.length)
 				{
 					ng+=1
@@ -158,19 +162,21 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 					pnpvk--;
 				}
 			}
+			ps[0].pdn=0;
 			if(ps[0].vk<ps.length)
 			{
 				ps[0].vk*=pdvk;
 				ps[0].pdn=Math.min(ps[0].vk,ps.length)
 			}
 			const tp=ps.shift()
-			ps.splice(tp.pdn-1,0,tp)
+			ps.splice(Math.min(tp.vk,ps.length+1),0,tp)
 		}
 		else if(ps[0].vk>1)
 		{
 			pnpvk=0;
-			ng-=(ps[0].vk-1)/(pdvk-1)
+			ng-=ps[0].pdp?(ps[0].vk-1)/(pdvk-1):ctn
 		}
+		console.log(p,ng)
 		return sns?[49,1,66,43,2,75]:[2,49,3,66,43,1,75]
 	}
 	let vc=0
@@ -183,12 +189,12 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	nsk(nn);
 	psd.appendChild(nn);
 	nsnl(nn,'x')
-	npks(nn,()=>v.b([70,2]).then(()=>vc?v.b(snsvv(0,ps[0].s)):Promise.resolve()))
+	npks(nn,()=>v.b([70,2]).then(()=>vc?v.b(snsvv(0,ps[0].s)).then(()=>v.b(ps[0].p)):Promise.resolve()))
 	const mn=document.createElement('canvas');
 	nsk(mn);
 	psd.appendChild(mn);
 	nsnl(mn,'o')
-	npks(mn,()=>v.b([5,75]).then(()=>vc?v.b(snsvv(1,ps[0].s)):Promise.resolve()))
+	npks(mn,()=>v.b([5,75]).then(()=>vc?v.b(snsvv(1,ps[0].s)).then(()=>v.b(ps[0].p)):Promise.resolve()))
 	document.body.appendChild(sd);
 	const pvsk=()=>
 	{
