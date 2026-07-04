@@ -34,10 +34,20 @@ const vp=class
 }
 Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.dk().then(p=>
 {
+	const pdvk=5;
+	const ctn=(()=>
+	{
+		let n=0;
+		let k=1;
+		do{n+=k;k*=pdvk;}while(k<ps.length)
+		n+=Math.min(k,ps.length)
+		return n;
+	})()
 	const cp=document.createElement('canvas');
-	cp.n=11;
+	cp.n=(ctn*ps.length).toString().length+1;
+	if(!(cp.n%2))cp.n++;
 	cp.v1=8*cp.n+4;
-	cp.v2=12;
+	cp.v2=20;
 	const mnl=(m)=>'calc('+m.toString()+' *var(--m))';
 	cp.style.objectFit='contain'
 	cp.style.display='inline-block'
@@ -61,20 +71,17 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 				if(v)s.fillRect(s1+ppk,s2+pk,1,1)
 			}
 	}
-	const nlk=(n)=>
+	pv.fillStyle='darkblue';
+	pv.fillRect(0,0,cp.width,cp.height)
+	const nlk=(n,dg=0)=>
 	{
 		pv.fillStyle='darkblue';
-		pv.fillRect(0,0,cp.width,cp.height);
+		pv.fillRect(0,2+dg*8,cp.width,8);
 		pv.fillStyle='white';
-		let k=0;
-		while(k<cp.n)
-		{
-			knl(pv,(n%10).toString(),cp.width-10-k*8,2)
-			n=Math.floor(n/10)
-			k++;
-		}
+		for(let k=0;k<n.length;k++)knl(pv,n[n.length-1-k],cp.width-10-k*8,2+dg*8)
 	}
-	nlk(0)
+	nlk('0')
+	if(1)nlk('/'+(ctn*ps.length).toString(),1)
 	document.oncontextmenu=(p)=>p.preventDefault()
 	document.body.style.display='grid';
 	document.body.style.width='100dvw';
@@ -135,16 +142,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 			psd.style.removeProperty('--nvvpv')
 		})
 	}
-	const pdvk=5;
 	let ng=0,cpn=0;
-	const ctn=(()=>
-	{
-		let n=0;
-		let k=1;
-		do{n+=k;k*=pdvk;}while(k<ps.length)
-		n+=Math.min(k,ps.length)
-		return n;
-	})()
 	const pdn=(p)=>Math.min(ctn-p.dn,p.vk)
 	const snsvv=(p,d)=>
 	{
@@ -174,7 +172,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 			ps[0].vk=1
 			cpn=0
 		}
-		nlk(ng+cpn)
+		nlk((ng+cpn).toString())
 		return sns?[49,1,66,43,2,75]:[2,49,3,66,43,1,75]
 	}
 	let vc=0
