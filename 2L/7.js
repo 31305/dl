@@ -111,7 +111,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		n.pv.fillStyle='darkblue'
 		n.pv.fillRect(0,0,12,12)
 	}
-	const nsnl=(s,n,sv=1)=>
+	const nsnl=(s,n,sv=0)=>
 	{
 		s.pv.fillStyle=sv?'yellow':'white'
 		knl(s.pv,n,2,2)
@@ -119,12 +119,12 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	const vvss=document.createElement('style');
 	vvss.textContent=`
 	.nv{
-		border-color:black;
+		border-color:white;
 	}
 	@media (hover:hover) and (pointer:fine){.nv{cursor: pointer;}}
 	.nv:active{
-		filter:invert(var(--nvvpv, 1));
-		border-color:var(--nvpv, white);
+		filter:invert(var(--nvvpv, 0));
+		border-color:var(--nvpv, black);
 	}
 	`;
 	document.head.appendChild(vvss);
@@ -133,13 +133,9 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	{
 		if(v.bs)return;
 		bs.style.filter='invert(1)'
-		psd.style.setProperty('--nvpv','white')
-		psd.style.setProperty('--nvvpv',0)
 		k().then(()=>
 		{
 			bs.style.filter=''
-			psd.style.removeProperty('--nvpv')
-			psd.style.removeProperty('--nvvpv')
 		})
 	}
 	let ng=Array(ctn+1).fill(0);
