@@ -44,15 +44,12 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	{
 		let n=0;
 		let k=1;
-		do{n+=k;k*=pdvk;}while(k<ps.length)
-		n+=Math.min(k,ps.length)
+		do{n+=1;k*=pdvk;}while(k<ps.length)
 		return n;
 	})()
 	const cp=document.createElement('canvas');
-	cp.n=(ctn*ps.length).toString().length+1;
-	if(!(cp.n%2))cp.n++;
-	cp.v1=8*cp.n+4;
-	cp.v2=20;
+	cp.v1=8*ps.length.toString().length+4;
+	cp.v2=8*(ctn+1)+4;
 	const mnl=(m)=>'calc('+m.toString()+' *var(--m))';
 	cp.style.objectFit='contain'
 	cp.style.display='inline-block'
@@ -85,8 +82,6 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		pv.fillStyle='white';
 		for(let k=0;k<n.length;k++)knl(pv,n[n.length-1-k],cp.width-10-k*8,2+dg*8)
 	}
-	nlk('0')
-	if(1)nlk('/'+(ctn*ps.length).toString(),1)
 	document.oncontextmenu=(p)=>p.preventDefault()
 	document.body.style.display='grid';
 	document.body.style.width='100dvw';
@@ -147,39 +142,34 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 			psd.style.removeProperty('--nvvpv')
 		})
 	}
-	let ng=0,cpn=0;
-	const pdn=(p)=>Math.min(ctn-p.dn,p.vk)
+	let ng=Array(ctn+1).fill(0);
+	ng[0]=ps.length
+	for(let k=0;k<=ctn;k++)nlk(ng[k].toString(),k)
 	let vc=0
 	const snsvv=(p,d)=>
 	{
 		const sns=Boolean(p)==Boolean(d)
-		if(ps[0].vk==null)
-		{
-			ps[0].vk=1
-			ps[0].dn=0;
-		}
 		if(sns)
 		{
-			if(pdn(ps[0]))
-			{
-				ng+=pdn(ps[0])
-				if(ng==ctn*ps.length)vc=0
-				ps[0].dn+=pdn(ps[0])
-				cpn=0
-			}
-			else if(ng<ps.length*ctn)cpn++
-			if(ps[0].vk<ps.length)ps[0].vk*=pdvk;
+			const nvk=ps[0].vk==null?ctn:Math.min(ps[0].vk+1,ctn);
+			if(ps[0].vk==null)ps[0].vk=0;
+			ng[nvk]++;
+			ng[ps[0].vk]--
+			ps[0].vk=nvk;
 			const tp=ps.shift()
-			ps.splice(location.hash.endsWith('.')?ps.length:Math.min(tp.vk-1,ps.length),0,tp)
+			ps.splice(Math.min(pdvk**tp.vk-1,ps.length),0,tp)
+			if(ng[ctn]==ps.length)vc=0
 		}
 		else
 		{
-			ng-=ps[0].dn
-			ps[0].dn=0;
-			ps[0].vk=1
-			cpn=0
+			if(ps[0].vk==null)ps[0].vk=0;
+			const nvk=0
+			ng[nvk]++;
+			ng[ps[0].vk]--
+			ps[0].vk=nvk
 		}
-		nlk((ng+cpn).toString())
+		console.log(ng)
+		for(let k=0;k<=ctn;k++)nlk(ng[k].toString(),k)
 		return sns?[49,1,66,43,2,75]:[2,49,3,66,43,1,75]
 	}
 	const pkpv=[71,16,44,66,8,77];
