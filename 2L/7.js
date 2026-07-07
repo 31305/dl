@@ -140,9 +140,9 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	}
 	let ng=Array(ctn+1).fill(0);
 	ng[0]=ps.length
-	const pnlk=()=>{for(let k=0;k<=ctn;k++)nlk(ng[k].toString()+((k==ps[0].vk||(ps[0].vk==null&&k==0))?'-':' '),k)}
-	pnlk()
 	let vc=0
+	const pnlk=()=>{for(let k=0;k<=ctn;k++)nlk(ng[k].toString()+((k==ps[0].vk||(ps[0].vk==null&&k==0))&&vc?'-':' '),k)}
+	pnlk()
 	const snsvv=(p,d)=>
 	{
 		const sns=Boolean(p)==Boolean(d)
@@ -155,7 +155,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 			if(ng[ctn]==ps.length&&ps[0].vk!=nvk)vc=0
 			ps[0].vk=nvk;
 			const tp=ps.shift()
-			ps.splice(Math.min(pdvk**tp.vk-1,ps.length),0,tp)
+			ps.splice(location.hash.endsWith('.')?ps.length:Math.min(pdvk**tp.vk-1,ps.length),0,tp)
 		}
 		else
 		{
@@ -169,7 +169,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		return sns?Promise.resolve():v.b([70,2])
 	}
 	const pkpv=[71,16,44,66,8,77];
-	const pnk=npks(()=>{vc=1;return v.b(ps[0].p)})
+	const pnk=npks(()=>{if(!vc){vc=1;pnlk()}return v.b(ps[0].p)})
 	const nnk=npks(()=>v.b([70,2]).then(()=>vc?snsvv(0,ps[0].s).then(()=>v.b(vc?ps[0].p:pkpv)):Promise.resolve()))
 	const mnk=npks(()=>v.b([5,75]).then(()=>vc?snsvv(1,ps[0].s).then(()=>v.b(vc?ps[0].p:pkpv)):Promise.resolve()))
 	document.addEventListener('keydown',(p)=>
