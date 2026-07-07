@@ -48,7 +48,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		return n;
 	})()
 	const cp=document.createElement('canvas');
-	cp.v1=8*ps.length.toString().length+4;
+	cp.v1=8*(ps.length.toString().length+1)+4;
 	cp.v2=8*(ctn+1)+4;
 	const mnl=(m)=>'calc('+m.toString()+' *var(--m))';
 	cp.style.objectFit='contain'
@@ -140,21 +140,22 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	}
 	let ng=Array(ctn+1).fill(0);
 	ng[0]=ps.length
-	for(let k=0;k<=ctn;k++)nlk(ng[k].toString(),k)
+	const pnlk=()=>{for(let k=0;k<=ctn;k++)nlk(ng[k].toString()+((k==ps[0].vk||(ps[0].vk==null&&k==0))?'-':' '),k)}
+	pnlk()
 	let vc=0
 	const snsvv=(p,d)=>
 	{
 		const sns=Boolean(p)==Boolean(d)
+		if(ps[0].vk==null)ps[0].vk=0;
 		if(sns)
 		{
-			const nvk=ps[0].vk==null?ctn:Math.min(ps[0].vk+1,ctn);
-			if(ps[0].vk==null)ps[0].vk=0;
+			const nvk=Math.min(ps[0].vk+1,ctn);
 			ng[nvk]++;
 			ng[ps[0].vk]--
+			if(ng[ctn]==ps.length&&ps[0].vk!=nvk)vc=0
 			ps[0].vk=nvk;
 			const tp=ps.shift()
 			ps.splice(Math.min(pdvk**tp.vk-1,ps.length),0,tp)
-			if(ng[ctn]==ps.length)vc=0
 		}
 		else
 		{
@@ -164,14 +165,13 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 			ng[ps[0].vk]--
 			ps[0].vk=nvk
 		}
-		console.log(ng)
-		for(let k=0;k<=ctn;k++)nlk(ng[k].toString(),k)
-		return sns?[49,1,66,43,2,75]:[2,49,3,66,43,1,75]
+		pnlk();
+		return sns?Promise.resolve():v.b([70,2])
 	}
 	const pkpv=[71,16,44,66,8,77];
 	const pnk=npks(()=>{vc=1;return v.b(ps[0].p)})
-	const nnk=npks(()=>v.b([70,2]).then(()=>vc?v.b(snsvv(0,ps[0].s)).then(()=>v.b(vc?ps[0].p:pkpv)):Promise.resolve()))
-	const mnk=npks(()=>v.b([5,75]).then(()=>vc?v.b(snsvv(1,ps[0].s)).then(()=>v.b(vc?ps[0].p:pkpv)):Promise.resolve()))
+	const nnk=npks(()=>v.b([70,2]).then(()=>vc?snsvv(0,ps[0].s).then(()=>v.b(vc?ps[0].p:pkpv)):Promise.resolve()))
+	const mnk=npks(()=>v.b([5,75]).then(()=>vc?snsvv(1,ps[0].s).then(()=>v.b(vc?ps[0].p:pkpv)):Promise.resolve()))
 	document.addEventListener('keydown',(p)=>
 	{
 		if(p.code=='Space'||p.key=='?'||p.code=='Slash'||p.code=='Enter')pnk()
