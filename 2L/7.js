@@ -48,7 +48,10 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		return n;
 	})()
 	const cp=document.createElement('canvas');
-	cp.v1=8*(ps.length.toString().length+2)+4;
+	cp.n=ps.length.toString().length+2
+	if(!(cp.n%2))cp.n++;
+	console.log(cp.n)
+	cp.v1=8*cp.n+4;
 	cp.v2=8*(ctn+2)+4;
 	const mnl=(m)=>'calc('+m.toString()+' *var(--m))';
 	cp.style.objectFit='contain'
@@ -189,7 +192,7 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	})
 	nsk(bs);
 	bs.className=''
-	bs.style.borderColor='transparent'
+	bs.style.borderColor='darkblue'
 	psd.appendChild(bs);
 	nsnl(bs,'"',0)
 	const pn=document.createElement('canvas');
