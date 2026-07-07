@@ -48,8 +48,8 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		return n;
 	})()
 	const cp=document.createElement('canvas');
-	cp.v1=8*(ps.length.toString().length+1)+4;
-	cp.v2=8*(ctn+1)+4;
+	cp.v1=8*(ps.length.toString().length+2)+4;
+	cp.v2=8*(ctn+2)+4;
 	const mnl=(m)=>'calc('+m.toString()+' *var(--m))';
 	cp.style.objectFit='contain'
 	cp.style.display='inline-block'
@@ -141,7 +141,16 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	let ng=Array(ctn+1).fill(0);
 	ng[0]=ps.length
 	let vc=0
-	const pnlk=()=>{for(let k=0;k<=ctn;k++)nlk(ng[k].toString()+((k==ps[0].vk||(ps[0].vk==null&&k==0))&&vc?'-':' '),k)}
+	const pnlk=()=>
+	{
+		for(let k=0;k<=ctn;k++)
+		{
+			let l=ng[k].toString()+((k==ps[0].vk||(ps[0].vk==null&&k==0))&&vc?'~':' ')
+			if(k==ctn)l='#'+l.padStart(ps.length.toString().length+1)
+			nlk(l,k==ctn?k+1:k)
+		}
+	}
+	nlk('-'.repeat(ps.length.toString()+2),ctn)
 	pnlk()
 	const snsvv=(p,d)=>
 	{
