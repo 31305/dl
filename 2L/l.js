@@ -346,7 +346,7 @@ const jnmp=class
 	v=0.02
 	constructor()
 	{
-		const v=this.v,pn=0.1,l=this.l
+		const v=this.v,pn=0.2,l=this.l
 		this.pg=new BABYLON.MeshBuilder.CreateBox('pg',{width:v,depth:v,height:(3+v)});
 		this.pg.setEnabled(false)
 		this.pg.material=new BABYLON.PBRMetallicRoughnessMaterial("v")
@@ -369,7 +369,7 @@ const jnmp=class
 		this.jp=BABYLON.Mesh.MergeMeshes(sg,true)
 		this.jp.setEnabled(false)
 	}
-	n()
+	n(s,d,m=null)
 	{
 		const tp=new BABYLON.TransformNode('jp')
 		const p=this.jp.createInstance('p')
@@ -380,6 +380,10 @@ const jnmp=class
 		pm.isPickable=false;
 		pm.parent=tp
 		tp.n=[58,4,45,2,75]
+		if(d==1)tp.rotation.set(0,Math.PI/2,0)
+		else if(d==2)tp.rotation.set(Math.PI/2,0,0)
+		tp.position.set(s[0]*this.l*.5,s[1]*this.l*.5,s[2]*this.l*.5)
+		if(m)tp.parent=m
 		return tp
 	}
 }
@@ -387,8 +391,12 @@ const jnm=new jnmp()
 const s2=ls*4,bvs=.5;
 dns.s([0,0,0],()=>
 {
-	const p=jnm.n()
-	p.rotation.set(Math.PI/2,0,0)
+	const p=new BABYLON.TransformNode('jp')
+	jnm.n([0,0,0],2,p)
+	jnm.n([-1,1,0],1,p)
+	jnm.n([1,1,0],1,p)
+	jnm.n([0,1,1],3,p)
+	jnm.n([0,1,-1],3,p)
 	return p;
 })
 const dnsk=()=>{const s=[];l.position.toArray(s);dns.k(s)}
