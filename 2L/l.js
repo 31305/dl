@@ -360,9 +360,10 @@ const jnmp=class
 {
 	l=3
 	v=0.02
+	pn=.25
 	constructor()
 	{
-		const v=this.v,pn=0.25,l=this.l
+		const v=this.v,pn=this.pn,l=this.l
 		this.pg=new BABYLON.MeshBuilder.CreateBox('pg',{width:v,depth:v,height:(3+v)});
 		this.pg.setEnabled(false)
 		this.pg.material=new BABYLON.PBRMetallicRoughnessMaterial("v")
@@ -411,8 +412,16 @@ dns.s([0,0,0],()=>
 	jnm.n([0,0,0],2,p)
 	jnm.n([-1,1,0],1,p)
 	jnm.n([1,1,0],1,p)
+	jnm.n([-1,1,-2],1,p)
+	jnm.n([1,1,-2],1,p)
+	jnm.n([-1,-1,-2],1,p)
+	jnm.n([1,-1,-2],1,p)
 	jnm.n([0,1,1],3,p)
-	jnm.n([0,1,-1],3,p)
+	jnm.n([0,1,-3],3,p)
+	jnm.n([0,-1,-3],3,p)
+	jnm.n([0,-1,-1],3,p)
+	jnm.n([0,-2,-2],2,p)
+	jnm.n([0,jnm.pn*2/jnm.l,-2],2,p)
 	const kns=knsnm()
 	kns.parent=p
 	kns.position.set(-jnm.l*.5+jnm.v*.5,2,0)
