@@ -113,8 +113,17 @@ const sgbnm=function(s1,s2,g,d=0)
 }
 const ndnm=function(ss,vsm)
 {
+	const tp=new BABYLON.TransformNode("p")
+	tp.position=ss;
+	const dnd=BABYLON.MeshBuilder.CreatePlane("gp",{width:vsm,height:vsm});
+	dnd.parent=tp;
+	dnd.material=new BABYLON.PBRMetallicRoughnessMaterial("v");
+	dnd.material.baseColor=new BABYLON.Color3(1,1,1);
+	dnd.material.metallic=0;
+	dnd.material.roughness=1;
+	dnd.rotation.set(0,Math.PI,0)
 	const nd=BABYLON.MeshBuilder.CreatePlane("nd",{width:vsm,height:vsm},s);
-	nd.position=ss;
+	nd.parent=tp;
 	nd.material=new BABYLON.PBRMetallicRoughnessMaterial("v",s);
 	const vs=128;
 	const pdc=new BABYLON.DynamicTexture("l",vs,s);
@@ -154,7 +163,8 @@ const ndnm=function(ss,vsm)
 	}
 	lk('1@1007.in',28,60);
 	pdc.update();
-	return nd;
+	tp.n=[70,7,44,68,31,47,2,77];
+	return tp;
 };
 const spd=function(s)
 {
@@ -281,7 +291,13 @@ const knsnm=()=>
 	gp.material.baseColor=new BABYLON.Color3(1,1,.5);
 	gp.material.metallic=0;
 	gp.material.roughness=1;
-	ntvs==0.001;
+	const dgp=BABYLON.MeshBuilder.CreatePlane("gp",{width:v1,height:v1});
+	dgp.parent=p;
+	dgp.material=new BABYLON.PBRMetallicRoughnessMaterial("v");
+	dgp.material.baseColor=bv;
+	dgp.material.metallic=0;
+	dgp.material.roughness=1;
+	dgp.rotation.set(0,Math.PI,0)
 	const vs=v1/30;
 	const s1c=v1*.4;
 	const s1=BABYLON.MeshBuilder.CreatePlane("s",{width:v1/100,height:s1c});
@@ -346,7 +362,7 @@ const jnmp=class
 	v=0.02
 	constructor()
 	{
-		const v=this.v,pn=0.2,l=this.l
+		const v=this.v,pn=0.25,l=this.l
 		this.pg=new BABYLON.MeshBuilder.CreateBox('pg',{width:v,depth:v,height:(3+v)});
 		this.pg.setEnabled(false)
 		this.pg.material=new BABYLON.PBRMetallicRoughnessMaterial("v")
@@ -397,6 +413,12 @@ dns.s([0,0,0],()=>
 	jnm.n([1,1,0],1,p)
 	jnm.n([0,1,1],3,p)
 	jnm.n([0,1,-1],3,p)
+	const kns=knsnm()
+	kns.parent=p
+	kns.position.set(-jnm.l*.5+jnm.v*.5,2,0)
+	kns.rotation.set(0,-Math.PI/2,0)
+	const nd=ndnm(pv(0,ls*2,jnm.l*.5-jnm.v*.5-ntvs),1)
+	nd.parent=p
 	return p;
 })
 const dnsk=()=>{const s=[];l.position.toArray(s);dns.k(s)}
@@ -423,7 +445,6 @@ const lnm=()=>
 	tkb.position.set(0,s2/2,s3/2-ds);
 	tksg.push(tkb);
 	const ndp=ndnm(pv(0,ls*2,s3-ds-ntvs),1);
-	ndp.n=[70,7,44,68,31,47,2,77];
 	const gmc=2.5;
 	tkb=BABYLON.MeshBuilder.CreateBox('tk',{width:1,height:gmc,depth:1});
 	tkb.position.set(-s1/2,gmc/2,0);
