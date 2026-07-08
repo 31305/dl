@@ -26,33 +26,36 @@ const dnsnd=class
 		this.sg=new Map();
 		this.dg=new Map();
 	}
-	ns(s){return [Math.floor(s[0]/bkv),Math.floor(s[1]/bkv),Math.floor(s[2]/bkv)];}
+	ns(s){const bkv=50;return [Math.floor(s[0]/bkv),Math.floor(s[1]/bkv),Math.floor(s[2]/bkv)];}
 	kg(s)
 	{
-		const bkv=50;
-		let ps=0;
-		for(let k=0;k<3;k++)
-		{
-			ps<<=(8*2);
-			ps+=s[k];
-		}
-		return ps;
+		return `${s[0]},${s[1]},${s[2]}`
 	}
 	s(s,pk)
 	{
-		const k=kg(ns(s));
+		const k=this.kg(this.ns(s));
 		if(!this.sg.get(k))this.sg.set(k,[]);
 		this.sg.get(k).push(pk);
 	}
 	k(s)
 	{
 		const v=3;
-		const n=ns(s);
+		const n=this.ns(s);
 		const nsg=new Set();
 		for(let k1=-v;k1<v;k1++)
 			for(let k2=-v;k2<v;k2++)
 				for(let k3=-v;k3<v;k3++)
-					nsg.add(kg([n[0]+k1,n[1]+k2,n[2]+k3]));
+					nsg.add(this.kg([n[0]+k1,n[1]+k2,n[2]+k3]));
+		for(const k of (new Set(this.dg.keys())).difference(nsg))
+		{
+			for(const p of this.dg.get(k))p.dispose(false,true)
+			this.dg.delete(k)
+		}
+		for(const k of nsg.difference(new Set(this.dg.keys())))
+		{
+			const p=this.sg.get(k)
+			if(p)this.dg.set(k,p.map(pk=>pk()))
+		}
 	}
 }
 const v=new vp();
