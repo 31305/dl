@@ -342,10 +342,18 @@ const knsnm=()=>
 };
 const jnmp=class
 {
-	const vv=new BABYLON.PBRMetallicRoughnessMaterial("v")
-	prb.material.baseColor=new BABYLON.Color3(.5,.5,.5);
-	prb.material.metallic=0;
-	prb.material.roughness=1;
+	const vv=
+	const v=0.1,pn=0.2,l=3
+	constructor=()=>
+	{
+		this.pg=new BABYLON.MeshBuilder.CreateBox('pg',{width:v,depth:v,height:3});
+		this.pg.setEnabled(false)
+		this.pg.material=new BABYLON.PBRMetallicRoughnessMaterial("v")
+		this.pg.material.baseColor=new BABYLON.Color3(.5,.5,.5);
+		this.pg.material.metallic=0;
+		this.pg.material.roughness=1;
+		this.jp=new BABYLON.TransformNode('jp')
+	}
 }
 const s2=ls*4,bvs=.5;
 const lnm=()=>
