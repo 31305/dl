@@ -20,9 +20,8 @@ const vp=class
 }
 const dnsnd=class
 {
-	constructor(spk)
+	constructor()
 	{
-		this.spk=spk;
 		this.sg=new Map();
 		this.dg=new Map();
 	}
@@ -37,8 +36,11 @@ const dnsnd=class
 		if(!this.sg.get(k))this.sg.set(k,[]);
 		this.sg.get(k).push(pk);
 	}
+	ms=[]
 	k(s)
 	{
+		if(s.length==this.ms.length&&s.every((p,k)=>p==this.ms[k]))return
+		this.ms=[s[0],s[1],s[2]]
 		const v=3;
 		const n=this.ns(s);
 		const nsg=new Set();
@@ -58,6 +60,7 @@ const dnsnd=class
 		}
 	}
 }
+const dns=new dnsnd();
 const v=new vp();
 Promise.all([v.dk()]+(lnc?[HavokPhysics()]:[])).then((p)=>{if(lnc){s.enablePhysics(new BABYLON.Vector3(0,-9.8,0),new BABYLON.HavokPlugin(true,p[1]));}lnm();ssk();});
 const d=document.createElement('canvas')
@@ -337,6 +340,13 @@ const knsnm=()=>
 	p.n=[54,1,61,11];
 	return p;
 };
+const jnmp=class
+{
+	const vv=new BABYLON.PBRMetallicRoughnessMaterial("v")
+	prb.material.baseColor=new BABYLON.Color3(.5,.5,.5);
+	prb.material.metallic=0;
+	prb.material.roughness=1;
+}
 const s2=ls*4,bvs=.5;
 const lnm=()=>
 {
@@ -617,6 +627,7 @@ const ssk=function()
 			dg-=kn*50;
 		}
 		gs.scaleInPlace(Math.max(1-100*kn,0));
+		(()=>{const s=[];l.position.toArray(s);dns.k(s)})()
 	});
 	d.addEventListener("touchmove",(p)=>{if(1||document.fullscreenElement==d)
 	{
