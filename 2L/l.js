@@ -62,7 +62,7 @@ const dnsnd=class
 }
 const dns=new dnsnd();
 const v=new vp();
-Promise.all([v.dk()]+(lnc?[HavokPhysics()]:[])).then((p)=>{if(lnc){s.enablePhysics(new BABYLON.Vector3(0,-9.8,0),new BABYLON.HavokPlugin(true,p[1]));}lnm();ssk();});
+Promise.all([v.dk()]+(lnc?[HavokPhysics()]:[])).then((p)=>{if(lnc){s.enablePhysics(new BABYLON.Vector3(0,-9.8,0),new BABYLON.HavokPlugin(true,p[1]));}if(0)lnm();ssk();});
 const d=document.createElement('canvas')
 document.body.style.margin='0';
 document.body.style.touchAction='none';
@@ -342,20 +342,57 @@ const knsnm=()=>
 };
 const jnmp=class
 {
-	const vv=
-	const v=0.1,pn=0.2,l=3
-	constructor=()=>
+	l=3
+	v=0.02
+	constructor()
 	{
-		this.pg=new BABYLON.MeshBuilder.CreateBox('pg',{width:v,depth:v,height:3});
+		const v=this.v,pn=0.1,l=this.l
+		this.pg=new BABYLON.MeshBuilder.CreateBox('pg',{width:v,depth:v,height:(3+v)});
 		this.pg.setEnabled(false)
 		this.pg.material=new BABYLON.PBRMetallicRoughnessMaterial("v")
-		this.pg.material.baseColor=new BABYLON.Color3(.5,.5,.5);
+		this.pg.material.baseColor=new BABYLON.Color3(.1,.1,.1);
 		this.pg.material.metallic=0;
 		this.pg.material.roughness=1;
-		this.jp=new BABYLON.TransformNode('jp')
+		const sg=[]
+		for(let k=0;k*pn<=l;k++)
+		{
+			const tp=this.pg.clone('t')
+			const dtp=this.pg.clone('t')
+			tp.parent=this.jp;
+			dtp.parent=this.jp;
+			tp.position.set(-l*0.5+k*pn,0,0)
+			dtp.position.set(0,-l*0.5+k*pn,0)
+			dtp.rotation.set(0,0,Math.PI/2)
+			sg.push(tp)
+			sg.push(dtp)
+		}
+		this.jp=BABYLON.Mesh.MergeMeshes(sg,true)
+		this.jp.setEnabled(false)
+	}
+	n()
+	{
+		const tp=new BABYLON.TransformNode('jp')
+		const p=this.jp.createInstance('p')
+		p.parent=tp
+		const pm=BABYLON.MeshBuilder.CreateBox('pm',{width:this.l,height:this.l,depth:this.v})
+		pm.visibility=0;
+		pm.checkCollisions=true;
+		pm.isPickable=false;
+		pm.parent=tp
+		tp.n=[58,4,45,2,75]
+		return tp
 	}
 }
+const jnm=new jnmp()
 const s2=ls*4,bvs=.5;
+dns.s([0,0,0],()=>
+{
+	const p=jnm.n()
+	p.rotation.set(Math.PI/2,0,0)
+	return p;
+})
+const dnsk=()=>{const s=[];l.position.toArray(s);dns.k(s)}
+dnsk()
 const lnm=()=>
 {
 	const tpbnm=false;
@@ -543,7 +580,7 @@ const nkp=()=>
 	let n=sp.pickedMesh;
 	window.plv=n;
 	if(n==undefined)v.b([1,70,66,2,44,9,51,48,1,75]);
-	else if(n==b)
+	else if(typeof(b)!=='undefined'&&n==b)
 	{
 		const ss=sp.pickedPoint.y%(s2+bvs);
 		const vks=ntvs;
@@ -635,7 +672,7 @@ const ssk=function()
 			dg-=kn*50;
 		}
 		gs.scaleInPlace(Math.max(1-100*kn,0));
-		(()=>{const s=[];l.position.toArray(s);dns.k(s)})()
+		dnsk();
 	});
 	d.addEventListener("touchmove",(p)=>{if(1||document.fullscreenElement==d)
 	{
