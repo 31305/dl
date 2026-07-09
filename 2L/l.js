@@ -77,7 +77,7 @@ const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*2,0),s);
 (()=>
 {
 	const vk=.2;
-	l.ellipsoid=new BABYLON.Vector3(.3,ls+vk/2,.3);
+	l.ellipsoid=new BABYLON.Vector3(.28,ls+vk/2,.28);
 	l.ellipsoidOffset=pv(0,vk,0);
 })();
 l.attachControl(d,true);
@@ -419,6 +419,23 @@ const jnmp=class
 		p.position.set(s[0]*this.l*.5,s[1]*this.l*.5,s[2]*this.l*.5)
 		return p
 	}
+	spn(s,d,m=null)
+	{
+		const tp=new BABYLON.TransformNode('sp')
+		let k=1;
+		for(;k<=this.l*.5/this.pn;k++)
+		{
+			const p=this.sn([this.pn*2,this.pn*2],m)
+			p.position.set((s[0]-1)*this.l*.5+this.pn,s[1]*this.l*.5-this.pn*k,(s[2]+1)*this.l*.5-this.pn*(k*2-1))
+			p.rotation.set(Math.PI/2,0,0)
+		}
+		for(;k<this.l/this.pn;k++)
+		{
+			const p=this.sn([this.pn*2,this.pn*2],m)
+			p.position.set((s[0]-3)*this.l*.5+(1+k*2)*this.pn,s[1]*this.l*.5-this.pn*k,(s[2]-1)*this.l*.5+this.pn)
+			p.rotation.set(Math.PI/2,0,0)
+		}
+	}
 }
 const jnm=new jnmp()
 const s2=ls*4,bvs=.5;
@@ -437,6 +454,7 @@ dns.s([0,0,0],()=>
 	jnm.n([0,-1,-3],3,p)
 	jnm.n([0,-1,-1],3,p)
 	jnm.n([0,-2,-2],2,p)
+	jnm.spn([0,0,-2],0,p)
 	if(0)
 	{
 		const kns=knsnm()
