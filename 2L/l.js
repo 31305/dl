@@ -361,10 +361,11 @@ const jnmp=class
 	l=3
 	v=0.02
 	pn=.25
+	jsg=new Map()
 	constructor()
 	{
 		const v=this.v,pn=this.pn,l=this.l
-		this.pg=new BABYLON.MeshBuilder.CreateBox('pg',{width:v,depth:v,height:(3+v)});
+		this.pg=new BABYLON.MeshBuilder.CreateBox('pg',{width:v,depth:v,height:1});
 		this.pg.setEnabled(false)
 		this.pg.material=new BABYLON.PBRMetallicRoughnessMaterial("v")
 		this.pg.material.baseColor=new BABYLON.Color3(.1,.1,.1);
@@ -374,9 +375,9 @@ const jnmp=class
 		for(let k=0;k*pn<=l;k++)
 		{
 			const tp=this.pg.clone('t')
+			tp.scaling.set(1,l+v,1)
 			const dtp=this.pg.clone('t')
-			tp.parent=this.jp;
-			dtp.parent=this.jp;
+			dtp.scaling.set(1,l+v,1)
 			tp.position.set(-l*0.5+k*pn,0,0)
 			dtp.position.set(0,-l*0.5+k*pn,0)
 			dtp.rotation.set(0,0,Math.PI/2)
@@ -385,6 +386,45 @@ const jnmp=class
 		}
 		this.jp=BABYLON.Mesh.MergeMeshes(sg,true)
 		this.jp.setEnabled(false)
+	}
+	sn(pv,m=null)
+	{
+		const pm=[Math.round(pv[0]/this.pn),Math.round(pv[1]/this.pn)].toSorted((p,d)=>d-p)
+		const jk=`${pm[0]},${pm[1]}`
+		let nd=this.jsg.get(jk)
+		if(nd==undefined)
+		{
+			const sg=[]
+			for(let k=0;k<=pm[0];k++)
+			{
+				const tp=this.pg.clone('t')
+				tp.scaling.set(1,pm[1]*this.pn+this.v,1)
+				tp.position.set(k*this.pn-pm[0]*this.pn*.5,0,0)
+				sg.push(tp)
+			}
+			for(let k=0;k<=pm[1];k++)
+			{
+				const dtp=this.pg.clone('t')
+				dtp.scaling.set(1,pm[0]*this.pn+this.v,1)
+				dtp.position.set(0,k*this.pn-pm[1]*this.pn*.5,0)
+				dtp.rotation.set(0,0,Math.PI/2)
+				sg.push(dtp)
+			}
+			nd=BABYLON.Mesh.MergeMeshes(sg,true)
+			nd.setEnabled(false)
+			this.jsg.set(jk,nd)
+		}
+		const tp=new BABYLON.TransformNode('jp')
+		const p=nd.createInstance('p')
+		p.parent=tp
+		const vd=BABYLON.MeshBuilder.CreateBox('pm',{width:pm[0]*this.pn,height:pm[1]*this.pn,depth:this.v})
+		vd.visibility=0;
+		vd.checkCollisions=true;
+		vd.isPickable=false;
+		vd.parent=tp
+		tp.n=[58,4,45,2,75]
+		if(m)tp.parent=m
+		return tp
 	}
 	n(s,d,m=null)
 	{
@@ -421,13 +461,15 @@ dns.s([0,0,0],()=>
 	jnm.n([0,-1,-3],3,p)
 	jnm.n([0,-1,-1],3,p)
 	jnm.n([0,-2,-2],2,p)
-	jnm.n([0,jnm.pn*2/jnm.l,-2],2,p)
-	const kns=knsnm()
-	kns.parent=p
-	kns.position.set(-jnm.l*.5+jnm.v*.5,2,0)
-	kns.rotation.set(0,-Math.PI/2,0)
-	const nd=ndnm(pv(0,ls*2,jnm.l*.5-jnm.v*.5-ntvs),1)
-	nd.parent=p
+	if(0)
+	{
+		const kns=knsnm()
+		kns.parent=p
+		kns.position.set(-jnm.l*.5+jnm.v*.5,2,0)
+		kns.rotation.set(0,-Math.PI/2,0)
+		const nd=ndnm(pv(0,ls*2,jnm.l*.5-jnm.v*.5-ntvs),1)
+		nd.parent=p
+	}
 	return p;
 })
 const dnsk=()=>{const s=[];l.position.toArray(s);dns.k(s)}
