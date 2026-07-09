@@ -77,11 +77,12 @@ const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*2,0),s);
 (()=>
 {
 	const vk=.2;
-	l.ellipsoid=new BABYLON.Vector3(.28,ls+vk/2,.28);
+	const pg=.28
+	l.ellipsoid=new BABYLON.Vector3(pg,ls+vk/2,pg);
+	l.minZ=0.1;
 	l.ellipsoidOffset=pv(0,vk,0);
 })();
 l.attachControl(d,true);
-l.minZ=0.1;
 const p=1?new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s):new BABYLON.SpotLight("p",new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,0,1),Math.PI/4,2);
 p.intensity=10;
 p.parent=l;
@@ -704,7 +705,7 @@ const ssk=function()
 	}
 	d.addEventListener("touchend",spk);
 	d.addEventListener("touchcancel",spk);
-	let dg=0,ps=0;
+	let dg=0,ps=pv(0,0,0);
 	const nps={};
 	window.nps=nps;
 	window.addEventListener('keydown',(p)=>{
@@ -719,7 +720,7 @@ const ssk=function()
 	s.onBeforeRenderObservable.add(()=>
 	{
 		const kn=s.getEngine().getDeltaTime()/1000;
-		const g=l.speed*kn*3;
+		const g=l.speed*3;
 		(()=>
 		{
 			const g2=Number(nps['ArrowUp']==true||nps['KeyW']==true)-Number(nps['ArrowDown']==true||nps['KeyS']==true);
@@ -728,18 +729,18 @@ const ssk=function()
 			{
 				gs.copyFrom(BABYLON.Vector3.TransformCoordinates
 					(new BABYLON.Vector3(g1,0,g2),BABYLON.Matrix.RotationY(l.rotation.y)));
-				gs.normalize().scale(g);
+				gs.normalize().scaleInPlace(g);
 			}
 		})();
 		const gg=gs.length();
-		const t=gs.normalizeToNew().scale(Math.min(g,gg));
+		const t=gs.normalizeToNew().scale(kn*Math.min(g,gg));
 		if(t.length()>0.001)l.cameraDirection.addInPlace(t);
-		if(nps["Space"]==true&&dg<=0&&Math.abs(l.position.y-ps)<0.001)
+		if(nps["Space"]==true&&dg<=0&&Math.abs(l.position.y-ps.y)<0.001)
 		{
 			nps["Space"]=2;
 			dg=15;
 		}
-		ps=l.position.y;
+		ps.copyFrom(l.position);
 		if(dg>0)
 		{
 			l.cameraDirection.addInPlace(pv(0,dg*kn,0));
@@ -762,7 +763,7 @@ const ssk=function()
 			else
 			{
 				let g=BABYLON.Vector3.TransformCoordinates
-					(new BABYLON.Vector3(-g1,0,g2),BABYLON.Matrix.RotationY(l.rotation.y)).scale(10);
+					(new BABYLON.Vector3(-g1,0,g2),BABYLON.Matrix.RotationY(l.rotation.y)).scale(1000);
 				gs.addInPlace(g);
 			}
 			sss.get(s.identifier).s1=s.clientX;
