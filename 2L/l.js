@@ -371,21 +371,6 @@ const jnmp=class
 		this.pg.material.baseColor=new BABYLON.Color3(.1,.1,.1);
 		this.pg.material.metallic=0;
 		this.pg.material.roughness=1;
-		const sg=[]
-		for(let k=0;k*pn<=l;k++)
-		{
-			const tp=this.pg.clone('t')
-			tp.scaling.set(1,l+v,1)
-			const dtp=this.pg.clone('t')
-			dtp.scaling.set(1,l+v,1)
-			tp.position.set(-l*0.5+k*pn,0,0)
-			dtp.position.set(0,-l*0.5+k*pn,0)
-			dtp.rotation.set(0,0,Math.PI/2)
-			sg.push(tp)
-			sg.push(dtp)
-		}
-		this.jp=BABYLON.Mesh.MergeMeshes(sg,true)
-		this.jp.setEnabled(false)
 	}
 	sn(pv,m=null)
 	{
@@ -428,20 +413,11 @@ const jnmp=class
 	}
 	n(s,d,m=null)
 	{
-		const tp=new BABYLON.TransformNode('jp')
-		const p=this.jp.createInstance('p')
-		p.parent=tp
-		const pm=BABYLON.MeshBuilder.CreateBox('pm',{width:this.l,height:this.l,depth:this.v})
-		pm.visibility=0;
-		pm.checkCollisions=true;
-		pm.isPickable=false;
-		pm.parent=tp
-		tp.n=[58,4,45,2,75]
-		if(d==1)tp.rotation.set(0,Math.PI/2,0)
-		else if(d==2)tp.rotation.set(Math.PI/2,0,0)
-		tp.position.set(s[0]*this.l*.5,s[1]*this.l*.5,s[2]*this.l*.5)
-		if(m)tp.parent=m
-		return tp
+		const p=this.sn([this.l,this.l],m)
+		if(d==1)p.rotation.set(0,Math.PI/2,0)
+		else if(d==2)p.rotation.set(Math.PI/2,0,0)
+		p.position.set(s[0]*this.l*.5,s[1]*this.l*.5,s[2]*this.l*.5)
+		return p
 	}
 }
 const jnm=new jnmp()
