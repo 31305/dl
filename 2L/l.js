@@ -709,7 +709,6 @@ const ssk=function()
 		{
 			if(!sss.get(s.identifier).m)
 			{
-				console.log('sp');
 				gs.set(0,0,0);
 			}
 			sss.delete(s.identifier);
@@ -717,7 +716,7 @@ const ssk=function()
 	}
 	d.addEventListener("touchend",spk);
 	d.addEventListener("touchcancel",spk);
-	let dg=0,ps=lpc.position.clone();
+	let dg=0,gpvs=0;
 	const nps={};
 	window.nps=nps;
 	window.addEventListener('keydown',(p)=>{
@@ -746,20 +745,23 @@ const ssk=function()
 		})();
 		const gg=gs.length();
 		const t=gs.normalizeToNew().scale(kn*Math.min(g,gg));
+		const ps=lpc.position.clone()
 		lpc.moveWithCollisions(t.add(pv(0,-.1,0)));
+		const gpv=lpc.position.subtract(ps).dot(t)
+		if(Math.sign(gpv)*Math.sign(gpvs)<0)gpvs=0;
+		if(Math.abs(gpvs)<1000)gpvs+=gpv>=0?1:-1;
+		if(Math.abs(gpvs)>3||lpc.position.subtract(l.position).length()>.05)
+			l.position.copyFrom(lpc.position)
 		if(nps["Space"]==true&&dg<=0&&Math.abs(lpc.position.y-ps.y)<0.001)
 		{
 			nps["Space"]=2;
 			dg=15;
 		}
-		if(t.dot(lpc.position.subtract(ps))>=0)l.position.copyFrom(lpc.position)
-		ps.copyFrom(lpc.position);
 		if(dg>0)
 		{
 			lpc.moveWithCollisions(pv(0,dg*kn,0));
 			dg-=kn*50;
 		}
-		gs.scaleInPlace(Math.max(1-100*kn,0));
 		dnsk();
 	});
 	d.addEventListener("touchmove",(p)=>{if(1||document.fullscreenElement==d)
@@ -776,7 +778,7 @@ const ssk=function()
 			else
 			{
 				let g=BABYLON.Vector3.TransformCoordinates
-					(new BABYLON.Vector3(-g1,0,g2),BABYLON.Matrix.RotationY(l.rotation.y)).scale(1000);
+					(new BABYLON.Vector3(-g1,0,g2),BABYLON.Matrix.RotationY(l.rotation.y)).scale(10);
 				gs.addInPlace(g);
 			}
 			sss.get(s.identifier).s1=s.clientX;
