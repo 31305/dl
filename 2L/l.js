@@ -732,6 +732,7 @@ const ssk=function()
 	{
 		const kn=s.getEngine().getDeltaTime()/1000;
 		const g=l.speed*3;
+		let kpnn=0;
 		(()=>
 		{
 			const g2=Number(nps['ArrowUp']==true||nps['KeyW']==true)-Number(nps['ArrowDown']==true||nps['KeyS']==true);
@@ -741,10 +742,12 @@ const ssk=function()
 				gs.copyFrom(BABYLON.Vector3.TransformCoordinates
 					(new BABYLON.Vector3(g1,0,g2),BABYLON.Matrix.RotationY(l.rotation.y)));
 				gs.normalize().scaleInPlace(g);
+				kpnn=1;
 			}
 		})();
 		const gg=gs.length();
 		const t=gs.normalizeToNew().scale(kn*Math.min(g,gg));
+		if(kpnn)gs.set(0,0,0)
 		const ps=lpc.position.clone()
 		lpc.moveWithCollisions(t.add(pv(0,-.1,0)));
 		const gpv=lpc.position.subtract(ps).dot(t)
