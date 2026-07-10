@@ -73,9 +73,9 @@ const s=new BABYLON.Scene(c);
 const pv=(p,d,t)=>{return new BABYLON.Vector3(p,d,t);}
 s.clearColor=new BABYLON.Color3(0,0,0);
 const ls=1.75/2;
-const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,0,0),s);
+const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*2,0),s);
 const lpc=new BABYLON.Mesh('lpc');
-lpc.position.set(0,ls*2,0);
+lpc.position.copyFrom(l.position);
 (()=>
 {
 	const vk=.2;
@@ -717,7 +717,7 @@ const ssk=function()
 	}
 	d.addEventListener("touchend",spk);
 	d.addEventListener("touchcancel",spk);
-	let dg=0,ps=pv(0,0,0);
+	let dg=0,ps=lpc.position.clone();
 	const nps={};
 	window.nps=nps;
 	window.addEventListener('keydown',(p)=>{
@@ -747,16 +747,16 @@ const ssk=function()
 		const gg=gs.length();
 		const t=gs.normalizeToNew().scale(kn*Math.min(g,gg));
 		lpc.moveWithCollisions(t.add(pv(0,-.1,0)));
-		l.parent=lpc
-		if(nps["Space"]==true&&dg<=0&&Math.abs(l.position.y-ps.y)<0.001)
+		if(nps["Space"]==true&&dg<=0&&Math.abs(lpc.position.y-ps.y)<0.001)
 		{
 			nps["Space"]=2;
 			dg=15;
 		}
-		ps.copyFrom(l.position);
+		if(t.dot(lpc.position.subtract(ps))>=0)l.position.copyFrom(lpc.position)
+		ps.copyFrom(lpc.position);
 		if(dg>0)
 		{
-			l.cameraDirection.addInPlace(pv(0,dg*kn,0));
+			lpc.moveWithCollisions(pv(0,dg*kn,0));
 			dg-=kn*50;
 		}
 		gs.scaleInPlace(Math.max(1-100*kn,0));
