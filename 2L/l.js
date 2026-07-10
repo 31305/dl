@@ -424,17 +424,31 @@ const jnmp=class
 	{
 		const tp=new BABYLON.TransformNode('sp')
 		let k=1;
+		const vrnm=(p)=>
+		{
+			const vk=p.position.y-(s[1]-2)*this.l*.5
+			if(vk<l.ellipsoid.y*2)
+			{
+				const vr=BABYLON.MeshBuilder.CreateBox('vr',{width:this.pn*2,depth:this.pn*2,height:vk})
+				vr.position=p.position.add(pv(0,-vk/2,0))
+				vr.checkCollisions=true
+				vr.visibility=false;
+				if(m)vr.parent=m;
+			}
+		}
 		for(;k<=this.l*.5/this.pn;k++)
 		{
 			const p=this.sn([this.pn*2,this.pn*2],m)
 			p.position.set((s[0]-1)*this.l*.5+this.pn,s[1]*this.l*.5-this.pn*k,(s[2]+1)*this.l*.5-this.pn*(k*2-1))
 			p.rotation.set(Math.PI/2,0,0)
+			vrnm(p)
 		}
 		for(;k<this.l/this.pn;k++)
 		{
 			const p=this.sn([this.pn*2,this.pn*2],m)
 			p.position.set((s[0]-3)*this.l*.5+(1+k*2)*this.pn,s[1]*this.l*.5-this.pn*k,(s[2]-1)*this.l*.5+this.pn)
 			p.rotation.set(Math.PI/2,0,0)
+			vrnm(p)
 		}
 	}
 }
