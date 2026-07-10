@@ -73,14 +73,16 @@ const s=new BABYLON.Scene(c);
 const pv=(p,d,t)=>{return new BABYLON.Vector3(p,d,t);}
 s.clearColor=new BABYLON.Color3(0,0,0);
 const ls=1.75/2;
-const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*2,0),s);
+const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,0,0),s);
+const lpc=new BABYLON.Mesh('lpc');
+lpc.position.set(0,ls*2,0);
 (()=>
 {
 	const vk=.2;
 	const pg=.28
-	l.ellipsoid=new BABYLON.Vector3(pg,ls+vk/2,pg);
+	lpc.ellipsoid=new BABYLON.Vector3(pg,ls+vk/2,pg);
 	l.minZ=0.1;
-	l.ellipsoidOffset=pv(0,vk,0);
+	lpc.ellipsoidOffset=pv(0,vk-ls,0);
 })();
 l.attachControl(d,true);
 const p=1?new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s):new BABYLON.SpotLight("p",new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,0,1),Math.PI/4,2);
@@ -653,12 +655,8 @@ const lnm=()=>
 	for(let k=0;k<tksg.length;k++)tksg[k].dispose();
 }
 s.collisionsEnabled=true;
-s.gravity=new BABYLON.Vector3(0,-0.1,0);
-l.speed=1.5;
 l.inertia=0;
-l.checkCollisions=true;
-l.applyGravity=true;
-if(1)l.needMoveForGravity=true;
+lpc.checkCollisions=true;
 l.inputs.remove(l.inputs.attached.mouse);
 l.inputs.remove(l.inputs.attached.keyboard);
 if(1)l.angularSensibility*=-1;
@@ -748,7 +746,8 @@ const ssk=function()
 		})();
 		const gg=gs.length();
 		const t=gs.normalizeToNew().scale(kn*Math.min(g,gg));
-		if(t.length()>0.001)l.cameraDirection.addInPlace(t);
+		lpc.moveWithCollisions(t.add(pv(0,-.1,0)));
+		l.parent=lpc
 		if(nps["Space"]==true&&dg<=0&&Math.abs(l.position.y-ps.y)<0.001)
 		{
 			nps["Space"]=2;
