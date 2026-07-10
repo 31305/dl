@@ -82,7 +82,7 @@ lpc.position.copyFrom(l.position);
 	const pg=.28
 	lpc.ellipsoid=new BABYLON.Vector3(pg,ls+vk/2,pg);
 	l.minZ=0.1;
-	lpc.ellipsoidOffset=pv(0,vk-ls,0);
+	lpc.ellipsoidOffset=pv(0,vk/2-ls,0);
 })();
 l.attachControl(d,true);
 const p=1?new BABYLON.PointLight("p",new BABYLON.Vector3(0,0,0),s):new BABYLON.SpotLight("p",new BABYLON.Vector3(0,0,0),new BABYLON.Vector3(0,0,1),Math.PI/4,2);
