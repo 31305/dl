@@ -795,7 +795,7 @@ const ssk=function()
 			let g2=(s.clientY-sss.get(s.identifier).s2)/Math.min(d.width,d.height);
 			if(sss.get(s.identifier).m)
 			{
-				const vg=1.5;
+				const vg=3;
 				l.cameraRotation.y-=g1*vg; 
 				l.cameraRotation.x-=g2*vg;
 			}
@@ -810,12 +810,14 @@ const ssk=function()
 	}
 	});
 	c.runRenderLoop(()=>s.render());
-	const pssk=()=>
+	const dss=new ResizeObserver((gs)=>
 	{
-		c.resize();
-	};
-	window.addEventListener("resize",pssk);
-	pssk();
+		const g=gs.find((g)=>g.target===d);
+		let vpv1=g.devicePixelContentBoxSize[0].inlineSize;
+		let vpv2=g.devicePixelContentBoxSize[0].blockSize;
+		c.setSize(vpv1,vpv2);
+	});
+	dss.observe(d,{box:"device-pixel-content-box"});
 	lds();
 }
 const ppd=BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("PPD",true,s);
@@ -885,9 +887,10 @@ const lds=function()
 		}
 	});
 	let gk=0
-	const vpvk=()=>
+	const vpvk=(p=false)=>
 	{
 		const kn=300;
+		if(gk==0||p)gk=Date.now()
 		if(Date.now()-gk>kn-30)
 		{
 			gk=0;
@@ -895,19 +898,14 @@ const lds=function()
 		}
 		else setTimeout(vpvk,kn-Date.now()+gk)
 	}
-	d.addEventListener('pointermove',(p)=>
+	if(jdv())d.addEventListener('pointermove',(p)=>
 	{
 		for(let k=2;k<pvs.length;k++)
 			pvs[k].background='lightblue';
-		if(gk==0)
-		{
-			gk=Date.now()
-			vpvk();
-		}
-		else gk=Date.now()
+		if(!p.buttons)vpvk(1)
 	})
-	document.addEventListener("pointerdown",(p)=>{nndvs(1.2)});
-	document.addEventListener("pointerup",()=>{nndvs(1)});
-	document.addEventListener("pointerout",()=>{nndvs(1);});
-	document.addEventListener("pointercancel",()=>{nndvs(1);});
+	document.addEventListener("pointerdown",()=>{nndvs(1.2)});
+	document.addEventListener("pointerup",()=>{vpvk(1);nndvs(1)});
+	document.addEventListener("pointerout",()=>{vpvk(1);nndvs(1);});
+	document.addEventListener("pointercancel",()=>{vpvk(1);nndvs(1);});
 }
