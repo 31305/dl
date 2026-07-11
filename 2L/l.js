@@ -698,11 +698,10 @@ const nkp=()=>
 }
 const ssk=function()
 {
-	const vg=1;
 	d.addEventListener("mousemove",(p)=>{if(document.pointerLockElement===d)
 	{
-		l.cameraRotation.y+=p.movementX/d.height*vg; 
-		l.cameraRotation.x+=p.movementY/d.height*vg;
+		l.cameraRotation.y+=p.movementX/d.height; 
+		l.cameraRotation.x+=p.movementY/d.height;
 	}
 	});
 	const sss=new Map();
@@ -745,7 +744,7 @@ const ssk=function()
 		const gs=new BABYLON.Vector3(0,0,0);
 		if(gds.length())
 			gs.copyFrom(BABYLON.Vector3.TransformCoordinates
-				(new BABYLON.Vector3(gds.x,0,-gds.y).scale(g),BABYLON.Matrix.RotationY(l.rotation.y)));
+				(new BABYLON.Vector3(-gds.x,0,gds.y).scale(g),BABYLON.Matrix.RotationY(l.rotation.y)));
 		(()=>
 		{
 			const g2=Number(nps['ArrowUp']==true||nps['KeyW']==true)-Number(nps['ArrowDown']==true||nps['KeyS']==true);
@@ -781,16 +780,17 @@ const ssk=function()
 	{
 		for(const s of p.changedTouches)
 		{
-			let g1=(s.clientX-sss.get(s.identifier).s1)/Math.min(d.width,d.height)*vg;
-			let g2=(s.clientY-sss.get(s.identifier).s2)/Math.min(d.width,d.height)*vg;
+			let g1=(s.clientX-sss.get(s.identifier).s1)/Math.min(d.width,d.height);
+			let g2=(s.clientY-sss.get(s.identifier).s2)/Math.min(d.width,d.height);
 			if(sss.get(s.identifier).m)
 			{
-				l.cameraRotation.y-=g1; 
-				l.cameraRotation.x-=g2;
+				const vg=1.5;
+				l.cameraRotation.y-=g1*vg; 
+				l.cameraRotation.x-=g2*vg;
 			}
 			else
 			{
-				gds.addInPlace((new BABYLON.Vector2(g1,g2)).scale(10))
+				gds.addInPlace((new BABYLON.Vector2(g1,g2)).scale(5))
 				if(gds.length()>1)gds.normalize();
 			}
 			sss.get(s.identifier).s1=s.clientX;
@@ -819,30 +819,25 @@ const lds=function()
 	dk.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
 	ppd.addControl(dk);
 	dk.isVisible=false;
-	if(!jdv())document.addEventListener("pointerlockchange",()=>{dk.isVisible=document.pointerLockElement==d;});
-	else
-	{
-		const pc=new BABYLON.GUI.Rectangle();
-		pc.width=1;
-		pc.height=1;
-		pc.background="rgba(0,0,0,0.8)";
-		pc.thickness=0;
-		ppd.addControl(pc);
-		const nnd=new BABYLON.GUI.Ellipse();
-		nnd.width="120px";
-		nnd.height=nnd.width;
-		nnd.background="rgba(80,50,0,0.5)";
-		nnd.color="rgba(255,155,0,1)";
-		nnd.thickness=10;
-		nnd.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-		nnd.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
-		pc.addControl(nnd);
-		document.addEventListener("fullscreenchange",()=>
-		{
-			dk.isVisible=document.fullscreenElement==d;
-			pc.isVisible=!dk.isVisible;
-		});
-	}
+	const pc=new BABYLON.GUI.Rectangle();
+	pc.width=1;
+	pc.height=1;
+	pc.background="rgba(0,0,0,0.6)";
+	pc.thickness=0;
+	ppd.addControl(pc);
+	const nnd=new BABYLON.GUI.Ellipse();
+	nnd.width="120px";
+	nnd.height=nnd.width;
+	nndv="rgba(255,155,0,1)";
+	nnd.background="rgba(80,50,0,1)";
+	nnd.color=nndv;
+	nnd.thickness=10;
+	nnd.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+	nnd.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+	pc.addControl(nnd);
+	const dndpv=(p)=>{dk.isVisible=p;pc.isVisible=!p}
+	if(!jdv())document.addEventListener("pointerlockchange",()=>dndpv(document.pointerLockElement==d));
+	else document.addEventListener("fullscreenchange",()=>dndpv(document.fullscreenElement==d))
 	d.addEventListener("click",(p)=>
 	{
 		if(!dk.isVisible)
@@ -866,9 +861,10 @@ const lds=function()
 		dk.addControl(ld);
 	}
 	let nv={s1:0,s2:0,g1:0,g2:0};
-	const pk=()=>{for(let k=0;k<pvs.length;k++)pvs[k].background=k<2?"black":"white";};
+	const pk=()=>{nnd.color=nndv;for(let k=0;k<pvs.length;k++)pvs[k].background=k<2?"black":"white";};
 	document.addEventListener("pointerdown",(p)=>
 	{
+		nnd.color='rgba()'
 		for(let k=0;k<pvs.length;k++)
 			pvs[k].background=k>1?"black":"white";
 		nv.s1=p.screenX;nv.s2=p.screenY;
