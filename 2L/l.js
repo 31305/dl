@@ -67,6 +67,7 @@ Promise.all([v.dk()]+(lnc?[HavokPhysics()]:[])).then((p)=>
 	if(lnc){s.enablePhysics(new BABYLON.Vector3(0,-9.8,0),new BABYLON.HavokPlugin(true,p[1]));}
 	if(0)lnm();
 	ssk();
+	document.body.removeChild(cb)
 	const vvss=document.createElement('style');
 	vvss.textContent=`
 	@media (hover:hover) and (pointer:fine){body{cursor: pointer;}}
@@ -875,14 +876,36 @@ const lds=function()
 			if(!jdv())d.requestPointerLock();
 			else {d.requestFullscreen();screen.orientation.lock("landscape-primary");dk.isVisible=true;}
 		}
-		else
+		else if(pvs[2].background=='white')
 		{
 			for(let k=0;k<pvs.length;k++)
 				pvs[k].background=k>1?"black":"white";
 			nkp();
+			setTimeout(pk,200);
 		}
-		setTimeout(pk,200);
 	});
+	let gk=0
+	const vpvk=()=>
+	{
+		const kn=300;
+		if(Date.now()-gk>kn-30)
+		{
+			gk=0;
+			for(let k=2;k<pvs.length;k++)pvs[k].background='white';
+		}
+		else setTimeout(vpvk,kn-Date.now()+gk)
+	}
+	d.addEventListener('pointermove',(p)=>
+	{
+		for(let k=2;k<pvs.length;k++)
+			pvs[k].background='lightblue';
+		if(gk==0)
+		{
+			gk=Date.now()
+			vpvk();
+		}
+		else gk=Date.now()
+	})
 	document.addEventListener("pointerdown",(p)=>{nndvs(1.2)});
 	document.addEventListener("pointerup",()=>{nndvs(1)});
 	document.addEventListener("pointerout",()=>{nndvs(1);});
