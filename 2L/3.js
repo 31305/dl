@@ -19,7 +19,7 @@ vvss.textContent=`
 	--dv:200px;
 	width:calc(var(--dv) * 0.25);
 	height:calc(var(--dv) * 0.25);
-	border:calc(var(--dv) * 0.05) solid #FFF;
+	border:calc(var(--dv) * 0.05) solid rgb(255,155,0);
 	border-bottom-color:transparent;
 	border-radius:50%;
 	display:block;
