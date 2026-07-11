@@ -745,7 +745,7 @@ const ssk=function()
 		if(gds.length())
 			gs.copyFrom(BABYLON.Vector3.TransformCoordinates
 				(new BABYLON.Vector3(-gds.x,0,gds.y).scale(g),BABYLON.Matrix.RotationY(l.rotation.y)));
-		(()=>
+		if(dk.isVisible)
 		{
 			const g2=Number(nps['ArrowUp']==true||nps['KeyW']==true)-Number(nps['ArrowDown']==true||nps['KeyS']==true);
 			const g1=Number(nps['ArrowRight']==true||nps['KeyD']==true)-Number(nps['ArrowLeft']==true||nps['KeyA']==true);
@@ -755,7 +755,7 @@ const ssk=function()
 					(new BABYLON.Vector3(g1,0,g2),BABYLON.Matrix.RotationY(l.rotation.y)));
 				gs.normalize().scaleInPlace(g);
 			}
-		})();
+		}
 		const t=gs.scale(kn);
 		const ps=lpc.position.clone()
 		lpc.moveWithCollisions(t.add(pv(0,-.1,0)));
@@ -811,6 +811,7 @@ const ppd=BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("PPD",true,s);
 const lds=function()
 {
 	const dk=new BABYLON.GUI.Rectangle();
+	window.dk=dk
 	dk.width='30px';
 	dk.height='30px';
 	dk.background='transparent';
@@ -826,16 +827,20 @@ const lds=function()
 	pc.thickness=0;
 	ppd.addControl(pc);
 	const nnd=new BABYLON.GUI.Ellipse();
-	nnd.width="120px";
-	nnd.height=nnd.width;
-	nndv="rgba(255,155,0,1)";
-	nnd.background="rgba(80,50,0,1)";
-	nnd.color=nndv;
+	const nndvs=(p)=>
+	{
+		nnd.scaleX=p;
+		nnd.scaleY=p;
+	}
+	nnd.width='120px'
+	nnd.height=nnd.width
+	nnd.background="rgba(80,50,0,.5)";
+	nnd.color='rgba(255,155,0,1)';
 	nnd.thickness=10;
 	nnd.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
 	nnd.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
 	pc.addControl(nnd);
-	const dndpv=(p)=>{dk.isVisible=p;pc.isVisible=!p}
+	const dndpv=(p)=>{dk.isVisible=p;pc.isVisible=!p;if(pc.isVisible)nndvs(1)}
 	if(!jdv())document.addEventListener("pointerlockchange",()=>dndpv(document.pointerLockElement==d));
 	else document.addEventListener("fullscreenchange",()=>dndpv(document.fullscreenElement==d))
 	d.addEventListener("click",(p)=>
@@ -861,16 +866,16 @@ const lds=function()
 		dk.addControl(ld);
 	}
 	let nv={s1:0,s2:0,g1:0,g2:0};
-	const pk=()=>{nnd.color=nndv;for(let k=0;k<pvs.length;k++)pvs[k].background=k<2?"black":"white";};
+	const pk=()=>{for(let k=0;k<pvs.length;k++)pvs[k].background=k<2?"black":"white";};
 	document.addEventListener("pointerdown",(p)=>
 	{
-		nnd.color='rgba()'
+		nndvs(1.2)
 		for(let k=0;k<pvs.length;k++)
 			pvs[k].background=k>1?"black":"white";
 		nv.s1=p.screenX;nv.s2=p.screenY;
 		nv.g1=0;nv.g2=0;
 	});
-	document.addEventListener("pointerup",()=>{if(dk.isVisible&&pvs[0].background=='white')nkp();pk();});
+	document.addEventListener("pointerup",()=>{nndvs(1);if(dk.isVisible&&pvs[0].background=='white')nkp();pk();});
 	document.addEventListener("pointermove",(p)=>
 	{
 		if(p.screenX==nv.s1&&p.screenY==nv.s2)
@@ -885,6 +890,6 @@ const lds=function()
 		}
 		if(Math.abs(nv.g1)>20||Math.abs(nv.g2)>20)pk();
 	});
-	document.addEventListener("pointerout",pk);
-	document.addEventListener("pointercancel",pk);
+	document.addEventListener("pointerout",()=>{nndvs(1);pk();});
+	document.addEventListener("pointercancel",()=>{nndvs(1);pk()});
 }
