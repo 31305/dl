@@ -706,20 +706,20 @@ const ssk=function()
 	}
 	});
 	const sss=new Map();
-	const gs=new BABYLON.Vector3(0,0,0);
 	d.addEventListener("touchstart",(p)=>
 	{
 		for(const s of p.changedTouches)
 			if(!sss.has(s.identifier))
 				sss.set(s.identifier,{s1:s.clientX,s2:s.clientY,m:s.clientX/d.offsetWidth>0.5});
 	});
+	const gds=new BABYLON.Vector2(0,0);
 	const spk=(p)=>
 	{
 		for(const s of p.changedTouches)
 		{
 			if(!sss.get(s.identifier).m)
 			{
-				gs.set(0,0,0);
+				gds.set(0,0);
 			}
 			sss.delete(s.identifier);
 		}
@@ -741,8 +741,11 @@ const ssk=function()
 	s.onBeforeRenderObservable.add(()=>
 	{
 		const kn=s.getEngine().getDeltaTime()/1000;
-		const g=l.speed*3;
-		let kpnn=0;
+		const g=4.5;
+		const gs=new BABYLON.Vector3(0,0,0);
+		if(gds.length())
+			gs.copyFrom(BABYLON.Vector3.TransformCoordinates
+				(new BABYLON.Vector3(gds.x,0,-gds.y).scale(g),BABYLON.Matrix.RotationY(l.rotation.y)));
 		(()=>
 		{
 			const g2=Number(nps['ArrowUp']==true||nps['KeyW']==true)-Number(nps['ArrowDown']==true||nps['KeyS']==true);
@@ -752,12 +755,9 @@ const ssk=function()
 				gs.copyFrom(BABYLON.Vector3.TransformCoordinates
 					(new BABYLON.Vector3(g1,0,g2),BABYLON.Matrix.RotationY(l.rotation.y)));
 				gs.normalize().scaleInPlace(g);
-				kpnn=1;
 			}
 		})();
-		const gg=gs.length();
-		const t=gs.normalizeToNew().scale(kn*Math.min(g,gg));
-		if(kpnn)gs.set(0,0,0)
+		const t=gs.scale(kn);
 		const ps=lpc.position.clone()
 		lpc.moveWithCollisions(t.add(pv(0,-.1,0)));
 		const gpv=lpc.position.subtract(ps).dot(t)
@@ -777,7 +777,7 @@ const ssk=function()
 		}
 		dnsk();
 	});
-	d.addEventListener("touchmove",(p)=>{if(1||document.fullscreenElement==d)
+	d.addEventListener("touchmove",(p)=>{if(0||document.fullscreenElement==d)
 	{
 		for(const s of p.changedTouches)
 		{
@@ -790,9 +790,8 @@ const ssk=function()
 			}
 			else
 			{
-				let g=BABYLON.Vector3.TransformCoordinates
-					(new BABYLON.Vector3(-g1,0,g2),BABYLON.Matrix.RotationY(l.rotation.y)).scale(10);
-				gs.addInPlace(g);
+				gds.addInPlace((new BABYLON.Vector2(g1,g2)).scale(10))
+				if(gds.length()>1)gds.normalize();
 			}
 			sss.get(s.identifier).s1=s.clientX;
 			sss.get(s.identifier).s2=s.clientY;
@@ -821,7 +820,29 @@ const lds=function()
 	ppd.addControl(dk);
 	dk.isVisible=false;
 	if(!jdv())document.addEventListener("pointerlockchange",()=>{dk.isVisible=document.pointerLockElement==d;});
-	else document.addEventListener("fullscreenchange",()=>{dk.isVisible=document.fullscreenElement==d;});
+	else
+	{
+		const pc=new BABYLON.GUI.Rectangle();
+		pc.width=1;
+		pc.height=1;
+		pc.background="rgba(0,0,0,0.8)";
+		pc.thickness=0;
+		ppd.addControl(pc);
+		const nnd=new BABYLON.GUI.Ellipse();
+		nnd.width="120px";
+		nnd.height=nnd.width;
+		nnd.background="rgba(80,50,0,0.5)";
+		nnd.color="rgba(255,155,0,1)";
+		nnd.thickness=10;
+		nnd.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+		nnd.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+		pc.addControl(nnd);
+		document.addEventListener("fullscreenchange",()=>
+		{
+			dk.isVisible=document.fullscreenElement==d;
+			pc.isVisible=!dk.isVisible;
+		});
+	}
 	d.addEventListener("click",(p)=>
 	{
 		if(!dk.isVisible)
