@@ -445,6 +445,7 @@ const jnmp=class
 				vr.position=p.position.add(pv(0,-vk/2,0))
 				vr.checkCollisions=true
 				vr.visibility=false;
+				vr.isPickable=false;
 				if(m)vr.parent=m;
 			}
 		}
@@ -879,14 +880,29 @@ const lds=function()
 	document.addEventListener("pointerdown",(p)=>
 	{
 		nndvs(1.2)
-		for(let k=0;k<pvs.length;k++)
-			pvs[k].background=k>1?"black":"white";
+		if(!jdv())
+		{
+			for(let k=0;k<pvs.length;k++)
+				pvs[k].background=k>1?"black":"white";
+		}
+		else
+		{
+			for(let k=0;k<pvs.length;k++)
+				pvs[k].background=k>1?"grey":"white";
+			setTimeout(()=>
+			{
+				if(pvs[2].background=='grey')
+					for(let k=2;k<pvs.length;k++)
+						pvs[k].background='black';
+			},200)
+		}
 		nv.s1=p.screenX;nv.s2=p.screenY;
 		nv.g1=0;nv.g2=0;
 	});
-	document.addEventListener("pointerup",()=>{nndvs(1);if(dk.isVisible&&pvs[0].background=='white')nkp();pk();});
+	document.addEventListener("pointerup",()=>{nndvs(1);if(dk.isVisible&&pvs[2].background=='black')nkp();pk();});
 	document.addEventListener("pointermove",(p)=>
 	{
+		if(pvs[2].background=='white')return;
 		if(p.screenX==nv.s1&&p.screenY==nv.s2)
 		{
 			nv.g1+=p.movementX;
