@@ -878,7 +878,7 @@ const lds=function()
 			if(!jdv())d.requestPointerLock();
 			else {d.requestFullscreen();screen.orientation.lock("landscape-primary");dk.isVisible=true;}
 		}
-		else if(pvs[2].background=='white')
+		else if(dk.alpha==1)
 		{
 			for(let k=0;k<pvs.length;k++)
 				pvs[k].background=k>1?"black":"white";
@@ -894,14 +894,13 @@ const lds=function()
 		if(Date.now()-gk>kn-30)
 		{
 			gk=0;
-			for(let k=2;k<pvs.length;k++)pvs[k].background='white';
+			dk.alpha=1;
 		}
 		else setTimeout(vpvk,kn-Date.now()+gk)
 	}
-	if(jdv())d.addEventListener('pointermove',(p)=>
+	d.addEventListener('pointermove',(p)=>
 	{
-		for(let k=2;k<pvs.length;k++)
-			pvs[k].background='lightblue';
+		dk.alpha=.5
 		if(!p.buttons)vpvk(1)
 	})
 	document.addEventListener("pointerdown",()=>{nndvs(1.2)});
