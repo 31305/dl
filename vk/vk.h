@@ -345,16 +345,12 @@ struct stslp
 		auto vyk=((vyp*)vy);
 		for(int k=0;k<s;k+=sizeof(float))
 		{
+			*((float*)(d+k))=vyk->mc.k[vyk->d];
 			if(vyk->mc.ak(vyk->d,vyk->u)==0)
 			{
 				if(vyk->v)fprintf(stderr,"<\n");
-				*((float*)(d+k))=0;
 			}
-			else
-			{
-				*((float*)(d+k))=vyk->mc.k[vyk->d];
-				vyk->d=vyk->mc.v(vyk->d);
-			}
+			else vyk->d=vyk->mc.v(vyk->d);
 		}
 	};
 	static void p(void* bnd,float ls)
