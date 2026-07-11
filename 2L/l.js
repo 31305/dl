@@ -853,14 +853,7 @@ const lds=function()
 	const dndpv=(p)=>{dk.isVisible=p;pc.isVisible=!p;if(pc.isVisible)nndvs(1)}
 	if(!jdv())document.addEventListener("pointerlockchange",()=>dndpv(document.pointerLockElement==d));
 	else document.addEventListener("fullscreenchange",()=>dndpv(document.fullscreenElement==d))
-	d.addEventListener("click",(p)=>
-	{
-		if(!dk.isVisible)
-		{
-			if(!jdv())d.requestPointerLock();
-			else {d.requestFullscreen();screen.orientation.lock("landscape-primary");dk.isVisible=true;}
-		}
-	});
+	const pk=()=>{for(let k=0;k<pvs.length;k++)pvs[k].background=k<2?"black":"white";};
 	const ldv=['2px','20px','4px','22px'];
 	let pvs=[];
 	for(let k=3;k>=0;k--)
@@ -875,46 +868,23 @@ const lds=function()
 		ld.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
 		dk.addControl(ld);
 	}
-	let nv={s1:0,s2:0,g1:0,g2:0};
-	const pk=()=>{for(let k=0;k<pvs.length;k++)pvs[k].background=k<2?"black":"white";};
-	document.addEventListener("pointerdown",(p)=>
+	d.addEventListener("click",(p)=>
 	{
-		nndvs(1.2)
-		if(!jdv())
+		if(!dk.isVisible)
+		{
+			if(!jdv())d.requestPointerLock();
+			else {d.requestFullscreen();screen.orientation.lock("landscape-primary");dk.isVisible=true;}
+		}
+		else
 		{
 			for(let k=0;k<pvs.length;k++)
 				pvs[k].background=k>1?"black":"white";
+			nkp();
 		}
-		else
-		{
-			for(let k=0;k<pvs.length;k++)
-				pvs[k].background=k>1?"grey":"white";
-			setTimeout(()=>
-			{
-				if(pvs[2].background=='grey')
-					for(let k=2;k<pvs.length;k++)
-						pvs[k].background='black';
-			},200)
-		}
-		nv.s1=p.screenX;nv.s2=p.screenY;
-		nv.g1=0;nv.g2=0;
+		setTimeout(pk,200);
 	});
-	document.addEventListener("pointerup",()=>{nndvs(1);if(dk.isVisible&&pvs[2].background=='black')nkp();pk();});
-	document.addEventListener("pointermove",(p)=>
-	{
-		if(pvs[2].background=='white')return;
-		if(p.screenX==nv.s1&&p.screenY==nv.s2)
-		{
-			nv.g1+=p.movementX;
-			nv.g2+=p.movementY;
-		}
-		else
-		{
-			nv.g1=p.screenX-nv.s1;
-			nv.g2=p.screenX-nv.s2;
-		}
-		if(Math.abs(nv.g1)>20||Math.abs(nv.g2)>20)pk();
-	});
-	document.addEventListener("pointerout",()=>{nndvs(1);pk();});
-	document.addEventListener("pointercancel",()=>{nndvs(1);pk()});
+	document.addEventListener("pointerdown",(p)=>{nndvs(1.2)});
+	document.addEventListener("pointerup",()=>{nndvs(1)});
+	document.addEventListener("pointerout",()=>{nndvs(1);});
+	document.addEventListener("pointercancel",()=>{nndvs(1);});
 }
