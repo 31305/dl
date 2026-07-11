@@ -725,7 +725,7 @@ const ssk=function()
 	}
 	d.addEventListener("touchend",spk);
 	d.addEventListener("touchcancel",spk);
-	let dg=0,gpvs=0;
+	let dg=0,gpvs=[0,0];
 	const nps={};
 	window.nps=nps;
 	window.addEventListener('keydown',(p)=>{
@@ -759,11 +759,20 @@ const ssk=function()
 		const t=gs.scale(kn);
 		const ps=lpc.position.clone()
 		lpc.moveWithCollisions(t.add(pv(0,-.1,0)));
-		const gpv=lpc.position.subtract(ps).dot(t)
-		if(Math.sign(gpv)*Math.sign(gpvs)<0)gpvs=0;
-		if(Math.abs(gpvs)<1000)gpvs+=gpv>=0?1:-1;
-		if(Math.abs(gpvs)>3||lpc.position.subtract(l.position).length()>.05)
-			l.position.copyFrom(lpc.position)
+		const gpv=[lpc.position.subtract(ps).dot(t),lpc.position.y-ps.y];
+		for(let k=0;k<2;k++)
+		{
+			if(Math.sign(gpv[k])*Math.sign(gpvs[k])<0)gpvs[k]=0;
+			if(Math.abs(gpvs[k])<1000)gpvs[k]+=gpv[k]>=0?1:-1;
+		}
+		const dtvk=.05,pvs=3
+		if(Math.abs(gpvs[0])>pvs||lpc.position.subtract(l.position).multiply(pv(1,0,1)).length()>dtvk)
+		{
+			l.position.x=lpc.position.x
+			l.position.z=lpc.position.z
+		}
+		if(Math.abs(gpvs[1])>pvs||Math.abs(lpc.position.y-l.position.y)>dtvk)
+			l.position.y=lpc.position.y
 		if(nps["Space"]==true&&dg<=0&&Math.abs(lpc.position.y-ps.y)<0.001)
 		{
 			nps["Space"]=2;
