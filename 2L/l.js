@@ -702,8 +702,8 @@ const ssk=function()
 {
 	d.addEventListener("mousemove",(p)=>{if(document.pointerLockElement===d)
 	{
-		l.cameraRotation.y+=p.movementX/d.height; 
-		l.cameraRotation.x+=p.movementY/d.height;
+		l.cameraRotation.y+=p.movementX/d.offsetHeight;
+		l.cameraRotation.x+=p.movementY/d.offsetHeight;
 	}
 	});
 	const sss=new Map();
@@ -791,8 +791,8 @@ const ssk=function()
 	{
 		for(const s of p.changedTouches)
 		{
-			let g1=(s.clientX-sss.get(s.identifier).s1)/Math.min(d.width,d.height);
-			let g2=(s.clientY-sss.get(s.identifier).s2)/Math.min(d.width,d.height);
+			let g1=(s.clientX-sss.get(s.identifier).s1)/Math.min(d.offsetWidth,d.offsetHeight);
+			let g2=(s.clientY-sss.get(s.identifier).s2)/Math.min(d.offsetWidth,d.offsetHeight);
 			if(sss.get(s.identifier).m)
 			{
 				const vg=3;
@@ -825,8 +825,9 @@ const lds=function()
 {
 	const dk=new BABYLON.GUI.Rectangle();
 	window.dk=dk
-	dk.width='30px';
-	dk.height='30px';
+	const pmpv=(p)=>(p*devicePixelRatio).toString()+'px';
+	dk.width=pmpv(30);
+	dk.height=dk.width;
 	dk.background='transparent';
 	dk.thickness=0;
 	dk.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
@@ -845,7 +846,7 @@ const lds=function()
 		nnd.scaleX=p;
 		nnd.scaleY=p;
 	}
-	nnd.width='120px'
+	nnd.width=pmpv(120)
 	nnd.height=nnd.width
 	nnd.background="rgba(80,50,0,.5)";
 	nnd.color='rgba(255,155,0,1)';
@@ -857,7 +858,7 @@ const lds=function()
 	if(!jdv())document.addEventListener("pointerlockchange",()=>dndpv(document.pointerLockElement==d));
 	else document.addEventListener("fullscreenchange",()=>dndpv(document.fullscreenElement==d))
 	const pk=()=>{for(let k=0;k<pvs.length;k++)pvs[k].background=k<2?"black":"white";};
-	const ldv=['2px','20px','4px','22px'];
+	const ldv=[2,20,4,22].map(pmpv);
 	let pvs=[];
 	for(let k=3;k>=0;k--)
 	{
