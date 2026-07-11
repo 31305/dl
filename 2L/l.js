@@ -850,7 +850,7 @@ const lds=function()
 	nnd.height=nnd.width
 	nnd.background="rgba(80,50,0,.5)";
 	nnd.color='rgba(255,155,0,1)';
-	nnd.thickness=10;
+	nnd.thickness=10*devicePixelRatio;
 	nnd.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
 	nnd.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
 	pc.addControl(nnd);
@@ -890,7 +890,7 @@ const lds=function()
 	let gk=0
 	const vpvk=(p=false)=>
 	{
-		const kn=300;
+		const kn=200;
 		if(gk==0||p)gk=Date.now()
 		if(Date.now()-gk>kn-30)
 		{
