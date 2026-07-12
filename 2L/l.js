@@ -754,7 +754,8 @@ const ssk=function()
 		const gs=new BABYLON.Vector3(0,0,0);
 		if(gds.length())
 			gs.copyFrom(BABYLON.Vector3.TransformCoordinates
-				(new BABYLON.Vector3(-gds.x,0,gds.y).scale(g),BABYLON.Matrix.RotationY(l.rotation.y)));
+				(new BABYLON.Vector3(-gds.x,0,gds.y).scale(g*(gds.length()>1?(1/gds.length():1)))
+					,BABYLON.Matrix.RotationY(l.rotation.y)));
 		if(dk.isVisible)
 		{
 			const g2=Number(nps['ArrowUp']==true||nps['KeyW']==true)-Number(nps['ArrowDown']==true||nps['KeyS']==true);
@@ -811,7 +812,8 @@ const ssk=function()
 			else
 			{
 				gds.addInPlace((new BABYLON.Vector2(g1,g2)).scale(5))
-				if(gds.length()>1)gds.normalize();
+				const tk=1.5;
+				if(gds.length()>tk)gds.scaleInPlace(tk/gds.length());
 			}
 			sss.get(s.identifier).s1=s.clientX;
 			sss.get(s.identifier).s2=s.clientY;
