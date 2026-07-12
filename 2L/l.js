@@ -396,9 +396,15 @@ const jnmp=class
 		this.pg.material.baseColor=new BABYLON.Color3(.1,.1,.1);
 		this.pg.material.metallic=0;
 		this.pg.material.roughness=1;
+		this.pgv=new BABYLON.PBRMetallicRoughnessMaterial("v")
+		const vm=.02;
+		this.pgv.baseColor=new BABYLON.Color3(vm,vm,vm);
+		this.pgv.metallic=0;
+		this.pgv.roughness=1;
 	}
-	sn(pv,m=null)
+	sn(d)
 	{
+		const pv=d.pv,m=d.m
 		const pm=[Math.round(pv[0]/this.pn),Math.round(pv[1]/this.pn)].toSorted((p,d)=>d-p)
 		const jk=`${pm[0]},${pm[1]}`
 		let nd=this.jsg.get(jk)
@@ -428,8 +434,11 @@ const jnmp=class
 		const p=nd.createInstance('p')
 		p.isPickable=false
 		p.parent=tp
-		const vd=BABYLON.MeshBuilder.CreateBox('pm',{width:pm[0]*this.pn,height:pm[1]*this.pn,depth:this.v})
-		vd.visibility=0;
+		const nt=0.002
+		const vd=BABYLON.MeshBuilder.CreateBox('pm',
+			{width:pm[0]*this.pn+this.v-nt,height:pm[1]*this.pn+this.v-nt,depth:this.v-nt})
+		vd.visibility=d.pg;
+		if(d.pg)vd.material=this.pgv;
 		vd.checkCollisions=true;
 		vd.isPickable=false;
 		vd.parent=tp
@@ -439,7 +448,7 @@ const jnmp=class
 	}
 	n(s,d,m=null)
 	{
-		const p=this.sn([this.l,this.l],m)
+		const p=this.sn({pv:[this.l,this.l],m:m,pg:d==2})
 		if(d==1)p.rotation.set(0,Math.PI/2,0)
 		else if(d==2)p.rotation.set(Math.PI/2,0,0)
 		p.position.set(s[0]*this.l*.5,s[1]*this.l*.5,s[2]*this.l*.5)
@@ -464,14 +473,14 @@ const jnmp=class
 		}
 		for(;k<=this.l*.5/this.pn;k++)
 		{
-			const p=this.sn([this.pn*2,this.pn*2],m)
+			const p=this.sn({pv:[this.pn*2,this.pn*2],m:m,pg:1})
 			p.position.set((s[0]-1)*this.l*.5+this.pn,s[1]*this.l*.5-this.pn*k,(s[2]+1)*this.l*.5-this.pn*(k*2-1))
 			p.rotation.set(Math.PI/2,0,0)
 			vrnm(p)
 		}
 		for(;k<this.l/this.pn;k++)
 		{
-			const p=this.sn([this.pn*2,this.pn*2],m)
+			const p=this.sn({pv:[this.pn*2,this.pn*2],m:m,pg:1})
 			p.position.set((s[0]-3)*this.l*.5+(1+k*2)*this.pn,s[1]*this.l*.5-this.pn*k,(s[2]-1)*this.l*.5+this.pn)
 			p.rotation.set(Math.PI/2,0,0)
 			vrnm(p)
