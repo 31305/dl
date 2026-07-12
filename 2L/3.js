@@ -25,7 +25,7 @@ document.head.appendChild(vvss);
 const cb=document.createElement('span')
 cb.style.width='120px';
 cb.style.height=cb.style.width;
-cb.style.border='10px solid rgb(255,155,0)'
+cb.style.border='10px solid #6ab'
 cb.style.borderRadius='50%'
 cb.style.display='block'
 cb.style.boxSizing='border-box'

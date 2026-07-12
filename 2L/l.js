@@ -64,6 +64,7 @@ const dns=new dnsnd();
 const v=new vp();
 const cbtk=()=>
 {
+	cb.style.animation=''
 	if(lnc){s.enablePhysics(new BABYLON.Vector3(0,-9.8,0),new BABYLON.HavokPlugin(true,p[1]));}
 	if(0)lnm();
 	ssk();
@@ -75,7 +76,7 @@ const cbtk=()=>
 }
 Promise.all([v.dk()]+(lnc?[HavokPhysics()]:[])).then((p)=>
 {
-	cb.addEventListener("animationiteration",()=>{cb.remove();cbtk()},{once:true});
+	cb.addEventListener("animationiteration",()=>{cbtk()},{once:true});
 });
 const d=document.createElement('canvas')
 document.body.style.margin='0';
@@ -89,6 +90,7 @@ s.clearColor=new BABYLON.Color3(0,0,0);
 const ls=1.75/2;
 const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*2,0),s);
 const lpc=new BABYLON.Mesh('lpc');
+lpc.position.copyFrom(l.position);
 (()=>
 {
 	const vk=.2;
@@ -498,8 +500,7 @@ dns.s([0,0,0],()=>
 	return p;
 })
 const dnsk=()=>{const s=[];l.position.toArray(s);dns.k(s)}
-l.position.y+=jnm.v
-lpc.position.copyFrom(l.position)
+l.setTarget(pv(-jnm.l/2,0,-jnm.l/2));
 dnsk()
 const lnm=()=>
 {
@@ -732,7 +733,7 @@ const ssk=function()
 	}
 	d.addEventListener("touchend",spk);
 	d.addEventListener("touchcancel",spk);
-	let dg=0,gpvs=[0,0];
+	let dg=0,pvsn=3,gpvs=[pvsn+1,pvsn+1];
 	const nps={};
 	window.nps=nps;
 	window.addEventListener('keydown',(p)=>{
@@ -744,6 +745,8 @@ const ssk=function()
 	window.addEventListener('blur',()=>{
 		for(let k in nps)nps[k]=false;
 	});
+	s.onAfterRenderObservable.addOnce(()=>requestAnimationFrame(()=>cb.remove()))
+	let sc=0;
 	s.onBeforeRenderObservable.add(()=>
 	{
 		const kn=s.getEngine().getDeltaTime()/1000;
@@ -764,21 +767,22 @@ const ssk=function()
 			}
 		}
 		const t=gs.scale(kn);
+		if(gs.length())sc=1
 		const ps=lpc.position.clone()
-		lpc.moveWithCollisions(t.add(pv(0,-.1,0)));
+		if(sc)lpc.moveWithCollisions(t.add(pv(0,-.1,0)));
 		const gpv=[lpc.position.subtract(ps).dot(t),lpc.position.y-ps.y];
 		for(let k=0;k<2;k++)
 		{
 			if(Math.sign(gpv[k])*Math.sign(gpvs[k])<0)gpvs[k]=0;
 			if(Math.abs(gpvs[k])<1000)gpvs[k]+=gpv[k]>=0?1:-1;
 		}
-		const dtvk=.05,pvs=3
-		if(Math.abs(gpvs[0])>pvs||lpc.position.subtract(l.position).multiply(pv(1,0,1)).length()>dtvk)
+		const dtvk=.05
+		if(Math.abs(gpvs[0])>pvsn||lpc.position.subtract(l.position).multiply(pv(1,0,1)).length()>dtvk)
 		{
 			l.position.x=lpc.position.x
 			l.position.z=lpc.position.z
 		}
-		if(Math.abs(gpvs[1])>pvs||Math.abs(lpc.position.y-l.position.y)>dtvk)
+		if(Math.abs(gpvs[1])>pvsn||Math.abs(lpc.position.y-l.position.y)>dtvk)
 			l.position.y=lpc.position.y
 		if(nps["Space"]==true&&dg<=0&&Math.abs(lpc.position.y-ps.y)<0.001)
 		{
@@ -814,13 +818,13 @@ const ssk=function()
 		}
 	}
 	});
-	c.runRenderLoop(()=>s.render());
 	const dss=new ResizeObserver((gs)=>
 	{
 		const g=gs.find((g)=>g.target===d);
 		let vpv1=g.devicePixelContentBoxSize[0].inlineSize;
 		let vpv2=g.devicePixelContentBoxSize[0].blockSize;
 		c.setSize(vpv1,vpv2);
+		s.executeWhenReady(()=>c.runRenderLoop(()=>s.render()));
 	});
 	dss.observe(d,{box:"device-pixel-content-box"});
 	lds();
@@ -851,11 +855,10 @@ const lds=function()
 		nnd.scaleX=p;
 		nnd.scaleY=p;
 	}
-	nnd.width=pmpv(120)
+	nnd.width=pmpv(parseFloat(cb.style.width))
 	nnd.height=nnd.width
-	nnd.background="rgba(80,50,0,.5)";
-	nnd.color='rgba(255,155,0,1)';
-	nnd.thickness=10*devicePixelRatio;
+	nnd.color=cb.style.borderColor;
+	nnd.thickness=parseFloat(cb.style.borderWidth)*devicePixelRatio;
 	nnd.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
 	nnd.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
 	pc.addControl(nnd);
