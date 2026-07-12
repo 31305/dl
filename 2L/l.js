@@ -64,7 +64,6 @@ const dns=new dnsnd();
 const v=new vp();
 const cbtk=()=>
 {
-	cb.style.animation=''
 	if(lnc){s.enablePhysics(new BABYLON.Vector3(0,-9.8,0),new BABYLON.HavokPlugin(true,p[1]));}
 	if(0)lnm();
 	ssk();
@@ -76,7 +75,8 @@ const cbtk=()=>
 }
 Promise.all([v.dk()]+(lnc?[HavokPhysics()]:[])).then((p)=>
 {
-	cb.addEventListener("animationiteration",()=>{cbtk()},{once:true});
+	cb.style.animationIterationCount=1
+	cb.addEventListener("animationend",()=>{cbtk()},{once:true});
 });
 const d=document.createElement('canvas')
 document.body.style.margin='0';
