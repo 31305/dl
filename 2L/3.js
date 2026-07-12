@@ -15,29 +15,22 @@ ss('vm.js')
 ss("l.js")
 const vvss=document.createElement('style');
 vvss.textContent=`
-.cb{
-	--dv:200px;
-	width:calc(var(--dv) * 0.25);
-	height:calc(var(--dv) * 0.25);
-	border:calc(var(--dv) * 0.05) solid rgb(255,155,0);
-	border-bottom-color:transparent;
-	border-radius:50%;
-	display:block;
-	box-sizing:border-box;
-	animation:ck 1s linear infinite;
-	}
 	@keyframes ck{
-	0%{
-		transform:rotate(0deg);
-	}
-	100%{
-		transform:rotate(360deg);
-	}
+	0%{transform:scale(1);}
+	50%{transform:scale(0.8);}
+	100%{transform:scale(1);}
 	}
 `;
 document.head.appendChild(vvss);
 const cb=document.createElement('span')
-cb.style='z-index:999999;'
+cb.style.width='120px';
+cb.style.height=cb.style.width;
+cb.style.border='10px solid rgb(255,155,0)'
+cb.style.borderRadius='50%'
+cb.style.display='block'
+cb.style.boxSizing='border-box'
+cb.style.animation='ck 1s ease-in-out infinite'
+cb.style.zIndex=999999
 cb.className='cb'
 document.body.style.display='grid'
 document.body.style.placeItems='center'

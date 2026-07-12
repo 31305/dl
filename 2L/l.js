@@ -62,17 +62,20 @@ const dnsnd=class
 }
 const dns=new dnsnd();
 const v=new vp();
-Promise.all([v.dk()]+(lnc?[HavokPhysics()]:[])).then((p)=>
+const cbtk=()=>
 {
 	if(lnc){s.enablePhysics(new BABYLON.Vector3(0,-9.8,0),new BABYLON.HavokPlugin(true,p[1]));}
 	if(0)lnm();
 	ssk();
-	document.body.removeChild(cb)
 	const vvss=document.createElement('style');
 	vvss.textContent=`
 	@media (hover:hover) and (pointer:fine){body{cursor: pointer;}}
 	`;
 	document.head.appendChild(vvss);
+}
+Promise.all([v.dk()]+(lnc?[HavokPhysics()]:[])).then((p)=>
+{
+	cb.addEventListener("animationiteration",()=>{cb.remove();cbtk()},{once:true});
 });
 const d=document.createElement('canvas')
 document.body.style.margin='0';
@@ -86,7 +89,6 @@ s.clearColor=new BABYLON.Color3(0,0,0);
 const ls=1.75/2;
 const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*2,0),s);
 const lpc=new BABYLON.Mesh('lpc');
-lpc.position.copyFrom(l.position);
 (()=>
 {
 	const vk=.2;
@@ -496,6 +498,8 @@ dns.s([0,0,0],()=>
 	return p;
 })
 const dnsk=()=>{const s=[];l.position.toArray(s);dns.k(s)}
+l.position.y+=jnm.v
+lpc.position.copyFrom(l.position)
 dnsk()
 const lnm=()=>
 {
@@ -702,8 +706,9 @@ const ssk=function()
 {
 	d.addEventListener("mousemove",(p)=>{if(document.pointerLockElement===d)
 	{
-		l.cameraRotation.y+=p.movementX/d.offsetHeight;
-		l.cameraRotation.x+=p.movementY/d.offsetHeight;
+		const vg=3;
+		l.cameraRotation.y+=vg*p.movementX/d.offsetHeight;
+		l.cameraRotation.x+=vg*p.movementY/d.offsetHeight;
 	}
 	});
 	const sss=new Map();
