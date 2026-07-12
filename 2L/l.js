@@ -142,13 +142,20 @@ const ndnm=function(ss,vsm)
 	dnd.rotation.set(0,Math.PI,0)
 	const nd=BABYLON.MeshBuilder.CreatePlane("nd",{width:vsm,height:vsm},s);
 	nd.parent=tp;
-	nd.material=new BABYLON.PBRMetallicRoughnessMaterial("v",s);
+	nd.material=new BABYLON.PBRCustomMaterial("v",s);
 	const vs=128;
 	const pdc=new BABYLON.DynamicTexture("l",vs,s);
-	nd.material.baseTexture=pdc;
-	pdc.updateSamplingMode(BABYLON.Constants.NEAREST_LINEAR_MIPNEAREST);
+	nd.material.albedoTexture=pdc;
 	nd.material.metallic=0;
 	nd.material.roughness=1;
+	if(1)nd.material.Fragment_Custom_Albedo(`
+		vec2 vs=vAlbedoUV;
+		float v=128.0;
+		vs*=v;
+		vec2 nkc= floor(vs+0.5);
+		vs=nkc+clamp((vs-nkc)/fwidth(vs),-0.5,0.5); 
+		surfaceAlbedo=texture2D(albedoSampler,(vs/v)+uvOffset).rgb;
+	`);
 	const pv=pdc.getContext();
 	pv.fillStyle='white';
 	pv.fillRect(0,0,vs,vs);
@@ -521,6 +528,9 @@ dns.s([0,0,0],()=>
 		kns.parent=p
 		kns.position.set(-jnm.l*.5+jnm.v*.5,2,0)
 		kns.rotation.set(0,-Math.PI/2,0)
+	}
+	if(1)
+	{
 		const nd=ndnm(pv(0,ls*2,jnm.l*.5-jnm.v*.5-ntvs),1)
 		nd.parent=p
 	}
