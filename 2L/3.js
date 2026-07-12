@@ -23,9 +23,9 @@ vvss.textContent=`
 `;
 document.head.appendChild(vvss);
 const cb=document.createElement('span')
-cb.style.width='120px';
+cb.style.width='14dvh';
 cb.style.height=cb.style.width;
-cb.style.border='10px solid #6ab'
+cb.style.border='1.2dvh solid #6ab'
 cb.style.borderRadius='50%'
 cb.style.display='block'
 cb.style.boxSizing='border-box'

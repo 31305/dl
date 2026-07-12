@@ -705,7 +705,7 @@ const nkp=()=>
 }
 const ssk=function()
 {
-	d.addEventListener("mousemove",(p)=>{if(document.pointerLockElement===d)
+	document.addEventListener("mousemove",(p)=>{if(document.pointerLockElement===d)
 	{
 		const vg=3;
 		l.cameraRotation.y+=vg*p.movementX/d.offsetHeight;
@@ -713,7 +713,7 @@ const ssk=function()
 	}
 	});
 	const sss=new Map();
-	d.addEventListener("touchstart",(p)=>
+	document.addEventListener("touchstart",(p)=>
 	{
 		for(const s of p.changedTouches)
 			if(!sss.has(s.identifier))
@@ -731,8 +731,8 @@ const ssk=function()
 			sss.delete(s.identifier);
 		}
 	}
-	d.addEventListener("touchend",spk);
-	d.addEventListener("touchcancel",spk);
+	document.addEventListener("touchend",spk);
+	document.addEventListener("touchcancel",spk);
 	let dg=0,pvsn=3,gpvs=[pvsn+1,pvsn+1];
 	const nps={};
 	window.nps=nps;
@@ -745,7 +745,6 @@ const ssk=function()
 	window.addEventListener('blur',()=>{
 		for(let k in nps)nps[k]=false;
 	});
-	s.onAfterRenderObservable.addOnce(()=>requestAnimationFrame(()=>cb.remove()))
 	let sc=0;
 	s.onBeforeRenderObservable.add(()=>
 	{
@@ -754,7 +753,7 @@ const ssk=function()
 		const gs=new BABYLON.Vector3(0,0,0);
 		if(gds.length())
 			gs.copyFrom(BABYLON.Vector3.TransformCoordinates
-				(new BABYLON.Vector3(-gds.x,0,gds.y).scale(g*(gds.length()>1?(1/gds.length():1)))
+				(new BABYLON.Vector3(-gds.x,0,gds.y).scale(g*(gds.length()>1?(1/gds.length()):1))
 					,BABYLON.Matrix.RotationY(l.rotation.y)));
 		if(dk.isVisible)
 		{
@@ -797,7 +796,7 @@ const ssk=function()
 		}
 		dnsk();
 	});
-	d.addEventListener("touchmove",(p)=>{if(0||document.fullscreenElement==d)
+	document.addEventListener("touchmove",(p)=>{if(0||document.fullscreenElement==d)
 	{
 		for(const s of p.changedTouches)
 		{
@@ -834,9 +833,11 @@ const ssk=function()
 const ppd=BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("PPD",true,s);
 const lds=function()
 {
+	ppd.idealHeight=800;
+	ppd.renderAtIdealSize=true;
 	const dk=new BABYLON.GUI.Rectangle();
 	window.dk=dk
-	const pmpv=(p)=>(p*devicePixelRatio).toString()+'px';
+	const pmpv=(p)=>p.toString()+'px';
 	dk.width=pmpv(30);
 	dk.height=dk.width;
 	dk.background='transparent';
@@ -851,20 +852,14 @@ const lds=function()
 	pc.background="rgba(0,0,0,0.6)";
 	pc.thickness=0;
 	ppd.addControl(pc);
-	const nnd=new BABYLON.GUI.Ellipse();
-	const nndvs=(p)=>
+	const nndvs=(p)=>{cb.style.scale=p};
+	const dndpv=(p)=>
 	{
-		nnd.scaleX=p;
-		nnd.scaleY=p;
+		dk.isVisible=p;
+		pc.isVisible=!p;
+		if(pc.isVisible){nndvs(1);cb.style.visibility=''}
+		else cb.style.visibility='hidden'
 	}
-	nnd.width=pmpv(parseFloat(cb.style.width))
-	nnd.height=nnd.width
-	nnd.color=cb.style.borderColor;
-	nnd.thickness=parseFloat(cb.style.borderWidth)*devicePixelRatio;
-	nnd.horizontalAlignment=BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-	nnd.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
-	pc.addControl(nnd);
-	const dndpv=(p)=>{dk.isVisible=p;pc.isVisible=!p;if(pc.isVisible)nndvs(1)}
 	if(!jdv())document.addEventListener("pointerlockchange",()=>dndpv(document.pointerLockElement==d));
 	else document.addEventListener("fullscreenchange",()=>dndpv(document.fullscreenElement==d))
 	const pk=()=>{for(let k=0;k<pvs.length;k++)pvs[k].background=k<2?"black":"white";};
@@ -882,7 +877,7 @@ const lds=function()
 		ld.verticalAlignment=BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
 		dk.addControl(ld);
 	}
-	d.addEventListener("click",(p)=>
+	document.addEventListener("click",(p)=>
 	{
 		if(!dk.isVisible)
 		{
@@ -909,7 +904,7 @@ const lds=function()
 		}
 		else setTimeout(vpvk,kn-Date.now()+gk)
 	}
-	d.addEventListener('pointermove',(p)=>
+	document.addEventListener('pointermove',(p)=>
 	{
 		dk.alpha=.5
 		if(!p.buttons)vpvk(1)
