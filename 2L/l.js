@@ -818,13 +818,13 @@ const ssk=function()
 		}
 	}
 	});
+	s.executeWhenReady(()=>c.runRenderLoop(()=>s.render()));
 	const dss=new ResizeObserver((gs)=>
 	{
 		const g=gs.find((g)=>g.target===d);
 		let vpv1=g.devicePixelContentBoxSize[0].inlineSize;
 		let vpv2=g.devicePixelContentBoxSize[0].blockSize;
 		c.setSize(vpv1,vpv2);
-		s.executeWhenReady(()=>c.runRenderLoop(()=>s.render()));
 	});
 	dss.observe(d,{box:"device-pixel-content-box"});
 	lds();
