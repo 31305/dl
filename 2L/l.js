@@ -419,6 +419,7 @@ const jnmp=class
 		}
 		const tp=new BABYLON.TransformNode('jp')
 		const p=nd.createInstance('p')
+		p.isPickable=false
 		p.parent=tp
 		const vd=BABYLON.MeshBuilder.CreateBox('pm',{width:pm[0]*this.pn,height:pm[1]*this.pn,depth:this.v})
 		vd.visibility=0;
@@ -674,6 +675,7 @@ const lnm=()=>
 s.collisionsEnabled=true;
 l.inertia=0;
 lpc.checkCollisions=true;
+lpc.isPickable=false;
 l.inputs.remove(l.inputs.attached.mouse);
 l.inputs.remove(l.inputs.attached.keyboard);
 if(1)l.angularSensibility*=-1;
@@ -683,7 +685,7 @@ const nkp=()=>
 	console.log(sp.pickedPoint);
 	let n=sp.pickedMesh;
 	window.plv=n;
-	if(n==undefined)v.b([1,70,66,2,44,9,51,48,1,75]);
+	if(n==undefined){return;v.b([1,70,66,2,44,9,51,48,1,75]);}
 	else if(typeof(b)!=='undefined'&&n==b)
 	{
 		const ss=sp.pickedPoint.y%(s2+bvs);
@@ -748,7 +750,7 @@ const ssk=function()
 	let sc=0;
 	s.onBeforeRenderObservable.add(()=>
 	{
-		const kn=s.getEngine().getDeltaTime()/1000;
+		const kn=Math.min(s.getEngine().getDeltaTime()/1000,.016);
 		const g=4.5;
 		const gs=new BABYLON.Vector3(0,0,0);
 		if(gds.length())
@@ -769,7 +771,7 @@ const ssk=function()
 		const t=gs.scale(kn);
 		if(gs.length())sc=1
 		const ps=lpc.position.clone()
-		if(sc)lpc.moveWithCollisions(t.add(pv(0,-.1,0)));
+		if(sc)lpc.moveWithCollisions(t.add(pv(0,-kn*6,0)));
 		const gpv=[lpc.position.subtract(ps).dot(t),lpc.position.y-ps.y];
 		for(let k=0;k<2;k++)
 		{
@@ -784,7 +786,7 @@ const ssk=function()
 		}
 		if(Math.abs(gpvs[1])>pvsn||Math.abs(lpc.position.y-l.position.y)>dtvk)
 			l.position.y=lpc.position.y
-		if(nps["Space"]==true&&dg<=0&&Math.abs(lpc.position.y-ps.y)<0.001)
+		if(dk.isVisible&&nps["Space"]==true&&dg<=0&&Math.abs(lpc.position.y-ps.y)<0.001)
 		{
 			nps["Space"]=2;
 			dg=15;
@@ -833,7 +835,7 @@ const ssk=function()
 const ppd=BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("PPD",true,s);
 const lds=function()
 {
-	ppd.idealHeight=800;
+	ppd.idealHeight=640;
 	ppd.renderAtIdealSize=true;
 	const dk=new BABYLON.GUI.Rectangle();
 	window.dk=dk
@@ -884,7 +886,7 @@ const lds=function()
 			if(!jdv())d.requestPointerLock();
 			else {d.requestFullscreen();screen.orientation.lock("landscape-primary");dk.isVisible=true;}
 		}
-		else if(dk.alpha==1)
+		else if(1||dk.alpha==1)
 		{
 			for(let k=0;k<pvs.length;k++)
 				pvs[k].background=k>1?"black":"white";
@@ -893,8 +895,10 @@ const lds=function()
 		}
 	});
 	let gk=0
+	dk.alpha=.5
 	const vpvk=(p=false)=>
 	{
+		return;
 		const kn=200;
 		if(gk==0||p)gk=Date.now()
 		if(Date.now()-gk>kn-30)
@@ -904,7 +908,7 @@ const lds=function()
 		}
 		else setTimeout(vpvk,kn-Date.now()+gk)
 	}
-	document.addEventListener('pointermove',(p)=>
+	if(0)document.addEventListener('pointermove',(p)=>
 	{
 		dk.alpha=.5
 		if(!p.buttons)vpvk(1)
