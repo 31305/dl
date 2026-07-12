@@ -154,7 +154,7 @@ const ndnm=function(ss,vsm)
 		vs*=v;
 		vec2 nkc= floor(vs+0.5);
 		vs=nkc+clamp((vs-nkc)/fwidth(vs),-0.5,0.5); 
-		surfaceAlbedo=texture2D(albedoSampler,(vs/v)+uvOffset).rgb;
+		surfaceAlbedo=toLinearSpace(texture2D(albedoSampler,(vs/v)+uvOffset).rgb);
 	`);
 	const pv=pdc.getContext();
 	pv.fillStyle='white';
