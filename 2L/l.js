@@ -186,7 +186,11 @@ const ndnm=function(ss,vsm)
 		for(let k=0;k<l.length;k++)
 			pv.putImageData(ln[l.charCodeAt(k)],k*8+s1,s2);
 	}
-	lk('1@1007.in',28,60);
+	lk('      \\o/      ',4,4);
+	lk('---------------',4,12);
+	lk('1. UITS',4,20);
+	lk('2. SKD',4,28);
+	lk('3. DDD',4,36);
 	pdc.update();
 	tp.n=[70,7,44,68,31,47,2,77];
 	return tp;
@@ -393,11 +397,12 @@ const jnmp=class
 		this.pg=new BABYLON.MeshBuilder.CreateBox('pg',{width:v,depth:v,height:1});
 		this.pg.setEnabled(false)
 		this.pg.material=new BABYLON.PBRMetallicRoughnessMaterial("v")
-		this.pg.material.baseColor=new BABYLON.Color3(.1,.1,.1);
+		const dv=.4;
+		this.pg.material.baseColor=new BABYLON.Color3(dv,dv,dv);
 		this.pg.material.metallic=0;
 		this.pg.material.roughness=1;
 		this.pgv=new BABYLON.PBRMetallicRoughnessMaterial("v")
-		const vm=.02;
+		const vm=0;
 		this.pgv.baseColor=new BABYLON.Color3(vm,vm,vm);
 		this.pgv.metallic=0;
 		this.pgv.roughness=1;
