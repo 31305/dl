@@ -193,6 +193,8 @@ const ndnm=function(ss,vsm)
 	lk('3. DDD',4,36);
 	pdc.update();
 	tp.n=[70,7,44,68,31,47,2,77];
+	dnd.isPickable=false
+	nd.isPickable=false
 	return tp;
 };
 const spd=function(s)
@@ -449,6 +451,7 @@ const jnmp=class
 		vd.parent=tp
 		tp.n=[58,4,45,2,75]
 		if(m)tp.parent=m
+		if(d.s)tp.position.set(d.s[0],d.s[1],d.s[2])
 		return tp
 	}
 	n(s,d,m=null)
@@ -534,6 +537,7 @@ dns.s([0,0,0],()=>
 	jnm.n([0,-1,-1],3,p)
 	jnm.n([0,-2,-2],2,p)
 	jnm.spn([0,0,-2],0,p)
+	jnm.sn({m:p,s:[.5,1,-jnm.l/2],pv:[2,2]})
 	vngn.n({v:[.04,.04,.08],m:p,s:[-jnm.l/2,jnm.pn*3+jnm.v/2,-4.5*jnm.pn],
 		n:[58,4,45,2,76,53,3,66,7,73,5,69,3,70,1,75]})
 	if(0)
@@ -760,7 +764,7 @@ const ssk=function()
 {
 	document.addEventListener("mousemove",(p)=>{if(document.pointerLockElement===d)
 	{
-		const vg=3;
+		const vg=1;
 		l.cameraRotation.y+=vg*p.movementX/d.offsetHeight;
 		l.cameraRotation.x+=vg*p.movementY/d.offsetHeight;
 	}
