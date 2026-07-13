@@ -88,7 +88,7 @@ const s=new BABYLON.Scene(c);
 const pv=(p,d,t)=>{return new BABYLON.Vector3(p,d,t);}
 s.clearColor=new BABYLON.Color3(0,0,0);
 const ls=1.75/2;
-const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*2,0),s);
+const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(1,ls*2,0),s);
 const lpc=new BABYLON.Mesh('lpc');
 lpc.position.copyFrom(l.position);
 (()=>
@@ -128,6 +128,33 @@ const sgbnm=function(s1,s2,g,d=0)
 	p.push(gmnk(new BABYLON.Vector3(s1.x,s1.y,s1.z-g),new BABYLON.Vector3(s2.x,s2.y,s1.z)));
 	p.push(gmnk(new BABYLON.Vector3(s1.x+d,s1.y,s2.z),new BABYLON.Vector3(s2.x-d,s2.y,s2.z+g)));
 	return p;
+}
+const lsnm=function(d)
+{
+	const v1=d.l[0].length,v2=d.l.length;
+	const tp=BABYLON.MeshBuilder.CreatePlane("lm",{width:d.v,height:d.v*v2/v1});
+	tp.material=new BABYLON.PBRCustomMaterial("v");
+	const pdc=new BABYLON.DynamicTexture("l",{width:v1,height:v2});
+	tp.material.albedoTexture=pdc;
+	tp.material.metallic=0;
+	tp.material.roughness=1;
+	tp.material.Fragment_Custom_Albedo(`
+		vec2 vs=vAlbedoUV;
+		vec2 v=(${v1},${v2});
+		vs*=v;
+		vec2 nkc= floor(vs+0.5);
+		vs=nkc+clamp((vs-nkc)/fwidth(vs),-0.5,0.5); 
+		surfaceAlbedo=toLinearSpace(texture2D(albedoSampler,(vs/v)+uvOffset).rgb);
+	`);
+	const pv=pdc.getContext();
+	pv.fillStyle='white';
+	pv.fillRect(0,0,v1,v2);
+	pv.fillStyle='black';
+	for(let k=0;k<v2;k++)
+		for(let pk=0;pk<v1;pk++)
+			if(d.l[k][pk])pv.fillRect(pk,k,1,1)
+	if(d.s)tp.position.set(s[0],s[1],s[2])
+	return tp;
 }
 const ndnm=function(ss,vsm)
 {
@@ -502,7 +529,7 @@ const vngnp=class
 		this.g=BABYLON.MeshBuilder.CreateBox('vng',{});
 		this.g.setEnabled(false)
 		this.g.material=new BABYLON.PBRMetallicRoughnessMaterial("v")
-		this.g.material.baseColor=new BABYLON.Color3(.4,.25,.7);
+		this.g.material.baseColor=new BABYLON.Color3(0,0,0);
 		this.g.material.metallic=0;
 		this.g.material.roughness=1;
 	}
@@ -539,7 +566,8 @@ dns.s([0,0,0],()=>
 	jnm.n([0,1,-2],1,p)
 	jnm.sn({m:p,s:[.75,jnm.l/2,-jnm.l/2],pv:[jnm.l,1.5]}).rotation.set(0,0,Math.PI/2)
 	jnm.sn({m:p,s:[.75,0,-jnm.l],pv:[jnm.l,jnm.l/2]}).rotation.set(Math.PI/2,Math.PI/2,0)
-	vngn.n({v:[.04,.04,.08],m:p,s:[-jnm.l/2,jnm.pn*3+jnm.v/2,-4.5*jnm.pn],
+	const vnv=jnm.pn-jnm.v
+	vngn.n({v:[vnv,vnv,vnv],m:p,s:[-jnm.l/2,jnm.pn*3+jnm.v/2,-4.5*jnm.pn],
 		n:[58,4,45,2,76,53,3,66,7,73,5,69,3,70,1,75]})
 	if(0)
 	{
