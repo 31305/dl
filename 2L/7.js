@@ -181,14 +181,18 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		return sns?Promise.resolve():v.b([70,2])
 	}
 	const pkpv=[71,16,44,66,8,77];
+	const svb=async(s)=>
+	{
+		if(!s[0].length)await v.b(s)
+		else for(const ps of s)await v.b(ps)
+	}
 	const pnk=npks(async()=>
 	{
 		if(!vc){vc=1;pnlk()}
-		if(!ps[0].p[0].length)await v.b(ps[0].p)
-		else for(const s of ps[0].p)await v.b(s)
+		await svb(ps[0].p)
 	})
-	const nnk=npks(()=>v.b([70,2]).then(()=>vc?snsvv(0,ps[0].s).then(()=>v.b(vc?ps[0].p:pkpv)):Promise.resolve()))
-	const mnk=npks(()=>v.b([5,75]).then(()=>vc?snsvv(1,ps[0].s).then(()=>v.b(vc?ps[0].p:pkpv)):Promise.resolve()))
+	const nnk=npks(()=>v.b([70,2]).then(()=>vc?snsvv(0,ps[0].s).then(()=>svb(vc?ps[0].p:pkpv)):Promise.resolve()))
+	const mnk=npks(()=>v.b([5,75]).then(()=>vc?snsvv(1,ps[0].s).then(()=>svb(vc?ps[0].p:pkpv)):Promise.resolve()))
 	document.addEventListener('keydown',(p)=>
 	{
 		if(p.code=='Space'||p.key=='?'||p.code=='Slash'||p.code=='Enter')pnk()
