@@ -789,6 +789,7 @@ const nkp=()=>
 		}
 	}
 }
+const nps={};
 const ssk=function()
 {
 	document.addEventListener("mousemove",(p)=>{if(document.pointerLockElement===d)
@@ -820,7 +821,6 @@ const ssk=function()
 	document.addEventListener("touchend",spk);
 	document.addEventListener("touchcancel",spk);
 	let dg=0,pvsn=3,gpvs=[pvsn+1,pvsn+1];
-	const nps={};
 	window.nps=nps;
 	window.addEventListener('keydown',(p)=>{
 		if(!nps[p.code])nps[p.code]=true;
@@ -870,13 +870,14 @@ const ssk=function()
 		}
 		if(Math.abs(gpvs[1])>pvsn||Math.abs(lpc.position.y-l.position.y)>dtvk)
 			l.position.y=lpc.position.y
-		if(dk.isVisible&&nps["Space"]==true&&dg<=0&&Math.abs(lpc.position.y-ps.y)<0.001)
+		if(dk.isVisible&&nps["Space"]&&dg<=0&&Math.abs(lpc.position.y-ps.y)<0.001)
 		{
-			nps["Space"]=2;
+			sc=1
 			dg=15;
 		}
 		if(dg>0)
 		{
+			nps['Space']=false;
 			lpc.moveWithCollisions(pv(0,dg*kn,0));
 			dg-=kn*50;
 		}
@@ -975,6 +976,7 @@ const lds=function()
 			for(let k=0;k<pvs.length;k++)
 				pvs[k].background=k>1?"black":"white";
 			nkp();
+			nps['Space']=true;
 			setTimeout(pk,200);
 		}
 	});
