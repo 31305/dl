@@ -186,7 +186,7 @@ const ndnm=function(ss,vsm)
 		surfaceAlbedo=toLinearSpace(texture2D(albedoSampler,(vs/v)+uvOffset).rgb);
 	`);
 	const pv=pdc.getContext();
-	pv.fillStyle='white';
+	pv.fillStyle='black';
 	pv.fillRect(0,0,vs,vs);
 	pv.fillStyle='#F54927';
 	const vk=2;
@@ -204,9 +204,9 @@ const ndnm=function(ss,vsm)
 			for(let ppk=0;ppk<8;ppk++)
 			{
 				const v=lv[k][pk]&(1<<(8-ppk))
-				ln[k].data[8*4*pk+4*ppk]=v?0:255;
-				ln[k].data[8*4*pk+4*ppk+1]=v?0:255;
-				ln[k].data[8*4*pk+4*ppk+2]=v?0:255;
+				ln[k].data[8*4*pk+4*ppk]=v?255:0;
+				ln[k].data[8*4*pk+4*ppk+1]=v?255:0;
+				ln[k].data[8*4*pk+4*ppk+2]=v?255:0;
 				ln[k].data[8*4*pk+4*ppk+3]=255;
 			}
 	}
@@ -569,8 +569,6 @@ dns.s([0,0,0],()=>
 	jnm.sn({m:p,s:[.75,jnm.l/2,-jnm.l/2],pv:[jnm.l,1.5]}).rotation.set(0,0,Math.PI/2)
 	jnm.sn({m:p,s:[.75,0,-jnm.l],pv:[jnm.l,jnm.l/2]}).rotation.set(Math.PI/2,Math.PI/2,0)
 	const vnv=jnm.pn-jnm.v
-	vngn.n({v:[vnv,vnv,vnv],m:p,s:[-jnm.l/2,jnm.pn*3+jnm.v/2,-4.5*jnm.pn],
-		n:[58,4,45,2,76,53,3,66,7,73,5,69,3,70,1,75]})
 	if(0)
 	{
 		const kns=knsnm()
@@ -981,7 +979,7 @@ const lds=function()
 		}
 	});
 	let gk=0
-	dk.alpha=.5
+	dk.alpha=0
 	const vpvk=(p=false)=>
 	{
 		return;
