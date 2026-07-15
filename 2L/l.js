@@ -140,7 +140,7 @@ const lsnm=function(d)
 	tp.material.roughness=1;
 	tp.material.Fragment_Custom_Albedo(`
 		vec2 vs=vAlbedoUV;
-		vec2 v=(${v1},${v2});
+		vec2 v=vec2(${v1}.0,${v2}.0);
 		vs*=v;
 		vec2 nkc= floor(vs+0.5);
 		vs=nkc+clamp((vs-nkc)/fwidth(vs),-0.5,0.5); 
@@ -153,7 +153,9 @@ const lsnm=function(d)
 	for(let k=0;k<v2;k++)
 		for(let pk=0;pk<v1;pk++)
 			if(d.l[k][pk])pv.fillRect(pk,k,1,1)
-	if(d.s)tp.position.set(s[0],s[1],s[2])
+	if(d.s)tp.position.set(d.s[0],d.s[1],d.s[2])
+	if(d.m)tp.parent=d.m
+	pdc.update()
 	return tp;
 }
 const ndnm=function(ss,vsm)
