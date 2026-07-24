@@ -641,7 +641,7 @@ else
 	const bknm=new bknmp();
 	const dvsgp=class
 	{
-		n(d)
+		n(d,v=1)
 		{	
 			if(!this[d.name])
 			{
@@ -651,12 +651,17 @@ else
 			const tp=new BABYLON.TransformNode('tp')
 			const p=this[d.name].createInstance('p')
 			p.parent=tp;
-			const vs=p.getBoundingInfo().boundingBox.extendSize.scale(2)
-			const v=BABYLON.MeshBuilder.CreateBox('v',{width:vs.x,height:vs.y,depth:vs.z})
-			v.position.copyFrom(p.getBoundingInfo().boundingBox.center.add(p.position))
-			v.checkCollisions=true;
-			v.isVisible=0;
-			v.parent=tp;
+			if(v)
+			{
+				console.log(d.name)
+				const vs=p.getBoundingInfo().boundingBox.extendSize.scale(2)
+				const v=BABYLON.MeshBuilder.CreateBox('v',{width:vs.x,height:vs.y,depth:vs.z})
+				v.position.copyFrom(p.getBoundingInfo().boundingBox.center.add(p.position))
+				v.checkCollisions=true;
+				v.isVisible=0;
+				v.parent=tp;
+			}
+			else p.checkCollisions=1
 			return tp;
 		}
 	}
@@ -670,11 +675,33 @@ else
 		rk(p,[.7,.4,0])
 		return p;
 	}
+	const gbnm=()=>
+	{
+		const v=2,bv=.1,c=3,dc=2.1,dv=1.2;
+		const p0=BABYLON.MeshBuilder.CreateCylinder('p',{height:c,diameter:v});
+		p0.position.y=c/2
+		const p1=BABYLON.MeshBuilder.CreateCylinder('p',{height:c-bv*2,diameter:v-bv*2});
+		p1.position.y=c/2
+		const p2=BABYLON.MeshBuilder.CreateBox('mg',{width:dv,height:dc,depth:1});
+		p2.position.y=dc/2+bv
+		p2.position.z=v/2
+		const gb=BABYLON.CSG.FromMesh(p0).subtract(BABYLON.CSG.FromMesh(p1).union(BABYLON.CSG.FromMesh(p2))).toMesh("b",null,s,true);
+		p0.dispose()
+		p1.dispose()
+		p2.dispose()
+		rk(gb,[0.1,0.5,.3])
+		const t=BABYLON.MeshBuilder.CreateDisc('t',{radius:v/2-bv})
+		t.position.y=bv+.001
+		rk(t,[.1,.3,.2])
+		t.rotation.x=Math.PI/2
+		return BABYLON.Mesh.MergeMeshes([gb,t],true,true,undefined,true,true)
+	}
 	dns.s([0,0,0],()=>
 	{
 		const p=new BABYLON.TransformNode('jp')
 		pss({p:bknm.nm({ps:'1111'}),m:p})
 		pss({p:dvs.n(cgsnm),m:p,s:[1,0,2]})
+		pss({p:dvs.n(gbnm,0),m:p,s:[1,0,-1.5]})
 		return p;
 	})
 }
