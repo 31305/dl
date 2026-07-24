@@ -550,7 +550,7 @@ const vngnp=class
 }
 const vngn=new vngnp();
 const jnm=new jnmp()
-dns.s([0,0,0],()=>
+if(0)dns.s([0,0,0],()=>
 {
 	const p=new BABYLON.TransformNode('jp')
 	jnm.n([0,0,0],2,p)
@@ -583,6 +583,42 @@ dns.s([0,0,0],()=>
 	}
 	return p;
 })
+else
+{
+	s.clearColor=new BABYLON.Color3(1,1,1);
+	p.dispose()
+	const bknmp=class
+	{
+		bg=1
+		v=5
+		constructor()
+		{
+			this.b=BABYLON.MeshBuilder.CreateBox('b',{width:this.v,height:this.bg,depth:this.v});
+			this.b.setEnabled(false)
+			this.b.material=new BABYLON.StandardMaterial("v")
+			this.b.material.emissiveColor=new BABYLON.Color3(.4,.4,0);
+			const psc=3;
+			const psv=1;
+			this.ps=BABYLON.MeshBuilder.CreateBox('ps',{width:this.v,height:psc,depth:psv});
+		}
+		nm(d)
+		{
+			const tp=new BABYLON.TransformNode('jp')
+			const b=this.b.createInstance('bp')
+			b.position.y=-this.bg/2
+			b.parent=tp;
+			b.checkCollisions=true;
+			return tp
+		}
+	}
+	const bknm=new bknmp();
+	dns.s([0,0,0],()=>
+	{
+		const p=new BABYLON.TransformNode('jp')
+		b=bknm.nm({m:p})
+		return p;
+	})
+}
 const dnsk=()=>{const s=[];l.position.toArray(s);dns.k(s)}
 l.setTarget(pv(-jnm.l/2,0,-jnm.l/2));
 dnsk()
