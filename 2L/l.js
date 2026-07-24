@@ -597,9 +597,13 @@ else
 			this.b.setEnabled(false)
 			this.b.material=new BABYLON.StandardMaterial("v")
 			this.b.material.emissiveColor=new BABYLON.Color3(.4,.4,0);
-			const psc=3;
+			const psc=4;
 			const psv=1;
 			this.ps=BABYLON.MeshBuilder.CreateBox('ps',{width:this.v,height:psc,depth:psv});
+			this.ps.setEnabled(false)
+			this.ps.material=new BABYLON.StandardMaterial("v")
+			const psvm=.3
+			this.ps.material.emissiveColor=new BABYLON.Color3(psvm,psvm,psvm)
 		}
 		nm(d)
 		{
@@ -608,14 +612,29 @@ else
 			b.position.y=-this.bg/2
 			b.parent=tp;
 			b.checkCollisions=true;
+			for(let k=0;k<4;k++)
+				if(d.ps[k]=='1')
+				{
+					const ps=this.ps.createInstance('ps')
+					ps.checkCollisions=true;
+					ps.position.set(0,0,this.v/2)
+					ps.rotateAround(pv(0,0,0),pv(0,1,0),k*Math.PI/2)
+					ps.parent=tp
+				}
 			return tp
 		}
+	}
+	const pss=(d)=>
+	{
+		if(d.m)d.p.parent=d.m
+		if(d.s)d.p.position.set(d.s[0],d.s[1],d.s[2])
+		if(d.b)d.p.rotation.set(d.b[0],b.b[1],d.b[2])
 	}
 	const bknm=new bknmp();
 	dns.s([0,0,0],()=>
 	{
 		const p=new BABYLON.TransformNode('jp')
-		b=bknm.nm({m:p})
+		b=pss({p:bknm.nm({ps:'1111'}),m:p})
 		return p;
 	})
 }
