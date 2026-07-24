@@ -585,7 +585,7 @@ if(0)dns.s([0,0,0],()=>
 })
 else
 {
-	s.clearColor=new BABYLON.Color3(1,1,1);
+	s.clearColor=new BABYLON.Color3(.6,.5,.5);
 	p.dispose()
 	const bknmp=class
 	{
@@ -596,14 +596,13 @@ else
 			this.b=BABYLON.MeshBuilder.CreateBox('b',{width:this.v,height:this.bg,depth:this.v});
 			this.b.setEnabled(false)
 			this.b.material=new BABYLON.StandardMaterial("v")
-			this.b.material.emissiveColor=new BABYLON.Color3(.4,.4,0);
+			this.b.material.emissiveColor=new BABYLON.Color3(.6,.6,.4);
 			const psc=4;
-			const psv=1;
-			this.ps=BABYLON.MeshBuilder.CreateBox('ps',{width:this.v,height:psc,depth:psv});
+			const psv=.1;
+			this.ps=BABYLON.MeshBuilder.CreateBox('ps',{width:this.v+psv,height:psc,depth:psv});
 			this.ps.setEnabled(false)
 			this.ps.material=new BABYLON.StandardMaterial("v")
-			const psvm=.3
-			this.ps.material.emissiveColor=new BABYLON.Color3(psvm,psvm,psvm)
+			this.ps.material.emissiveColor=new BABYLON.Color3(.2,.2,.1)
 		}
 		nm(d)
 		{
