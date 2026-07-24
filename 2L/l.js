@@ -88,7 +88,7 @@ const s=new BABYLON.Scene(c);
 const pv=(p,d,t)=>{return new BABYLON.Vector3(p,d,t);}
 s.clearColor=new BABYLON.Color3(0,0,0);
 const ls=1.75/2;
-const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(1,ls*2,0),s);
+const l=new BABYLON.FreeCamera("l",new BABYLON.Vector3(0,ls*2,0),s);
 const lpc=new BABYLON.Mesh('lpc');
 lpc.position.copyFrom(l.position);
 (()=>
@@ -550,39 +550,45 @@ const vngnp=class
 }
 const vngn=new vngnp();
 const jnm=new jnmp()
-if(0)dns.s([0,0,0],()=>
+if(0)
 {
-	const p=new BABYLON.TransformNode('jp')
-	jnm.n([0,0,0],2,p)
-	jnm.n([-1,1,0],1,p)
-	jnm.n([1,1,0],1,p)
-	jnm.n([-1,1,-2],1,p)
-	jnm.n([-1,-1,-2],1,p)
-	jnm.n([1,-1,-2],1,p)
-	jnm.n([0,1,1],3,p)
-	jnm.sn({m:p,s:[-3*jnm.pn,jnm.l/2,-1.5*jnm.l],pv:[jnm.l,jnm.pn*6]}).rotation.z=Math.PI/2
-	jnm.n([0,-1,-3],3,p)
-	jnm.n([0,-1,-1],3,p)
-	jnm.n([0,-2,-2],2,p)
-	jnm.spn([0,0,-2],0,p)
-	jnm.n([0,1,-2],1,p)
-	jnm.sn({m:p,s:[.75,jnm.l/2,-jnm.l/2],pv:[jnm.l,1.5]}).rotation.set(0,0,Math.PI/2)
-	jnm.sn({m:p,s:[.75,0,-jnm.l],pv:[jnm.l,jnm.l/2]}).rotation.set(Math.PI/2,Math.PI/2,0)
-	const vnv=jnm.pn-jnm.v
-	if(0)
+	l.position.x=1;
+	lpc.position.x=l.position.x;
+	l.setTarget(pv(-jnm.l/2,0,-jnm.l/2));
+	dns.s([0,0,0],()=>
 	{
-		const kns=knsnm()
-		kns.parent=p
-		kns.position.set(-jnm.l*.5+jnm.v*.5,2,0)
-		kns.rotation.set(0,-Math.PI/2,0)
-	}
-	if(1)
-	{
-		const nd=ndnm(pv(0,ls*2,jnm.l*.5-jnm.v*.5-ntvs),1)
-		nd.parent=p
-	}
-	return p;
-})
+		const p=new BABYLON.TransformNode('jp')
+		jnm.n([0,0,0],2,p)
+		jnm.n([-1,1,0],1,p)
+		jnm.n([1,1,0],1,p)
+		jnm.n([-1,1,-2],1,p)
+		jnm.n([-1,-1,-2],1,p)
+		jnm.n([1,-1,-2],1,p)
+		jnm.n([0,1,1],3,p)
+		jnm.sn({m:p,s:[-3*jnm.pn,jnm.l/2,-1.5*jnm.l],pv:[jnm.l,jnm.pn*6]}).rotation.z=Math.PI/2
+		jnm.n([0,-1,-3],3,p)
+		jnm.n([0,-1,-1],3,p)
+		jnm.n([0,-2,-2],2,p)
+		jnm.spn([0,0,-2],0,p)
+		jnm.n([0,1,-2],1,p)
+		jnm.sn({m:p,s:[.75,jnm.l/2,-jnm.l/2],pv:[jnm.l,1.5]}).rotation.set(0,0,Math.PI/2)
+		jnm.sn({m:p,s:[.75,0,-jnm.l],pv:[jnm.l,jnm.l/2]}).rotation.set(Math.PI/2,Math.PI/2,0)
+		const vnv=jnm.pn-jnm.v
+		if(0)
+		{
+			const kns=knsnm()
+			kns.parent=p
+			kns.position.set(-jnm.l*.5+jnm.v*.5,2,0)
+			kns.rotation.set(0,-Math.PI/2,0)
+		}
+		if(1)
+		{
+			const nd=ndnm(pv(0,ls*2,jnm.l*.5-jnm.v*.5-ntvs),1)
+			nd.parent=p
+		}
+		return p;
+	})
+}
 else
 {
 	s.clearColor=new BABYLON.Color3(.6,.5,.5);
@@ -655,15 +661,24 @@ else
 		}
 	}
 	const dvs=new dvsgp();
+	const cgsnm=()=>
+	{
+		const v=.3
+		const c=3
+		const p=BABYLON.MeshBuilder.CreateBox('mg',{width:v,height:c,depth:v})
+		p.position.y=c/2
+		rk(p,[.7,.4,0])
+		return p;
+	}
 	dns.s([0,0,0],()=>
 	{
 		const p=new BABYLON.TransformNode('jp')
-		const b=pss({p:bknm.nm({ps:'1111'}),m:p})
+		pss({p:bknm.nm({ps:'1111'}),m:p})
+		pss({p:dvs.n(cgsnm),m:p,s:[1,0,2]})
 		return p;
 	})
 }
 const dnsk=()=>{const s=[];l.position.toArray(s);dns.k(s)}
-l.setTarget(pv(-jnm.l/2,0,-jnm.l/2));
 dnsk()
 const s2=ls*4,bvs=.5;
 const lnm=()=>
