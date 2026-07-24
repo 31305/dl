@@ -630,10 +630,32 @@ else
 		if(d.b)d.p.rotation.set(d.b[0],b.b[1],d.b[2])
 	}
 	const bknm=new bknmp();
+	const dvsgp=class
+	{
+		n(d)
+		{	
+			if(!this[d.name])
+			{
+				this[d.name]=d()
+				this[d.name].setEnabled(false)
+			}
+			const tp=new BABYLON.TransformNode('tp')
+			const p=this[d.name].createInstance('p')
+			p.parent=tp;
+			const vs=p.getBoundingInfo().boundingBox.extendSize.scale(2)
+			const v=BABYLON.MeshBuilder.CreateBox('v',{width:vs.x,height:vs.y,depth:vs.z})
+			v.position.copyFrom(p.getBoundingInfo().boundingBox.center.add(p.position))
+			v.checkCollisions=true;
+			v.isVisible=0;
+			v.parent=tp;
+			return tp;
+		}
+	}
+	const dvs=new dvsgp();
 	dns.s([0,0,0],()=>
 	{
 		const p=new BABYLON.TransformNode('jp')
-		b=pss({p:bknm.nm({ps:'1111'}),m:p})
+		const b=pss({p:bknm.nm({ps:'1111'}),m:p})
 		return p;
 	})
 }
