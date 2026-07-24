@@ -685,16 +685,25 @@ else
 		const p2=BABYLON.MeshBuilder.CreateBox('mg',{width:dv,height:dc,depth:1});
 		p2.position.y=dc/2+bv
 		p2.position.z=v/2
-		const gb=BABYLON.CSG.FromMesh(p0).subtract(BABYLON.CSG.FromMesh(p1).union(BABYLON.CSG.FromMesh(p2))).toMesh("b",null,s,true);
+		rk(p0,[.1,.5,.3])
+		rk(p1,[.1,.4,.1])
+		rk(p2,[.2,.4,.2])
+		const nv=new BABYLON.MultiMaterial('nv',s)
+		nv.subMaterials.push(p0.material)
+		nv.subMaterials.push(p1.material)
+		nv.subMaterials.push(p2.material)
+		const gb=BABYLON.CSG.FromMesh(p0).subtract(BABYLON.CSG.FromMesh(p1).union(BABYLON.CSG.FromMesh(p2))).toMesh("b",nv,s,true);
 		p0.dispose()
 		p1.dispose()
 		p2.dispose()
-		rk(gb,[0.1,0.5,.3])
 		const t=BABYLON.MeshBuilder.CreateDisc('t',{radius:v/2-bv})
 		t.position.y=bv+.001
 		rk(t,[.1,.3,.2])
 		t.rotation.x=Math.PI/2
-		return BABYLON.Mesh.MergeMeshes([gb,t],true,true,undefined,true,true)
+		const dt=t.clone()
+		dt.position.y=c-bv-.001
+		dt.rotation.x=-Math.PI/2
+		return BABYLON.Mesh.MergeMeshes([gb,t,dt],true,true,undefined,true,true)
 	}
 	dns.s([0,0,0],()=>
 	{
