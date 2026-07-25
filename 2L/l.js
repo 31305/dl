@@ -600,7 +600,7 @@ let rk=(p,v)=>
 }
 const gbnm=()=>
 {
-	const v=2,bv=.1,c=2.9,dc=2.1,dv=1.2;
+	const v=2,bv=.1,c=jnm.l-jnm.v,dc=2.1,dv=1.2;
 	const p0=BABYLON.MeshBuilder.CreateCylinder('p',{height:c,diameter:v});
 	p0.position.y=c/2
 	const p1=BABYLON.MeshBuilder.CreateCylinder('p',{height:c-bv*2,diameter:v-bv*2});
@@ -657,7 +657,7 @@ if(1)
 			nd.parent=p
 		}
 		jnm.b([2,-2+1/6,0],'24',p)
-		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.4,jnm.pn-jnm.l+jnm.v*.5,.4],b:[0,-.75,0]})
+		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.35,jnm.pn-jnm.l+jnm.v*.5,.35],b:[0,-.75,0]})
 		pss({p:knsnm(),m:gb,s:[0,2.4,.9]})
 		jnm.b([2,-2+2/6,2],'14',p)
 		jnm.b([4,-2+3/6,2],'13',p)
@@ -669,7 +669,8 @@ if(1)
 		jnm.b([6,-1+3/6,-4],'23',p)
 		jnm.b([4,-1+4/6,-4],'13',p)
 		jnm.b([2,-1+5/6,-4],'34',p)
-		jnm.b([2,0,-2],'124',p)
+		jnm.b([2,0,-2],'24',p)
+		jnm.b([2,1/6,0],'124',p)
 		return p;
 	})
 //   234
