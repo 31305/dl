@@ -609,12 +609,15 @@ const gbnm=()=>
 	p2.position.y=dc/2+bv
 	p2.position.z=v/2
 	const t=BABYLON.MeshBuilder.CreateDisc('t',{radius:v/2-bv})
-	t.position.y=bv+.001
+	t.position.y=bv+.002
 	t.rotation.x=Math.PI/2
+	const p3=BABYLON.MeshBuilder.CreateCylinder('p',{height:bv,diameter:v+bv*2});
+	p3.position.y=c-bv/2+0.001
 	rk(p0,[.1,.1,.2])
-	rk(p1,[.05,.05,.1])
+	rk(p1,[.01,.01,.05])
 	rk(p2,[.01,.01,.05])
-	rk(t,[.3,.3,.6])
+	rk(p3,[.01,.01,.05])
+	rk(t,[.1,.1,.2])
 	const nv=new BABYLON.MultiMaterial('nv',s)
 	nv.subMaterials.push(p0.material)
 	nv.subMaterials.push(p1.material)
@@ -626,7 +629,9 @@ const gbnm=()=>
 	const dt=t.clone()
 	dt.position.y=c-bv-.001
 	dt.rotation.x=-Math.PI/2
-	return BABYLON.Mesh.MergeMeshes([gb,t,dt],true,true,undefined,true,true)
+	const dp3=p3.clone()
+	dp3.position.y=bv/2+0.001
+	return BABYLON.Mesh.MergeMeshes([gb,t,dt,p3,dp3],true,true,undefined,true,true)
 }
 if(1)
 {
