@@ -58,6 +58,7 @@ const dnsnd=class
 			const p=this.sg.get(k)
 			if(p)this.dg.set(k,p.map(pk=>pk()))
 		}
+		if(0)if(p.parent==null)p.getScene().getActiveMeshes().forEach(p=>p.receiveShadows=true);
 	}
 }
 const dns=new dnsnd();
@@ -637,6 +638,14 @@ if(1)
 {
 	l.position.x=1;
 	lpc.position.x=l.position.x;
+	if(0)
+	{
+		p.parent=null
+		p.position.y=3
+		p.intensity=50
+		const cnm=new BABYLON.ShadowGenerator(1024,p);
+		cnm.getShadowMap().renderList=s.meshes
+	}
 	l.setTarget(pv(-jnm.l/2,0,-jnm.l/2));
 	const dvs=new dvsgp();
 	dns.s([0,0,0],()=>
@@ -1027,6 +1036,7 @@ const ssk=function()
 		}
 		if(Math.abs(gpvs[1])>pvsn||Math.abs(lpc.position.y-l.position.y)>dtvk)
 			l.position.y=lpc.position.y
+		if(0)p.position.copyFrom(l.position.add(pv(0,.18,0)))
 		if(dk.isVisible&&nps["Space"]&&dg<=0&&Math.abs(lpc.position.y-ps.y)<0.001)
 		{
 			sc=1
