@@ -337,7 +337,7 @@ const ppcnm=()=>
 const knsnm=()=>
 {
 	const p=new BABYLON.TransformNode("tp");
-	const v1=.15,sv=.03;
+	const v1=.2,sv=v1/5;
 	const bv=new BABYLON.Color3(.4,.25,.12);
 	for(let k=0;k<4;k++)
 	{
@@ -382,7 +382,7 @@ const knsnm=()=>
 	s3.material=s1.material;
 	for(let k=0;k<12;k++)
 	{
-		const vs=0.005;
+		const vs=v1/30;
 		const t=BABYLON.MeshBuilder.CreateBox("t",{width:vs,height:vs,depth:ntvs});
 		const kn=k*Math.PI*2/12;
 		let s1=Math.cos(kn),s2=Math.sin(kn);
@@ -589,6 +589,7 @@ const pss=(d)=>
 	if(d.m)d.p.parent=d.m
 	if(d.s)d.p.position.set(d.s[0],d.s[1],d.s[2])
 	if(d.b)d.p.rotation.set(Math.PI*d.b[0],Math.PI*d.b[1],Math.PI*d.b[2])
+	return d.p
 }
 let rk=(p,v)=>
 {
@@ -599,7 +600,7 @@ let rk=(p,v)=>
 }
 const gbnm=()=>
 {
-	const v=2,bv=.1,c=2.8,dc=2.1,dv=1.2;
+	const v=2,bv=.1,c=2.7,dc=2.1,dv=1.2;
 	const p0=BABYLON.MeshBuilder.CreateCylinder('p',{height:c,diameter:v});
 	p0.position.y=c/2
 	const p1=BABYLON.MeshBuilder.CreateCylinder('p',{height:c-bv*2,diameter:v-bv*2});
@@ -607,9 +608,13 @@ const gbnm=()=>
 	const p2=BABYLON.MeshBuilder.CreateBox('mg',{width:dv,height:dc,depth:1});
 	p2.position.y=dc/2+bv
 	p2.position.z=v/2
-	rk(p0,[.1,.5,.3])
-	rk(p1,[.1,.4,.1])
-	rk(p2,[.2,.4,.2])
+	const t=BABYLON.MeshBuilder.CreateDisc('t',{radius:v/2-bv})
+	t.position.y=bv+.001
+	t.rotation.x=Math.PI/2
+	rk(p0,[.1,.1,.2])
+	rk(p1,[.05,.05,.1])
+	rk(p2,[.01,.01,.05])
+	rk(t,[.3,.3,.6])
 	const nv=new BABYLON.MultiMaterial('nv',s)
 	nv.subMaterials.push(p0.material)
 	nv.subMaterials.push(p1.material)
@@ -618,10 +623,6 @@ const gbnm=()=>
 	p0.dispose()
 	p1.dispose()
 	p2.dispose()
-	const t=BABYLON.MeshBuilder.CreateDisc('t',{radius:v/2-bv})
-	t.position.y=bv+.001
-	rk(t,[.1,.3,.2])
-	t.rotation.x=Math.PI/2
 	const dt=t.clone()
 	dt.position.y=c-bv-.001
 	dt.rotation.x=-Math.PI/2
@@ -641,31 +642,24 @@ if(1)
 		jnm.n([1,1,0],1,p)
 		jnm.n([-1,1,-2],1,p)
 		jnm.n([-1,-1,-2],1,p)
-		if(0)jnm.n([1,-1,-2],1,p)
-		jnm.b([2,-2,-2],'123',p)
+		jnm.n([1,-1,-2],1,p)
+		jnm.b([0,-2,0],'124',p)
 		jnm.n([0,1,1],3,p)
 		jnm.sn({m:p,s:[-3*jnm.pn,jnm.l/2,-1.5*jnm.l],pv:[jnm.l,jnm.pn*6]}).rotation.z=Math.PI/2
 		jnm.n([0,-1,-3],3,p)
-		jnm.n([0,-1,-1],3,p)
+		if(0)jnm.n([0,-1,-1],3,p)
 		jnm.n([0,-2,-2],2,p)
 		jnm.spn([0,0,-2],0,p)
 		jnm.n([0,1,-2],1,p)
 		jnm.sn({m:p,s:[.75,jnm.l/2,-jnm.l/2],pv:[jnm.l,1.5]}).rotation.set(0,0,Math.PI/2)
 		jnm.sn({m:p,s:[.75,0,-jnm.l],pv:[jnm.l,jnm.l/2]}).rotation.set(Math.PI/2,Math.PI/2,0)
-		const vnv=jnm.pn-jnm.v
-		if(0)
-		{
-			const kns=knsnm()
-			kns.parent=p
-			kns.position.set(-jnm.l*.5+jnm.v*.5,2,0)
-			kns.rotation.set(0,-Math.PI/2,0)
-		}
 		if(1)
 		{
 			const nd=ndnm(pv(0,ls*2,jnm.l*.5-jnm.v*.5-ntvs),1)
 			nd.parent=p
 		}
-		pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.4,-jnm.l+jnm.v*.5,-jnm.l+.4],b:[0,-.75,0]})
+		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[.4,-jnm.l+jnm.v*.5,+.4],b:[0,-.75,0]})
+		window.tp=pss({p:knsnm(),m:gb,s:[0,2.4,.9]})
 		return p;
 	})
 }
