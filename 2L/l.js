@@ -600,7 +600,7 @@ let rk=(p,v)=>
 }
 const gbnm=()=>
 {
-	const v=2,bv=.1,c=2.7,dc=2.1,dv=1.2;
+	const v=2,bv=.1,c=2.9,dc=2.1,dv=1.2;
 	const p0=BABYLON.MeshBuilder.CreateCylinder('p',{height:c,diameter:v});
 	p0.position.y=c/2
 	const p1=BABYLON.MeshBuilder.CreateCylinder('p',{height:c-bv*2,diameter:v-bv*2});
@@ -637,18 +637,11 @@ if(1)
 	dns.s([0,0,0],()=>
 	{
 		const p=new BABYLON.TransformNode('jp')
-		jnm.n([0,0,0],2,p)
-		jnm.n([-1,1,0],1,p)
-		jnm.n([1,1,0],1,p)
+		jnm.b([0,0,0],'124',p)
+		jnm.b([0,-2,-2],'134',p)
 		jnm.n([-1,1,-2],1,p)
-		jnm.n([-1,-1,-2],1,p)
-		jnm.n([1,-1,-2],1,p)
-		jnm.b([0,-2,0],'124',p)
-		jnm.n([0,1,1],3,p)
+		jnm.b([2,-2,-2],'23',p)
 		jnm.sn({m:p,s:[-3*jnm.pn,jnm.l/2,-1.5*jnm.l],pv:[jnm.l,jnm.pn*6]}).rotation.z=Math.PI/2
-		jnm.n([0,-1,-3],3,p)
-		if(0)jnm.n([0,-1,-1],3,p)
-		jnm.n([0,-2,-2],2,p)
 		jnm.spn([0,0,-2],0,p)
 		jnm.n([0,1,-2],1,p)
 		jnm.sn({m:p,s:[.75,jnm.l/2,-jnm.l/2],pv:[jnm.l,1.5]}).rotation.set(0,0,Math.PI/2)
@@ -658,7 +651,8 @@ if(1)
 			const nd=ndnm(pv(0,ls*2,jnm.l*.5-jnm.v*.5-ntvs),1)
 			nd.parent=p
 		}
-		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[.4,-jnm.l+jnm.v*.5,+.4],b:[0,-.75,0]})
+		jnm.b([2,-2+1/6,0],'124',p)
+		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.4,jnm.pn-jnm.l+jnm.v*.5,.4],b:[0,-.75,0]})
 		window.tp=pss({p:knsnm(),m:gb,s:[0,2.4,.9]})
 		return p;
 	})
