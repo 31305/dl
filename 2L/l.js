@@ -81,7 +81,7 @@ Promise.all([v.dk()]+(lnc?[HavokPhysics()]:[])).then((p)=>
 const d=document.createElement('canvas')
 document.body.style.margin='0';
 document.body.style.touchAction='none';
-d.style="position:absolute;display:block;width:100%;height:100%";
+d.style="outline:none;position:absolute;display:block;width:min(100dvw, 178dvh);height:100dvh";
 document.body.appendChild(d);
 const c=new BABYLON.Engine(d,true);
 const s=new BABYLON.Scene(c);
@@ -491,6 +491,14 @@ const jnmp=class
 		p.position.set(s[0]*this.l*.5,s[1]*this.l*.5,s[2]*this.l*.5)
 		return p
 	}
+	b(s,d,m=null)
+	{
+		this.n(s,2,m)
+		if(d.search('1')!=-1)this.n([s[0],s[1]+1,s[2]+1],3,m)
+		if(d.search('2')!=-1)this.n([s[0]+1,s[1]+1,s[2]],1,m)
+		if(d.search('3')!=-1)this.n([s[0],s[1]+1,s[2]-1],3,m)
+		if(d.search('4')!=-1)this.n([s[0]-1,s[1]+1,s[2]],1,m)
+	}
 	spn(s,d,m=null)
 	{
 		const tp=new BABYLON.TransformNode('sp')
@@ -550,11 +558,81 @@ const vngnp=class
 }
 const vngn=new vngnp();
 const jnm=new jnmp()
-if(0)
+const dvsgp=class
+{
+	n(d,v=1)
+	{	
+		if(!this[d.name])
+		{
+			this[d.name]=d()
+			this[d.name].setEnabled(false)
+		}
+		const tp=new BABYLON.TransformNode('tp')
+		const p=this[d.name].createInstance('p')
+		p.parent=tp;
+		if(v)
+		{
+			console.log(d.name)
+			const vs=p.getBoundingInfo().boundingBox.extendSize.scale(2)
+			const v=BABYLON.MeshBuilder.CreateBox('v',{width:vs.x,height:vs.y,depth:vs.z})
+			v.position.copyFrom(p.getBoundingInfo().boundingBox.center.add(p.position))
+			v.checkCollisions=true;
+			v.isVisible=0;
+			v.parent=tp;
+		}
+		else p.checkCollisions=1
+		return tp;
+	}
+}
+const pss=(d)=>
+{
+	if(d.m)d.p.parent=d.m
+	if(d.s)d.p.position.set(d.s[0],d.s[1],d.s[2])
+	if(d.b)d.p.rotation.set(Math.PI*d.b[0],Math.PI*d.b[1],Math.PI*d.b[2])
+}
+let rk=(p,v)=>
+{
+	p.material=new BABYLON.PBRMetallicRoughnessMaterial("v")
+	p.material.baseColor=new BABYLON.Color3(v[0],v[1],v[2]);
+	p.material.metallic=0;
+	p.material.roughness=1;
+}
+const gbnm=()=>
+{
+	const v=2,bv=.1,c=2.8,dc=2.1,dv=1.2;
+	const p0=BABYLON.MeshBuilder.CreateCylinder('p',{height:c,diameter:v});
+	p0.position.y=c/2
+	const p1=BABYLON.MeshBuilder.CreateCylinder('p',{height:c-bv*2,diameter:v-bv*2});
+	p1.position.y=c/2
+	const p2=BABYLON.MeshBuilder.CreateBox('mg',{width:dv,height:dc,depth:1});
+	p2.position.y=dc/2+bv
+	p2.position.z=v/2
+	rk(p0,[.1,.5,.3])
+	rk(p1,[.1,.4,.1])
+	rk(p2,[.2,.4,.2])
+	const nv=new BABYLON.MultiMaterial('nv',s)
+	nv.subMaterials.push(p0.material)
+	nv.subMaterials.push(p1.material)
+	nv.subMaterials.push(p2.material)
+	const gb=BABYLON.CSG.FromMesh(p0).subtract(BABYLON.CSG.FromMesh(p1).union(BABYLON.CSG.FromMesh(p2))).toMesh("b",nv,s,true);
+	p0.dispose()
+	p1.dispose()
+	p2.dispose()
+	const t=BABYLON.MeshBuilder.CreateDisc('t',{radius:v/2-bv})
+	t.position.y=bv+.001
+	rk(t,[.1,.3,.2])
+	t.rotation.x=Math.PI/2
+	const dt=t.clone()
+	dt.position.y=c-bv-.001
+	dt.rotation.x=-Math.PI/2
+	return BABYLON.Mesh.MergeMeshes([gb,t,dt],true,true,undefined,true,true)
+}
+if(1)
 {
 	l.position.x=1;
 	lpc.position.x=l.position.x;
 	l.setTarget(pv(-jnm.l/2,0,-jnm.l/2));
+	const dvs=new dvsgp();
 	dns.s([0,0,0],()=>
 	{
 		const p=new BABYLON.TransformNode('jp')
@@ -563,7 +641,8 @@ if(0)
 		jnm.n([1,1,0],1,p)
 		jnm.n([-1,1,-2],1,p)
 		jnm.n([-1,-1,-2],1,p)
-		jnm.n([1,-1,-2],1,p)
+		if(0)jnm.n([1,-1,-2],1,p)
+		jnm.b([2,-2,-2],'123',p)
 		jnm.n([0,1,1],3,p)
 		jnm.sn({m:p,s:[-3*jnm.pn,jnm.l/2,-1.5*jnm.l],pv:[jnm.l,jnm.pn*6]}).rotation.z=Math.PI/2
 		jnm.n([0,-1,-3],3,p)
@@ -586,6 +665,7 @@ if(0)
 			const nd=ndnm(pv(0,ls*2,jnm.l*.5-jnm.v*.5-ntvs),1)
 			nd.parent=p
 		}
+		pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.4,-jnm.l+jnm.v*.5,-jnm.l+.4],b:[0,-.75,0]})
 		return p;
 	})
 }
@@ -593,7 +673,7 @@ else
 {
 	s.clearColor=new BABYLON.Color3(.6,.5,.5);
 	p.dispose()
-	const rk=(p,v)=>
+	rk=(p,v)=>
 	{
 		p.material=new BABYLON.StandardMaterial("v")
 		p.material.emissiveColor=new BABYLON.Color3(v[0],v[1],v[2]);
@@ -632,39 +712,7 @@ else
 			return tp
 		}
 	}
-	const pss=(d)=>
-	{
-		if(d.m)d.p.parent=d.m
-		if(d.s)d.p.position.set(d.s[0],d.s[1],d.s[2])
-		if(d.b)d.p.rotation.set(d.b[0],b.b[1],d.b[2])
-	}
 	const bknm=new bknmp();
-	const dvsgp=class
-	{
-		n(d,v=1)
-		{	
-			if(!this[d.name])
-			{
-				this[d.name]=d()
-				this[d.name].setEnabled(false)
-			}
-			const tp=new BABYLON.TransformNode('tp')
-			const p=this[d.name].createInstance('p')
-			p.parent=tp;
-			if(v)
-			{
-				console.log(d.name)
-				const vs=p.getBoundingInfo().boundingBox.extendSize.scale(2)
-				const v=BABYLON.MeshBuilder.CreateBox('v',{width:vs.x,height:vs.y,depth:vs.z})
-				v.position.copyFrom(p.getBoundingInfo().boundingBox.center.add(p.position))
-				v.checkCollisions=true;
-				v.isVisible=0;
-				v.parent=tp;
-			}
-			else p.checkCollisions=1
-			return tp;
-		}
-	}
 	const dvs=new dvsgp();
 	const cgsnm=()=>
 	{
@@ -674,36 +722,6 @@ else
 		p.position.y=c/2
 		rk(p,[.7,.4,0])
 		return p;
-	}
-	const gbnm=()=>
-	{
-		const v=2,bv=.1,c=3,dc=2.1,dv=1.2;
-		const p0=BABYLON.MeshBuilder.CreateCylinder('p',{height:c,diameter:v});
-		p0.position.y=c/2
-		const p1=BABYLON.MeshBuilder.CreateCylinder('p',{height:c-bv*2,diameter:v-bv*2});
-		p1.position.y=c/2
-		const p2=BABYLON.MeshBuilder.CreateBox('mg',{width:dv,height:dc,depth:1});
-		p2.position.y=dc/2+bv
-		p2.position.z=v/2
-		rk(p0,[.1,.5,.3])
-		rk(p1,[.1,.4,.1])
-		rk(p2,[.2,.4,.2])
-		const nv=new BABYLON.MultiMaterial('nv',s)
-		nv.subMaterials.push(p0.material)
-		nv.subMaterials.push(p1.material)
-		nv.subMaterials.push(p2.material)
-		const gb=BABYLON.CSG.FromMesh(p0).subtract(BABYLON.CSG.FromMesh(p1).union(BABYLON.CSG.FromMesh(p2))).toMesh("b",nv,s,true);
-		p0.dispose()
-		p1.dispose()
-		p2.dispose()
-		const t=BABYLON.MeshBuilder.CreateDisc('t',{radius:v/2-bv})
-		t.position.y=bv+.001
-		rk(t,[.1,.3,.2])
-		t.rotation.x=Math.PI/2
-		const dt=t.clone()
-		dt.position.y=c-bv-.001
-		dt.rotation.x=-Math.PI/2
-		return BABYLON.Mesh.MergeMeshes([gb,t,dt],true,true,undefined,true,true)
 	}
 	dns.s([0,0,0],()=>
 	{
