@@ -144,17 +144,18 @@ const lsnm=function(d)
 		vs*=v;
 		vec2 nkc= floor(vs+0.5);
 		vs=nkc+clamp((vs-nkc)/fwidth(vs),-0.5,0.5); 
-		surfaceAlbedo=toLinearSpace(texture2D(albedoSampler,(vs/v)+uvOffset).rgb);
+		surfaceAlbedo=texture2D(albedoSampler,(vs/v)+uvOffset).rgb;
+		#ifdef GAMMAALBEDO
+		surfaceAlbedo=toLinearSpace(surfaceAlbedo);
+		#endif
 	`);
 	const pv=pdc.getContext();
-	pv.fillStyle='white';
+	pv.fillStyle=d.pv||'white';
 	pv.fillRect(0,0,v1,v2);
-	pv.fillStyle='black';
+	pv.fillStyle=d.dv||'black';
 	for(let k=0;k<v2;k++)
 		for(let pk=0;pk<v1;pk++)
 			if(d.l[k][pk])pv.fillRect(pk,k,1,1)
-	if(d.s)tp.position.set(d.s[0],d.s[1],d.s[2])
-	if(d.m)tp.parent=d.m
 	pdc.update()
 	return tp;
 }
@@ -633,6 +634,35 @@ const gbnm=()=>
 	dp3.position.y=bv/2+0.001
 	return BABYLON.Mesh.MergeMeshes([gb,t,dt,p3,dp3],true,true,undefined,true,true)
 }
+const ssmnm=
+{
+	n()
+	{
+		if(!this.mm)this.mm=lsnm({l:[
+			[0,0,0,0,0,0,0,0,0],
+			[0,1,1,1,0,1,1,1,0],
+			[0,1,0,1,0,1,0,1,0],
+			[0,1,1,1,0,1,1,1,0],
+			[0,0,0,0,0,0,0,0,0],
+			[0,0,0,0,0,0,0,0,0],
+			[0,0,0,1,1,1,0,0,0],
+			[0,0,0,0,0,0,0,0,0],
+			[0,0,0,0,0,0,0,0,0],
+			],v:jnm.pn*2,pv:'black',dv:'rgb(100,66,0)'})
+		this.mm.setEnabled(false)
+		const tp=new BABYLON.TransformNode("p")
+		const p=this.mm.createInstance('mm')
+		p.parent=tp;
+		const c=6
+		p.position.set(0,jnm.pn*c,-jnm.pn-jnm.v/2-.001)
+		jnm.sn({m:tp,s:[0,jnm.pn*(c+1),0],pv:[jnm.pn*2,jnm.pn*2]}).rotation.x=Math.PI/2
+		jnm.sn({m:tp,s:[0,jnm.pn*(c+1)/2,jnm.pn],pv:[jnm.pn*2,jnm.pn*(c+1)]}).rotation.z=Math.PI/2
+		jnm.sn({m:tp,s:[0,jnm.pn*(c+1)/2,-jnm.pn],pv:[jnm.pn*2,jnm.pn*(c+1)]}).rotation.z=Math.PI/2
+		jnm.sn({m:tp,s:[-jnm.pn,jnm.pn*(c+1)/2,0],pv:[jnm.pn*2,jnm.pn*(c+1)]}).rotation.set(0,Math.PI/2,Math.PI/2)
+		jnm.sn({m:tp,s:[jnm.pn,jnm.pn*(c+1)/2,0],pv:[jnm.pn*2,jnm.pn*(c+1)]}).rotation.set(0,Math.PI/2,Math.PI/2)
+		return tp;
+	}
+}
 const cnmk=()=>
 {
 	s.meshes.forEach(p=>
@@ -688,6 +718,7 @@ if(1)
 		jnm.b([2,-1+5/6,-4],'34',p)
 		jnm.b([2,0,-2],'24',p)
 		jnm.b([2,1/6,0],'124',p)
+		pss({p:ssmnm.n(),m:p,s:[0,-jnm.l,-jnm.l/2-jnm.pn*2]})
 		return p;
 	})
 //   234
