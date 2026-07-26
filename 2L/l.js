@@ -339,7 +339,7 @@ const knsnm=()=>
 {
 	const p=new BABYLON.TransformNode("tp");
 	const v1=.2,sv=v1/5;
-	const bv=new BABYLON.Color3(.4,.25,.12);
+	const bv=new BABYLON.Color3(.4,.25,.12).toLinearSpace();
 	for(let k=0;k<4;k++)
 	{
 		const tp=gmnk(pv(-v1/2,-v1/2,0),pv(v1/2+sv,-v1/2-sv,-sv),p,bv,false);
@@ -349,7 +349,7 @@ const knsnm=()=>
 	gp.position.set(0,0,-sv/2);
 	gp.parent=p;
 	gp.material=new BABYLON.PBRMetallicRoughnessMaterial("v");
-	gp.material.baseColor=new BABYLON.Color3(1,1,.5);
+	gp.material.baseColor=new BABYLON.Color3(1,1,.5).toLinearSpace();
 	gp.material.metallic=0;
 	gp.material.roughness=1;
 	const dgp=BABYLON.MeshBuilder.CreatePlane("gp",{width:v1,height:v1});
