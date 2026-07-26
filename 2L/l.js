@@ -58,7 +58,6 @@ const dnsnd=class
 			const p=this.sg.get(k)
 			if(p)this.dg.set(k,p.map(pk=>pk()))
 		}
-		if(0)if(p.parent==null)p.getScene().getActiveMeshes().forEach(p=>p.receiveShadows=true);
 	}
 }
 const dns=new dnsnd();
@@ -474,7 +473,7 @@ const jnmp=class
 		const nt=0.002
 		const vd=BABYLON.MeshBuilder.CreateBox('pm',
 			{width:pm[0]*this.pn+this.v-nt,height:pm[1]*this.pn+this.v-nt,depth:this.v-nt})
-		vd.visibility=d.pg;
+		vd.isVisible=d.pg;
 		if(d.pg)vd.material=this.pgv;
 		vd.checkCollisions=true;
 		vd.isPickable=false;
@@ -512,7 +511,7 @@ const jnmp=class
 				const vr=BABYLON.MeshBuilder.CreateBox('vr',{width:this.pn*2,depth:this.pn*2,height:vk})
 				vr.position=p.position.add(pv(0,-vk/2,0))
 				vr.checkCollisions=true
-				vr.visibility=false;
+				vr.isVisible=false;
 				vr.isPickable=false;
 				if(m)vr.parent=m;
 			}
@@ -634,6 +633,15 @@ const gbnm=()=>
 	dp3.position.y=bv/2+0.001
 	return BABYLON.Mesh.MergeMeshes([gb,t,dt,p3,dp3],true,true,undefined,true,true)
 }
+const cnmk=()=>
+{
+	s.meshes.forEach(p=>
+	{
+		p.receiveShadows=true
+		if(p.isEnabled()&&p.isVisible)
+			cnm.getShadowMap().renderList.push(p)
+	})
+}
 if(1)
 {
 	l.position.x=1;
@@ -644,7 +652,7 @@ if(1)
 		p.position.y=3
 		p.intensity=50
 		const cnm=new BABYLON.ShadowGenerator(1024,p);
-		cnm.getShadowMap().renderList=s.meshes
+		window.cnm=cnm;
 	}
 	l.setTarget(pv(-jnm.l/2,0,-jnm.l/2));
 	const dvs=new dvsgp();
