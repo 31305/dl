@@ -704,7 +704,7 @@ if(1)
 			nd.parent=p
 		}
 		jnm.b([2,-2+1/6,0],'24',p)
-		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.35,jnm.pn-jnm.l+jnm.v*.5,.35],b:[0,-.75,0]})
+		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.35,-jnm.l+jnm.v*.5,-jnm.l-.35],b:[0,-.25,0]})
 		pss({p:knsnm(),m:gb,s:[0,2.4,.9]})
 		jnm.b([2,-2+2/6,2],'14',p)
 		jnm.b([4,-2+3/6,2],'13',p)
