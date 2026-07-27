@@ -38,7 +38,6 @@ const dnsnd=class
 		this.sg.get(k).push(pk);
 	}
 	ms=[]
-
 	sk=null
 	k(s)
 	{
@@ -67,7 +66,7 @@ const dnsnd=class
 			const p=this.sg.get(k)
 			this.dg.set(k,{b:[],s:nsg.get(k)})
 			if(p)this.dg.get(k).b.push(...p.map(pk=>pk()))
-			if(this.sk)this.dg.get(k).b.push(sk(nsg.get(k)))
+			if(this.sk)this.dg.get(k).b.push(this.sk(nsg.get(k)))
 		}
 	}
 }
@@ -700,7 +699,8 @@ const cnmk=()=>
 if(1)
 {
 	l.position.x=1;
-	lpc.position.x=l.position.x;
+	l.position.y=jnm.l+jnm.v+ls*2
+	lpc.position.copyFrom(l.position);
 	if(0)
 	{
 		p.parent=null
@@ -711,9 +711,24 @@ if(1)
 	}
 	l.setTarget(pv(-jnm.l/2,0,-jnm.l/2));
 	const dvs=new dvsgp();
+	dns.sk=(s)=>
+	{
+		if(s[1]!=0)return;
+		console.log('bnm')
+		const p=new BABYLON.TransformNode('sk')
+		p.position.x=(s[0]+.5)*dns.bkv;
+		p.position.z=(s[2]+.5)*dns.bkv;
+		const b=BABYLON.MeshBuilder.CreatePlane('b',{width:dns.bkv,height:dns.bkv});
+		b.rotation.x=Math.PI/2;
+		b.checkCollisions=true;
+		window.tp=b;
+		b.parent=p;
+		return p;
+	}
 	dns.s([0,0,0],()=>
 	{
 		const p=new BABYLON.TransformNode('jp')
+		p.position.y=jnm.l+jnm.v/2
 		jnm.b([0,0,0],'124',p)
 		jnm.b([0,-2,-2],'134',p)
 		jnm.n([-1,1,-2],1,p)
