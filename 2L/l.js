@@ -428,6 +428,13 @@ const knsnm=()=>
 	p.n=[54,1,61,11];
 	return p;
 };
+let rk=(p,v)=>
+{
+	p.material=new BABYLON.PBRMetallicRoughnessMaterial("v")
+	p.material.baseColor=new BABYLON.Color3(v[0],v[1],v[2]);
+	p.material.metallic=0;
+	p.material.roughness=1;
+}
 const jnmp=class
 {
 	l=3
@@ -439,11 +446,8 @@ const jnmp=class
 		const v=this.v,pn=this.pn,l=this.l
 		this.pg=new BABYLON.MeshBuilder.CreateBox('pg',{width:v,depth:v,height:1});
 		this.pg.setEnabled(false)
-		this.pg.material=new BABYLON.PBRMetallicRoughnessMaterial("v")
 		const dv=.4;
-		this.pg.material.baseColor=new BABYLON.Color3(dv,dv,dv);
-		this.pg.material.metallic=0;
-		this.pg.material.roughness=1;
+		rk(this.pg,[dv,dv,dv]);
 		this.pgv=new BABYLON.PBRMetallicRoughnessMaterial("v")
 		const vm=0;
 		this.pgv.baseColor=new BABYLON.Color3(vm,vm,vm);
@@ -603,13 +607,6 @@ const pss=(d)=>
 	if(d.b)d.p.rotation.set(Math.PI*d.b[0],Math.PI*d.b[1],Math.PI*d.b[2])
 	if(d.t)d.p.scaling.set(t[0],t[1],t[2])
 	return d.p
-}
-let rk=(p,v)=>
-{
-	p.material=new BABYLON.PBRMetallicRoughnessMaterial("v")
-	p.material.baseColor=new BABYLON.Color3(v[0],v[1],v[2]);
-	p.material.metallic=0;
-	p.material.roughness=1;
 }
 const gbnm=()=>
 {
