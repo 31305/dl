@@ -590,6 +590,7 @@ const pss=(d)=>
 	if(d.m)d.p.parent=d.m
 	if(d.s)d.p.position.set(d.s[0],d.s[1],d.s[2])
 	if(d.b)d.p.rotation.set(Math.PI*d.b[0],Math.PI*d.b[1],Math.PI*d.b[2])
+	if(d.t)d.p.scaling.set(t[0],t[1],t[2])
 	return d.p
 }
 let rk=(p,v)=>
@@ -662,6 +663,19 @@ const ssmnm=
 		jnm.sn({m:tp,s:[jnm.pn,jnm.pn*(c+1)/2,0],pv:[jnm.pn*2,jnm.pn*(c+1)]}).rotation.set(0,Math.PI/2,Math.PI/2)
 		return tp;
 	}
+}
+const cvnm=()=>
+{
+	const p=new BABYLON.PBRCustomMaterial("cv");
+	p.roughness=1;
+	p.metallic=0;
+	p.Fragment_Custom_Albedo(`
+		surfaceAlbedo=vec3(.2,.2,.2)+vec3(.2,.2,.2)*fract(sin(dot(floor(vPositionW*100.0),vec3(1.0,2.0,3.0)))*5000.0);
+		#ifdef GAMMAALBEDO
+		surfaceAlbedo=toLinearSpace(surfaceAlbedo);
+		#endif
+	`);
+	return p;
 }
 const cnmk=()=>
 {
