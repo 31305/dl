@@ -25,7 +25,8 @@ const dnsnd=class
 		this.sg=new Map();
 		this.dg=new Map();
 	}
-	ns(s){const bkv=50;return [Math.floor(s[0]/bkv),Math.floor(s[1]/bkv),Math.floor(s[2]/bkv)];}
+	bkv=50;
+	ns(s){return [Math.floor(s[0]/this.bkv),Math.floor(s[1]/this.bkv),Math.floor(s[2]/this.bkv)];}
 	kg(s)
 	{
 		return `${s[0]},${s[1]},${s[2]}`
@@ -37,26 +38,36 @@ const dnsnd=class
 		this.sg.get(k).push(pk);
 	}
 	ms=[]
+
+	sk=null
 	k(s)
 	{
-		if(s.length==this.ms.length&&s.every((p,k)=>p==this.ms[k]))return
-		this.ms=[s[0],s[1],s[2]]
-		const v=3;
 		const n=this.ns(s);
-		const nsg=new Set();
+		if(this.ms.length&&n.every((p,k)=>p==this.ms[k]))return;
+		this.ms=n;
+		const v=2;
+		const nsg=new Map();
 		for(let k1=-v;k1<v;k1++)
 			for(let k2=-v;k2<v;k2++)
 				for(let k3=-v;k3<v;k3++)
-					nsg.add(this.kg([n[0]+k1,n[1]+k2,n[2]+k3]));
-		for(const k of (new Set(this.dg.keys())).difference(nsg))
+				{
+					const p=[n[0]+k1,n[1]+k2,n[2]+k3];
+					nsg.set(this.kg(p),p);
+				}
+		for(const k of (new Set(this.dg.keys())).difference(new Set(nsg.keys())))
 		{
-			for(const p of this.dg.get(k))p.dispose(false,true)
-			this.dg.delete(k)
+			if(Math.max(...this.dg.get(k).s.map((s,k)=>Math.abs(s-n[k])))>v*2)
+			{
+				for(const p of this.dg.get(k).b)p.dispose(false,true)
+				this.dg.delete(k)
+			}
 		}
-		for(const k of nsg.difference(new Set(this.dg.keys())))
+		for(const k of (new Set(nsg.keys())).difference(new Set(this.dg.keys())))
 		{
 			const p=this.sg.get(k)
-			if(p)this.dg.set(k,p.map(pk=>pk()))
+			this.dg.set(k,{b:[],s:nsg.get(k)})
+			if(p)this.dg.get(k).b.push(...p.map(pk=>pk()))
+			if(this.sk)this.dg.get(k).b.push(sk(nsg.get(k)))
 		}
 	}
 }
@@ -1188,7 +1199,7 @@ const lds=function()
 	{
 		if(!dk.isVisible)
 		{
-			if(!jdv())d.requestPointerLock();
+			if(!jdv()){d.requestPointerLock();d.requestFullscreen();}
 			else {d.requestFullscreen();screen.orientation.lock("landscape-primary");dk.isVisible=true;}
 		}
 		else if(1||dk.alpha==1)
