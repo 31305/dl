@@ -25,7 +25,7 @@ const dnsnd=class
 		this.sg=new Map();
 		this.dg=new Map();
 	}
-	bkv=50;
+	bkv=2;
 	ns(s){return [Math.floor(s[0]/this.bkv),Math.floor(s[1]/this.bkv),Math.floor(s[2]/this.bkv)];}
 	kg(s)
 	{
@@ -46,9 +46,9 @@ const dnsnd=class
 		this.ms=n;
 		const v=2;
 		const nsg=new Map();
-		for(let k1=-v;k1<v;k1++)
-			for(let k2=-v;k2<v;k2++)
-				for(let k3=-v;k3<v;k3++)
+		for(let k1=-v;k1<=v;k1++)
+			for(let k2=-v;k2<=v;k2++)
+				for(let k3=-v;k3<=v;k3++)
 				{
 					const p=[n[0]+k1,n[1]+k2,n[2]+k3];
 					nsg.set(this.kg(p),p);
@@ -66,7 +66,7 @@ const dnsnd=class
 			const p=this.sg.get(k)
 			this.dg.set(k,{b:[],s:nsg.get(k)})
 			if(p)this.dg.get(k).b.push(...p.map(pk=>pk()))
-			if(this.sk)this.dg.get(k).b.push(this.sk(nsg.get(k)))
+			else if(this.sk)this.dg.get(k).b.push(this.sk(nsg.get(k)))
 		}
 	}
 }
@@ -713,14 +713,19 @@ if(1)
 	const dvs=new dvsgp();
 	dns.sk=(s)=>
 	{
-		if(s[1]!=0)return;
-		console.log('bnm')
 		const p=new BABYLON.TransformNode('sk')
+		if(s[1]!=0)return p;
+		console.log('bnm')
 		p.position.x=(s[0]+.5)*dns.bkv;
 		p.position.z=(s[2]+.5)*dns.bkv;
 		const b=BABYLON.MeshBuilder.CreatePlane('b',{width:dns.bkv,height:dns.bkv});
 		b.rotation.x=Math.PI/2;
 		b.checkCollisions=true;
+		b.material=new BABYLON.StandardMaterial("v");
+		b.material.emissiveColor=new BABYLON.Color3(Math.random(),.5,.5);
+		b.material.diffuseColor=new BABYLON.Color3(0,0,0);
+		b.material.metallic=0;
+		b.material.roughness=1;
 		window.tp=b;
 		b.parent=p;
 		return p;
