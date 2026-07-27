@@ -25,7 +25,7 @@ const dnsnd=class
 		this.sg=new Map();
 		this.dg=new Map();
 	}
-	bkv=2;
+	bkv=50;
 	ns(s){return [Math.floor(s[0]/this.bkv),Math.floor(s[1]/this.bkv),Math.floor(s[2]/this.bkv)];}
 	kg(s)
 	{
@@ -39,9 +39,9 @@ const dnsnd=class
 	}
 	ms=[]
 	sk=null
-	k(s)
+	k(sn)
 	{
-		const n=this.ns(s);
+		const n=this.ns(sn);
 		if(this.ms.length&&n.every((p,k)=>p==this.ms[k]))return;
 		this.ms=n;
 		const v=2;
@@ -57,10 +57,11 @@ const dnsnd=class
 		{
 			if(Math.max(...this.dg.get(k).s.map((s,k)=>Math.abs(s-n[k])))>v*2)
 			{
-				for(const p of this.dg.get(k).b)p.dispose(false,true)
+				for(const p of this.dg.get(k).b)p.dispose(false,false)
 				this.dg.delete(k)
 			}
 		}
+		for(const v of s.materials.slice()){if(v.getBindedMeshes().length===0){v.dispose();}}
 		for(const k of (new Set(nsg.keys())).difference(new Set(this.dg.keys())))
 		{
 			const p=this.sg.get(k)
@@ -715,7 +716,6 @@ if(1)
 	{
 		const p=new BABYLON.TransformNode('sk')
 		if(s[1]!=0)return p;
-		console.log('bnm')
 		p.position.x=(s[0]+.5)*dns.bkv;
 		p.position.z=(s[2]+.5)*dns.bkv;
 		const b=BABYLON.MeshBuilder.CreatePlane('b',{width:dns.bkv,height:dns.bkv});
@@ -735,7 +735,7 @@ if(1)
 		const p=new BABYLON.TransformNode('jp')
 		p.position.y=jnm.l+jnm.v/2
 		jnm.b([0,0,0],'124',p)
-		jnm.b([0,-2,-2],'134',p)
+		jnm.b([0,-2,-2],'34',p)
 		jnm.n([-1,1,-2],1,p)
 		jnm.b([2,-2,-2],'23',p)
 		jnm.sn({m:p,s:[-3*jnm.pn,jnm.l/2,-1.5*jnm.l],pv:[jnm.l,jnm.pn*6]}).rotation.z=Math.PI/2
