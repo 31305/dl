@@ -711,8 +711,6 @@ const cnmk=()=>
 }
 if(1)
 {
-	l.position.x=1;
-	l.position.y=jnm.l+jnm.v+ls*2
 	lpc.position.copyFrom(l.position);
 	if(0)
 	{
@@ -722,7 +720,7 @@ if(1)
 		const cnm=new BABYLON.ShadowGenerator(1024,p);
 		window.cnm=cnm;
 	}
-	l.setTarget(pv(-jnm.l/2,0,-jnm.l/2));
+	l.rotation.set(Math.PI/2,Math.PI/2,0)
 	const dvs=new dvsgp();
 	const cvr=cvnm();
 	dns.sk=(s)=>
