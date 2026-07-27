@@ -680,13 +680,28 @@ const cvnm=()=>
 	const p=new BABYLON.PBRCustomMaterial("cv");
 	p.roughness=1;
 	p.metallic=0;
+	p.Fragment_Definitions(`
+		float cv(vec3 p)
+		{
+			p=fract(p*0.1031);
+			p+=dot(p,p.yzx+33.33);
+			return fract((p.x+p.y)*p.z);
+		}
+	`);
 	p.Fragment_Custom_Albedo(`
-		surfaceAlbedo=vec3(.2,.2,.2)+vec3(.2,.2,.2)*fract(sin(dot(floor(vPositionW*100.0),vec3(1.0,2.0,3.0)))*5000.0);
+		float tp=10.0*cv(floor(vPositionW*16.0));
+		tp=tp*.5+cv(floor(vPositionW*32.0))*.5;
+		tp=tp*.5+cv(floor(vPositionW*64.0))*.5;
+		tp=tp*.5+cv(floor(vPositionW*128.0))*.5;
+		tp=tp*.5+cv(floor(vPositionW*256.0))*.5;
+		tp=tp*.5+cv(floor(vPositionW*512.0))*.5;
+		surfaceAlbedo=vec3(.1,.1,.05)+vec3(.2,.2,.2)*tp;
 		#ifdef GAMMAALBEDO
 		surfaceAlbedo=toLinearSpace(surfaceAlbedo);
 		#endif
 	`);
 	return p;
+	window.tp=p;
 }
 const cnmk=()=>
 {
@@ -712,6 +727,7 @@ if(1)
 	}
 	l.setTarget(pv(-jnm.l/2,0,-jnm.l/2));
 	const dvs=new dvsgp();
+	const cvr=cvnm();
 	dns.sk=(s)=>
 	{
 		const p=new BABYLON.TransformNode('sk')
@@ -721,22 +737,20 @@ if(1)
 		const b=BABYLON.MeshBuilder.CreatePlane('b',{width:dns.bkv,height:dns.bkv});
 		b.rotation.x=Math.PI/2;
 		b.checkCollisions=true;
-		b.material=new BABYLON.StandardMaterial("v");
-		b.material.emissiveColor=new BABYLON.Color3(Math.random(),.5,.5);
-		b.material.diffuseColor=new BABYLON.Color3(0,0,0);
-		b.material.metallic=0;
-		b.material.roughness=1;
-		window.tp=b;
+		b.material=cvr;
 		b.parent=p;
 		return p;
 	}
+	dns.s([0,0,0],()=>dns.sk([0,0,0]))
 	dns.s([0,0,0],()=>
 	{
 		const p=new BABYLON.TransformNode('jp')
 		p.position.y=jnm.l+jnm.v/2
 		jnm.b([0,0,0],'124',p)
-		jnm.b([0,-2,-2],'34',p)
+		jnm.b([0,-2,-2],'134',p)
 		jnm.n([-1,1,-2],1,p)
+		jnm.n([0,-1,1],3,p)
+		jnm.n([-1,-1,0],1,p)
 		jnm.b([2,-2,-2],'23',p)
 		jnm.sn({m:p,s:[-3*jnm.pn,jnm.l/2,-1.5*jnm.l],pv:[jnm.l,jnm.pn*6]}).rotation.z=Math.PI/2
 		jnm.spn([0,0,-2],0,p)
@@ -748,9 +762,11 @@ if(1)
 			const nd=ndnm(pv(0,ls*2,jnm.l*.5-jnm.v*.5-ntvs),1)
 			nd.parent=p
 		}
-		jnm.b([2,-2+1/6,0],'24',p)
 		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.35,-jnm.l+jnm.v*.5,-jnm.l-.35],b:[0,-.25,0]})
 		pss({p:knsnm(),m:gb,s:[0,2.4,.9]})
+		pss({p:ssmnm.n(),m:p,s:[0,-jnm.l,-jnm.l/2-jnm.pn*2]})
+		return p;
+		jnm.b([2,-2+1/6,0],'24',p)
 		jnm.b([2,-2+2/6,2],'14',p)
 		jnm.b([4,-2+3/6,2],'13',p)
 		jnm.b([6,-2+4/6,2],'12',p)
@@ -763,8 +779,6 @@ if(1)
 		jnm.b([2,-1+5/6,-4],'34',p)
 		jnm.b([2,0,-2],'24',p)
 		jnm.b([2,1/6,0],'124',p)
-		pss({p:ssmnm.n(),m:p,s:[0,-jnm.l,-jnm.l/2-jnm.pn*2]})
-		return p;
 	})
 //   234
 //  m165
