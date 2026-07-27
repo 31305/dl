@@ -692,7 +692,7 @@ const cvnm=()=>
 		tp=tp*.5+cv(floor(vPositionW*128.0))*.5;
 		tp=tp*.5+cv(floor(vPositionW*256.0))*.5;
 		tp=tp*.5+cv(floor(vPositionW*512.0))*.5;
-		surfaceAlbedo=vec3(.1,.1,.05)+vec3(.2,.2,.2)*tp;
+		surfaceAlbedo=vec3(.1,.1,.05)+vec3(1,1,.75)*tp;
 		#ifdef GAMMAALBEDO
 		surfaceAlbedo=toLinearSpace(surfaceAlbedo);
 		#endif
