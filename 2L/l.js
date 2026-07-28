@@ -92,7 +92,7 @@ Promise.all([v.dk()]+(lnc?[HavokPhysics()]:[])).then((p)=>
 const d=document.createElement('canvas')
 document.body.style.margin='0';
 document.body.style.touchAction='none';
-d.style="outline:none;position:absolute;display:block;width:min(100dvw, 178dvh);height:100dvh";
+d.style="outline:none;position:absolute;display:block;width:min(100dvw, 234dvh);height:100dvh";
 document.body.appendChild(d);
 const c=new BABYLON.Engine(d,true);
 const s=new BABYLON.Scene(c);
@@ -1143,7 +1143,7 @@ const ssk=function()
 		}
 		dnsk();
 	});
-	document.addEventListener("touchmove",(p)=>{if(0||document.fullscreenElement==d)
+	document.addEventListener("touchmove",(p)=>{if(0||document.fullscreenElement==document.body)
 	{
 		for(const s of p.changedTouches)
 		{
@@ -1208,7 +1208,7 @@ const lds=function()
 		else cb.style.visibility='hidden'
 	}
 	if(!jdv())document.addEventListener("pointerlockchange",()=>dndpv(document.pointerLockElement==d));
-	else document.addEventListener("fullscreenchange",()=>dndpv(document.fullscreenElement==d))
+	else document.addEventListener("fullscreenchange",()=>dndpv(document.fullscreenElement==document.body))
 	const pk=()=>{for(let k=0;k<pvs.length;k++)pvs[k].background=k<2?"black":"white";};
 	const ldv=[2,20,4,22].map(pmpv);
 	let pvs=[];
@@ -1228,8 +1228,8 @@ const lds=function()
 	{
 		if(!dk.isVisible)
 		{
-			if(!jdv()){d.requestPointerLock();d.requestFullscreen();}
-			else {d.requestFullscreen();screen.orientation.lock("landscape-primary");dk.isVisible=true;}
+			if(!jdv()){d.requestPointerLock();document.body.requestFullscreen();}
+			else {document.body.requestFullscreen();screen.orientation.lock("landscape-primary");dk.isVisible=true;}
 		}
 		else if(1||dk.alpha==1)
 		{
