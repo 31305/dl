@@ -292,7 +292,7 @@ const bcd=function(s)
 	return p;
 }
 const kmvv=new BABYLON.Color3(.6,.4,.2);
-const pvsnm=()=>
+const pvsnm=(vr=0)=>
 {
 	const p=new BABYLON.TransformNode("pd");
 	const vs=0.5,sv=.05,tc1=.5,tc2=.5,tc3=.15,v=kmvv;
@@ -310,11 +310,13 @@ const pvsnm=()=>
 	}
 	gmnk(pv(-vs/2+sv,tc1+tc2,-vs/2),pv(vs/2-sv,tc1+tc2+sv,-vs/2+sv),p,v,false);
 	gmnk(pv(-vs/2,tc1,-vs/2),pv(vs/2,tc1+sv,vs/2),p,v,false);
-	gmnk(pv(-vs/2,0,-vs/2),pv(vs/2,tc1+tc2+sv,vs/2),p).isVisible=false;
-	p.n=[5,49,3,70,1,75];
-	return p;
+	if(vr)gmnk(pv(-vs/2,0,-vs/2),pv(vs/2,tc1+tc2+sv,vs/2),p).isVisible=false;
+	const tp=BABYLON.Mesh.MergeMeshes(p.getChildMeshes(),true,true,undefined,true,true);
+	p.dispose();
+	tp.n=[5,49,3,70,1,75];
+	return tp;
 };
-const tpnm=()=>
+const tpnm=(vr=0)=>
 {
 	const p=new BABYLON.TransformNode("tp");
 	const vs1=1.5,vs3=1,tc=.75,sv=.1,v=kmvv;
@@ -325,13 +327,14 @@ const tpnm=()=>
 		const tp=gmnk(pv(s1-sv/2,0,s3-sv/2),pv(s1+sv/2,tc,s3+sv/2),p,v,false);
 	}
 	gmnk(pv(-vs1/2-sv,tc,-vs3/2-sv),pv(vs1/2+sv,tc+sv,vs3/2+sv),p,v,false);
-	gmnk(pv(-vs1/2-sv,0,-vs3/2-sv),pv(vs1/2+sv,tc+sv,vs3/2+sv),p).isVisible=false;
-	p.n=[14,66,71,12,62,1,75];
-	return p;
+	if(vr)gmnk(pv(-vs1/2-sv,0,-vs3/2-sv),pv(vs1/2+sv,tc+sv,vs3/2+sv),p).isVisible=false;
+	const tp=BABYLON.Mesh.MergeMeshes(p.getChildMeshes(),true,true,undefined,true,true);
+	p.dispose();
+	tp.n=[14,66,71,12,62,1,75];
+	return tp;
 };
 const ppcnm=()=>
 {
-	const p=new BABYLON.TransformNode("tp");
 	const c=.1,v1=.05,v2=.07,vk=0.003;
 	const n1=new BABYLON.MeshBuilder.CreateCylinder("n",{height:c,diameterBottom:v1,diameterTop:v2});
 	n1.position.set(0,c/2,0);
@@ -340,7 +343,6 @@ const ppcnm=()=>
 	const n1p=BABYLON.CSG.FromMesh(n1);
 	const n2p=BABYLON.CSG.FromMesh(n2);
 	const pc=n1p.subtract(n2p).toMesh("c",null,s,true);
-	pc.parent=p;
 	if(1)
 	{
 		n1.dispose();
@@ -350,8 +352,8 @@ const ppcnm=()=>
 	pc.material.baseColor=new BABYLON.Color3(.1,.1,.1);
 	pc.material.metallic=.5;
 	pc.material.roughness=.0;
-	p.n=[56,2,48,3,51,1,77];
-	return p;
+	pc.n=[56,2,48,3,51,1,77];
+	return pc;
 };
 const knsnm=()=>
 {
@@ -595,7 +597,6 @@ const dvsgp=class
 		p.parent=tp;
 		if(v)
 		{
-			console.log(d.name)
 			const vs=p.getBoundingInfo().boundingBox.extendSize.scale(2)
 			const v=BABYLON.MeshBuilder.CreateBox('v',{width:vs.x,height:vs.y,depth:vs.z})
 			v.position.copyFrom(p.getBoundingInfo().boundingBox.center.add(p.position))
@@ -698,9 +699,8 @@ const svvn=
 		m.parent=p;
 		const vs=m.getBoundingInfo().boundingBox.extendSize.scale(2)
 		const cvr=2.0;
-		const vr=BABYLON.MeshBuilder.CreateBox('v',{width:vs.x,height:cvr,depth:vs.z})
+		const vr=BABYLON.MeshBuilder.CreateBox('v',{width:vs.x,height:vs.y,depth:vs.z})
 		vr.position.copyFrom(m.getBoundingInfo().boundingBox.center.add(m.position))
-		vr.position.y=cvr/2;
 		vr.checkCollisions=true;
 		vr.isVisible=0;
 		vr.parent=p;
@@ -812,7 +812,8 @@ if(1)
 		jnm.sn({m:p,s:[jnm.pn*4,-jnm.l/2,-jnm.l/2],pv:[jnm.l,jnm.pn*4]}).rotation.z=Math.PI/2
 		jnm.sn({m:p,s:[-jnm.pn*4,-jnm.l/2,-jnm.l/2],pv:[jnm.l,jnm.pn*4]}).rotation.z=Math.PI/2
 		jnm.sn({m:p,s:[0,-jnm.pn*3/2,-jnm.l/2],pv:[jnm.pn*3,jnm.pn*4]})
-		jnm.b([0,0,0],'124',p)
+		jnm.b([0,0,0],'14',p)
+		jnm.b([2,0,0],'123',p)
 		jnm.b([0,-2,-2],'34',p)
 		jnm.n([-1,1,-2],1,p)
 		jnm.b([0,-2,0],'14',p)
@@ -831,6 +832,12 @@ if(1)
 		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.35,-jnm.l+jnm.v*.5,-jnm.l-.35],b:[0,-.25,0]})
 		pss({p:knsnm(),m:gb,s:[0,2.4,.9]})
 		pss({p:svvn.n(),m:p,s:[0,-jnm.l+jnm.v/2,-jnm.l/2],b:[0,1,0]})
+		const tpss=pss({p:dvs.n(tpnm),m:p,s:[3.2,jnm.v/2,0.55],b:[0,.51,0]})
+		pss({p:dvs.n(pvsnm),m:p,s:[4.1,jnm.v/2,0.1],b:[0,-0.52,0]})
+		pss({p:dvs.n(pvsnm),m:p,s:[4.1,jnm.v/2,0.9],b:[0,-0.48,0]})
+		pss({p:dvs.n(pvsnm),m:p,s:[2.3,jnm.v/2,0.1],b:[0,0.52,0]})
+		pss({p:dvs.n(pvsnm),m:p,s:[2.2,jnm.v/2,0.9],b:[0,0.48,0]})
+		pss({p:dvs.n(ppcnm),m:tpss,s:[.3,.85,-.2]})
 		return p;
 		jnm.b([2,-2+1/6,0],'24',p)
 		jnm.b([2,-2+2/6,2],'14',p)
@@ -960,7 +967,7 @@ const lnm=()=>
 		tkb.position.set(-s1/2,gmc/2,-s3/2-bvs-s3/2);
 		tksg.push(tkb);
 		spd(pv(0,0,-s3-bvs));
-		const mks=pvsnm();
+		const mks=pvsnm(1);
 		mks.position.set(2,0,-1.5);
 		mks.rotation.set(0,-Math.PI/2,0);
 		const mtp=tpnm();
