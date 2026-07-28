@@ -643,34 +643,33 @@ const gbnm=()=>
 	dp3.position.y=bv/2+0.001
 	return BABYLON.Mesh.MergeMeshes([gb,t,dt,p3,dp3],true,true,undefined,true,true)
 }
-const ssmnm=
+const ssmnm=()=>
 {
-	n()
-	{
-		if(!this.mm)this.mm=lsnm({l:[
-			[0,0,0,0,0,0,0,0,0],
-			[0,1,1,1,0,1,1,1,0],
-			[0,1,0,1,0,1,0,1,0],
-			[0,1,1,1,0,1,1,1,0],
-			[0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0],
-			[0,0,0,1,1,1,0,0,0],
-			[0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0],
-			],v:jnm.pn*2,pv:'black',dv:'rgb(100,66,0)'})
-		this.mm.setEnabled(false)
-		const tp=new BABYLON.TransformNode("p")
-		const p=this.mm.createInstance('mm')
-		p.parent=tp;
-		const c=6
-		p.position.set(0,jnm.pn*c,-jnm.pn-jnm.v/2-.001)
-		jnm.sn({m:tp,s:[0,jnm.pn*(c+1),0],pv:[jnm.pn*2,jnm.pn*2]}).rotation.x=Math.PI/2
-		jnm.sn({m:tp,s:[0,jnm.pn*(c+1)/2,jnm.pn],pv:[jnm.pn*2,jnm.pn*(c+1)]}).rotation.z=Math.PI/2
-		jnm.sn({m:tp,s:[0,jnm.pn*(c+1)/2,-jnm.pn],pv:[jnm.pn*2,jnm.pn*(c+1)]}).rotation.z=Math.PI/2
-		jnm.sn({m:tp,s:[-jnm.pn,jnm.pn*(c+1)/2,0],pv:[jnm.pn*2,jnm.pn*(c+1)]}).rotation.set(0,Math.PI/2,Math.PI/2)
-		jnm.sn({m:tp,s:[jnm.pn,jnm.pn*(c+1)/2,0],pv:[jnm.pn*2,jnm.pn*(c+1)]}).rotation.set(0,Math.PI/2,Math.PI/2)
-		return tp;
-	}
+	const v=.45;
+	const m=lsnm({l:[
+	[0,0,0,0,0,0,0,0,0],
+	[0,1,1,1,0,1,1,1,0],
+	[0,1,0,1,0,1,0,1,0],
+	[0,1,1,1,0,1,1,1,0],
+	[0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0],
+	[0,0,0,1,1,1,0,0,0],
+	[0,0,0,0,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0],
+	],v:v,pv:'black',dv:'rgb(100,66,0)'})
+	const c=1.3;
+	m.position.set(0,c,-v/2-.001);
+	const sm=BABYLON.MeshBuilder.CreateBox('b',{width:v,height:v,depth:v})
+	sm.position.set(0,c,0);
+	rk(sm,[.1,.08,.06])
+	const g=BABYLON.MeshBuilder.CreateCylinder('g',{height:c,diameter:v/3})
+	g.position.set(0,c/2,0);
+	rk(g,[.03,.025,.025])
+	const dc=.2;
+	const d=BABYLON.MeshBuilder.CreateCylinder('g',{height:dc,diameter:v*1.5})
+	d.material=g.material;
+	d.position.set(0,dc/2,0)
+	return BABYLON.Mesh.MergeMeshes([m,sm,g,d],true,true,undefined,true,true)
 }
 const cvnm=()=>
 {
@@ -762,7 +761,7 @@ if(1)
 		}
 		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.35,-jnm.l+jnm.v*.5,-jnm.l-.35],b:[0,-.25,0]})
 		pss({p:knsnm(),m:gb,s:[0,2.4,.9]})
-		pss({p:ssmnm.n(),m:p,s:[0,-jnm.l,-jnm.l/2-jnm.pn*2]})
+		pss({p:dvs.n(ssmnm),m:p,s:[0,-jnm.l+jnm.v/2,-jnm.l/2-jnm.pn*2]})
 		return p;
 		jnm.b([2,-2+1/6,0],'24',p)
 		jnm.b([2,-2+2/6,2],'14',p)
