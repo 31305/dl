@@ -676,6 +676,27 @@ const ssmnm=()=>
 	d.position.set(0,dc/2,0)
 	return BABYLON.Mesh.MergeMeshes([dsm,sm,g,d],true,true,undefined,true,true)
 }
+const svvn=
+{
+	n()
+	{
+		if(!this.m)
+		{
+			this.m=ssmnm();
+			this.m.setEnabled(false)
+		}
+		const p=new BABYLON.TransformNode('sk')
+		const m=this.m.createInstance('m')
+		m.parent=p;
+		const vs=m.getBoundingInfo().boundingBox.extendSize.scale(2)
+		const v=BABYLON.MeshBuilder.CreateBox('v',{width:vs.x,height:vs.y,depth:vs.z})
+		v.position.copyFrom(m.getBoundingInfo().boundingBox.center.add(m.position))
+		v.checkCollisions=true;
+		v.isVisible=0;
+		v.parent=p;
+		return p;
+	}
+}
 const cvnm=()=>
 {
 	const p=new BABYLON.PBRCustomMaterial("cv");
@@ -768,7 +789,7 @@ if(1)
 		}
 		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.35,-jnm.l+jnm.v*.5,-jnm.l-.35],b:[0,-.25,0]})
 		pss({p:knsnm(),m:gb,s:[0,2.4,.9]})
-		pss({p:dvs.n(ssmnm),m:p,s:[0,-jnm.l+jnm.v/2,-jnm.l/2],b:[0,1,0]})
+		pss({p:svvn.n(),m:p,s:[0,-jnm.l+jnm.v/2,-jnm.l/2],b:[0,1,0]})
 		return p;
 		jnm.b([2,-2+1/6,0],'24',p)
 		jnm.b([2,-2+2/6,2],'14',p)
