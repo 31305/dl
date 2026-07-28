@@ -5,17 +5,24 @@ const jdv=function()
 }
 const vp=class
 {
-	vp=null
+	bs=false;
+	vp=null;
 	dk()
 	{
 		return new Promise((p,d)=>
 		{
-			vm({dk:p,vppk:()=>{if(this.vp!=null)this.vp()}}).then(p=>this.p=p);
+			vm({dk:p,vppk:()=>{this.bs=false;if(this.vp!=null)this.vp()}}).then(p=>this.p=p);
 		});
 	}
 	b(v)
 	{
-		if(this.p!=undefined)this.p.ccall('jb',null,['array','number'],[new Uint8Array(v),v.length]);
+		return new Promise((pd,d)=>
+		{
+			if(this.bs||this.p==undefined)d();
+			this.bs=true;
+			this.vp=()=>{this.vp=null;pd();}
+			this.p.ccall('jb',null,['array','number'],[new Uint8Array(v),v.length]);
+		});
 	}
 }
 const dnsnd=class
@@ -706,11 +713,24 @@ const svvn=
 		pk.actionManager=new BABYLON.ActionManager();
 		pk.actionManager.registerAction(
 		new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionEnterTrigger,parameter:lpc},
-			()=>{console.log('ps');const vp=[51,8,76,53,2,75,3,70,1,7,48,61,2,75];v.b(vp);psl=(p)=>
+			()=>
 			{
-				if(p==-1)v.b(vp)
-				else if(p==0)v.b([70,2])
-			}}
+				console.log('ps');
+				const vp=[51,8,76,53,2,75,3,70,1,7,48,61,2,75];
+				const s={k:null}
+				const pk=()=>{if(s.k)clearTimeout(s.k);s.k=setTimeout(()=>{s.k=null},3000);v.b(vp);}
+				if(!v.bs)pk();
+				psl=(p)=>
+				{
+					if(v.bs)return;
+					if(p==-1)pk();
+					else if(s.k)
+					{
+						if(p==0)v.b([70,2])
+						else if(p==1)v.b([5,75])
+					}
+				}
+			}
 		));
 		pk.actionManager.registerAction(
 		new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionExitTrigger,parameter:lpc},
