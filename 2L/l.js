@@ -1054,11 +1054,34 @@ const nkp=()=>
 const nps={};
 const ssk=function()
 {
+	let pbk=Date.now()
+	let mbg1=0;
+	let mbg2=0;
+	const mbk=(b1,b2)=>
+	{
+		const nbk=Date.now()
+		let nbg1=0,nbg2=0;
+		const g=Math.max(Math.abs(b1),Math.abs(b2))/(nbk-pbk)
+		if(g>5.0e-8)
+		{
+			const n=1.0;
+			if(Math.abs(b1)>Math.abs(b2)*n)nbg1=Math.sign(b1);
+			if(Math.abs(b2)>Math.abs(b1)*n)nbg2=Math.sign(b2);
+		}
+		if(nbg1*mbg1<0)console.log('n')
+		if(nbg2*mbg2<0)console.log('m')
+		pbk=nbk;
+		mbg1=nbg1;
+		mbg2=nbg2;
+	}
 	document.addEventListener("mousemove",(p)=>{if(document.pointerLockElement===d)
 	{
 		const vg=1;
-		l.cameraRotation.y+=vg*p.movementX/d.offsetHeight;
-		l.cameraRotation.x+=vg*p.movementY/d.offsetHeight;
+		const b1=vg*p.movementX/d.offsetHeight;
+		const b2=vg*p.movementY/d.offsetHeight;
+		l.cameraRotation.y+=b1;
+		l.cameraRotation.x+=b2;
+		mbk(b1,b2)
 	}
 	});
 	const sss=new Map();
@@ -1155,8 +1178,10 @@ const ssk=function()
 			if(sss.get(s.identifier).m)
 			{
 				const vg=3;
-				l.cameraRotation.y-=g1*vg; 
-				l.cameraRotation.x-=g2*vg;
+				const b1=-g1*vg,b2=-g2*vg
+				l.cameraRotation.y-=b1; 
+				l.cameraRotation.x-=b2;
+				mbk(b1,b2)
 			}
 			else
 			{
