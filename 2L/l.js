@@ -715,7 +715,7 @@ const svvn=
 		new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionEnterTrigger,parameter:lpc},
 			()=>
 			{
-				const vp=[51,8,76,53,2,75,3,70,1,7,48,61,2,75];
+				const vp=[51,8,76,53,2,75,3,70,1,75,7,48,61,2,75];
 				const s={k:null}
 				const ppk=()=>{if(s.k)clearTimeout(s.k);s.k=setTimeout(()=>{s.k=null},3000);v.b(vp);}
 				if(!v.bs)ppk();
@@ -1256,9 +1256,9 @@ const ssk=function()
 			{
 				const vg=3;
 				const b1=-g1*vg,b2=-g2*vg
-				l.cameraRotation.y-=b1; 
-				l.cameraRotation.x-=b2;
-				mbk(b1,b2)
+				l.cameraRotation.y+=b1; 
+				l.cameraRotation.x+=b2;
+				if(psl)mbk(b1,b2)
 			}
 			else
 			{
