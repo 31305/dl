@@ -702,7 +702,6 @@ const cvnm=()=>
 		#endif
 	`);
 	return p;
-	window.tp=p;
 }
 const cnmk=()=>
 {
@@ -748,11 +747,14 @@ if(1)
 		p.position.x=-jnm.l/2
 		pss({p:BABYLON.MeshBuilder.CreatePlane('b',{width:jnm.l*2-jnm.v,height:jnm.l-jnm.v}),
 			b:[.5,0,0],s:[0,jnm.v/2+.001,0]}).material=cvr;
+		jnm.sn({m:p,s:[jnm.pn*4,-jnm.l/2,-jnm.l/2],pv:[jnm.l,jnm.pn*4]}).rotation.z=Math.PI/2
+		jnm.sn({m:p,s:[-jnm.pn*4,-jnm.l/2,-jnm.l/2],pv:[jnm.l,jnm.pn*4]}).rotation.z=Math.PI/2
+		jnm.sn({m:p,s:[0,-jnm.pn*3/2,-jnm.l/2],pv:[jnm.pn*3,jnm.pn*4]})
 		jnm.b([0,0,0],'124',p)
-		jnm.b([0,-2,-2],'134',p)
+		jnm.b([0,-2,-2],'34',p)
 		jnm.n([-1,1,-2],1,p)
 		jnm.b([0,-2,0],'14',p)
-		jnm.b([2,-2,0],'12',p)
+		jnm.b([2,-2,0],'123',p)
 		jnm.b([2,-2,-2],'23',p)
 		jnm.sn({m:p,s:[-3*jnm.pn,jnm.l/2,-1.5*jnm.l],pv:[jnm.l,jnm.pn*6]}).rotation.z=Math.PI/2
 		jnm.spn([0,0,-2],0,p)
@@ -766,7 +768,7 @@ if(1)
 		}
 		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.35,-jnm.l+jnm.v*.5,-jnm.l-.35],b:[0,-.25,0]})
 		pss({p:knsnm(),m:gb,s:[0,2.4,.9]})
-		pss({p:dvs.n(ssmnm),m:p,s:[0,-jnm.l+jnm.v/2,-jnm.l/2-jnm.pn*2]})
+		pss({p:dvs.n(ssmnm),m:p,s:[0,-jnm.l+jnm.v/2,-jnm.l/2],b:[0,1,0]})
 		return p;
 		jnm.b([2,-2+1/6,0],'24',p)
 		jnm.b([2,-2+2/6,2],'14',p)
