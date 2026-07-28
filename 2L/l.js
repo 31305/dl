@@ -646,6 +646,7 @@ const gbnm=()=>
 const ssmnm=()=>
 {
 	const v=.45;
+	const tb=10;
 	const m=lsnm({l:[
 	[0,0,0,0,0,0,0,0,0],
 	[0,1,1,1,0,1,1,1,0],
@@ -656,20 +657,24 @@ const ssmnm=()=>
 	[0,0,0,1,1,1,0,0,0],
 	[0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,0],
-	],v:v,pv:'black',dv:'rgb(100,66,0)'})
+	].map(p=>[...Array(tb).fill(0),...p,...Array(tb).fill(0)]),v:v,pv:'rgb(100,80,60)',dv:'rgb(0,0,0)'})
 	const c=1.3;
-	m.position.set(0,c,-v/2-.001);
-	const sm=BABYLON.MeshBuilder.CreateBox('b',{width:v,height:v,depth:v})
-	sm.position.set(0,c,0);
-	rk(sm,[.1,.08,.06])
+	const sm=BABYLON.MeshBuilder.CreateCylinder('g',{height:v*.8,diameter:v-.002,cap:BABYLON.Mesh.NO_CAP})
+	const dsm=BABYLON.MeshBuilder.CreateCylinder('g',{height:v,diameter:v})
+	sm.position.set(0,c,-.002);
+	dsm.position.set(0,c,0);
+	sm.rotation.y=-Math.PI/2;
+	sm.material=m.material;
+	m.dispose()
 	const g=BABYLON.MeshBuilder.CreateCylinder('g',{height:c,diameter:v/3})
 	g.position.set(0,c/2,0);
 	rk(g,[.03,.025,.025])
+	dsm.material=g.material
 	const dc=.2;
 	const d=BABYLON.MeshBuilder.CreateCylinder('g',{height:dc,diameter:v*1.5})
 	d.material=g.material;
 	d.position.set(0,dc/2,0)
-	return BABYLON.Mesh.MergeMeshes([m,sm,g,d],true,true,undefined,true,true)
+	return BABYLON.Mesh.MergeMeshes([dsm,sm,g,d],true,true,undefined,true,true)
 }
 const cvnm=()=>
 {
