@@ -666,7 +666,7 @@ const ssmnm=()=>
 	[0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,0],
 	].map(p=>[...Array(tb).fill(0),...p,...Array(tb).fill(0)]),v:v,pv:'rgb(100,80,60)',dv:'rgb(0,0,0)'})
-	const c=1.3;
+	const c=1.5;
 	const sm=BABYLON.MeshBuilder.CreateCylinder('g',{height:v*.8,diameter:v-.002,cap:BABYLON.Mesh.NO_CAP})
 	const dsm=BABYLON.MeshBuilder.CreateCylinder('g',{height:v,diameter:v})
 	sm.position.set(0,c,-.002);
@@ -807,8 +807,10 @@ if(1)
 		const p=new BABYLON.TransformNode('jp')
 		p.position.y=jnm.l
 		p.position.x=-jnm.l/2
-		pss({p:BABYLON.MeshBuilder.CreatePlane('b',{width:jnm.l*2-jnm.v,height:jnm.l-jnm.v}),
-			b:[.5,0,0],s:[0,jnm.v/2+.001,0]}).material=cvr;
+		const tc=pss({p:BABYLON.MeshBuilder.CreatePlane('b',{width:jnm.l*2-jnm.v,height:jnm.l-jnm.v}),
+			m:p,b:[.5,0,0],s:[jnm.l/2,-jnm.l+jnm.v/2+.001,0]});
+		tc.material=cvr;
+		tc.clone().position.y+=jnm.l;
 		jnm.sn({m:p,s:[jnm.pn*4,-jnm.l/2,-jnm.l/2],pv:[jnm.l,jnm.pn*4]}).rotation.z=Math.PI/2
 		jnm.sn({m:p,s:[-jnm.pn*4,-jnm.l/2,-jnm.l/2],pv:[jnm.l,jnm.pn*4]}).rotation.z=Math.PI/2
 		jnm.sn({m:p,s:[0,-jnm.pn*3/2,-jnm.l/2],pv:[jnm.pn*3,jnm.pn*4]})
