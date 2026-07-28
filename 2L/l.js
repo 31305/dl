@@ -676,6 +676,7 @@ const ssmnm=()=>
 	d.position.set(0,dc/2,0)
 	return BABYLON.Mesh.MergeMeshes([dsm,sm,g,d],true,true,undefined,true,true)
 }
+let psl=null;
 const svvn=
 {
 	n()
@@ -689,11 +690,32 @@ const svvn=
 		const m=this.m.createInstance('m')
 		m.parent=p;
 		const vs=m.getBoundingInfo().boundingBox.extendSize.scale(2)
-		const v=BABYLON.MeshBuilder.CreateBox('v',{width:vs.x,height:vs.y,depth:vs.z})
-		v.position.copyFrom(m.getBoundingInfo().boundingBox.center.add(m.position))
-		v.checkCollisions=true;
-		v.isVisible=0;
-		v.parent=p;
+		const cvr=2.0;
+		const vr=BABYLON.MeshBuilder.CreateBox('v',{width:vs.x,height:cvr,depth:vs.z})
+		vr.position.copyFrom(m.getBoundingInfo().boundingBox.center.add(m.position))
+		vr.position.y=cvr/2;
+		vr.checkCollisions=true;
+		vr.isVisible=0;
+		vr.parent=p;
+		const pkc=2;
+		const pk=BABYLON.MeshBuilder.CreateBox('v',{width:0.5,height:pkc,depth:1})
+		pk.position.y=pkc/2;
+		pk.position.z=-.5;
+		pk.parent=p;
+		pk.isVisible=false;
+		pk.actionManager=new BABYLON.ActionManager();
+		pk.actionManager.registerAction(
+		new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionEnterTrigger,parameter:lpc},
+			()=>{console.log('ps');const vp=[51,8,76,53,2,75,3,70,1,7,48,61,2,75];v.b(vp);psl=(p)=>
+			{
+				if(p==-1)v.b(vp)
+				else if(p==0)v.b([70,2])
+			}}
+		));
+		pk.actionManager.registerAction(
+		new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionExitTrigger,parameter:lpc},
+			()=>{psl=null;}
+		));
 		return p;
 	}
 }
@@ -1095,8 +1117,8 @@ const ssk=function()
 			if(Math.abs(b1)>Math.abs(b2)*n)nbg1=Math.sign(b1);
 			if(Math.abs(b2)>Math.abs(b1)*n)nbg2=Math.sign(b2);
 		}
-		if(nbg1*mbg1<0)console.log('n')
-		if(nbg2*mbg2<0)console.log('m')
+		if(nbg1*mbg1<0){console.log('n');psl(0)}
+		if(nbg2*mbg2<0){console.log('m');psl(1)}
 		pbk=nbk;
 		mbg1=nbg1;
 		mbg2=nbg2;
@@ -1108,7 +1130,7 @@ const ssk=function()
 		const b2=vg*p.movementY/d.offsetHeight;
 		l.cameraRotation.y+=b1;
 		l.cameraRotation.x+=b2;
-		mbk(b1,b2)
+		if(psl)mbk(b1,b2)
 	}
 	});
 	const sss=new Map();
@@ -1290,8 +1312,9 @@ const lds=function()
 		{
 			for(let k=0;k<pvs.length;k++)
 				pvs[k].background=k>1?"black":"white";
-			nkp();
-			nps['Space']=true;
+			if(p.button==2)nkp();
+			else if(!psl)nps['Space']=true;
+			else psl(-1)
 			setTimeout(pk,200);
 		}
 	});
