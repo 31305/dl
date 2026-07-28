@@ -360,7 +360,7 @@ const knsnm=()=>
 	gp.position.set(0,0,-sv/2);
 	gp.parent=p;
 	gp.material=new BABYLON.PBRMetallicRoughnessMaterial("v");
-	gp.material.baseColor=new BABYLON.Color3(1,1,.5).toLinearSpace();
+	gp.material.baseColor=new BABYLON.Color3(.6,.6,.5).toLinearSpace();
 	gp.material.metallic=0;
 	gp.material.roughness=1;
 	const dgp=BABYLON.MeshBuilder.CreatePlane("gp",{width:v1,height:v1});
@@ -692,7 +692,7 @@ const cvnm=()=>
 		tp=tp*.5+cv(floor(vPositionW*128.0))*.5;
 		tp=tp*.5+cv(floor(vPositionW*256.0))*.5;
 		tp=tp*.5+cv(floor(vPositionW*512.0))*.5;
-		surfaceAlbedo=vec3(.1,.1,.05)+vec3(1,1,.75)*tp;
+		surfaceAlbedo=vec3(.1,.1,.05)+vec3(.2,.2,.15)*tp;
 		#ifdef GAMMAALBEDO
 		surfaceAlbedo=toLinearSpace(surfaceAlbedo);
 		#endif
@@ -720,10 +720,10 @@ if(1)
 		const cnm=new BABYLON.ShadowGenerator(1024,p);
 		window.cnm=cnm;
 	}
-	l.rotation.set(Math.PI/2,Math.PI/2,0)
+	l.rotation.set(Math.PI/2,0,0)
 	const dvs=new dvsgp();
 	const cvr=cvnm();
-	dns.sk=(s)=>
+	if(0)dns.sk=(s)=>
 	{
 		const p=new BABYLON.TransformNode('sk')
 		if(s[1]!=0)return p;
@@ -736,16 +736,19 @@ if(1)
 		b.parent=p;
 		return p;
 	}
-	dns.s([0,0,0],()=>dns.sk([0,0,0]))
+	if(0)dns.s([0,0,0],()=>dns.sk([0,0,0]))
 	dns.s([0,0,0],()=>
 	{
 		const p=new BABYLON.TransformNode('jp')
-		p.position.y=jnm.l+jnm.v/2
+		p.position.y=jnm.l
+		p.position.x=-jnm.l/2
+		pss({p:BABYLON.MeshBuilder.CreatePlane('b',{width:jnm.l*2-jnm.v,height:jnm.l-jnm.v}),
+			b:[.5,0,0],s:[0,jnm.v/2+.001,0]}).material=cvr;
 		jnm.b([0,0,0],'124',p)
 		jnm.b([0,-2,-2],'134',p)
 		jnm.n([-1,1,-2],1,p)
-		jnm.n([0,-1,1],3,p)
-		jnm.n([-1,-1,0],1,p)
+		jnm.b([0,-2,0],'14',p)
+		jnm.b([2,-2,0],'12',p)
 		jnm.b([2,-2,-2],'23',p)
 		jnm.sn({m:p,s:[-3*jnm.pn,jnm.l/2,-1.5*jnm.l],pv:[jnm.l,jnm.pn*6]}).rotation.z=Math.PI/2
 		jnm.spn([0,0,-2],0,p)
