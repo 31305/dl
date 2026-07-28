@@ -715,19 +715,18 @@ const svvn=
 		new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionEnterTrigger,parameter:lpc},
 			()=>
 			{
-				console.log('ps');
 				const vp=[51,8,76,53,2,75,3,70,1,7,48,61,2,75];
 				const s={k:null}
-				const pk=()=>{if(s.k)clearTimeout(s.k);s.k=setTimeout(()=>{s.k=null},3000);v.b(vp);}
-				if(!v.bs)pk();
-				psl=(p)=>
+				const ppk=()=>{if(s.k)clearTimeout(s.k);s.k=setTimeout(()=>{s.k=null},3000);v.b(vp);}
+				if(!v.bs)ppk();
+				psl=(t)=>
 				{
 					if(v.bs)return;
-					if(p==-1)pk();
+					if(t==-1)ppk();
 					else if(s.k)
 					{
-						if(p==0)v.b([70,2])
-						else if(p==1)v.b([5,75])
+						if(t==0)v.b([70,2])
+						else if(t==1)v.b([5,75]).then(()=>{psl=null;pk.actionManager.dispose();p.position.z-=1.5;})
 					}
 				}
 			}
@@ -1137,8 +1136,8 @@ const ssk=function()
 			if(Math.abs(b1)>Math.abs(b2)*n)nbg1=Math.sign(b1);
 			if(Math.abs(b2)>Math.abs(b1)*n)nbg2=Math.sign(b2);
 		}
-		if(nbg1*mbg1<0){console.log('n');psl(0)}
-		if(nbg2*mbg2<0){console.log('m');psl(1)}
+		if(nbg1*mbg1<0){psl(0)}
+		if(nbg2*mbg2<0){psl(1)}
 		pbk=nbk;
 		mbg1=nbg1;
 		mbg2=nbg2;
