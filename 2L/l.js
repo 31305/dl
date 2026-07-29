@@ -1132,24 +1132,53 @@ const nps={};
 const ssk=function()
 {
 	let pbk=Date.now()
-	let mbg1=0;
-	let mbg2=0;
-	const mbk=(b1,b2)=>
+	const mbk=
 	{
-		const nbk=Date.now()
-		let nbg1=0,nbg2=0;
-		const g=Math.max(Math.abs(b1),Math.abs(b2))/(nbk-pbk)
-		if(g>5.0e-8)
+		k(b1,b2)
 		{
-			const n=1.0;
-			if(Math.abs(b1)>Math.abs(b2)*n)nbg1=Math.sign(b1);
-			if(Math.abs(b2)>Math.abs(b1)*n)nbg2=Math.sign(b2);
+			if(this.kk==undefined)
+			{
+				this.mbg1=0;
+				this.mbg2=0;
+				this.m=[0,0];
+				const ks=4;
+				this.p=[Array(ks).fill(0),Array(ks).fill(0)]
+				this.kk=0;
+				const tk=(kk,kn,s)=>s*(kk%kn>=kn/2?1:-1)
+				this.s=[Array(20).fill(0),Array(20).fill(0)]
+				setInterval(()=>
+				{
+					const ls=this.kk%this.s.length;
+					for(let k=0;k<ks;k++)
+					{
+						const kn=2**(k+1);
+						for(const pk of [0,1])
+						{
+							this.p[pk][k]=this.p[pk][k]+tk(this.kk,kn,this.m[pk])-tk(this.kk-this.s.length,kn,this.s[pk][ls])
+							this.s[pk][ls]=this.m[pk]
+						}
+					}
+					this.m=[0,0]
+					if(0)console.log(Math.max(...this.p[0].map(p=>Math.abs(p))).toFixed(2)+', '+Math.max(...this.p[1].map(p=>Math.abs(p))).toFixed(2))
+					this.kk++;
+				},100)
+			}
+			const nbk=Date.now()
+			let nbg1=0,nbg2=0;
+			const g=Math.max(Math.abs(b1),Math.abs(b2))/(nbk-pbk)
+			if(g>5.0e-8)
+			{
+				const n=1.0;
+				if(Math.abs(b1)>Math.abs(b2)*n)nbg1=Math.sign(b1);
+				if(Math.abs(b2)>Math.abs(b1)*n)nbg2=Math.sign(b2);
+			}
+			if(nbg1*this.mbg1<0){psl(0)}
+			if(nbg2*this.mbg2<0){psl(1)}
+			this.m=[Math.sign(b1),Math.sign(b2)]
+			pbk=nbk;
+			this.mbg1=nbg1;
+			this.mbg2=nbg2;
 		}
-		if(nbg1*mbg1<0){psl(0)}
-		if(nbg2*mbg2<0){psl(1)}
-		pbk=nbk;
-		mbg1=nbg1;
-		mbg2=nbg2;
 	}
 	document.addEventListener("mousemove",(p)=>{if(document.pointerLockElement===d)
 	{
@@ -1158,7 +1187,7 @@ const ssk=function()
 		const b2=vg*p.movementY/d.offsetHeight;
 		l.cameraRotation.y+=b1;
 		l.cameraRotation.x+=b2;
-		if(psl)mbk(b1,b2)
+		if(psl)mbk.k(b1,b2)
 	}
 	});
 	const sss=new Map();
@@ -1258,7 +1287,7 @@ const ssk=function()
 				const b1=-g1*vg,b2=-g2*vg
 				l.cameraRotation.y+=b1; 
 				l.cameraRotation.x+=b2;
-				if(psl)mbk(b1,b2)
+				if(psl)mbk.k(b1,b2)
 			}
 			else
 			{
