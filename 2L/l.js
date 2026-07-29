@@ -1145,7 +1145,7 @@ const ssk=function()
 				this.p=[Array(ks).fill(0),Array(ks).fill(0)]
 				this.kk=0;
 				const tk=(kk,kn,s)=>s*(kk%kn>=kn/2?1:-1)
-				const ss=20;
+				const ss=10;
 				this.s=[Array(ss).fill(0),Array(ss).fill(0)]
 				setInterval(()=>
 				{
@@ -1155,12 +1155,13 @@ const ssk=function()
 						const kn=2**(k+1);
 						for(const pk of [0,1])
 						{
-							this.p[pk][k]=this.p[pk][k]+tk(this.kk,kn,this.m[pk])-tk(this.kk-this.s.length,kn,this.s[pk][ls])
-							this.s[pk][ls]=this.m[pk]
+							this.p[pk][k]=this.p[pk][k]+tk(this.kk,kn,this.m[pk])-tk(this.kk-ss,kn,this.s[pk][ls])
 						}
 					}
+					for(const pk of [0,1])
+						this.s[pk][ls]=this.m[pk]
 					this.m=[0,0]
-					if(0)console.log(Math.max(...this.p[0].map(p=>Math.abs(p))).toFixed(2)+', '+Math.max(...this.p[1].map(p=>Math.abs(p))).toFixed(2))
+					if(1)console.log(Math.max(...this.p[0].map(p=>Math.abs(p))).toFixed(2)+', '+Math.max(...this.p[1].map(p=>Math.abs(p))).toFixed(2))
 					this.kk++;
 				},100)
 			}
