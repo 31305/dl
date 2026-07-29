@@ -1145,10 +1145,11 @@ const ssk=function()
 				this.p=[Array(ks).fill(0),Array(ks).fill(0)]
 				this.kk=0;
 				const tk=(kk,kn,s)=>s*(kk%kn>=kn/2?1:-1)
-				this.s=[Array(20).fill(0),Array(20).fill(0)]
+				const ss=20;
+				this.s=[Array(ss).fill(0),Array(ss).fill(0)]
 				setInterval(()=>
 				{
-					const ls=this.kk%this.s.length;
+					const ls=this.kk%ss;
 					for(let k=0;k<ks;k++)
 					{
 						const kn=2**(k+1);
