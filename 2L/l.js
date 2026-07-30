@@ -1131,55 +1131,46 @@ const nkp=()=>
 const nps={};
 const ssk=function()
 {
-	let pbk=Date.now()
 	const mbk=
 	{
-		k(b1,b2)
+		k(b)
 		{
-			if(this.kk==undefined)
+			if(this.mb==undefined)
 			{
-				this.mbg1=0;
-				this.mbg2=0;
-				this.m=[0,0];
-				const ks=4;
-				this.p=[Array(ks).fill(0),Array(ks).fill(0)]
-				this.kk=0;
-				const tk=(kk,kn,s)=>s*(kk%kn>=kn/2?1:-1)
-				const ss=10;
-				this.s=[Array(ss).fill(0),Array(ss).fill(0)]
-				setInterval(()=>
+				this.mb=[0,0];
+				this.ps=[0,0];
+				this.pk=[0,0];
+				this.pg=[0,0]
+			}
+			const sk=Date.now();
+			const kn=300;
+			const ng=.03;
+			for(const k of [0,1])
+			{
+				if(sk-this.pk[k]>kn)
 				{
-					const ls=this.kk%ss;
-					for(let k=0;k<ks;k++)
-					{
-						const kn=2**(k+1);
-						for(const pk of [0,1])
-						{
-							this.p[pk][k]=this.p[pk][k]+tk(this.kk,kn,this.m[pk])-tk(this.kk-ss,kn,this.s[pk][ls])
-						}
-					}
-					for(const pk of [0,1])
-						this.s[pk][ls]=this.m[pk]
-					this.m=[0,0]
-					if(1)console.log(Math.max(...this.p[0].map(p=>Math.abs(p))).toFixed(2)+', '+Math.max(...this.p[1].map(p=>Math.abs(p))).toFixed(2))
-					this.kk++;
-				},100)
+					this.ps[k]=0;
+					this.mb[k]=0;
+					this.pk[k]=sk;
+					this.pg[k]=0;
+				}
+				if(b[k]*this.pg[k]<=0)this.ps[k]+=b[k];
+				if(Math.abs(this.ps[k])>ng&&this.mb[1-k]==0)
+				{
+					this.pk[k]=sk;
+					this.ps[k]=0;
+					this.mb[k]++;
+					this.pg[k]=Math.sign(b[k])
+				}
+				if(this.mb[k]==3)
+				{
+					this.mb[k]=0;
+					this.pg[k]=0;
+					this.pk[k]=0;
+					psl(k)
+				}
 			}
-			const nbk=Date.now()
-			let nbg1=0,nbg2=0;
-			const g=Math.max(Math.abs(b1),Math.abs(b2))/(nbk-pbk)
-			if(g>5.0e-8)
-			{
-				const n=1.0;
-				if(Math.abs(b1)>Math.abs(b2)*n)nbg1=Math.sign(b1);
-				if(Math.abs(b2)>Math.abs(b1)*n)nbg2=Math.sign(b2);
-			}
-			if(nbg1*this.mbg1<0){psl(0)}
-			if(nbg2*this.mbg2<0){psl(1)}
-			this.m=[Math.sign(b1),Math.sign(b2)]
-			pbk=nbk;
-			this.mbg1=nbg1;
-			this.mbg2=nbg2;
+
 		}
 	}
 	document.addEventListener("mousemove",(p)=>{if(document.pointerLockElement===d)
@@ -1189,7 +1180,7 @@ const ssk=function()
 		const b2=vg*p.movementY/d.offsetHeight;
 		l.cameraRotation.y+=b1;
 		l.cameraRotation.x+=b2;
-		if(psl)mbk.k(b1,b2)
+		if(psl)mbk.k([b1,b2])
 	}
 	});
 	const sss=new Map();
@@ -1289,7 +1280,7 @@ const ssk=function()
 				const b1=-g1*vg,b2=-g2*vg
 				l.cameraRotation.y+=b1; 
 				l.cameraRotation.x+=b2;
-				if(psl)mbk.k(b1,b2)
+				if(psl)mbk.k([b1,b2])
 			}
 			else
 			{
