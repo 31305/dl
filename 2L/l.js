@@ -687,6 +687,48 @@ const ssmnm=()=>
 let psl=null;
 const svvn=
 {
+	pv(d)
+	{
+		return new Promise((pk,nk)=>
+		{
+			const cpk=60;
+			const pv=new BABYLON.Animation(
+				"pv",
+				"rotation.y",
+				cpk,
+				BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+				BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
+			);
+			pv.setKeys([
+				{frame:0,value:d.p.rotation.y},
+				{frame:d.m*cpk/2,value:d.p.rotation.y+d.m*Math.PI}
+			]);
+			d.p.animations=[pv];
+			s.beginAnimation(d.p,0,d.m*cpk/2,false,1,pk)
+		})
+	},
+	gk:(d)=>
+	{	
+		return new Promise((pk,dk)=>
+		{
+			const cpk=60;
+			const ds=d.p.position.clone();
+			const gs=ds.add(d.p.forward.scale(-d.m));
+			const pg=new BABYLON.Animation(
+				"pg",
+				"position",
+				cpk,
+				BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
+				BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
+			);
+			pg.setKeys([
+				{frame:0,value:ds},
+				{frame:d.m*cpk/2,value:gs}
+			]);
+			d.p.animations=[pg];
+			s.beginAnimation(d.p,0,d.m*cpk/2,false,1,pk);
+		});
+	},
 	n()
 	{
 		if(!this.m)
@@ -705,7 +747,7 @@ const svvn=
 		vr.isVisible=0;
 		vr.parent=p;
 		const pkc=2;
-		const pk=BABYLON.MeshBuilder.CreateBox('v',{width:0.5,height:pkc,depth:1})
+		const pk=BABYLON.MeshBuilder.CreateBox('v',{width:1,height:pkc,depth:1})
 		pk.position.y=pkc/2;
 		pk.position.z=-.5;
 		pk.parent=p;
@@ -715,7 +757,7 @@ const svvn=
 		new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionEnterTrigger,parameter:lpc},
 			()=>
 			{
-				const vp=[51,8,76,53,2,75,3,70,1,75,7,48,61,2,75];
+				const vp=[51,8,76,49,3,76,56,4,44,2,75,9,56,57,1,49,7];
 				const s={k:null}
 				const ppk=()=>{if(s.k)clearTimeout(s.k);s.k=setTimeout(()=>{s.k=null},3000);v.b(vp);}
 				if(!v.bs)ppk();
@@ -730,36 +772,7 @@ const svvn=
 						{
 							psl=null;
 							pk.actionManager.dispose();
-							const cpk=60;
-							const pv=new BABYLON.Animation(
-								"pv",
-								"rotation.y",
-								cpk,
-								BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-								BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
-							);
-							pv.setKeys([
-								{frame:0,value:p.rotation.y},
-								{frame:30,value:p.rotation.y+Math.PI}
-							]);
-							p.animations=[pv];
-							p.getScene().beginAnimation(p,0,30,false,1,()=>{
-								const ds=p.position.clone();
-								const gs=ds.add(p.forward.scale(-1.5));
-								const pg=new BABYLON.Animation(
-									"pg",
-									"position",
-									cpk,
-									BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
-									BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
-								);
-								pg.setKeys([
-									{frame:0,value:ds},
-									{frame:30,value:gs}
-								]);
-								p.animations=[pg];
-								p.getScene().beginAnimation(p,0,30,false);
-							});
+							this.pv({p:p,m:1}).then(()=>{this.gk({p:p,m:1.5})})
 						})
 					}
 				}
