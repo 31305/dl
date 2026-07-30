@@ -726,7 +726,41 @@ const svvn=
 					else if(s.k)
 					{
 						if(t==0)v.b([70,2])
-						else if(t==1)v.b([5,75]).then(()=>{psl=null;pk.actionManager.dispose();p.position.z-=1.5;})
+						else if(t==1)v.b([5,75]).then(()=>
+						{
+							psl=null;
+							pk.actionManager.dispose();
+							const cpk=60;
+							const pv=new BABYLON.Animation(
+								"pv",
+								"rotation.y",
+								cpk,
+								BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+								BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
+							);
+							pv.setKeys([
+								{frame:0,value:p.rotation.y},
+								{frame:30,value:p.rotation.y+Math.PI}
+							]);
+							p.animations=[pv];
+							p.getScene().beginAnimation(p,0,30,false,1,()=>{
+								const ds=p.position.clone();
+								const gs=ds.add(p.forward.scale(-1.5));
+								const pg=new BABYLON.Animation(
+									"pg",
+									"position",
+									cpk,
+									BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
+									BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
+								);
+								pg.setKeys([
+									{frame:0,value:ds},
+									{frame:30,value:gs}
+								]);
+								p.animations=[pg];
+								p.getScene().beginAnimation(p,0,30,false);
+							});
+						})
 					}
 				}
 			}
