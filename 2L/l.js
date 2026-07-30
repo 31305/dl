@@ -685,9 +685,9 @@ const ssmnm=()=>
 	return BABYLON.Mesh.MergeMeshes([dsm,sm,g,d],true,true,undefined,true,true)
 }
 let psl=null;
-const svvn=
+const svvn=class
 {
-	pv(d)
+	pv(m)
 	{
 		return new Promise((pk,nk)=>
 		{
@@ -700,20 +700,20 @@ const svvn=
 				BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
 			);
 			pv.setKeys([
-				{frame:0,value:d.p.rotation.y},
-				{frame:d.m*cpk/2,value:d.p.rotation.y+d.m*Math.PI}
+				{frame:0,value:this.p.rotation.y},
+				{frame:m*cpk/2,value:this.p.rotation.y+m*Math.PI}
 			]);
-			d.p.animations=[pv];
-			s.beginAnimation(d.p,0,d.m*cpk/2,false,1,pk)
+			this.p.animations=[pv];
+			s.beginAnimation(this.p,0,m*cpk/2,false,1,pk)
 		})
-	},
-	gk:(d)=>
+	}
+	gk(m)
 	{	
 		return new Promise((pk,dk)=>
 		{
 			const cpk=60;
-			const ds=d.p.position.clone();
-			const gs=ds.add(d.p.forward.scale(-d.m));
+			const ds=this.p.position.clone();
+			const gs=ds.add(this.p.forward.scale(-m));
 			const pg=new BABYLON.Animation(
 				"pg",
 				"position",
@@ -723,29 +723,25 @@ const svvn=
 			);
 			pg.setKeys([
 				{frame:0,value:ds},
-				{frame:d.m*cpk/2,value:gs}
+				{frame:m*cpk/2,value:gs}
 			]);
-			d.p.animations=[pg];
-			s.beginAnimation(d.p,0,d.m*cpk/2,false,1,pk);
+			this.p.animations=[pg];
+			const g=s.beginAnimation(this.p,0,m*cpk/2,false,1,()=>{this.pk.actionManager.dispose();pk();});
+			this.pk.actionManager=new BABYLON.ActionManager();
+			this.pk.actionManager.registerAction(
+			new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionEnterTrigger,parameter:lpc},
+				()=>{g.pause();if(!v.bs)v.b([2,71,3,49,1,44,1])}
+			));
+			this.pk.actionManager.registerAction(
+			new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionExitTrigger,parameter:lpc},
+				()=>g.restart()
+		));
 		});
-	},
-	n()
+	}
+	constructor(dvs)
 	{
-		if(!this.m)
-		{
-			this.m=ssmnm();
-			this.m.setEnabled(false)
-		}
 		const p=new BABYLON.TransformNode('sk')
-		const m=this.m.createInstance('m')
-		m.parent=p;
-		const vs=m.getBoundingInfo().boundingBox.extendSize.scale(2)
-		const cvr=2.0;
-		const vr=BABYLON.MeshBuilder.CreateBox('v',{width:vs.x,height:vs.y,depth:vs.z})
-		vr.position.copyFrom(m.getBoundingInfo().boundingBox.center.add(m.position))
-		vr.checkCollisions=true;
-		vr.isVisible=0;
-		vr.parent=p;
+		dvs.n(ssmnm).parent=p;
 		const pkc=2;
 		const pk=BABYLON.MeshBuilder.CreateBox('v',{width:1,height:pkc,depth:1})
 		pk.position.y=pkc/2;
@@ -772,17 +768,17 @@ const svvn=
 						{
 							psl=null;
 							pk.actionManager.dispose();
-							this.pv({p:p,m:1}).then(()=>{this.gk({p:p,m:1.5})})
+							const pvk=()=>{this.pv(1).then(()=>this.gk(1.5)).then(pvk)};
+							pvk();
 						})
 					}
 				}
 			}
 		));
 		pk.actionManager.registerAction(
-		new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionExitTrigger,parameter:lpc},
-			()=>{psl=null;}
-		));
-		return p;
+		new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionExitTrigger,parameter:lpc},()=>{psl=null;}));
+		this.p=p;
+		this.pk=pk;
 	}
 }
 const cvnm=()=>
@@ -880,7 +876,7 @@ if(1)
 		}
 		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.35,-jnm.l+jnm.v*.5,-jnm.l-.35],b:[0,-.25,0]})
 		pss({p:knsnm(),m:gb,s:[0,2.4,.9]})
-		pss({p:svvn.n(),m:p,s:[0,-jnm.l+jnm.v/2,-jnm.l/2],b:[0,1,0]})
+		pss({p:(new svvn(dvs)).p,m:p,s:[0,-jnm.l+jnm.v/2,-jnm.l/2],b:[0,1,0]})
 		const tpss=pss({p:dvs.n(tpnm),m:p,s:[3.2,jnm.v/2,0.55],b:[0,.51,0]})
 		pss({p:dvs.n(pvsnm),m:p,s:[4.1,jnm.v/2,0.1],b:[0,-0.52,0]})
 		pss({p:dvs.n(pvsnm),m:p,s:[4.1,jnm.v/2,0.9],b:[0,-0.48,0]})
