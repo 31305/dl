@@ -755,7 +755,7 @@ const svvn=class
 			{
 				const vp=[51,8,76,49,3,76,56,4,44,2,75,9,56,57,1,49,7];
 				const s={k:null}
-				const ppk=()=>{if(s.k)clearTimeout(s.k);s.k=setTimeout(()=>{s.k=null},3000);v.b(vp);}
+				const ppk=()=>{if(s.k)clearTimeout(s.k);v.b(vp).then(()=>{s.k=setTimeout(()=>{s.k=null},3000);})}
 				if(!v.bs)ppk();
 				psl=(t)=>
 				{
@@ -776,11 +776,11 @@ const svvn=class
 			}
 			:vv==2?()=>
 			{
-				const vp=[51,8,76,49,3,76,56,4,44,2,75,9,56,57,1,49,7];
+				const vp=[74,1,51,48,43,3,76,60,2,47,7,48,61,2,75];
 				if(!v.bs)v.b(vp);
 				psl=(t)=>
 				{
-					if(!v.bs&&t==-1)ppk();
+					if(!v.bs&&t==-1)v.b(vp);
 				}
 			}
 			:()=>{}
@@ -887,6 +887,7 @@ if(1)
 		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.35,-jnm.l+jnm.v*.5,-jnm.l-.35],b:[0,-.25,0]})
 		pss({p:knsnm(),m:gb,s:[0,2.4,.9]})
 		pss({p:(new svvn(dvs,1)).p,m:p,s:[0,-jnm.l+jnm.v/2,-jnm.l/2],b:[0,1,0]})
+		pss({p:(new svvn(dvs,2)).p,m:p,s:[jnm.l+1,jnm.v/2,-1.0],b:[0,.5,0]})
 		const tpss=pss({p:dvs.n(tpnm),m:p,s:[3.2,jnm.v/2,0.55],b:[0,.51,0]})
 		pss({p:dvs.n(pvsnm),m:p,s:[4.1,jnm.v/2,0.1],b:[0,-0.52,0]})
 		pss({p:dvs.n(pvsnm),m:p,s:[4.1,jnm.v/2,0.9],b:[0,-0.48,0]})
