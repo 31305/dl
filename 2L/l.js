@@ -508,9 +508,9 @@ const jnmp=class
 		if(d.s)tp.position.set(d.s[0],d.s[1],d.s[2])
 		return tp
 	}
-	n(s,d,m=null)
+	n(s,d,m=null,pg)
 	{
-		const p=this.sn({pv:[this.l,this.l],m:m,pg:d==2})
+		const p=this.sn({pv:[this.l,this.l],m:m,pg:pg||d==2})
 		if(d==1)p.rotation.set(0,Math.PI/2,0)
 		else if(d==2)p.rotation.set(Math.PI/2,0,0)
 		p.position.set(s[0]*this.l*.5,s[1]*this.l*.5,s[2]*this.l*.5)
@@ -518,7 +518,7 @@ const jnmp=class
 	}
 	b(s,d,m=null)
 	{
-		this.n(s,2,m)
+		this.n(s,2,m,true)
 		if(d.search('1')!=-1)this.n([s[0],s[1]+1,s[2]+1],3,m)
 		if(d.search('2')!=-1)this.n([s[0]+1,s[1]+1,s[2]],1,m)
 		if(d.search('3')!=-1)this.n([s[0],s[1]+1,s[2]-1],3,m)
@@ -732,7 +732,6 @@ const svvn=class
 	sg(s)
 	{
 		const pvm=BABYLON.Vector3.GetAngleBetweenVectors(s.subtract(this.p.position),this.p.forward,pv(0,1,0))
-		console.log(pvm)
 		return this.pv(pvm/Math.PI).then(()=>this.gk(s.subtract(this.p.position).length()))
 	}
 	nk()
@@ -767,10 +766,10 @@ const svvn=class
 		));
 		pk.actionManager.registerAction(new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionExitTrigger,parameter:lpc},()=>{psl=null;}));
 	}
-	constructor(dvs,vv)
+	constructor(d)
 	{
 		const p=new BABYLON.TransformNode('sk')
-		const mm=dvs.n(ssmnm);
+		const mm=d.dvs.n(ssmnm);
 		mm.parent=p;
 		mm.getChildMeshes()[1].scaling.set(1.2,1,2.2)
 		const pkc=2;
@@ -779,8 +778,8 @@ const svvn=class
 		pk.parent=p;
 		pk.isVisible=false;
 		this.pk=pk;
-		if(vv==1)this.nk();
-		else if(vv==2)
+		if(d.vv==1)this.nk();
+		else if(d.vv==2)
 		{
 			pk.actionManager=new BABYLON.ActionManager();
 			pk.actionManager.registerAction(
@@ -895,8 +894,8 @@ if(1)
 		}
 		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.35,-jnm.l+jnm.v*.5,-jnm.l-.35],b:[0,-.25,0]})
 		pss({p:knsnm(),m:gb,s:[0,2.4,.9]})
-		pss({p:(new svvn(dvs,1)).p,m:p,s:[0,-jnm.l+jnm.v/2,-jnm.l/2]})
-		pss({p:(new svvn(dvs,2)).p,m:p,s:[1.5,jnm.v/2,1.15],b:[0,1,0]})
+		pss({p:(new svvn({dvs:dvs,vv:1})).p,m:p,s:[0,-jnm.l+jnm.v/2,-jnm.l/2]})
+		pss({p:(new svvn({dvs:dvs,vv:2})).p,m:p,s:[1.5,jnm.v/2,1.15],b:[0,1,0]})
 		const tpss=pss({p:dvs.n(tpnm),m:p,s:[3.2,jnm.v/2,0.55],b:[0,.51,0]})
 		pss({p:dvs.n(pvsnm),m:p,s:[4.1,jnm.v/2,0.1],b:[0,-0.52,0]})
 		pss({p:dvs.n(pvsnm),m:p,s:[4.1,jnm.v/2,0.9],b:[0,-0.48,0]})
@@ -1234,7 +1233,6 @@ const ssk=function()
 					this.mb[k]=0;
 					this.pg[k]=0;
 					this.pk[k]=0;
-					console.log(k?'m':'n')
 					psl(k)
 				}
 			}
