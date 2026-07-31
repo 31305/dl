@@ -601,7 +601,7 @@ const dvsgp=class
 			const v=BABYLON.MeshBuilder.CreateBox('v',{width:vs.x,height:vs.y,depth:vs.z})
 			v.position.copyFrom(p.getBoundingInfo().boundingBox.center.add(p.position))
 			v.checkCollisions=true;
-			v.isVisible=0;
+			v.isVisible=false;
 			v.parent=tp;
 		}
 		else p.checkCollisions=1
@@ -653,36 +653,28 @@ const gbnm=()=>
 }
 const ssmnm=()=>
 {
-	const v=.45;
-	const tb=10;
-	const m=lsnm({l:[
-	[0,0,0,0,0,0,0,0,0],
-	[0,1,1,1,0,1,1,1,0],
-	[0,1,0,1,0,1,0,1,0],
-	[0,1,1,1,0,1,1,1,0],
-	[0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0],
-	[0,0,0,1,1,1,0,0,0],
-	[0,0,0,0,0,0,0,0,0],
-	[0,0,0,0,0,0,0,0,0],
-	].map(p=>[...Array(tb).fill(0),...p,...Array(tb).fill(0)]),v:v,pv:'rgb(100,80,60)',dv:'rgb(0,0,0)'})
+	const dd=.2
+	const v=.3;
 	const c=1.5;
-	const sm=BABYLON.MeshBuilder.CreateCylinder('g',{height:v*.8,diameter:v-.002,cap:BABYLON.Mesh.NO_CAP})
-	const dsm=BABYLON.MeshBuilder.CreateCylinder('g',{height:v,diameter:v})
-	sm.position.set(0,c,-.002);
-	dsm.position.set(0,c,0);
-	sm.rotation.y=-Math.PI/2;
-	sm.material=m.material;
-	m.dispose()
-	const g=BABYLON.MeshBuilder.CreateCylinder('g',{height:c,diameter:v/3})
-	g.position.set(0,c/2,0);
-	rk(g,[.03,.025,.025])
-	dsm.material=g.material
-	const dc=.2;
-	const d=BABYLON.MeshBuilder.CreateCylinder('g',{height:dc,diameter:v*1.5})
-	d.material=g.material;
-	d.position.set(0,dc/2,0)
-	return BABYLON.Mesh.MergeMeshes([dsm,sm,g,d],true,true,undefined,true,true)
+	const dsm=BABYLON.MeshBuilder.CreateBox('g',{height:v,width:v,depth:v})
+	dsm.position.set(0,c+v/2,(dd-v)/2);
+	const gl=.2;
+	const g=BABYLON.MeshBuilder.CreateBox('g',{height:c-gl,width:.45,depth:dd})
+	g.position.set(0,(c-gl)/2,0);
+	const gd=.15
+	const gm=BABYLON.MeshBuilder.CreateBox('g',{height:gl,width:.15,depth:gd})
+	gm.position.set(0,c-gl/2,(dd-gd)/2)
+	rk(g,[0,0,0])
+	dsm.material=g.material;
+	gm.material=g.material;
+	const kv=.06
+	const kn=.06
+	const pk=BABYLON.MeshBuilder.CreatePlane('g',{height:kv,width:kv,depth:kv})
+	pk.position.set(-kn,c+.2,dsm.position.z-v/2-.001)
+	rk(pk,[1,1,1])
+	const dk=pk.clone()
+	dk.position.x+=kn*2;
+	return BABYLON.Mesh.MergeMeshes([dsm,g,gm,pk,dk],true,true,undefined,true,true)
 }
 let psl=null;
 const svvn=class
@@ -741,9 +733,11 @@ const svvn=class
 	constructor(dvs,vv)
 	{
 		const p=new BABYLON.TransformNode('sk')
-		dvs.n(ssmnm).parent=p;
+		const mm=dvs.n(ssmnm);
+		mm.parent=p;
+		mm.getChildMeshes()[1].scaling.set(1.2,1,3)
 		const pkc=2;
-		const pk=BABYLON.MeshBuilder.CreateBox('v',{width:1,height:pkc,depth:1})
+		const pk=BABYLON.MeshBuilder.CreateBox('v',{width:1.2,height:pkc,depth:1})
 		pk.position.y=pkc/2;
 		pk.position.z=-.5;
 		pk.parent=p;
