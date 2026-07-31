@@ -788,6 +788,7 @@ const svvn=class
 					}
 				}
 			));
+			pk.actionManager.registerAction(new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionExitTrigger,parameter:lpc},()=>{psl=null;}));
 		}
 		this.p=p;
 	}
