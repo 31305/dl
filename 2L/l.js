@@ -786,6 +786,7 @@ const svvn=class
 			new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionEnterTrigger,parameter:lpc},
 				()=>
 				{
+					if(!s.isActiveMesh(this.pk)return;
 					if(!v.bs)v.b(d.vp);
 					psl=(t)=>
 					{
