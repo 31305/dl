@@ -786,11 +786,10 @@ const svvn=class
 			new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionEnterTrigger,parameter:lpc},
 				()=>
 				{
-					const vp=[74,1,51,48,43,3,76,60,2,47,7,48,61,2,75];
-					if(!v.bs)v.b(vp);
+					if(!v.bs)v.b(d.vp);
 					psl=(t)=>
 					{
-						if(!v.bs&&t==-1)v.b(vp);
+						if(!v.bs&&t==-1)v.b(d.vp);
 					}
 				}
 			));
@@ -895,7 +894,8 @@ if(1)
 		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.35,-jnm.l+jnm.v*.5,-jnm.l-.35],b:[0,-.25,0]})
 		pss({p:knsnm(),m:gb,s:[0,2.4,.9]})
 		pss({p:(new svvn({dvs:dvs,vv:1})).p,m:p,s:[0,-jnm.l+jnm.v/2,-jnm.l/2]})
-		pss({p:(new svvn({dvs:dvs,vv:2})).p,m:p,s:[1.5,jnm.v/2,1.15],b:[0,1,0]})
+		pss({p:(new svvn({dvs:dvs,vv:2,vp:[74,1,51,48,43,3,76,60,2,47,31,48,2,75]})).p,m:p,s:[1.5,jnm.v/2,1.15],b:[0,1,0]})
+		pss({p:(new svvn({dvs:dvs,vv:2,vp:[54,1,66,11,76,71,3,47,43,4,75,7]})).p,m:gb,s:[0,.1,-.3]})
 		const tpss=pss({p:dvs.n(tpnm),m:p,s:[3.2,jnm.v/2,0.55],b:[0,.51,0]})
 		pss({p:dvs.n(pvsnm),m:p,s:[4.1,jnm.v/2,0.1],b:[0,-0.52,0]})
 		pss({p:dvs.n(pvsnm),m:p,s:[4.1,jnm.v/2,0.9],b:[0,-0.48,0]})
