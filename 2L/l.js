@@ -657,20 +657,21 @@ const ssmnm=()=>
 	const v=.3;
 	const c=1.5;
 	const dsm=BABYLON.MeshBuilder.CreateBox('g',{height:v,width:v,depth:v})
-	dsm.position.set(0,c+v/2,(dd-v)/2);
+	dsm.position.set(0,c+v/2,-(dd-v)/2);
 	const gl=.2;
 	const g=BABYLON.MeshBuilder.CreateBox('g',{height:c-gl,width:.45,depth:dd})
 	g.position.set(0,(c-gl)/2,0);
 	const gd=.15
 	const gm=BABYLON.MeshBuilder.CreateBox('g',{height:gl,width:.15,depth:gd})
-	gm.position.set(0,c-gl/2,(dd-gd)/2)
+	gm.position.set(0,c-gl/2,-(dd-gd)/2)
 	rk(g,[0,0,0])
 	dsm.material=g.material;
 	gm.material=g.material;
 	const kv=.06
 	const kn=.06
 	const pk=BABYLON.MeshBuilder.CreatePlane('g',{height:kv,width:kv,depth:kv})
-	pk.position.set(-kn,c+.2,dsm.position.z-v/2-.001)
+	pk.position.set(-kn,c+.2,dsm.position.z+v/2+.001)
+	pk.rotation.y=Math.PI
 	rk(pk,[1,1,1])
 	const dk=pk.clone()
 	dk.position.x+=kn*2;
@@ -693,10 +694,10 @@ const svvn=class
 			);
 			pv.setKeys([
 				{frame:0,value:this.p.rotation.y},
-				{frame:m*cpk/2,value:this.p.rotation.y+m*Math.PI}
+				{frame:Math.abs(m)*cpk/2,value:this.p.rotation.y+m*Math.PI}
 			]);
 			this.p.animations=[pv];
-			s.beginAnimation(this.p,0,m*cpk/2,false,1,pk)
+			s.beginAnimation(this.p,0,Math.abs(m)*cpk/2,false,1,pk)
 		})
 	}
 	gk(m)
@@ -705,7 +706,7 @@ const svvn=class
 		{
 			const cpk=60;
 			const ds=this.p.position.clone();
-			const gs=ds.add(this.p.forward.scale(-m));
+			const gs=ds.add(this.p.forward.scale(m));
 			const pg=new BABYLON.Animation(
 				"pg",
 				"position",
@@ -720,13 +721,19 @@ const svvn=class
 			this.p.animations=[pg];
 			const g=s.beginAnimation(this.p,0,m*cpk/2,false,1,()=>{this.pk.actionManager.dispose();pk();});
 			const vrk=()=>{g.pause();if(!v.bs)v.b([2,71,3,49,1,44,1])}
-			if(this.pk.intersectsMesh(lpc)&&lpc.position.subtract(this.pk.getAbsolutePosition()).dot(this.p.forward)<0)vrk();
+			if(this.pk.intersectsMesh(lpc)&&lpc.position.subtract(this.pk.getAbsolutePosition()).dot(this.p.forward)>0)vrk();
 			this.pk.actionManager=new BABYLON.ActionManager();
 			this.pk.actionManager.registerAction(
 			new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionEnterTrigger,parameter:lpc},vrk));
 			this.pk.actionManager.registerAction(
 			new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionExitTrigger,parameter:lpc},()=>g.restart()));
 		});
+	}
+	sg(s)
+	{
+		const pvm=BABYLON.Vector3.GetAngleBetweenVectors(s.subtract(this.p.position),this.p.forward,pv(0,1,0))
+		console.log(pvm)
+		return this.pv(pvm/Math.PI).then(()=>this.gk(s.subtract(this.p.position).length()))
 	}
 	nk()
 	{
@@ -751,8 +758,8 @@ const svvn=class
 						{
 							psl=null;
 							pk.actionManager.dispose();
-							const pvk=()=>this.pv(1).then(()=>this.gk(1.5));
-							pvk().then(()=>pvk()).then(()=>this.nk())
+							const ms=this.p.position.clone();
+							this.sg(this.p.position.add(pv(0,0,-1.5))).then(()=>this.sg(ms)).then(()=>this.nk())
 						})
 					}
 				}
@@ -888,8 +895,8 @@ if(1)
 		}
 		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.35,-jnm.l+jnm.v*.5,-jnm.l-.35],b:[0,-.25,0]})
 		pss({p:knsnm(),m:gb,s:[0,2.4,.9]})
-		pss({p:(new svvn(dvs,1)).p,m:p,s:[0,-jnm.l+jnm.v/2,-jnm.l/2],b:[0,1,0]})
-		pss({p:(new svvn(dvs,2)).p,m:p,s:[1.5,jnm.v/2,1.15],b:[0,0,0]})
+		pss({p:(new svvn(dvs,1)).p,m:p,s:[0,-jnm.l+jnm.v/2,-jnm.l/2]})
+		pss({p:(new svvn(dvs,2)).p,m:p,s:[1.5,jnm.v/2,1.15],b:[0,1,0]})
 		const tpss=pss({p:dvs.n(tpnm),m:p,s:[3.2,jnm.v/2,0.55],b:[0,.51,0]})
 		pss({p:dvs.n(pvsnm),m:p,s:[4.1,jnm.v/2,0.1],b:[0,-0.52,0]})
 		pss({p:dvs.n(pvsnm),m:p,s:[4.1,jnm.v/2,0.9],b:[0,-0.48,0]})
