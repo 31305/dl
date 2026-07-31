@@ -1423,8 +1423,7 @@ const lds=function()
 			for(let k=0;k<pvs.length;k++)
 				pvs[k].background=k>1?"black":"white";
 			if(p.button==2)nkp();
-			else if(!psl)nps['Space']=true;
-			else psl(-1)
+			else if(psl)psl(-1)
 			setTimeout(pk,200);
 		}
 	});
