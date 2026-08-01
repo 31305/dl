@@ -556,6 +556,17 @@ const jnmp=class
 			vrnm(p)
 		}
 	}
+	dnm(d)
+	{
+		const p=new BABYLON.TransformNode('p');
+		jnm.sn({m:p,s:[jnm.pn*4,0,0],pv:[jnm.l,jnm.pn*4]}).rotation.z=Math.PI/2
+		jnm.sn({m:p,s:[-jnm.pn*4,0,0],pv:[jnm.l,jnm.pn*4]}).rotation.z=Math.PI/2
+		jnm.sn({m:p,s:[0,jnm.l/2-jnm.pn*3/2,0],pv:[jnm.pn*3,jnm.pn*4]})
+		p.position.set(d.s[0]*jnm.l/2,d.s[1]*jnm.l/2,d.s[2]*jnm.l/2)
+		if(d.s[0]%2)p.rotation.y=Math.PI/2
+		if(d.m)p.parent=d.m;
+		return p;
+	}
 }
 const vngnp=class
 {
@@ -614,6 +625,7 @@ const pss=(d)=>
 	if(d.s)d.p.position.set(d.s[0],d.s[1],d.s[2])
 	if(d.b)d.p.rotation.set(Math.PI*d.b[0],Math.PI*d.b[1],Math.PI*d.b[2])
 	if(d.t)d.p.scaling.set(t[0],t[1],t[2])
+	if(d.v)d.p.material=d.v;
 	return d.p
 }
 const gbnm=()=>
@@ -758,7 +770,7 @@ const svvn=class
 							psl=null;
 							pk.actionManager.dispose();
 							const ms=this.p.position.clone();
-							this.sg(this.p.position.add(pv(0,0,-1.5))).then(()=>this.sg(ms)).then(()=>this.nk())
+							this.sg(this.p.position.add(this.p.forward.scale(-1.5))).then(()=>this.sg(ms)).then(()=>this.nk())
 						})
 					}
 				}
@@ -872,14 +884,11 @@ if(1)
 			m:p,b:[.5,0,0],s:[jnm.l/2,-jnm.l+jnm.v/2+.001,0]});
 		tc.material=cvr;
 		tc.clone().position.y+=jnm.l;
-		jnm.sn({m:p,s:[jnm.pn*4,-jnm.l/2,-jnm.l/2],pv:[jnm.l,jnm.pn*4]}).rotation.z=Math.PI/2
-		jnm.sn({m:p,s:[-jnm.pn*4,-jnm.l/2,-jnm.l/2],pv:[jnm.l,jnm.pn*4]}).rotation.z=Math.PI/2
-		jnm.sn({m:p,s:[0,-jnm.pn*3/2,-jnm.l/2],pv:[jnm.pn*3,jnm.pn*4]})
 		jnm.b([0,0,0],'14',p)
 		jnm.b([2,0,0],'123',p)
 		jnm.b([0,-2,-2],'34',p)
 		jnm.n([-1,1,-2],1,p)
-		jnm.b([0,-2,0],'14',p)
+		jnm.b([0,-2,0],'1',p)
 		jnm.b([2,-2,0],'123',p)
 		jnm.b([2,-2,-2],'23',p)
 		jnm.sn({m:p,s:[-3*jnm.pn,jnm.l/2,-1.5*jnm.l],pv:[jnm.l,jnm.pn*6]}).rotation.z=Math.PI/2
@@ -894,7 +903,8 @@ if(1)
 		}
 		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.35,-jnm.l+jnm.v*.5,-jnm.l-.35],b:[0,-.25,0]})
 		pss({p:knsnm(),m:gb,s:[0,2.4,.9]})
-		pss({p:(new svvn({dvs:dvs,vv:1})).p,m:p,s:[0,-jnm.l+jnm.v/2,-jnm.l/2]})
+		jnm.dnm({m:p,s:[-1,-1,0]})
+		pss({p:(new svvn({dvs:dvs,vv:1})).p,m:p,s:[-jnm.l/2,-jnm.l+jnm.v/2,0],b:[0,.5,0]})
 		pss({p:(new svvn({dvs:dvs,vv:2,vp:[74,1,51,48,43,3,76,60,2,47,31,48,2,75]})).p,m:p,s:[1.5,jnm.v/2,1.15],b:[0,1,0]})
 		pss({p:(new svvn({dvs:dvs,vv:2,vp:[51,4,45,1,71,5,45,3,51,37,49,75,7]})).p,m:gb,s:[0,.1,-.3]})
 		const tpss=pss({p:dvs.n(tpnm),m:p,s:[3.2,jnm.v/2,0.55],b:[0,.51,0]})
@@ -903,6 +913,12 @@ if(1)
 		pss({p:dvs.n(pvsnm),m:p,s:[2.3,jnm.v/2,0.1],b:[0,0.52,0]})
 		pss({p:dvs.n(pvsnm),m:p,s:[2.2,jnm.v/2,0.9],b:[0,0.48,0]})
 		pss({p:dvs.n(ppcnm),m:tpss,s:[.3,.85,-.2]})
+		jnm.b([-2,-2,0],'1',p)
+		jnm.b([-2,-2,-2],'3',p)
+		jnm.b([-4,-2,0],'14',p)
+		jnm.b([-4,-2,-2],'34',p)
+		pss({p:BABYLON.MeshBuilder.CreatePlane('b',{width:jnm.l*2-jnm.v,height:jnm.l*2-jnm.v}),
+			m:p,b:[.5,0,0],s:[-jnm.l*3/2,-jnm.l+jnm.v/2+.001,-jnm.l/2],v:cvr});
 		return p;
 		jnm.b([2,-2+1/6,0],'24',p)
 		jnm.b([2,-2+2/6,2],'14',p)
@@ -918,10 +934,12 @@ if(1)
 		jnm.b([2,0,-2],'24',p)
 		jnm.b([2,1/6,0],'124',p)
 	})
-//   234
-//  m165
-//  s078
-//   kd9
+/*
+ 234
+m165
+s078
+ kd9
+*/
 }
 else
 {
