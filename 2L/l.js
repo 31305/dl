@@ -624,7 +624,7 @@ const pss=(d)=>
 	if(d.m)d.p.parent=d.m
 	if(d.s)d.p.position.set(d.s[0],d.s[1],d.s[2])
 	if(d.b)d.p.rotation.set(Math.PI*d.b[0],Math.PI*d.b[1],Math.PI*d.b[2])
-	if(d.t)d.p.scaling.set(t[0],t[1],t[2])
+	if(d.t)d.p.scaling.set(d.t[0],d.t[1],d.t[2])
 	if(d.v)d.p.material=d.v;
 	return d.p
 }
@@ -838,6 +838,13 @@ const cvnm=()=>
 	`);
 	return p;
 }
+const cvr=cvnm();
+const pknm=()=>
+{
+	const p=BABYLON.MeshBuilder.CreateBox('b')
+	p.material=cvr;
+	return p
+}
 const cnmk=()=>
 {
 	s.meshes.forEach(p=>
@@ -860,7 +867,6 @@ if(1)
 	}
 	l.rotation.set(Math.PI/2,0,0)
 	const dvs=new dvsgp();
-	const cvr=cvnm();
 	if(0)dns.sk=(s)=>
 	{
 		const p=new BABYLON.TransformNode('sk')
@@ -919,6 +925,11 @@ if(1)
 		jnm.b([-4,-2,-2],'34',p)
 		pss({p:BABYLON.MeshBuilder.CreatePlane('b',{width:jnm.l*2-jnm.v,height:jnm.l*2-jnm.v}),
 			m:p,b:[.5,0,0],s:[-jnm.l*3/2,-jnm.l+jnm.v/2+.001,-jnm.l/2],v:cvr});
+		const d=pss({p:new BABYLON.TransformNode('d'),s:[-jnm.l*3/2,-jnm.l+jnm.v/2+.001,-jnm.l/2],m:p})
+		pss({m:d,p:dvs.n(pknm),t:[1,2.2,.5],s:[-.92,1.1,-1.05],b:[0,.1,0]})
+		pss({m:d,p:dvs.n(pknm),t:[3,2.2,.5],s:[-1.4,1.1,0],b:[0,.6,0]})
+		pss({m:d,p:dvs.n(pknm),t:[2,2.2,.5],s:[0,1.1,0],b:[0,.6,0]})
+		window.tp=pss({m:d,p:dvs.n(pknm),t:[2.5,.5,1],s:[0,2.2+.25,0],b:[0,.6,0]})
 		return p;
 		jnm.b([2,-2+1/6,0],'24',p)
 		jnm.b([2,-2+2/6,2],'14',p)
