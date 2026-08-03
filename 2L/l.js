@@ -839,6 +839,12 @@ const cvnm=()=>
 	return p;
 }
 const cvr=cvnm();
+const pgbnm=()=>
+{
+	const bg=BABYLON.MeshBuilder.CreateSphere('bg',{slice:.5,diameter:5})
+	bg.material=cvr;
+	return bg;
+}
 const pknm=()=>
 {
 	const p=BABYLON.MeshBuilder.CreateBox('b')
@@ -921,15 +927,14 @@ if(1)
 		pss({p:dvs.n(ppcnm),m:tpss,s:[.3,.85,-.2]})
 		jnm.b([-2,-2,0],'1',p)
 		jnm.b([-2,-2,-2],'3',p)
-		jnm.b([-4,-2,0],'14',p)
-		jnm.b([-4,-2,-2],'34',p)
-		pss({p:BABYLON.MeshBuilder.CreatePlane('b',{width:jnm.l*2-jnm.v,height:jnm.l*2-jnm.v}),
-			m:p,b:[.5,0,0],s:[-jnm.l*3/2,-jnm.l+jnm.v/2+.001,-jnm.l/2],v:cvr});
-		const d=pss({p:new BABYLON.TransformNode('d'),s:[-jnm.l*3/2,-jnm.l+jnm.v/2+.001,-jnm.l/2],m:p})
-		pss({m:d,p:dvs.n(pknm),t:[1,2.2,.5],s:[-.92,1.1,-1.05],b:[0,.1,0]})
-		pss({m:d,p:dvs.n(pknm),t:[3,2.2,.5],s:[-1.4,1.1,0],b:[0,.6,0]})
-		pss({m:d,p:dvs.n(pknm),t:[2,2.2,.5],s:[0,1.1,0],b:[0,.6,0]})
-		pss({m:d,p:dvs.n(pknm),t:[2.5,.5,1],s:[-.7,2.2+.25,0],b:[0,.6,0]})
+		jnm.b([-4,-2,0],'1',p)
+		jnm.b([-4,-2,-2],'3',p)
+		jnm.b([-6,-2,0],'14',p)
+		jnm.b([-6,-2,-2],'34',p)
+		pss({p:BABYLON.MeshBuilder.CreatePlane('b',{width:jnm.l*3-jnm.v,height:jnm.l*2-jnm.v}),
+			m:p,b:[.5,0,0],s:[-jnm.l*2,-jnm.l+jnm.v/2+.001,-jnm.l/2],v:cvr});
+		const d=pss({p:new BABYLON.TransformNode('d'),s:[-jnm.l*5/2,-jnm.l+jnm.v/2+.001,-jnm.l/2],m:p})
+		pss({m:d,p:dvs.n(pgbnm,0)})
 		return p;
 		jnm.b([2,-2+1/6,0],'24',p)
 		jnm.b([2,-2+2/6,2],'14',p)
