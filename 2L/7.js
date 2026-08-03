@@ -172,6 +172,14 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 		else
 		{
 			if(ps[0].vk==null)ps[0].vk=0;
+			if(ps[ps.length-1].vk==ctn)
+			{
+				const n=ps.pop();
+				ps.splice(1,0,n);
+				ps[1].vk=0;
+				ng[ctn]--;
+				ng[0]++;
+			}
 			const nvk=0
 			ng[nvk]++;
 			ng[ps[0].vk]--
