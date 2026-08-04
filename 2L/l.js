@@ -732,14 +732,14 @@ const svvn=class
 			]);
 			this.p.animations=[pg];
 			let vrpk=null;
-			const vrpkn=()=>{if(vrpk!=null){s.onBeforeRenderObservable.remove(vrpk);console.log('vrpkn');vrpk=null;}}
+			const vrpkn=()=>{if(vrpk!=null){s.onBeforeRenderObservable.remove(vrpk);vrpk=null;}}
 			const g=s.beginAnimation(this.p,0,m*cpk/2,false,1,()=>{this.pk.actionManager.dispose();vrpkn();pk();});
 			let ps=0;
 			const vrk=()=>{vrpk=s.onBeforeRenderObservable.add(()=>
 			{
 				if(this.pk.intersectsMesh(lpc)&&lpc.position.subtract(this.pk.getAbsolutePosition()).dot(this.p.forward)>0)
 				{
-					if(ps)return;ps=1;g.pause();console.log('vrk');if(!v.bs)v.b([2,71,3,49,1,44,1])
+					if(ps)return;ps=1;g.pause();if(!v.bs)v.b([2,71,3,49,1,44,1])
 				}
 				else ps=0;
 			})}
