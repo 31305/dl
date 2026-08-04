@@ -731,14 +731,24 @@ const svvn=class
 				{frame:m*cpk/2,value:gs}
 			]);
 			this.p.animations=[pg];
-			const g=s.beginAnimation(this.p,0,m*cpk/2,false,1,()=>{this.pk.actionManager.dispose();pk();});
-			const vrk=()=>{g.pause();if(!v.bs)v.b([2,71,3,49,1,44,1])}
-			if(this.pk.intersectsMesh(lpc)&&lpc.position.subtract(this.pk.getAbsolutePosition()).dot(this.p.forward)>0)vrk();
+			let vrpk=null;
+			const vrpkn=()=>{if(vrpk!=null){s.onBeforeRenderObservable.remove(vrpk);console.log('vrpkn');vrpk=null;}}
+			const g=s.beginAnimation(this.p,0,m*cpk/2,false,1,()=>{this.pk.actionManager.dispose();vrpkn();pk();});
+			let ps=0;
+			const vrk=()=>{vrpk=s.onBeforeRenderObservable.add(()=>
+			{
+				if(this.pk.intersectsMesh(lpc)&&lpc.position.subtract(this.pk.getAbsolutePosition()).dot(this.p.forward)>0)
+				{
+					if(ps)return;ps=1;g.pause();console.log('vrk');if(!v.bs)v.b([2,71,3,49,1,44,1])
+				}
+				else ps=0;
+			})}
+			if(this.pk.intersectsMesh(lpc))vrk();
 			this.pk.actionManager=new BABYLON.ActionManager();
 			this.pk.actionManager.registerAction(
 			new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionEnterTrigger,parameter:lpc},vrk));
 			this.pk.actionManager.registerAction(
-			new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionExitTrigger,parameter:lpc},()=>g.restart()));
+			new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionExitTrigger,parameter:lpc},()=>{vrpkn();g.restart()}));
 		});
 	}
 	sg(s)
