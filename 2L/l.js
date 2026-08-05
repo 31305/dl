@@ -943,9 +943,9 @@ if(1)
 		jnm.b([-6,-2,-2],'34',p)
 		pss({p:BABYLON.MeshBuilder.CreatePlane('b',{width:jnm.l*3-jnm.v,height:jnm.l*2-jnm.v}),
 			m:p,b:[.5,0,0],s:[-jnm.l*2,-jnm.l+jnm.v/2+.001,-jnm.l/2],v:cvr});
+		return p;
 		const d=pss({p:new BABYLON.TransformNode('d'),s:[-jnm.l*5/2,-jnm.l+jnm.v/2+.001,-jnm.l/2],m:p})
 		pss({m:d,p:dvs.n(pgbnm,0)})
-		return p;
 		jnm.b([2,-2+1/6,0],'24',p)
 		jnm.b([2,-2+2/6,2],'14',p)
 		jnm.b([4,-2+3/6,2],'13',p)
