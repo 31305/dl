@@ -7,6 +7,11 @@ const vp=class
 {
 	bs=false;
 	vp=null;
+	svb=async(s)=>
+	{
+		if(!s[0].length)await this.b(s)
+		else for(const ps of s)await this.b(ps)
+	}
 	dk()
 	{
 		return new Promise((p,d)=>
@@ -690,6 +695,7 @@ const ssmnm=()=>
 	return BABYLON.Mesh.MergeMeshes([dsm,g,gm,pk,dk],true,true,undefined,true,true)
 }
 let psl=null;
+const ssg={};
 const svvn=class
 {
 	pv(m)
@@ -788,6 +794,34 @@ const svvn=class
 		));
 		pk.actionManager.registerAction(new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionExitTrigger,parameter:lpc},()=>{psl=null;}));
 	}
+	nkck(k)
+	{
+		const pk=this.pk;
+		pk.actionManager=new BABYLON.ActionManager();
+		pk.actionManager.registerAction(
+		new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionEnterTrigger,parameter:lpc},
+			()=>
+			{
+				const s=k();
+				if(!s)
+				{
+					pk.actionManager.dispose();
+					const ms=this.p.position.clone();
+					this.sg(this.p.position.add(this.p.forward.scale(-1.5))).then(()=>this.sg(ms)).then(()=>this.nkck(k))
+				}
+				else
+				{
+					const vk=()=>{if(!v.bs&&s.isActiveMesh(mm.getChildMeshes()[0]))v.svb(s)}
+					vk();
+					psl=(t)=>
+					{
+						if(t==-1)vk();
+					}
+				}
+			}
+		));
+		pk.actionManager.registerAction(new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionExitTrigger,parameter:lpc},()=>{psl=null;}));
+	}
 	constructor(d)
 	{
 		const p=new BABYLON.TransformNode('sk')
@@ -818,6 +852,7 @@ const svvn=class
 			));
 			pk.actionManager.registerAction(new BABYLON.ExecuteCodeAction({trigger:BABYLON.ActionManager.OnIntersectionExitTrigger,parameter:lpc},()=>{psl=null;}));
 		}
+		else if(d.vv==3)this.nkck(d.vpk)
 		this.p=p;
 	}
 }
@@ -926,7 +961,7 @@ if(1)
 		const gb=pss({p:dvs.n(gbnm,0),m:p,s:[jnm.l+.35,-jnm.l+jnm.v*.5,-jnm.l-.35],b:[0,-.25,0]})
 		pss({p:knsnm(),m:gb,s:[0,2.4,.9]})
 		jnm.dnm({m:p,s:[-1,-1,0]})
-		pss({p:(new svvn({dvs:dvs,vv:1})).p,m:p,s:[-jnm.l/2,-jnm.l+jnm.v/2,0],b:[0,.5,0]})
+		pss({p:(new svvn({dvs:dvs,vv:3,vpk:()=>null})).p,m:p,s:[-jnm.l/2,-jnm.l+jnm.v/2,0],b:[0,.5,0]})
 		pss({p:(new svvn({dvs:dvs,vv:2,vp:[74,1,51,48,43,3,76,60,2,47,31,48,2,75]})).p,m:p,s:[1.5,jnm.v/2,1.15],b:[0,1,0]})
 		pss({p:(new svvn({dvs:dvs,vv:2,vp:[51,4,45,1,71,5,45,3,51,37,49,75,7]})).p,m:gb,s:[0,.1,-.3]})
 		const tpss=pss({p:dvs.n(tpnm),m:p,s:[3.2,jnm.v/2,0.55],b:[0,.51,0]})
