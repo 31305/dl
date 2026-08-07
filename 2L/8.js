@@ -42,19 +42,24 @@ Promise.all([ss('vm.js'),ss('ks.js')]).then(p=>{
 	v.dk().then(p=>
 	{
 		let k=0;
-		const ssk=(k)=>
+		const ssk=(k,dv=0)=>
 		{
 			document.body.innerHTML='';
 			const pn=document.createElement('button')
 			pn.innerText='→';
 			document.body.appendChild(pn);
+			const sv=document.createElement('input')
+			sv.type='checkbox';
+			sv.checked=dv;
+			document.body.appendChild(sv);
+			pn.onclick=()=>{if(k<ks.length-1)ssk(k+1,sv.checked)}
 			const sn=document.createElement('button')
 			sn.innerText='▶';
 			document.body.appendChild(sn);
 			const svb=async()=>
 			{
 				const s=ks[k].v;
-				if(v.bs)return;
+				if(v.bs||s==undefined)return;
 				if(!s[0].length)await v.b(s)
 				else for(const ps of s)await v.b(ps)
 			}
@@ -62,8 +67,9 @@ Promise.all([ss('vm.js'),ss('ks.js')]).then(p=>{
 			document.body.appendChild(document.createElement('p'))
 			const ls=document.createElement('div')
 			ls.style='overflow-x:auto;white-space:nowrap;'
-			ls.innerText=ks[k].d;
+			ls.innerHTML=ks[k].d;
 			document.body.appendChild(ls)
+			if(dv)svb()
 		}
 		ssk(0)
 	})
