@@ -41,24 +41,28 @@ Promise.all([ss('vm.js'),ss('ks.js')]).then(p=>{
 	const v=new vp();
 	v.dk().then(p=>
 	{
-		let k=0;
-		const ssk=(k,dv=0)=>
+		const ssk=(d)=>
 		{
 			document.body.innerHTML='';
 			const pn=document.createElement('button')
-			pn.innerText='→';
+			pn.innerText=(d.pg>1?d.pg.toString()+'×':'')+'↓';
 			document.body.appendChild(pn);
+			const ppn=document.createElement('button')
+			ppn.innerText=(d.ppg>1?d.ppg.toString()+'×':'')+'↑';
+			document.body.appendChild(ppn);
 			const sv=document.createElement('input')
 			sv.type='checkbox';
-			sv.checked=dv;
+			sv.checked=d.dv;
 			document.body.appendChild(sv);
-			pn.onclick=()=>{if(k<ks.length-1)ssk(k+1,sv.checked)}
+			pn.onclick=()=>{const ns=d.k+d.pg;if(ns<ks.length)ssk({k:ns,dv:sv.checked,pg:(sv.checked?1:d.pg*2),ppg:1})}
+			ppn.onclick=()=>{const ns=d.k-d.ppg;if(ns>0)ssk({k:ns,dv:0,ppg:d.ppg*2,pg:1})}
 			const sn=document.createElement('button')
 			sn.innerText='▶';
 			document.body.appendChild(sn);
 			const svb=async()=>
 			{
-				const s=ks[k].v;
+				const s=ks[d.k].v;
+				d.pg=1;d.ppg=1;
 				if(v.bs||s==undefined)return;
 				if(!s[0].length)await v.b(s)
 				else for(const ps of s)await v.b(ps)
@@ -67,10 +71,10 @@ Promise.all([ss('vm.js'),ss('ks.js')]).then(p=>{
 			document.body.appendChild(document.createElement('p'))
 			const ls=document.createElement('div')
 			ls.style='overflow-x:auto;white-space:nowrap;'
-			ls.innerHTML=ks[k].d;
+			ls.innerHTML=ks[d.k].d;
 			document.body.appendChild(ls)
-			if(dv)svb()
+			if(d.dv&&d.k)svb()
 		}
-		ssk(0)
+		ssk({k:0,dv:1,pg:1,ppg:1})
 	})
 })
