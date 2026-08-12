@@ -104,7 +104,7 @@ Promise.all([v.dk()]+(lnc?[HavokPhysics()]:[])).then((p)=>
 const d=document.createElement('canvas')
 document.body.style.margin='0';
 document.body.style.touchAction='none';
-d.style="outline:none;position:absolute;display:block;width:min(100dvw, 234dvh);height:100dvh";
+d.style="outline:none;position:absolute;display:block;"+(lnc?'width:min(100dvh, 100dvw);height:min(100dvh, 100dvw)':"width:min(100dvw, 234dvh);height:100dvh");
 document.body.appendChild(d);
 const c=new BABYLON.Engine(d,true);
 const s=new BABYLON.Scene(c);
