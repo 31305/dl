@@ -85,7 +85,7 @@ const dnsnd=class
 }
 const dns=new dnsnd();
 const v=new vp();
-const cbtk=()=>
+const cbtk=(p)=>
 {
 	if(lnc){s.enablePhysics(new BABYLON.Vector3(0,-9.8,0),new BABYLON.HavokPlugin(true,p[1]));}
 	if(0)lnm();
@@ -96,10 +96,10 @@ const cbtk=()=>
 	`;
 	document.head.appendChild(vvss);
 }
-Promise.all([v.dk()]+(lnc?[HavokPhysics()]:[])).then((p)=>
+Promise.all([v.dk()].concat(lnc?[HavokPhysics()]:[])).then(p=>
 {
 	cb.style.animationIterationCount=1
-	cb.addEventListener("animationend",()=>{cbtk()},{once:true});
+	cb.addEventListener("animationend",()=>{cbtk(p)},{once:true});
 });
 const d=document.createElement('canvas')
 document.body.style.margin='0';
