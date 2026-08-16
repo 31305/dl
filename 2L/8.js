@@ -4,7 +4,6 @@ const ss=(n)=>
 	{
 		let v=document.createElement('script');
 		v.src=n;
-		v.async=false;
 		v.onload=p;
 		document.body.appendChild(v);
 	});
@@ -55,4 +54,42 @@ const vp=class
 		});
 	}
 }
-ss('vm.js').then(()=>(new vp()).dk()).then(p=>window.v=p)
+const vvss=document.createElement('style');
+vvss.textContent=`
+	@keyframes ck{
+	0%{transform:scale(1);}
+	50%{transform:scale(0.8);}
+	100%{transform:scale(1);}
+	}
+`;
+document.head.appendChild(vvss);
+const cb=document.createElement('span')
+cb.style.width='14dvh';
+cb.style.height=cb.style.width;
+cb.style.border='1.2dvh solid #6ab'
+cb.style.borderRadius='50%'
+cb.style.display='block'
+cb.style.boxSizing='border-box'
+cb.style.animation='ck 1s ease-in-out infinite'
+cb.style.zIndex=999999
+cb.className='cb'
+document.body.style.display='grid'
+document.body.style.placeItems='center'
+document.body.style.height='100dvh'
+document.body.appendChild(cb)
+window.cb=cb;
+const cbtk=()=>
+{
+	cb.style.backgroundColor='lightblue'
+	const vvss=document.createElement('style');
+	vvss.textContent=`
+	@media (hover:hover) and (pointer:fine){.cb{cursor:pointer;}}
+	`;
+	document.head.appendChild(vvss);
+}
+ss('vm.js').then(()=>(new vp()).dk()).then(p=>
+{
+	cb.style.animationIterationCount=1
+	cb.addEventListener("animationend",()=>{cbtk(p)},{once:true});
+	window.v=p
+})
