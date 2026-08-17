@@ -48,12 +48,7 @@ class pk(BaseHTTPRequestHandler):
             return
         vs=int(self.headers["Content-Length"])
         sm=self.rfile.read(vs)
-        mpk=(
-            b"Content-Type: "
-            + spk.encode()
-            + b"\r\nMIME-Version: 1.0\r\n\r\n"
-            + sm
-        )
+        mpk=(b"Content-Type: "+spk.encode()+b"\r\nMIME-Version: 1.0\r\n\r\n"+sm)
         sd=BytesParser(policy=default).parsebytes(mpk)
         for bm in sd.iter_parts():
             if bm.get_content_disposition()!="form-data":
@@ -63,12 +58,9 @@ class pk(BaseHTTPRequestHandler):
             sn = bm.get_filename()
             if not sn:
                 continue
-            sn = os.path.basename(sn)
-            os.makedirs("sg", exist_ok=True)
-            snd=os.path.join("sg", sn)
-            with open(snd, "wb")as sgs:
+            with open(sn,"wb")as sgs:
                 sgs.write(bm.get_payload(decode=True))
-            ppsd=f":{snd}\n".encode()
+            ppsd=f":{sn}\n".encode()
             self.send_response(200)
             self.send_header("Content-Type","text/plain")
             self.send_header("Content-Length",str(len(ppsd)))

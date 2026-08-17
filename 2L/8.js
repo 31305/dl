@@ -54,45 +54,49 @@ const vp=class
 		});
 	}
 }
-const vvss=document.createElement('style');
-vvss.textContent=`
-	@keyframes ck{
-	0%{transform:scale(1);}
-	50%{transform:scale(0.8);}
-	100%{transform:scale(1);}
+const bms=async(p)=>
+{
+	const cb=document.createElement('div')
+	document.body.style.setProperty('--dv','1px');
+	const bvs=200;
+	cb.style.width='calc(var(--dv) * '+bvs.toString()+')'
+	cb.style.height='calc(var(--dv) * 8)'
+	cb.style.display='block';
+	cb.style.backgroundColor='#134'
+	document.body.appendChild(cb)
+	const b=document.createElement('div')
+	b.style.width='0%'
+	b.style.height=cb.style.height;
+	b.style.display='block';
+	b.style.backgroundColor='#6ab'
+	b.style.transition='width 1s ease-out'
+	window.b=b;
+	cb.appendChild(b)
+	const pp=await fetch(p);
+	if(!pp.ok){throw new Error(pp.status);}
+	const pvs=Number(pp.headers.get("Content-Length"));
+	let ps=0;
+	const sgk=pp.body.getReader();
+	const sgb=[];
+	while(true)
+	{
+		const p=await sgk.read();
+		if(p.done)break;
+		sgb.push(p.value);
+		ps+=p.value.byteLength;
+		if(pvs){console.log(ps/pvs);}
+		setTimeout(()=>{b.style.width=(ps/pvs*100).toString()+'%';},0);
 	}
-`;
-document.head.appendChild(vvss);
-const cb=document.createElement('span')
-cb.style.width='14dvh';
-cb.style.height=cb.style.width;
-cb.style.border='1.2dvh solid #6ab'
-cb.style.borderRadius='50%'
-cb.style.display='block'
-cb.style.boxSizing='border-box'
-cb.style.animation='ck 1s ease-in-out infinite'
-cb.style.zIndex=999999
-cb.className='cb'
+	const psg=new Uint8Array(ps);
+	let tk=0;
+	for(const bm of sgb){psg.set(bm,tk);tk+=bm.byteLength;}
+}
 document.oncontextmenu=(p)=>p.preventDefault()
 document.body.style.display='grid'
 document.body.style.placeItems='center'
 document.body.style.height='100dvh'
-document.body.appendChild(cb)
-window.cb=cb;
-const cbtk=()=>
-{
-	cb.style.backgroundColor='#134'
-	const vvss=document.createElement('style');
-	cb.onclick=()=>document.body.removeChild(cb);
-	vvss.textContent=`
-	@media (hover:hover) and (pointer:fine){.cb{cursor:pointer;}}
-	.cb:active{transform:scale(1.2);}
-	`;
-	document.head.appendChild(vvss);
-}
 ss('vm.js').then(()=>(new vp()).dk()).then(p=>
 {
-	cb.style.animationIterationCount=1
-	cb.addEventListener("animationend",()=>{cbtk(p)},{once:true});
+	bms('vm.wasm');
 	window.v=p
 })
