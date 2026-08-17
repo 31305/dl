@@ -73,6 +73,7 @@ cb.style.boxSizing='border-box'
 cb.style.animation='ck 1s ease-in-out infinite'
 cb.style.zIndex=999999
 cb.className='cb'
+document.oncontextmenu=(p)=>p.preventDefault()
 document.body.style.display='grid'
 document.body.style.placeItems='center'
 document.body.style.height='100dvh'
@@ -80,10 +81,12 @@ document.body.appendChild(cb)
 window.cb=cb;
 const cbtk=()=>
 {
-	cb.style.backgroundColor='lightblue'
+	cb.style.backgroundColor='#134'
 	const vvss=document.createElement('style');
+	cb.onclick=()=>document.body.removeChild(cb);
 	vvss.textContent=`
 	@media (hover:hover) and (pointer:fine){.cb{cursor:pointer;}}
+	.cb:active{transform:scale(1.2);}
 	`;
 	document.head.appendChild(vvss);
 }
