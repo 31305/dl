@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import sys
-import os
 p=open(sys.argv[1],'rb')
 d=open(sys.argv[2],'rb+')
 while True:
@@ -26,7 +25,7 @@ while True:
         d.seek(0,2)
         ds=d.tell()
         for k in range(0,ds-s):
-            print('n')
+            print('')
             l='0'
             while l!='':
                 l=input()
