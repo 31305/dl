@@ -71,7 +71,6 @@ const bms=async(p)=>
 	b.style.display='block';
 	b.style.backgroundColor='#6ab'
 	b.style.transition='width 1s ease-out'
-	window.b=b;
 	cb.appendChild(b)
 	const pp=await fetch(p);
 	if(!pp.ok){throw new Error(pp.status);}
@@ -99,7 +98,9 @@ const tpk=async(ng)=>
 	g.style.width=pm(20);
 	g.style.height=g.style.width;
 	g.style.borderRadius='50%';
-	g.style.border='solid calc(var(--dv) * 4) orange'
+	g.style.borderStyle='solid'
+	g.style.borderWidth=pm(4)
+	g.style.borderColor='orange'
     g.style.position='absolute';
     g.style.left='50%';
     g.style.top='50%';
@@ -122,16 +123,16 @@ const tpk=async(ng)=>
 		})
 		g.style.background='';
 	}
-	await ng.v.svb(ng.b);
+	if(ng.b)await ng.v.svb(ng.b);
 	const sg=document.createElement('div');
 	sg.style.display='grid';
 	sg.style.gridTemplateColumns='1fr auto 1fr'
 	sg.style.gridTemplateRows='1fr auto 1fr'
-	sg.style.width=pm(150);
+	sg.style.width=pm(160);
 	sg.style.height=sg.style.width;
-	sg.style.gap='0px'
+	sg.style.gap=pm(0)
 	const ms=document.createElement('div');
-	ms.style.width=pm(140);
+	ms.style.width=pm(80);
 	ms.style.height=ms.style.width;
 	ms.style.gridColumn=2;
 	ms.style.gridRow=2;
@@ -146,6 +147,35 @@ const tpk=async(ng)=>
 		sg.appendChild(ss);
 	}
 	document.body.appendChild(sg);
+	let g1=0,g2=0;
+	const gsn=(s1,s2)=>
+	{
+		g.style.left=`calc(50% + ${s1}px)`
+		g.style.top=`calc(50% + ${s2}px)`
+	}
+	const gkn=(p)=>{g1=0;g2=0;gsn(0,0);}
+	const tks=(p,d)=>
+	{
+		const pv=p.getBoundingClientRect();
+		const dv=d.getBoundingClientRect();
+		if(pv.top<dv.top)return 0;
+		else if(pv.right>dv.right)return 1;
+		else if(pv.bottom>dv.bottom)return 2;
+		else if(pv.left<dv.left)return 3;
+		else return -1;
+	}
+	const gk=(p)=>
+	{
+		if(p.buttons!=1)return;
+		g1+=p.movementX;
+		g2+=p.movementY;
+		gsn(g1,g2);
+		const tk=tks(g,ms);
+		if(tk!=-1)console.log(tk%2)
+	}
+	document.onpointermove=gk;
+	document.onpointerup=gkn;
+	document.onpointercancel=gkn;
 }
 const pmk=async()=>
 {
@@ -154,6 +184,7 @@ const pmk=async()=>
 	document.body.style.placeItems='center'
 	document.body.style.height='100dvh'
 	document.documentElement.style.userSelect="none";
+	document.body.style.touchAction='none';
 	const ng={}
 	try
 	{
