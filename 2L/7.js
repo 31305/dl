@@ -64,7 +64,6 @@ Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.
 	cp.style.imageRendering='pixelated';
 	const pv=cp.getContext('2d');
 	const lv=nlv();
-	const ln=new Array(lv.length);
 	const knl=(s,k,s1,s2)=>
 	{
 		k=k.charCodeAt(0)

@@ -123,7 +123,6 @@ const tpk=async(ng)=>
 		})
 		g.style.background='';
 	}
-	if(ng.b)await ng.v.svb(ng.b);
 	const sg=document.createElement('div');
 	sg.style.display='grid';
 	sg.style.gridTemplateColumns='1fr auto 1fr'
@@ -137,14 +136,15 @@ const tpk=async(ng)=>
 	ms.style.gridColumn=2;
 	ms.style.gridRow=2;
 	sg.appendChild(ms);
+	const ss=[];
 	for(let k=0;k<4;k++)
 	{
-		const ss=document.createElement('div');
-		ss.style.display='block';
-		ss.style.backgroundColor=k%2?'#800':'#080';
-		ss.style.gridColumn=k%2?4-k:2;
-		ss.style.gridRow=k%2?2:k+1;
-		sg.appendChild(ss);
+		ss[k]=document.createElement('div');
+		ss[k].style.display='block';
+		ss[k].style.backgroundColor=k%2?'#800':'#080';
+		ss[k].style.gridColumn=k%2?4-k:2;
+		ss[k].style.gridRow=k%2?2:k+1;
+		sg.appendChild(ss[k]);
 	}
 	document.body.appendChild(sg);
 	let g1=0,g2=0;
@@ -164,18 +164,71 @@ const tpk=async(ng)=>
 		else if(pv.left<dv.left)return 3;
 		else return -1;
 	}
+	const npk=(k)=>
+	{
+		g1=0;g2=0;
+		gsn(0,0);
+		if(ss[k].n)return;
+		ss[k].n=1;
+		ss[k].style.backgroundColor=k%2?'#f00':'#0f0';
+		if(document.npk)document.npk(!(k%2));
+		setTimeout(()=>{ss[k].n=0;ss[k].style.backgroundColor=k%2?'#800':'#080';},150)
+	}
 	const gk=(p)=>
 	{
-		if(p.buttons!=1)return;
+		if(!(p.buttons==1||p.pressure))return;
 		g1+=p.movementX;
 		g2+=p.movementY;
 		gsn(g1,g2);
 		const tk=tks(g,ms);
-		if(tk!=-1)console.log(tk%2)
+		if(tk!=-1)npk(tk);
+	}
+	document.onkeydown=(p)=>
+	{
+		if(p.code=='ArrowUp')npk(0);
+		if(p.code=='ArrowRight')npk(1);
+		if(p.code=='ArrowDown')npk(2);
+		if(p.code=='ArrowLeft')npk(3);
 	}
 	document.onpointermove=gk;
 	document.onpointerup=gkn;
 	document.onpointercancel=gkn;
+	if(ng.b)await ng.v.svb(ng.b);
+}
+const nl=
+{
+	k(l)
+	{
+		if(!this.lv)
+			this.lv=nlv();
+		const lv=this.lv;
+		const cp=document.createElement('canvas');
+		cp.width=l.length*8+4;
+		cp.height=12;
+		const pv=cp.getContext('2d');
+		pv.fillStyle='white';
+		pv.fillRect(0,0,cp.width,cp.height);
+		const knl=(s,k,s1,s2)=>
+		{
+			k=k.charCodeAt(0)
+			if(lv[k]==null)return;
+			for(let pk=0;pk<8;pk++)
+				for(let ppk=0;ppk<8;ppk++)
+				{
+					const v=lv[k][pk]&(1<<(7-ppk))
+					if(v)s.fillRect(s1+ppk,s2+pk,1,1)
+				}
+		}
+		pv.fillStyle='black';
+		for(let k=0;k<l.length;k++)
+			knl(pv,l[k],2+k*8,2);
+		cp.style.position='absolute';
+		cp.style.left='50%';
+		cp.style.top='50%';
+		cp.style.transform='translate(-50%, -50%)';
+		cp.style.height=pm(32);
+		return cp;
+	}
 }
 const pmk=async()=>
 {
@@ -188,7 +241,7 @@ const pmk=async()=>
 	const ng={}
 	try
 	{
-		await ss('vm.js');
+		await Promise.all([ss('nlv.js'),ss('vm.js')]);
 		const v=new vp();
 		await v.dk();
 		ng.v=v;
@@ -197,6 +250,6 @@ const pmk=async()=>
 	document.body.style.setProperty('--dv','1px');
 	ng.b=[51,8,76,45,1,51,48,43,2,66,31,51,8,76,56,9,66];
 	ng.dk=1;
-	tpk(ng);
+	await tpk(ng);
 }
 pmk();
