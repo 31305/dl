@@ -95,6 +95,34 @@ const bms=async(p)=>
 const pm=(s)=>`calc(var(--dv) * ${s})`;
 const tpk=async(ng)=>
 {
+	const g=document.createElement('div');
+	g.style.width=pm(20);
+	g.style.height=g.style.width;
+	g.style.borderRadius='50%';
+	g.style.border='solid calc(var(--dv) * 4) orange'
+    g.style.position='absolute';
+    g.style.left='50%';
+    g.style.top='50%';
+    g.style.transform='translate(-50%, -50%)';
+	document.body.appendChild(g);
+	if(ng.dk)
+	{
+	    g.style.background='#a60';
+		await new Promise(p=>
+		{
+			const pk=(ps)=>
+			{
+				if(!(ps.type=='click'||ps.code=='Space'||ps.code=='Enter'||ps.code.startsWith('Arrow')))return;
+				document.onkeydown=null;
+				document.onclick=null;
+				p();
+			}
+			document.onclick=pk;
+			document.onkeydown=pk;
+		})
+		g.style.background='';
+	}
+	await ng.v.svb(ng.b);
 	const sg=document.createElement('div');
 	sg.style.display='grid';
 	sg.style.gridTemplateColumns='1fr auto 1fr'
@@ -118,30 +146,6 @@ const tpk=async(ng)=>
 		sg.appendChild(ss);
 	}
 	document.body.appendChild(sg);
-	const g=document.createElement('div');
-	g.style.width=pm(20);
-	g.style.height=g.style.width;
-	g.style.borderRadius='50%';
-	g.style.border='solid calc(var(--dv) * 4) orange'
-    g.style.background='#a60';
-    g.style.position='absolute';
-    g.style.left='50%';
-    g.style.top='50%';
-    g.style.transform='translate(-50%, -50%)';
-	document.body.appendChild(g);
-	await new Promise(p=>
-	{
-		const pk=()=>
-		{
-			document.onkeydown=null;
-			document.onclick=null;
-			p();
-		}
-		document.onclick=pk;
-		document.onkeydown=pk;
-	})
-	g.style.background='';
-	await ng.v.b([51,8,76,45,1,51,48,43,2,66,31,51,8,76,56,9,66]);
 }
 const pmk=async()=>
 {
@@ -160,6 +164,8 @@ const pmk=async()=>
 	}
 	catch(p){setTimeout(()=>window.location.reload(),10000)}
 	document.body.style.setProperty('--dv','1px');
+	ng.b=[51,8,76,45,1,51,48,43,2,66,31,51,8,76,56,9,66];
+	ng.dk=1;
 	tpk(ng);
 }
 pmk();
