@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import sys
 p=open(sys.argv[1],'rb')
-d=open(sys.argv[2],'rb+')
+d=open(sys.argv[2],'ab+')
+d.seek(0)
 while True:
     pl=p.read(1)
     if len(pl):pl=pl[0]

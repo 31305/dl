@@ -98,11 +98,12 @@ const pmk=async()=>
 	document.body.style.display='grid'
 	document.body.style.placeItems='center'
 	document.body.style.height='100dvh'
-	const sk=()=>window.stop();
-	try{await ss('vm.js');}
-	catch(p){sk();return;}
-	const v=new vp();
-	try{await v.dk();}
-	catch(p){sk();return;}
+	try
+	{
+		await ss('vm.js');
+		const v=new vp();
+		await v.dk();
+	}
+	catch(p){setTimeout(()=>window.location.reload(),10000)}
 }
 pmk();
