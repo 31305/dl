@@ -5,6 +5,7 @@ const ss=(n)=>
 		let v=document.createElement('script');
 		v.src=n;
 		v.onload=p;
+		v.onerror=d;
 		document.body.appendChild(v);
 	});
 }
@@ -40,7 +41,7 @@ const vp=class
 	{
 		return new Promise((p,d)=>
 		{
-			vm({dk:()=>p(this),vppk:()=>{this.bs=false;if(this.vp!=null)this.vp()}}).then(p=>this.p=p);
+			vm({dk:()=>p(this),vppk:()=>{this.bs=false;if(this.vp!=null)this.vp()}}).then(p=>this.p=p).catch(d);
 		});
 	}
 	b(v)
@@ -91,12 +92,17 @@ const bms=async(p)=>
 	let tk=0;
 	for(const bm of sgb){psg.set(bm,tk);tk+=bm.byteLength;}
 }
-document.oncontextmenu=(p)=>p.preventDefault()
-document.body.style.display='grid'
-document.body.style.placeItems='center'
-document.body.style.height='100dvh'
-ss('vm.js').then(()=>(new vp()).dk()).then(p=>
+const pmk=async()=>
 {
-	bms('vm.wasm');
-	window.v=p
-})
+	document.oncontextmenu=(p)=>p.preventDefault()
+	document.body.style.display='grid'
+	document.body.style.placeItems='center'
+	document.body.style.height='100dvh'
+	const sk=()=>window.stop();
+	try{await ss('vm.js');}
+	catch(p){sk();return;}
+	const v=new vp();
+	try{await v.dk();}
+	catch(p){sk();return;}
+}
+pmk();
