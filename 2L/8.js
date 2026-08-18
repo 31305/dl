@@ -129,7 +129,17 @@ const tpk=async(ng)=>
     g.style.top='50%';
     g.style.transform='translate(-50%, -50%)';
 	document.body.appendChild(g);
-	await new Promise(p=>document.onclick=()=>{document.onclick=null;p();})
+	await new Promise(p=>
+	{
+		const pk=()=>
+		{
+			document.onkeydown=null;
+			document.onclick=null;
+			p();
+		}
+		document.onclick=pk;
+		document.onkeydown=pk;
+	})
 	g.style.background='';
 	await ng.v.b([51,8,76,45,1,51,48,43,2,66,31,51,8,76,56,9,66]);
 }
@@ -139,6 +149,7 @@ const pmk=async()=>
 	document.body.style.display='grid'
 	document.body.style.placeItems='center'
 	document.body.style.height='100dvh'
+	document.documentElement.style.userSelect="none";
 	const ng={}
 	try
 	{
