@@ -92,18 +92,63 @@ const bms=async(p)=>
 	let tk=0;
 	for(const bm of sgb){psg.set(bm,tk);tk+=bm.byteLength;}
 }
+const pm=(s)=>`calc(var(--dv) * ${s})`;
+const tpk=async(ng)=>
+{
+	const sg=document.createElement('div');
+	sg.style.display='grid';
+	sg.style.gridTemplateColumns='1fr auto 1fr'
+	sg.style.gridTemplateRows='1fr auto 1fr'
+	sg.style.width=pm(150);
+	sg.style.height=sg.style.width;
+	sg.style.gap='0px'
+	const ms=document.createElement('div');
+	ms.style.width=pm(140);
+	ms.style.height=ms.style.width;
+	ms.style.gridColumn=2;
+	ms.style.gridRow=2;
+	sg.appendChild(ms);
+	for(let k=0;k<4;k++)
+	{
+		const ss=document.createElement('div');
+		ss.style.display='block';
+		ss.style.backgroundColor=k%2?'#800':'#080';
+		ss.style.gridColumn=k%2?4-k:2;
+		ss.style.gridRow=k%2?2:k+1;
+		sg.appendChild(ss);
+	}
+	document.body.appendChild(sg);
+	const g=document.createElement('div');
+	g.style.width=pm(20);
+	g.style.height=g.style.width;
+	g.style.borderRadius='50%';
+	g.style.border='solid calc(var(--dv) * 4) orange'
+    g.style.background='#a60';
+    g.style.position='absolute';
+    g.style.left='50%';
+    g.style.top='50%';
+    g.style.transform='translate(-50%, -50%)';
+	document.body.appendChild(g);
+	await new Promise(p=>document.onclick=()=>{document.onclick=null;p();})
+	g.style.background='';
+	await ng.v.b([51,8,76,45,1,51,48,43,2,66,31,51,8,76,56,9,66]);
+}
 const pmk=async()=>
 {
 	document.oncontextmenu=(p)=>p.preventDefault()
 	document.body.style.display='grid'
 	document.body.style.placeItems='center'
 	document.body.style.height='100dvh'
+	const ng={}
 	try
 	{
 		await ss('vm.js');
 		const v=new vp();
 		await v.dk();
+		ng.v=v;
 	}
 	catch(p){setTimeout(()=>window.location.reload(),10000)}
+	document.body.style.setProperty('--dv','1px');
+	tpk(ng);
 }
 pmk();
