@@ -78,6 +78,7 @@ Promise.all([ss('bs.js'),ss('vm.js'),ss('maplibre-gl.js'),
 		for(let s of bsn)
 		{
 			if(s.dd){s.d1=18;s.d2=24}else{s.d1=0;s.d2=24;}
+			if(!Array.isArray(s.s))s.s=[s.s.p,s.s.t]
 			ss.push({type:'Feature',properties:s,geometry:{type:'Point',coordinates:s.s}})
 		}
 		b.addSource('s', {
