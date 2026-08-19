@@ -2,7 +2,6 @@ const ss=(n)=>
 {
 	return new Promise((p,d)=>
 	{
-			
 		let v=document.createElement('script');
 		v.src=n;
 		v.async=false;
@@ -14,6 +13,11 @@ const vp=class
 {
 	bs=false;
 	vp=null;
+	svb=async(s)=>
+	{
+		if(!s[0].length)await this.b(s)
+		else for(const ps of s)await this.b(ps)
+	}
 	dk()
 	{
 		return new Promise((p,d)=>
@@ -32,7 +36,6 @@ const vp=class
 		});
 	}
 }
-
 Promise.all([ss('bs.js'),ss('vm.js'),ss('maplibre-gl.js'),
 	new Promise((p,d)=>
 	{
@@ -127,7 +130,7 @@ Promise.all([ss('bs.js'),ss('vm.js'),ss('maplibre-gl.js'),
 		else
 		{
 			if(b.getZoom()<19)b.flyTo({center:JSON.parse(p.features[0].properties.s),zoom:20,speed:g})
-			if(!v.bs)v.b(JSON.parse(p.features[0].properties.n));
+			if(!v.bs)v.svb(JSON.parse(p.features[0].properties.n));
 		}
 	});
 	b.on('mouseenter', 'n', () => {
