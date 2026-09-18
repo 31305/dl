@@ -336,6 +336,7 @@ struct stslp
 		ck<float> mc;
 		size_t d=0,u=1;
 		bool v=0;
+		int tk=0;
 	};
 	int sbs;
 	vyp vy;
@@ -348,7 +349,12 @@ struct stslp
 			*((float*)(d+k))=vyk->mc.k[vyk->d];
 			if(vyk->mc.ak(vyk->d,vyk->u)==0)
 			{
-				if(vyk->v)fprintf(stderr,"<\n");
+				if(vyk->v)
+				{
+					fprintf(stderr,"<\n");
+					vyk->tk++;
+				}
+				vyk->v=0;
 			}
 			else vyk->d=vyk->mc.v(vyk->d);
 		}
@@ -359,6 +365,7 @@ struct stslp
 		vyp& vy=bn->vy;
 		while(vy.mc.ak(vy.d,vy.u)>0.1*bn->sbs)
 			std::this_thread::sleep_for(std::chrono::milliseconds(16));
+		vy.v=1;
 		vy.u=vy.mc.v(vy.u);
 		vy.mc.k[vy.u]=ls;
 	};

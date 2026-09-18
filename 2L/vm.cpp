@@ -23,6 +23,7 @@ struct vm
 		{
 			vk.smg=1;
 			vk.pmb(vk::vsp(vn),stsl.p,&stsl);
+			if(stsl.vy.tk>1)printf("<*%d\n",stsl.vy.tk);
 			k=0;
 			sjsk=emscripten_get_now()/1000.0;
 			MAIN_THREAD_ASYNC_EM_ASM
