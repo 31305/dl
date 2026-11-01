@@ -1,6 +1,8 @@
 const l=document.createElement('iframe');
-document.body.appendChild(l);
-l.src="web/viewer.html?file=l.pdf">
+l.style.width='100dvw';
+l.style.height='100dvh';
+l.src='ld/web/viewer.html?file=../../l.pdf'
+l.style.border='none';
 l.addEventListener("load",()=>{
 	const ls=l.contentDocument;
 	ls.addEventListener("click",p=>{
@@ -10,3 +12,4 @@ l.addEventListener("load",()=>{
 		if(d){console.log(":",d.href);}
 	},true);
 });
+document.body.appendChild(l);
