@@ -1,3 +1,5 @@
+import vp from './vp.js'
+window.vp=vp;
 const ss=(n)=>
 {
 	let v=document.createElement('script');
@@ -11,7 +13,6 @@ ss("babylon.gui.min.js")
 window.lnc=0;
 if(lnc)ss("HavokPhysics_umd.js")
 ss("nlv.js")
-ss('vm.js')
 ss("l.js")
 const vvss=document.createElement('style');
 vvss.textContent=`
