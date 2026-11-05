@@ -22,6 +22,7 @@ struct vm
 		std::thread s([this,&vn]()
 		{
 			vk.smg=1;
+			stsl.vy.tk=0;
 			vk.pmb(vk::vsp(vn),stsl.p,&stsl);
 			if(stsl.vy.tk>1)printf("<*%d\n",stsl.vy.tk);
 			k=0;

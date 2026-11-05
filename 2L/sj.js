@@ -12,9 +12,11 @@ v.dk().then(()=>
 </svg>
 	`;
 	let s1=0,s2=0,kk=null;
-	const kpk=()=>{console.log('k')};
-	const mpk=()=>{console.log('m')};
-	const npk=()=>{console.log('n')};
+	var pv=null;
+	var vk=(p)=>{pv=p;v.svb(p);}
+	var kpk=()=>{console.log('k');if(pv)vk(pv)};
+	var mpk=()=>{console.log('m');vk([7,43,2,76,43,3,70,66,44,1,46,5,51]);};
+	var npk=()=>{console.log('n')};
 	document.onpointerdown=()=>{if(v.bs)return;s1=0;s2=0;kk=setTimeout(()=>{kk=null;kpk();},500);}
 	document.onpointermove=(p)=>{if(kk)
 	{
