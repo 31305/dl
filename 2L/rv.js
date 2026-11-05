@@ -28,33 +28,6 @@ const ssd=(p)=>
 		catch(p){dk(p)}
 	})
 }
-const vp=class
-{
-	bs=false;
-	vp=null;
-	svb=async(s)=>
-	{
-		if(!s[0].length)await this.b(s)
-		else for(const ps of s)await this.b(ps)
-	}
-	dk()
-	{
-		return new Promise((p,d)=>
-		{
-			vm({dk:()=>p(this),vppk:()=>{this.bs=false;if(this.vp!=null)this.vp()}}).then(p=>this.p=p).catch(d);
-		});
-	}
-	b(v)
-	{
-		return new Promise((pd,d)=>
-		{
-			if(this.bs||this.p==undefined)d();
-			this.bs=true;
-			this.vp=()=>{this.vp=null;pd();}
-			this.p.ccall('jb',null,['array','number'],[new Uint8Array(v),v.length]);
-		});
-	}
-}
 const bms=async(p)=>
 {
 	const cb=document.createElement('div')
@@ -241,8 +214,8 @@ const pmk=async()=>
 	const ng={}
 	try
 	{
-		await Promise.all([ss('nlv.js'),ss('vm.js')]);
-		const v=new vp();
+		const p=await Promise.all([ss('nlv.js'),import('./vp.js')]);
+		const v=new p[1].default();
 		await v.dk();
 		ng.v=v;
 	}

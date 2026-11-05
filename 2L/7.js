@@ -10,29 +10,7 @@ const ss=(n)=>
 		document.body.appendChild(v);
 	});
 }
-const vp=class
-{
-	bs=false;
-	vp=null;
-	dk()
-	{
-		return new Promise((p,d)=>
-		{
-			vm({dk:p,vppk:()=>{this.bs=false;if(this.vp!=null)this.vp()}}).then(p=>this.p=p);
-		});
-	}
-	b(v)
-	{
-		return new Promise((pd,d)=>
-		{
-			if(this.bs||this.p==undefined)d();
-			this.bs=true;
-			this.vp=()=>{this.vp=null;pd();}
-			this.p.ccall('jb',null,['array','number'],[new Uint8Array(v),v.length]);
-		});
-	}
-}
-Promise.all([ss('nlv.js'),ss('vm.js'),ss('ps.js')]).then(p=>{const v=new vp();v.dk().then(p=>
+Promise.all([ss('nlv.js'),import('./vp.js'),ss('ps.js')]).then(p=>{const v=new p[1].default();v.dk().then(p=>
 {
 	if(Number(location.hash.slice(1)))
 	{

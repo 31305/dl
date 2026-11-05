@@ -10,28 +10,6 @@ const ss=(n)=>
 		document.body.appendChild(v);
 	});
 }
-const vp=class
-{
-	bs=false;
-	vp=null;
-	dk()
-	{
-		return new Promise((p,d)=>
-		{
-			vm({dk:p,vppk:()=>{this.bs=false;if(this.vp!=null)this.vp()}}).then(p=>this.p=p);
-		});
-	}
-	b(v)
-	{
-		return new Promise((pd,d)=>
-		{
-			if(this.bs||this.p==undefined)d();
-			this.bs=true;
-			this.vp=()=>{this.vp=null;pd();}
-			this.p.ccall('jb',null,['array','number'],[new Uint8Array(v),v.length]);
-		});
-	}
-}
 class jp
 {
 	constructor(){this.sbs=new Map();}
@@ -191,8 +169,10 @@ const nk=()=>
 	else ssk(Number(location.hash.substr(1)))
 }
 window.onhashchange=nk
-Promise.all([ss('vm.js'),ss('j.js')]).then(p=>{
+Promise.all([import('./vp.js'),ss('j.js')]).then(p=>{
 	jnm(j);
+	const vp=p[0].default;
+	window.vp=vp;
 	const v=new vp();
 	vsv=v;
 	v.dk().then(p=>{

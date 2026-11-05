@@ -10,35 +10,13 @@ const ss=(n)=>
 		document.body.appendChild(v);
 	});
 }
-const vp=class
-{
-	bs=false;
-	vp=null;
-	dk()
-	{
-		return new Promise((p,d)=>
-		{
-			vm({dk:p,vppk:()=>{this.bs=false;if(this.vp!=null)this.vp()}}).then(p=>this.p=p);
-		});
-	}
-	b(v)
-	{
-		return new Promise((pd,d)=>
-		{
-			if(this.bs||this.p==undefined)d();
-			this.bs=true;
-			this.vp=()=>{this.vp=null;pd();}
-			this.p.ccall('jb',null,['array','number'],[new Uint8Array(v),v.length]);
-		});
-	}
-}
 document.body.style='';
 const sr=document.createElement("meta");
 sr.name="color-scheme";
 sr.content="light dark";
 document.head.appendChild(sr);
-Promise.all([ss('vm.js'),ss('ks.js')]).then(p=>{
-	const v=new vp();
+Promise.all([import('./vp.js'),ss('ks.js')]).then(p=>{
+	const v=new p[0].default();
 	v.dk().then(p=>
 	{
 		const ssk=(d)=>

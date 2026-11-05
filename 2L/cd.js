@@ -10,28 +10,6 @@ const ss=(n)=>
 		document.body.appendChild(v);
 	});
 }
-const vp=class
-{
-	bs=false;
-	vp=null;
-	dk()
-	{
-		return new Promise((p,d)=>
-		{
-			vm({dk:p,vppk:()=>{this.bs=false;if(this.vp!=null)this.vp()}}).then(p=>this.p=p);
-		});
-	}
-	b(v)
-	{
-		return new Promise((pd,d)=>
-		{
-			if(this.bs||this.p==undefined)d();
-			this.bs=true;
-			this.vp=()=>{this.vp=null;pd();}
-			this.p.ccall('jb',null,['array','number'],[new Uint8Array(v),v.length]);
-		});
-	}
-}
 let nrsg=
 [
 	[
@@ -98,8 +76,8 @@ let nrsg=
 const ppdk=false;
 if(!ppdk)nrsg=[nrsg.flat()];
 document.body.style.overflow='auto'
-ss('vm.js').then(p=>{
-	const v=new vp();
+import('./vp.js').then(p=>{
+	const v=new p.default();
 	v.dk().then(p=>{
 		const vvss=document.createElement('style');
 		vvss.textContent=`

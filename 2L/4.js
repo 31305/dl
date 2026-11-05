@@ -10,9 +10,10 @@ const ss=(n)=>
 		document.body.appendChild(v);
 	});
 }
-Promise.all([ss('zxing_reader.js'),ss('vm.js')]).then(p=>
+Promise.all([ss('zxing_reader.js'),import('./vm.js')]).then(p=>
 {
 	let vv="",sv="";
+	const vm=p[1].default;
 	Promise.all([ZXing(),vm({dk:()=>{},vppk:()=>{}})]).then(p=>
 	{
 		const lv=p[0];
