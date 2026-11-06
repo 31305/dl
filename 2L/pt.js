@@ -16,7 +16,7 @@ const pt=(p)=>v.dk().then(()=>
 	const vk=(p)=>{pv=p;return v.svb(p);}
 	p.vk=vk;
 	const kpk=async()=>{if(pv){await v.b([51,8,75]);v.svb(pv)}};
-	const mpk=()=>{if(p.mv)await v.b([5,75]);if(p.mpk)p.mpk();};
+	const mpk=async()=>{if(p.mv)await v.b([5,75]);if(p.mpk)p.mpk();};
 	const npk=async()=>{await v.b([70,2]);if(p.npk)p.npk();};
 	document.onpointerdown=()=>{if(v.bs)return;s1=0;s2=0;kk=setTimeout(()=>{kk=null;kpk();},500);}
 	document.onpointermove=(p)=>{if(kk)
@@ -37,5 +37,14 @@ const pt=(p)=>v.dk().then(()=>
 		if(p.code==='KeyM')mpk();
 		else if(p.code==='KeyN')npk();
 		else if(p.code==='KeyK')kpk();
+	}	
+	p.sp=()=>
+	{
+		document.onpointerdown=null;
+		document.onpointerup=null;
+		document.onpointerout=null;
+		document.onpointermove=null;
+		document.onkeydown=null;
 	}
 });
+export default pt;
