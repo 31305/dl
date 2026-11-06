@@ -2,6 +2,8 @@ import vp from './vp.js';
 const v=new vp();
 const pt=(p)=>v.dk().then(()=>
 {
+	document.documentElement.style.userSelect="none";
+	document.body.style.touchAction='none';
 	document.body.style.display='grid';
 	document.body.style.placeItems='center';
 	document.body.style.height='100dvh';
