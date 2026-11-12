@@ -1,4 +1,5 @@
 import vp from './vp.js'
+import {sb} from './sb.js'
 const v=new vp();
 await v.dk()
 const vv=document.createElement('meta')
@@ -7,7 +8,7 @@ vv.content='dark'
 document.head.appendChild(vv);
 document.body.style.cssText='text-align:center;font:serif'
 const d=document.createElement('div')
-d.style.width='100px'
+if(0)d.style.width='200px'
 d.style.marginInline='auto'
 document.body.appendChild(d);
 const pd=document.createElementNS('http://www.w3.org/2000/svg','svg')
@@ -18,13 +19,19 @@ pd.innerHTML=
 <rect width="100%" height="100%" fill="#f9dc5c" />
 
 `
-d.appendChild(pd)
+if(0)d.appendChild(pd)
+else d.innerHTML='<h2>1, 2, 3, ...</h2>'
 const ld=document.createElement('div')
-ld.style='display:flex;gap:.25em;'
+ld.style='display:flex;gap:.25em;width:150px;margin-inline:auto;'
 d.appendChild(ld)
 const ns=document.createElement('input')
 ns.style='flex:1;min-width:0'
+ns.setAttribute('type','text');
+ns.setAttribute('inputmode','numeric');
+ns.addEventListener('input',p=>{p.target.value=p.target.value.replace(/[^0-9]/g,'')})
 ld.appendChild(ns)
 const nk=document.createElement('button')
+ns.onkeydown=p=>{if(p.key=='Enter')nk.onclick();}
 ld.appendChild(nk)
 nk.innerText='?'
+nk.onclick=()=>{if(v.sb)return;const b=sb(Number(ns.value));console.log(b);v.svb(b);}
