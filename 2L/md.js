@@ -28,13 +28,14 @@ const ns=document.createElement('input')
 ns.style='flex:1;min-width:0'
 ns.setAttribute('type','text');
 ns.setAttribute('inputmode','numeric');
+ns.maxLength=9;
 ns.addEventListener('input',p=>{p.target.value=p.target.value.replace(/[^0-9]/g,'')})
 ld.appendChild(ns)
 const nk=document.createElement('button')
 ns.onkeydown=p=>{if(p.key=='Enter')nk.onclick();}
 ld.appendChild(nk)
 nk.innerText='?'
-nk.onclick=()=>{if(v.bs)return;const b=sb(Number(ns.value));console.log(b);v.svb(b);}
+nk.onclick=()=>{if(v.bs)return;const b=sb({s:Number(ns.value),sv:1});console.log(b);v.svb(b);}
 const vk=document.createElement('button');
 vk.innerText='+';
 d.append(vk);

@@ -1,21 +1,30 @@
 export function vg(p,d)
 {
 	let t=[];
-	if(p[0].length)t=p;
-	else t.push(p);
-	if(d[0].length)t.push(...d)
-	else t.push(d);
+	if(p.length)
+	{
+		if(p[0].length)t=p;
+		else t.push(p);
+	}
+	if(d.length)
+	{
+		if(d[0].length)t.push(...d)
+		else t.push(d);
+	}
 	return t;
 }
-export function sb(s)
+export function sb(p)
 {
+	const s=p.s;
+	const sv=p.sv||0;
+	if(s==0&&!sv)return [];
 	const dns=
 	[
 		[47,16,70,43,2,75],
-		[32,51,3,75],
+		p.sl?[32,51,4]:[32,51,3,75],
 		[68,46,32],
-		[66,44,11,65,9],
-		[56,1,66,46,5,44,9],
+		p.sl?[66,7,49,44,2,77]:[66,44,11,65,9],
+		p.sl?[56,2,66,1,49,44,1,77]:[56,1,66,46,5,44,9],
 		[71,2,60,56,3],
 		[48,2,61],
 		[49,1,71,66,2],
@@ -61,6 +70,34 @@ export function sb(s)
 		if(dd==3&&dg<4)p=[66,44,2,43,1,49]
 		if(dd==6&&dg==1){p=[48,38];d=[63,1,47,1];}
 		return ss(sd(p,vsk(d)));
+	}
+	const mss=
+	{
+		100:[[47,1,66,2,75],[47,1,66,32],[47,1,66,5,70,9]],
+		1000:[[49,50,2,49,44,1,75],[49,1,50,2,49,44,31],[49,1,50,2,49,44,4,65,7]],
+		100000:[[45,1,51,48,2,75],[45,1,51,48,32],[45,1,51,48,5,65,7]],
+		10000000:[[51,38,61,7,77],[51,38,61,43,40],[51,38,61,43,1,77]],
+	};
+	const ks=10000000;
+	if(s<1000)
+	{
+		const ss=Math.trunc(s/100);
+		return vg(ss==1?mss[100][0]:ss==2?[[68,46,32],mss[100][1]]:[sb({s:ss}),mss[100][2]],sb({s:s%100}));
+	}
+	if(s<100000)
+	{
+		const ss=Math.trunc(s/1000);
+		return vg(ss==1?mss[1000][0]:ss==2?[[68,46,32],mss[1000][1]]:[sb({s:ss}),mss[1000][2]],sb({s:s%1000}));
+	}
+	if(s<10000000)
+	{
+		const ss=Math.trunc(s/100000);
+		return vg(ss==1?mss[100000][0]:ss==2?[[68,46,32],mss[100000][1]]:[sb({s:ss}),mss[100000][2]],sb({s:s%100000}));
+	}
+	else if(s<ks*ks)
+	{
+		const ss=Math.trunc(s/10000000);
+		return vg(ss==1?mss[10000000][0]:ss==2?[[68,46,32],mss[10000000][1]]:[sb({s:ss,sl:1}),mss[10000000][2]],sb({s:s%10000000}));
 	}
 	return [73,1,50,14];
 }
