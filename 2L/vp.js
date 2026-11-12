@@ -3,10 +3,18 @@ const vp=class
 {
 	bs=false;
 	vp=null;
+	pv=null;
 	svb=async(s)=>
 	{
-		if(!s[0].length)await this.b(s)
-		else for(const ps of s)await this.b(ps)
+		this.pv=s;
+		if(this.bs)return;
+		while(this.pv)
+		{
+			const s=this.pv;
+			this.pv=null;
+			if(!s[0].length)await this.b(s)
+			else for(const ps of s)await this.b(ps)
+		}
 	}
 	dk()
 	{

@@ -35,13 +35,14 @@ const nk=document.createElement('button')
 ns.onkeydown=p=>{if(p.key=='Enter')nk.onclick();}
 ld.appendChild(nk)
 nk.innerText='?'
-nk.onclick=()=>{if(v.bs)return;const b=sb({s:Number(ns.value),sv:1});console.log(b);v.svb(b);}
+const pvk=()=>{const b=sb({s:Number(ns.value),sv:1});console.log(b);v.svb(b);}
+nk.onclick=()=>{if(v.bs)return;pvk();}
 const vk=document.createElement('button');
 vk.innerText='+';
 d.append(vk);
-vk.onclick=()=>{ns.value=Number(ns.value)+1;nk.onclick();}
+vk.onclick=()=>{ns.value=Number(ns.value)+1;pvk();}
 const vpk=document.createElement('button');
 vpk.innerText='-';
 vpk.style.margin='.25em'
 d.append(vpk);
-vpk.onclick=()=>{ns.value=Math.max(0,Number(ns.value)-1);nk.onclick();}
+vpk.onclick=()=>{ns.value=Math.max(0,Number(ns.value)-1);pvk();}
