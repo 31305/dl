@@ -1,3 +1,12 @@
+export function vg(p,d)
+{
+	let t=[];
+	if(p[0].length)t=p;
+	else t.push(p);
+	if(d[0].length)t.push(...d)
+	else t.push(d);
+	return t;
+}
 export function sb(s)
 {
 	const dns=
@@ -48,7 +57,10 @@ export function sb(s)
 		let p=pp[dd-1];
 		let d=tp[dg-1];
 		if(dd==1&&dg==1)p.splice(-1,1,4);
-		return ss(sd(pp[dd-1],vsk(tp[dg-1])));
+		if(dd==2&&dg<4)p.splice(-1,1,5);
+		if(dd==3&&dg<4)p=[66,44,2,43,1,49]
+		if(dd==6&&dg==1){p=[48,38];d=[63,1,47,1];}
+		return ss(sd(p,vsk(d)));
 	}
 	return [73,1,50,14];
 }
@@ -58,10 +70,37 @@ function vsk(s)
 }
 export function sd(p,d)
 {
-	const v1=p.pop();
-	const v2=d.shift();
-	let mb=[v1,v2];
-	return p.concat(mb,d);
+	const n=(s,k)=>s[s.length-k];
+	console.log(n(d,1))
+	const sg=(v)=>v<76&&v>50&&v%5!=1&&v%5!=2
+	const ng=(v)=>v<76&&v>50&&(v%5==1||v%5==2)
+	const nt=(v)=>v>=43&&v<=46
+	if(n(p,1)==49&&(sg(d[0])||nt(d[0])))
+		p.splice(-2,2,37+(n(p,2)-1)%3)
+	if(ng(n(p,1))&&(d[0]<43||nt(d[0])||sg(d[0])))
+		p.splice(-1,1,n(p,1)+2)
+	if(n(p,1)==44&&ng(d[0])&&d[0]>55&&d[0]<70)
+		p.splice(-1,1,47+Math.trunc(d[0]/5)-11)
+	if(n(p,1)==44&&ng(d[0])&&(d[0]<55||d[0]>70))
+		p.splice(-1,1,77)
+	if(n(p,1)==44&&d[0]>=47&&d[0]<49)
+		p.splice(-1,1,d[0])
+	if(n(p,1)<=30&&d[0]<=30&&Math.trunc((n(p,1)-1)/6)==Math.trunc((d[0]-1)/6))
+	{
+		p.splice(-1,1,6*(Math.trunc((d[0]-1)/6))+4+(n(p,1)%3==2||d[0]%3==2))
+		d.shift();
+	}
+	if(n(p,1)==8&&d[0]==1)
+	{
+		p.splice(-1,1,43);
+		d[0]=3;
+	}
+	if(n(p,1)==63&&d[0]==70)
+	{
+		p.splice(-1,1,65);
+		d[0]=65;
+	}
+	return p.concat(d);
 }
 export function ss(v)
 {

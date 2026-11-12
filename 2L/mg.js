@@ -1,18 +1,10 @@
 import pt from './pt.js'
+import {vg} from './sb.js'
 const p={};
 const dss=class
 {
 	async v()
 	{
-		const vg=(p,d)=>
-		{
-			let t=[];
-			if(p[0].length)t=p;
-			else t.push(p);
-			if(d[0].length)t.push(...d)
-			else t.push(d);
-			return t;
-		}
 		if(this.s[this.k].d)
 		{
 			if(!this.dk)this.p.vk(vg(this.s[this.k].s,this.ssg[this.s[this.k].d][0].s));
