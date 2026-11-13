@@ -18,7 +18,7 @@ ns.addEventListener('input',p=>{p.target.value=p.target.value.replace(/[^0-9]/g,
 d.appendChild(ns)
 const nk=document.createElement('button')
 ns.onkeydown=p=>{if(p.key=='Enter')nk.onclick();}
-d.appendHTML('<br>')
+d.appendChild(document.createElement('br'))
 d.appendChild(nk)
 nk.innerText='?'
 const pvk=()=>{const b=sb({s:Number(ns.value),sv:1});console.log(b);v.svb(b);}
