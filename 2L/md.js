@@ -7,42 +7,37 @@ vv.name='color-scheme'
 vv.content='dark'
 document.head.appendChild(vv);
 document.body.style.cssText='text-align:center;font:serif;margin:auto;'
-const d=document.createElement('div')
-if(0)d.style.width='200px'
-d.style.marginInline='auto'
-document.body.appendChild(d);
-const pd=document.createElementNS('http://www.w3.org/2000/svg','svg')
-pd.setAttribute('width','100px')
-pd.setAttribute('viewBox','0 0 100 100')
-pd.innerHTML=
-`
-<rect width="100%" height="100%" fill="#f9dc5c" />
-
-`
-if(0)d.appendChild(pd)
-else d.innerHTML='<h2>1, 2, 3, ...</h2>'
-const ld=document.createElement('div')
-ld.style='display:flex;margin:.25em;gap:.25em;width:150px;margin-inline:auto;'
-d.appendChild(ld)
+const d=document.body;
+d.innerHTML='<h2>1, 2, 3, ...</h2>'
 const ns=document.createElement('input')
 ns.style='flex:1;min-width:0'
 ns.setAttribute('type','text');
 ns.setAttribute('inputmode','numeric');
 ns.maxLength=9;
 ns.addEventListener('input',p=>{p.target.value=p.target.value.replace(/[^0-9]/g,'')})
-ld.appendChild(ns)
+d.appendChild(ns)
 const nk=document.createElement('button')
 ns.onkeydown=p=>{if(p.key=='Enter')nk.onclick();}
-ld.appendChild(nk)
+d.appendHTML('<br>')
+d.appendChild(nk)
 nk.innerText='?'
 const pvk=()=>{const b=sb({s:Number(ns.value),sv:1});console.log(b);v.svb(b);}
 nk.onclick=()=>{if(v.bs)return;pvk();}
 const vk=document.createElement('button');
 vk.innerText='+';
-d.append(vk);
-vk.onclick=()=>{ns.value=Number(ns.value)+1;pvk();}
+d.appendChild(vk);
+vk.onclick=()=>{ns.value=Number(ns.value)+1;}
 const vpk=document.createElement('button');
 vpk.innerText='-';
-vpk.style.margin='.25em'
-d.append(vpk);
-vpk.onclick=()=>{ns.value=Math.max(0,Number(ns.value)-1);pvk();}
+d.appendChild(vpk);
+vpk.onclick=()=>{ns.value=Math.max(0,Number(ns.value)-1);}
+const vvss=document.createElement('style');
+vvss.textContent=`
+button{
+	margin-top:4px;
+	margin-inline:2px;
+	font-family:monospace;
+	font-size:20px;
+}
+`;
+document.head.appendChild(vvss);
