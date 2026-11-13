@@ -26,11 +26,11 @@ nk.onclick=()=>{if(v.bs)return;pvk();}
 const vk=document.createElement('button');
 vk.innerText='+';
 d.appendChild(vk);
-vk.onclick=()=>{ns.value=Number(ns.value)+1;}
+vk.onclick=()=>{ns.value=Number(ns.value)+1;pvk();}
 const vpk=document.createElement('button');
 vpk.innerText='-';
 d.appendChild(vpk);
-vpk.onclick=()=>{ns.value=Math.max(0,Number(ns.value)-1);}
+vpk.onclick=()=>{ns.value=Math.max(0,Number(ns.value)-1);pvk();}
 const vvss=document.createElement('style');
 vvss.textContent=`
 button{
