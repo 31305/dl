@@ -6,11 +6,14 @@ const vv=document.createElement('meta')
 vv.name='color-scheme'
 vv.content='dark'
 document.head.appendChild(vv);
-document.body.style.cssText='text-align:center;font:serif;margin:auto;'
+document.body.style.cssText='text-align:center;font-family:sans-serif;margin:auto;'
 const d=document.body;
-d.innerHTML='<h2>1, 2, 3, ...</h2>'
+d.innerHTML=`<span style="margin:10px;display:inline-block;padding-inline:15px;
+	font-weight:bold;font-size:40px;background-color:white;color:black">
+	1, 2, 3.</span><br>`
 const ns=document.createElement('input')
-ns.style='flex:1;min-width:0'
+ns.style.fontFamily='monospace';
+ns.size='9';
 ns.setAttribute('type','text');
 ns.setAttribute('inputmode','numeric');
 ns.maxLength=9;
