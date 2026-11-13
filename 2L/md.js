@@ -31,6 +31,12 @@ const vpk=document.createElement('button');
 vpk.innerText='-';
 d.appendChild(vpk);
 vpk.onclick=()=>{ns.value=Math.max(0,Number(ns.value)-1);pvk();}
+document.addEventListener('keydown',p=>
+{
+	if(p.code=='NumpadAdd'||p.key=='+'||(p.shiftKey&&p.code=='Equal'))vk.onclick();
+	if(p.code=='NumpadSubtract'||p.key=='-')vpk.onclick();
+
+})
 const vvss=document.createElement('style');
 vvss.textContent=`
 button{
