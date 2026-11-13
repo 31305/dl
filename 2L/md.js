@@ -21,7 +21,7 @@ ns.onkeydown=p=>{if(p.key=='Enter')nk.onclick();}
 d.appendChild(document.createElement('br'))
 d.appendChild(nk)
 nk.innerText='?'
-const pvk=()=>{const b=sb({s:Number(ns.value),sv:1});console.log(b);v.svb(b);}
+const pvk=()=>{const b=sb({s:Number(ns.value),sv:1,sc:1});console.log(b);v.svb(b);}
 nk.onclick=()=>{if(v.bs)return;pvk();}
 const vk=document.createElement('button');
 vk.innerText='+';

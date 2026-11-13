@@ -79,26 +79,19 @@ export function sb(p)
 		10000000:[[51,38,61,7,77],[51,38,61,43,40],[51,38,61,43,1,77]],
 	};
 	const ks=10000000;
-	if(s<1000)
+	const dsb=(np)=>
 	{
-		const ss=Math.trunc(s/100);
-		return vg(ss==1?mss[100][0]:ss==2?[[68,46,32],mss[100][1]]:[sb({s:ss}),mss[100][2]],sb({s:s%100}));
+		const ss=Math.trunc(s/np.ns);
+		const pp=ss==1?mss[np.ns][0]:ss==2?[[68,46,32],mss[np.ns][1]]:[sb({s:ss,sl:np.sl}),mss[np.ns][2]]
+		const dp=sb({s:s%np.ns});
+		let tp=vg(pp,dp);
+		if(p.sc&&dp.length)tp=vg(tp,[56,1]);
+		return tp;
 	}
-	if(s<100000)
-	{
-		const ss=Math.trunc(s/1000);
-		return vg(ss==1?mss[1000][0]:ss==2?[[68,46,32],mss[1000][1]]:[sb({s:ss}),mss[1000][2]],sb({s:s%1000}));
-	}
-	if(s<10000000)
-	{
-		const ss=Math.trunc(s/100000);
-		return vg(ss==1?mss[100000][0]:ss==2?[[68,46,32],mss[100000][1]]:[sb({s:ss}),mss[100000][2]],sb({s:s%100000}));
-	}
-	else if(s<ks*ks)
-	{
-		const ss=Math.trunc(s/10000000);
-		return vg(ss==1?mss[10000000][0]:ss==2?[[68,46,32],mss[10000000][1]]:[sb({s:ss,sl:1}),mss[10000000][2]],sb({s:s%10000000}));
-	}
+	if(s<1000)return dsb({ns:100});
+	if(s<100000)return dsb({ns:1000});
+	if(s<10000000)return dsb({ns:100000});
+	if(s<1000000000)return dsb({ns:10000000,sl:1});
 	return [73,1,50,14];
 }
 function vsk(s)
@@ -108,7 +101,6 @@ function vsk(s)
 export function sd(p,d)
 {
 	const n=(s,k)=>s[s.length-k];
-	console.log(n(d,1))
 	const sg=(v)=>v<76&&v>50&&v%5!=1&&v%5!=2
 	const ng=(v)=>v<76&&v>50&&(v%5==1||v%5==2)
 	const nt=(v)=>v>=43&&v<=46
