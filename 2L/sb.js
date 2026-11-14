@@ -81,11 +81,16 @@ export function sb(p)
 	const ks=10000000;
 	const dsb=(np)=>
 	{
-		const ss=Math.trunc(s/np.ns);
-		const pp=ss==1?mss[np.ns][0]:ss==2?[[68,46,32],mss[np.ns][1]]:[sb({s:ss,sl:np.sl}),mss[np.ns][2]]
+		const ssd=Math.trunc(s/np.ns);
+		const pp=ssd==1?mss[np.ns][0]:ssd==2?[[68,46,32],mss[np.ns][1]]:[sb({s:ssd,sl:np.sl}),mss[np.ns][2]]
 		const dp=sb({s:s%np.ns});
 		let tp=vg(pp,dp);
-		if(p.sc&&dp.length)tp[tp.length-1]=sd(tp[tp.length-1],[56,1]);
+		if(p.sc)
+		{
+			if(dp.length)tp[tp.length-1]=sd(tp[tp.length-1],[56,1]);
+			for(let k=0;k<tp.length;k++)
+				tp[k]=ss(tp[k]);
+		}
 		return tp;
 	}
 	if(s<1000)return dsb({ns:100});
