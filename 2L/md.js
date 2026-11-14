@@ -6,33 +6,28 @@ const vv=document.createElement('meta')
 vv.name='color-scheme'
 vv.content='dark'
 document.head.appendChild(vv);
-document.body.style.cssText='text-align:center;font-family:sans-serif;margin:auto;'
+document.body.style.cssText='text-align:center;font-family:sans-serif;'
 const d=document.body;
-d.innerHTML=`<span style="margin:10px;display:inline-block;padding-inline:15px;
-	font-weight:bold;font-size:40px;background-color:white;color:black">
-	1, 2, 3.</span><br>`
-const ns=document.createElement('input')
-ns.style.fontFamily='monospace';
-ns.size='9';
-ns.setAttribute('type','text');
-ns.setAttribute('inputmode','numeric');
-ns.maxLength=9;
+d.innerHTML=`
+	<h1>1, 2, 3.</h1>
+	<p><input type="text" style="font-family:monospace" size=9 inputmode="numeric" maxLength=9/ id="ns"></p>
+	<p>
+	<button id="nk">?</button>
+	<button id="vk">?</button>
+	<button id="vpk">?</button>
+	</p>`
+const ns=document.getElementById('ns')
 ns.addEventListener('input',p=>{p.target.value=p.target.value.replace(/[^0-9]/g,'')})
-d.appendChild(ns)
-const nk=document.createElement('button')
+const nk=document.getElementById('nk')
+const vk=document.getElementById('vk')
+const vpk=document.getElementById('vpk')
 ns.onkeydown=p=>{if(p.key=='Enter')nk.onclick();}
-d.appendChild(document.createElement('br'))
-d.appendChild(nk)
 nk.innerText='?'
 const pvk=()=>{const b=sb({s:Number(ns.value),sv:1,sc:1});console.log(b);v.svb(b);}
 nk.onclick=()=>{if(v.bs)return;pvk();}
-const vk=document.createElement('button');
 vk.innerText='+';
-d.appendChild(vk);
 vk.onclick=()=>{ns.value=Number(ns.value)+1;pvk();}
-const vpk=document.createElement('button');
 vpk.innerText='-';
-d.appendChild(vpk);
 vpk.onclick=()=>{ns.value=Math.max(0,Number(ns.value)-1);pvk();}
 document.addEventListener('keydown',p=>
 {
@@ -43,10 +38,8 @@ document.addEventListener('keydown',p=>
 const vvss=document.createElement('style');
 vvss.textContent=`
 button{
-	margin-top:4px;
-	margin-inline:2px;
-	font-family:monospace;
-	font-size:20px;
+       font-family:monospace;
+       font-size:20px;
 }
 `;
 document.head.appendChild(vvss);
