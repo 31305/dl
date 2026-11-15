@@ -6,8 +6,10 @@ const vv=document.createElement('meta')
 vv.name='color-scheme'
 vv.content='dark'
 document.head.appendChild(vv);
-document.head.appendChild(Object.assign(document.createElement('link'),
-	{rel:'stylesheet',href:'https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap'}))
+const dvs=Object.assign(document.createElement('link'),
+	{rel:'stylesheet',href:'https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap'})
+dvs.onload=dvpk;
+document.head.appendChild(dvs);
 document.body.style.cssText=`height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;
 background:black;visibility:hidden;`
 const d=document.body;
@@ -68,12 +70,10 @@ input{
 }
 `;
 document.head.appendChild(vvss);
-const dvpk=async()=>
+async function dvpk ()
 {
 	await document.fonts.load('20px "Ubuntu Mono"','0123456789+-?');
+	await document.fonts.ready;
 	d.style.visibility='visible';
 	ns.focus();
 }
-if(document.readyState==='complete')
-	dvpk();
-else window.addEventListener('load',dvpk);
