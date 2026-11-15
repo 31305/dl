@@ -12,8 +12,8 @@ document.body.style.cssText=`height:100dvh;display:flex;flex-direction:column;ju
 background:black;visibility:hidden;`
 const d=document.body;
 d.innerHTML=`
-<p><input type="text" style="width:72px;" inputmode="numeric" maxLength=9/ id="ns"></p>
-<p style='margin-top:4px;display:inline-flex;gap:4px;'>
+<p><input type="text" style="width:135px;" inputmode="numeric" maxLength=9/ id="ns"></p>
+<p style='margin-top:10px;display:inline-flex;gap:10px;'>
 <button id="nk">?</button>
 <button id="vk">?</button>
 <button id="vpk">?</button>
@@ -45,7 +45,7 @@ vvss.textContent=`
 	padding:0;
 	border:0;
 	border-radius:0;
-	font:normal 16px "Ubuntu Mono";
+	font:normal 30px "Ubuntu Mono";
 	color:white;
 	line-height:1;
 	background:none;
@@ -53,9 +53,9 @@ vvss.textContent=`
 	outline:none;
 }
 button{
-	border:1px solid white;
-	width:22px;
-	font-size:20px;
+	border:2px solid white;
+	width:42px;
+	font-size:40px;
 	cursor:pointer;
 }
 button:active{
@@ -64,7 +64,7 @@ button:active{
 }
 input{
 	text-align:right;
-	border-bottom:1px solid white;
+	border-bottom:2px solid white;
 }
 `;
 document.head.appendChild(vvss);
