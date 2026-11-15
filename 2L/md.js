@@ -68,7 +68,12 @@ input{
 }
 `;
 document.head.appendChild(vvss);
-if(0)window.p=await document.fonts.load('20px "Ubuntu Mono"','0123456789+-?');
-const nlvsg=await document.fonts.ready;
-if(nlvsg.size)d.style.visibility='visible';
-ns.focus();
+const dvpk=async()=>
+{
+	await document.fonts.load('20px "Ubuntu Mono"','0123456789+-?');
+	d.style.visibility='visible';
+	ns.focus();
+}
+if(document.readyState==='complete')
+	dvpk();
+else window.addEventListener('load',dvpk);
