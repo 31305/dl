@@ -6,16 +6,18 @@ const vv=document.createElement('meta')
 vv.name='color-scheme'
 vv.content='dark'
 document.head.appendChild(vv);
-document.body.style.cssText='text-align:center;font-family:sans-serif;'
+document.head.appendChild(Object.assign(document.createElement('link'),
+	{rel:'stylesheet',href:'https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap'}))
+document.body.style.cssText=`height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+background:black;visibility:hidden;`
 const d=document.body;
 d.innerHTML=`
-	<h1>1, 2, 3.</h1>
-	<p><input type="text" style="font-family:monospace" size=9 inputmode="numeric" maxLength=9/ id="ns"></p>
-	<p>
-	<button id="nk">?</button>
-	<button id="vk">?</button>
-	<button id="vpk">?</button>
-	</p>`
+<p><input type="text" style="width:72px;" inputmode="numeric" maxLength=9/ id="ns"></p>
+<p style='margin-top:4px;display:inline-flex;gap:4px;'>
+<button id="nk">?</button>
+<button id="vk">?</button>
+<button id="vpk">?</button>
+</p>`
 const ns=document.getElementById('ns')
 ns.addEventListener('input',p=>{p.target.value=p.target.value.replace(/[^0-9]/g,'')})
 const nk=document.getElementById('nk')
@@ -37,9 +39,36 @@ document.addEventListener('keydown',p=>
 })
 const vvss=document.createElement('style');
 vvss.textContent=`
+*,*::before,*::after{
+	box-sizing:border-box;
+	margin:0;
+	padding:0;
+	border:0;
+	border-radius:0;
+	font:normal 16px "Ubuntu Mono";
+	color:white;
+	line-height:1;
+	background:none;
+	appearance:none;
+	outline:none;
+}
 button{
-       font-family:monospace;
-       font-size:20px;
+	border:1px solid white;
+	width:22px;
+	font-size:20px;
+	cursor:pointer;
+}
+button:active{
+    background:white;
+    color:black;
+}
+input{
+	text-align:right;
+	border-bottom:1px solid white;
 }
 `;
 document.head.appendChild(vvss);
+if(0)window.p=await document.fonts.load('20px "Ubuntu Mono"','0123456789+-?');
+const nlvsg=await document.fonts.ready;
+if(nlvsg.size)d.style.visibility='visible';
+ns.focus();
