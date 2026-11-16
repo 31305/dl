@@ -62,7 +62,11 @@ button{
 @media(hover:hover)
 {
 button{cursor:pointer}
-button:hover{transform:scale(1.1);}
+button:hover
+{
+	background:white;
+	color:black;
+}
 }
 button:active{
 	transform:scale(1.1);
