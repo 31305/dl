@@ -59,14 +59,15 @@ button{
 	width:42px;
 	font-size:40px;
 }
-button:active{
-    background:white;
-    color:black;
-}
 @media(hover:hover)
 {
 button{cursor:pointer}
 button:hover{transform:scale(1.1);}
+}
+button:active{
+	transform:scale(1.1);
+	background:white;
+	color:black;
 }
 input{
 	text-align:right;
