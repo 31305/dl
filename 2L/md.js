@@ -1,18 +1,17 @@
 import vp from './vp.js'
 import {sb} from './sb.js'
 const v=new vp();
-await v.dk()
 const vv=document.createElement('meta')
 vv.name='color-scheme'
 vv.content='dark'
 document.head.appendChild(vv);
+const d=document.body;
 const dvs=Object.assign(document.createElement('link'),
 	{rel:'stylesheet',href:'https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap'})
-dvs.onload=dvpk;
-document.head.appendChild(dvs);
+Promise.all([(new Promise((p,d)=>{dvs.onload=p;dvs.onerror=d;document.head.appendChild(dvs);})).then
+	(()=>document.fonts.ready),v.dk()]).then(dvpk)
 document.body.style.cssText=`height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;
 background:black;visibility:hidden;`
-const d=document.body;
 d.innerHTML=`
 <p><input type="text" style="width:135px;" inputmode="numeric" maxLength=9/ id="ns"></p>
 <p style='margin-top:10px;display:inline-flex;gap:10px;'>
@@ -55,14 +54,19 @@ vvss.textContent=`
 	outline:none;
 }
 button{
+	user-select:none;
 	border:2px solid white;
 	width:42px;
 	font-size:40px;
-	cursor:pointer;
 }
 button:active{
     background:white;
     color:black;
+}
+@media(hover:hover)
+{
+button{cursor:pointer}
+button:hover{transform:scale(1.1);}
 }
 input{
 	text-align:right;
@@ -70,10 +74,8 @@ input{
 }
 `;
 document.head.appendChild(vvss);
-async function dvpk ()
+function dvpk()
 {
-	await document.fonts.load('20px "Ubuntu Mono"','0123456789+-?');
-	await document.fonts.ready;
 	d.style.visibility='visible';
 	ns.focus();
 }
