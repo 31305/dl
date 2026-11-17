@@ -3,6 +3,7 @@ import sys
 import os
 from os import system
 ls='./rs'
+system('date>sks')
 system('mkdir -p '+ls)
 s=['2L.html','ss.js','2L.svg','sks','2L.json','2L.js','2L.wasm','3.js','l.js',
    'babylon.js','babylon.gui.min.js','babylonjs.materials.min.js','HavokPhysics_umd.js',
@@ -12,7 +13,7 @@ s=['2L.html','ss.js','2L.svg','sks','2L.json','2L.js','2L.wasm','3.js','l.js',
 if len(sys.argv)<2:
     for p in s:
         system('cp '+p+' '+ls)
-    system('cp -r ld '+ls+'/')
+    if 0:system('cp -r ld '+ls+'/')
     system('mv '+ls+'/2L.html '+ls+'/index.html')
 elif sys.argv[1]=='ml':
     system('wget -O lk.zip "https://github.com/BabylonJS/Babylon.js/releases/download/8.40.1/cdnSnapshot.zip"')

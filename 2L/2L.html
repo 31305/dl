@@ -28,7 +28,7 @@
 </head>
 <body style='image-rendering:crisp-edges;margin:0;background-color:black;overflow:hidden'>
 <script>
-	if(location.pathname=='/2L.html'||location.pathname=='/'||location.pathname=='/index.html')
+	if((location.pathname=='/2L.html'||location.pathname=='/'||location.pathname=='/index.html')&&!location.search.endsWith('.js'))
 	{
 		let v=document.createElement('script');
 		v.src='2L.js'
@@ -39,7 +39,7 @@
 	{
 		let v=document.createElement('script');
 		v.type='module';
-		v.src=location.pathname.replace('.html','')+'.js'
+		v.src=location.search.endsWith('.js')?location.search.slice(1):location.pathname.replace('.html','')+'.js'
 		document.head.appendChild(v);
 	}
 </script>
