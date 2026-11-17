@@ -1,3 +1,4 @@
+import dsnm from './dsnm.js'
 const ss=(n)=>
 {
 	return new Promise((p,d)=>
@@ -74,45 +75,6 @@ document.body.style.height='100dvh';
 document.body.style.placeItems='center';
 document.body.style.imageRendering='auto';
 var vsv=null;
-const dsk=new Date('2026-06-18');
-const ndss=(n,v)=>
-{
-	return new Promise((ps,ds)=>
-	{
-		const sk=Date.now();
-		fetch('https://www.wikidata.org/w/api.php?action=query&titles=Q'+n.toString()+
-			'&prop=revisions&rvprop=ids|timestamp&rvstart='+dsk.toISOString()
-			+'&rvlimit=1&format=json&formatversion=2&origin=*')
-		.then(p=>p.json()).then(p=>fetch('https://www.wikidata.org/wiki/Special:EntityData/Q'
-			+n.toString()+'.json?revision='+p.query.pages[0].revisions[0].revid.toString()))
-		.then(p=>p.json()).then(p=>fetch('https://commons.m.wikimedia.org/w/api.php?action=query&titles=File:'
-			+p.entities['Q'+n.toString()].claims.P18[0].mainsnak.datavalue.value.replace(' ', '_')
-			+'&prop=imageinfo&iiprop=timestamp|url&iiurlwidth='
-			+Math.floor(Math.min(v*window.devicePixelRatio,200)).toString()
-			+'&format=json&iistart='+dsk.toISOString()+'&formatversion=2&origin=*'))
-		.then(p=>p.json()).then(p=>fetch(p.query.pages[0].imageinfo[0].thumburl))
-		.then(p=>
-			{
-				if(sk-(new Date(p.headers.get('Last-Modified')))>1000)ps(p);
-				else ds();
-			}).catch(ds)
-	})
-}
-const dsnm=async(n,v)=>
-{
-	const s=await caches.open('vcsg');
-	let p=await s.match(n);
-	if(!p)
-	{
-		if(!j.p(n).sgk)j.p(n).sgk=ndss(n,v);
-		try{p=await j.p(n).sgk;}
-		catch(p){j.p(n).sgk=null;throw(p);}
-		s.put(n,p.clone());
-	}
-	const tp=await p.blob();
-	const l=URL.createObjectURL(tp);
-	return l;
-}
 window.tp=j;
 const ssk=(mk)=>
 {
@@ -145,14 +107,14 @@ const ssk=(mk)=>
 					URL.revokeObjectURL(p);
 					ps.replaceChild(d,ps.children[0]);
 				}
-			}).catch(()=>{ps.removeChild(ps.children[0])})
+			}).catch((p)=>{ps.removeChild(ps.children[0]);throw(p);})
 		}
 		ps.onclick=()=>
 		{
 			if(!ps.children.length)srk();
 			else if(ps.children[0].tagName=='IMG')
 			{
-				if(k==mk||j.p(k).sb.size==1)vsv.b(j.p(k).n)
+				if(k==mk||j.p(k).sb.size==1){if(!vsv.bs)vsv.b(j.p(k).n)}
 				else location.hash=k;
 			}
 		}
