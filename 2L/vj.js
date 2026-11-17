@@ -11,7 +11,7 @@ const kpv=(k)=>
 {
 	document.body.innerHTML=`
 <p style='display:inline-flex;gap:10px;'>
-<input type="text" style="width:180px;" inputmode="numeric" autocomplete="off" maxLength=9/ id="ns">
+<input type="text" style="text-align:left;width:180px;" inputmode="numeric" autocomplete="off" maxLength=9/ id="ns">
 <button id="gk">#</button>
 </p>
 	`
