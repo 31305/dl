@@ -23,7 +23,7 @@ const ndss=(n,v)=>
 	})
 }
 const j=new Map();
-const dsnm=async(n,v)=>
+const dsnm=async(n,v,ss=1)=>
 {
 	const s=await caches.open('vcsg');
 	let p=await s.match(n);
@@ -34,6 +34,7 @@ const dsnm=async(n,v)=>
 		catch(p){j.delete(n);throw(p);}
 		s.put(n,p.clone());
 	}
+	if(!ss)return;
 	const tp=await p.blob();
 	const l=URL.createObjectURL(tp);
 	return l;

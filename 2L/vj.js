@@ -54,8 +54,8 @@ const ks=(k)=>
 	{
 		const d=document.createElement('img')
 		d.style.width='200px';
-		d.style.height='200px';
-		d.style.objectFit='contain';
+		d.style.border='1px solid #778';
+		d.style.padding='3px';
 		d.style.userSelect='none';
 		d.draggable=false
 		d.src=p;
@@ -89,6 +89,7 @@ const vmk=(s)=>
 		const svk=async()=>
 		{
 			await v.svb(s.v);
+			s.db=1;
 			if(c)kpk=setTimeout(()=>{v.svb([51,8,75]);kpk=null},1000);
 		}
 		document.onclick=()=>
@@ -101,11 +102,11 @@ const vmk=(s)=>
 		document.onpointermove=(pp)=>{if(s1!=null)
 		{
 			s1+=pp.movementX;s2+=pp.movementY;
-			if(s1*s1+s2*s2>400)pk(0);
+			if(s1*s1+s2*s2>400)pk((!kpk&&s.db)?1:0);
 		}}
 		document.onkeydown=(p)=>
 		{
-			if(p.code=='Escape')pk(0);
+			if(p.code=='Escape')pk((!kpk&&s.db)?1:0);
 			else if(p.code=='Enter'||p.code=='Space')document.onclick();
 		}
 		document.onpointerup=()=>{s1=null;s2=null;}
@@ -125,6 +126,7 @@ while(1)
 	else
 	{
 		if(k<0||k>=sg.length)k=0;
+		for(let pk=k+1;pk<k+10&&pk<sg.length;pk++)dsnm(sg[pk].dc,200,0);
 		if(!window.dcksk||dcksk!=sg[k].dc)ks(sg[k].dc);
 		pt=await vmk({v:sg[k].v,db:pt==1})
 		if(pt==1)k++;
