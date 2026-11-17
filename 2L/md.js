@@ -11,7 +11,7 @@ Promise.all([vvg(),v.dk()]).then(dvpk)
 document.body.style.cssText=`height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;
 background:black;visibility:hidden;`
 document.body.innerHTML=`
-<p><input type="text" style="width:180px;" inputmode="numeric" maxLength=9/ id="ns"></p>
+<p><input type="text" style="width:180px;" inputmode="numeric" autocomplete="off" maxLength=9/ id="ns"></p>
 <p style='margin-top:10px;display:inline-flex;gap:10px;'>
 <button id="nk">?</button>
 <button id="vk">+</button>
