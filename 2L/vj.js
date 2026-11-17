@@ -19,8 +19,8 @@ const kpv=(k)=>
 	ns.value=k;
 	ns.focus();
 	const gk=document.getElementById('gk');
-	ns.onkeydown=p=>{if(p.key=='Enter')gk.onclick();}
-	return new Promise((p,d)=>{gk.onclick=()=>{p(Number(ns.value))}})
+	ns.onkeydown=p=>{if(p.key=='Enter'){gk.onclick(p);}}
+	return new Promise((p,d)=>{gk.onclick=(pp)=>{pp.stopPropagation();p(Number(ns.value))}})
 }
 const vvss=document.createElement('style');
 vvss.textContent=`
@@ -70,8 +70,15 @@ const vmk=(s)=>
 {
 	return new Promise((p,d)=>
 	{
+		document.body.style.touchAction='none';
+		document.oncontextmenu=(p)=>p.preventDefault()
+		let s1=null,s2=null;
+		let kpk=null;
+		let c=1;
 		const pk=(k)=>
 		{
+			c=0;
+			if(kpk)clearTimeout(kpk);
 			document.body.style.touchAction='';
 			document.oncontextmenu=null;
 			document.onclick=null;
@@ -79,31 +86,22 @@ const vmk=(s)=>
 			document.onkeydown=null;
 			p(k);
 		}
-		document.body.style.touchAction='none';
-		document.oncontextmenu=(p)=>p.preventDefault()
-		let s1=null,s2=null;
-		let kpk=null;
 		const svk=async()=>
 		{
 			await v.svb(s.v);
-			kpk=setTimeout(()=>{v.svb([51,8,75]);kpk=null},1000);
+			if(c)kpk=setTimeout(()=>{v.svb([51,8,75]);kpk=null},1000);
 		}
-		document.onclick=async()=>
+		document.onclick=()=>
 		{
 			if(v.bs)return;
 			if(!kpk)svk();
-			else
-			{
-				clearTimeout(kpk);
-				pk(1);
-			}
+			else pk(1);
 		}
 		document.onpointerdown=()=>{if(v.bs)return;s1=0;s2=0;}
 		document.onpointermove=(pp)=>{if(s1!=null)
 		{
 			s1+=pp.movementX;s2+=pp.movementY;
-			if(s1*s1+s2*s2>400)
-				pk(0);
+			if(s1*s1+s2*s2>400)pk(0);
 		}}
 		document.onkeydown=(p)=>
 		{
@@ -122,13 +120,13 @@ while(1)
 	{
 		window.dcksk=null;
 		k=(await kpv(k+1))-1;
-		pt=1;
+		pt=2;
 	}
 	else
 	{
 		if(k<0||k>=sg.length)k=0;
 		if(!window.dcksk||dcksk!=sg[k].dc)ks(sg[k].dc);
-		pt=await vmk({v:sg[k].v,db:pt>0})
+		pt=await vmk({v:sg[k].v,db:pt==1})
 		if(pt==1)k++;
 	}
 }
