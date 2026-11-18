@@ -120,12 +120,15 @@ while(1)
 	if(pt==0)
 	{
 		window.dcksk=null;
-		k=(await kpv(k+1))-1;
-		pt=2;
+		const nk=(await kpv(k+1))-1;
+		if(k!=nk)pt=3;
+		else pt=2;
+		k=nk;
 	}
 	else
 	{
 		if(k<0||k>=sg.length)k=0;
+		if(pt==3){while(k>0&&!sg[k].st)k--;}
 		for(let pk=k+1;pk<k+10&&pk<sg.length;pk++)dsnm(sg[pk].dc,200,0);
 		if(!window.dcksk||dcksk!=sg[k].dc)ks(sg[k].dc);
 		pt=await vmk({v:sg[k].v,db:pt==1})
