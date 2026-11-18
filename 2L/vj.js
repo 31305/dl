@@ -130,8 +130,8 @@ while(1)
 	{
 		if(k<0||k>=sg.length)k=0;
 		if(pt==3){while(k>0&&!sg[k].st)k--;}
-		for(let pk=k+1;pk<k+10&&pk<sg.length;pk++)dsnm(sg[pk].dc,200,0);
 		if(!window.dcksk||dcksk!=sg[k].dc)ks(sg[k].dc);
+		for(let pk=k+1;pk<k+10&&pk<sg.length;pk++)dsnm(sg[pk].dc,200,0);
 		pt=await vmk({v:sg[k].v,db:pt==1})
 		if(pt==1)k++;
 	}
