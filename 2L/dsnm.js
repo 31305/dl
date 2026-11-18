@@ -29,10 +29,9 @@ const dsnm=async(n,v,ss=1)=>
 	let p=await s.match(n);
 	if(!p)
 	{
-		if(!j.has(n))j.set(n,ndss(n,v));
-		try{p=await j.get(n);}
-		catch(p){j.delete(n);throw(p);}
-		s.put(n,p.clone());
+		if(!j.has(n))j.set(n,ndss(n,v).then(p=>s.put(p.clone())).catch(()=>{j.delete(n);throw(p)}));
+		await j.get(n);
+		p=await s.match(n);
 	}
 	if(!ss)return;
 	const tp=await p.blob();
