@@ -51,7 +51,7 @@ const ks=(k)=>
 	document.body.innerHTML='<span class="cb"></span>';
 	window.dcksk=k;
 	const ps=document.body;
-	dsnm(k,200).then(p=>
+	return dsnm(k,200).then(p=>
 	{
 		const d=document.createElement('img')
 		d.style.width='200px';
@@ -106,6 +106,7 @@ const vmk=(s)=>
 			s1+=pp.movementX;s2+=pp.movementY;
 			if(s1*s1+s2*s2>400)pk(0);
 		}}
+		document.onpointerup=()=>{s1=null;s2=null;}
 		document.onkeydown=(p)=>
 		{
 			if(p.code=='Escape')pk(0);
@@ -130,8 +131,8 @@ while(1)
 	{
 		if(k<0||k>=sg.length)k=0;
 		if(pt==3){while(k>0&&!sg[k].st)k--;}
-		if(!window.dcksk||dcksk!=sg[k].dc)ks(sg[k].dc);
-		for(let pk=k+1;pk<k+10&&pk<sg.length;pk++)dsnm(sg[pk].dc,200,0);
+		((!window.dcksk||dcksk!=sg[k].dc)?ks(sg[k].dc):Promise.resolve()).then(()=>
+		{for(let pk=k+1;pk<k+10&&pk<sg.length;pk++)dsnm(sg[pk].dc,200,0);})
 		pt=await vmk({v:sg[k].v,db:pt==1})
 		if(pt==1)k++;
 	}
