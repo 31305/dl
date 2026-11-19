@@ -46,15 +46,15 @@ vvss.textContent=`
 `;
 document.head.appendChild(vvss);
 const sg=vjs();
+const cvs=300;
 const ks=(k)=>
 {
 	document.body.innerHTML='<span class="cb"></span>';
 	window.dcksk=k;
 	const ps=document.body;
-	return dsnm(k,200).then(p=>
+	return dsnm(k,cvs).then(p=>
 	{
 		const d=document.createElement('img')
-		d.style.width='200px';
 		d.style.border='1px solid #778';
 		d.style.padding='3px';
 		d.style.userSelect='none';
@@ -62,6 +62,7 @@ const ks=(k)=>
 		d.src=p;
 		d.onload=()=>
 		{
+			d.style.width='min(min(800px, 90dvw), calc(90dvh * '+(d.naturalWidth/d.naturalHeight).toString()+'))';
 			URL.revokeObjectURL(p);
 			if(dcksk==k)ps.replaceChild(d,ps.children[0]);
 		}
@@ -132,7 +133,7 @@ while(1)
 		if(k<0||k>=sg.length)k=0;
 		if(pt==3){while(k>0&&!sg[k].st)k--;}
 		((!window.dcksk||dcksk!=sg[k].dc)?ks(sg[k].dc):Promise.resolve()).then(()=>
-		{for(let pk=k+1;pk<k+10&&pk<sg.length;pk++)dsnm(sg[pk].dc,200,0);})
+		{for(let pk=k+1;pk<k+10&&pk<sg.length;pk++)dsnm(sg[pk].dc,cvs,0);})
 		pt=await vmk({v:sg[k].v,db:pt==1})
 		if(pt==1)k++;
 	}

@@ -94,7 +94,7 @@ const ssk=(mk)=>
 			const cb=document.createElement('span')
 			cb.className='cb'
 			ps.appendChild(cb);
-			dsnm(k,v).then(p=>
+			dsnm(k,Math.floor(Math.min(v*window.devicePixelRatio,200))).then(p=>
 			{
 				const d=document.createElement('img')
 				d.style.width='var(--dv)';

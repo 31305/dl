@@ -12,7 +12,7 @@ const ndss=(n,v)=>
 		.then(p=>p.json()).then(p=>fetch('https://commons.m.wikimedia.org/w/api.php?action=query&titles=File:'
 			+p.entities['Q'+n.toString()].claims.P18[0].mainsnak.datavalue.value.replace(' ', '_')
 			+'&prop=imageinfo&iiprop=timestamp|url&iiurlwidth='
-			+Math.floor(Math.min(v*window.devicePixelRatio,200)).toString()
+			+v.toString()
 			+'&format=json&iistart='+dsk.toISOString()+'&formatversion=2&origin=*'))
 		.then(p=>p.json()).then(p=>fetch(p.query.pages[0].imageinfo[0].thumburl))
 		.then(p=>
