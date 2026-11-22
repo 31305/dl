@@ -9,7 +9,7 @@ const ss=(n)=>
 		document.body.appendChild(v);
 	});
 }
-const pdsv=()=>
+export const pdsv=()=>
 {
 	document.body.style.display='grid'
 	document.body.style.placeItems='center'
@@ -41,4 +41,4 @@ export const cb=()=>
 	document.body.appendChild(cb)
 	return cb;
 }
-const lnsg=()=>Promise.all([ss("babylon.js"),ss("babylonjs.materials.min.js")]);
+export const lnsg=()=>Promise.all([ss("babylon.js"),ss("babylonjs.materials.min.js")]);
