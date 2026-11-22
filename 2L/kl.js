@@ -1,0 +1,44 @@
+const ss=(n)=>
+{
+	return new Promise((p,d)=>
+	{
+		let v=document.createElement('script');
+		v.src=n;
+		v.async=false;
+		v.onload=p;
+		document.body.appendChild(v);
+	});
+}
+const pdsv=()=>
+{
+	document.body.style.display='grid'
+	document.body.style.placeItems='center'
+	document.body.style.height='100dvh'
+}
+export const cb=()=>
+{
+	const vvss=document.createElement('style');
+	vvss.textContent=`
+		@keyframes ck{
+		0%{transform:scale(1);}
+		50%{transform:scale(0.8);}
+		100%{transform:scale(1);}
+		}
+	`;
+	document.head.appendChild(vvss);
+	const cb=document.createElement('span')
+	cb.style.width='14dvh';
+	cb.style.height=cb.style.width;
+	cb.style.border='1.2dvh solid #6ab'
+	cb.style.borderRadius='50%'
+	cb.style.display='block'
+	cb.style.boxSizing='border-box'
+	cb.style.animation='ck 1s ease-in-out infinite'
+	cb.style.zIndex=999999
+	cb.className='cb'
+	cb.style.position='absolute'
+	pdsv();
+	document.body.appendChild(cb)
+	return cb;
+}
+const lnsg=()=>Promise.all([ss("babylon.js"),ss("babylonjs.materials.min.js")]);
