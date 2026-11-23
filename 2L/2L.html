@@ -28,18 +28,21 @@
 </head>
 <body style='image-rendering:crisp-edges;margin:0;background-color:black;overflow:hidden'>
 <script>
-	if((location.pathname=='/2L.html'||location.pathname=='/'||location.pathname=='/index.html')&&!location.search.endsWith('.js'))
+	function njss()
 	{
 		let v=document.createElement('script');
 		v.src='2L.js'
 		v.onload=()=>{dl().then((p)=>{window.p=p;});};
 		document.head.appendChild(v);
 	}
+	if((location.pathname=='/2L.html'||location.pathname=='/'||location.pathname=='/index.html')&&!location.search.endsWith('.js'))
+		njss();
 	else
 	{
 		let v=document.createElement('script');
 		v.type='module';
 		v.src=location.search.endsWith('.js')?location.search.slice(1):location.pathname.replace('.html','')+'.js'
+		v.onerror=njss;
 		document.head.appendChild(v);
 	}
 </script>
