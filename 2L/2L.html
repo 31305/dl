@@ -42,7 +42,7 @@
 		let v=document.createElement('script');
 		v.type='module';
 		v.src=location.search.endsWith('.js')?location.search.slice(1):location.pathname.replace('.html','')+'.js'
-		v.onerror=njss;
+		v.onerror=()=>{window.location.href='/'};
 		document.head.appendChild(v);
 	}
 </script>
