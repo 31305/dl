@@ -380,7 +380,7 @@ struct vks
 	size_t vks=0;
 	void pmb(std::vector<v> gv,void (*p)(void*,float),void* nv)
 	{
-		spnk.update(mt.outputSampleRate(),4000);
+		spnk.update(mt.outputSampleRate(),8000);
 		double ms[2][decltype(mt)::TOTAL_PARAMETERS];
 		for(int k=0;k<2;k++)
 			for(int pk=0;pk<mt.TOTAL_PARAMETERS;pk++)
@@ -492,7 +492,7 @@ struct vks
 				};
 				double ds=-15,ns=-19,sts=-21,sds=ds;
 				if(0){ds=-10;ns=-13;sts=-15;sds=ds;}
-				if(smg){ds=-16;ns=-19;sts=-21;sds=ds;}
+				if(smg){ds=-17;ns=-19;sts=-20;sds=-15;}
 				const double ndv=1?0.1:vnv(vc[51],1),nnv=0.5;
 				if(vk==0&&k==0)
 				{
