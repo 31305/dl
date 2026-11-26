@@ -4,8 +4,9 @@ const vp=class
 	bs=false;
 	vp=null;
 	pv=null;
-	svb=async(s)=>
+	svb=async(s,nb=0)=>
 	{
+		if(nb&&this.bs)return;
 		this.pv=s;
 		if(this.bs)return;
 		while(this.pv)

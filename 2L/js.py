@@ -10,7 +10,7 @@ s=['2L.html','ss.js','2L.svg','sks','2L.json','2L.js','2L.wasm','3.js','l.js',
     'HavokPhysics.wasm','_headers','vm.js','vm.wasm','nlv.js','zxing_reader.js',
    'zxing_reader.wasm','4.js','5.js','6.js','j.js','bs.js','maplibre-gl.js','maplibre-gl.css',
    '7.js','ps.js','vp.js','sb.js','8.js','dsnm.js','vvg.js','sr.js','vjs.js','vj.js',
-   'kl.js','9.js']
+   'kl.js','9.js','mp.js']
 if len(sys.argv)<2:
     for p in s:
         system('cp '+p+' '+ls)

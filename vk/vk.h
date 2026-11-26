@@ -380,7 +380,7 @@ struct vks
 	size_t vks=0;
 	void pmb(std::vector<v> gv,void (*p)(void*,float),void* nv)
 	{
-		spnk.update(mt.outputSampleRate(),8000);
+		spnk.update(mt.outputSampleRate(),4000);
 		double ms[2][decltype(mt)::TOTAL_PARAMETERS];
 		for(int k=0;k<2;k++)
 			for(int pk=0;pk<mt.TOTAL_PARAMETERS;pk++)

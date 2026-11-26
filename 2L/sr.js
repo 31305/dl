@@ -1,18 +1,22 @@
 const vvss=document.createElement('style');
 vvss.textContent=`
 *,*::before,*::after{
+	text-decoration:none;
 	box-sizing:border-box;
 	margin:0;
 	padding:0;
 	border:0;
 	border-radius:0;
-	font:normal 40px "Ubuntu Mono";
+	font-weight:normal;
+	font-family:"Ubuntu Mono";
+	font-size:inherit;
 	color:white;
 	line-height:1;
 	background:none;
 	appearance:none;
 	outline:none;
 }
+body{font-size:40px;}
 button{
 	user-select:none;
 	border:2px solid white;
